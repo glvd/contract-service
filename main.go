@@ -1,6 +1,7 @@
 package main
 
 import (
+	"contract-service/contract"
 	"github.com/godcong/go-trait"
 	_ "github.com/mattn/go-sqlite3"
 	"github.com/yinhevr/seed"
@@ -89,7 +90,7 @@ func runApp() error {
 	app.Commands = []*cli.Command{
 		seed.CmdDaemon(app),
 		seed.CmdProcess(app),
-		seed.CmdContract(app),
+		contract.CmdContract(app),
 	}
 
 	sort.Sort(cli.FlagsByName(app.Flags))
