@@ -77,7 +77,10 @@ func runApp() error {
 		Name:    "seed",
 		Usage:   "seed is a video manage tool use ipfs,eth,sqlite3 and so on.",
 		Action: func(c *cli.Context) error {
-			log.Info(c.String("s"))
+			if quick := c.Bool("q"); quick {
+				//seed.QuickProcess()
+			}
+
 			return nil
 		},
 		Flags: flags,
