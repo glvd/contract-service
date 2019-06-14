@@ -23,12 +23,6 @@ func globalFlags() []cli.Flag {
 		DefaultText: "localhost:5001",
 	}
 
-	database := &cli.StringFlag{
-		Name:    "database",
-		Aliases: []string{"db"},
-		Usage:   "set the database path",
-	}
-
 	config := &cli.StringFlag{
 		Name:    "config",
 		Aliases: []string{"c"},
@@ -66,7 +60,7 @@ func globalFlags() []cli.Flag {
 	}
 
 	return []cli.Flag{
-		shell, database, userpass, json, boot, pin, sync, config,
+		shell, userpass, json, boot, pin, sync, config,
 	}
 
 }
@@ -85,12 +79,6 @@ func runApp() error {
 			return nil
 		},
 		Flags: flags,
-	}
-
-	app.Commands = []*cli.Command{
-		seed.CmdDaemon(app),
-		seed.CmdProcess(app),
-		contract.CmdContract(app),
 	}
 
 	sort.Sort(cli.FlagsByName(app.Flags))

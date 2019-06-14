@@ -1,20 +1,12 @@
-package main
+package contract
 
 import (
 	"github.com/yinhevr/seed"
 	"gopkg.in/urfave/cli.v2"
 )
-import shell "github.com/godcong/go-ipfs-restapi"
 
-var rest *shell.Shell
-// InitShell ...
-func InitShell(s string) {
-	log.Info("ipfs shell:", s)
-	rest = shell.NewShell(s)
-}
-
-// Cmdseed ...
-func Cmdseed(app *cli.App) *cli.Command {
+// CmdContract ...
+func CmdContract(app *cli.App) *cli.Command {
 	flags := append(app.Flags,
 		&cli.StringFlag{
 			Name:    "address",
@@ -45,6 +37,10 @@ func Cmdseed(app *cli.App) *cli.Command {
 		&cli.StringFlag{
 			Name:  "path",
 			Usage: "set the app path to add  hash",
+		},
+		&cli.StringFlag{
+			Name:  "limit",
+			Usage: "set the ban max numbers",
 		},
 		&cli.StringFlag{
 			Name:    "key",
@@ -78,8 +74,14 @@ func Cmdseed(app *cli.App) *cli.Command {
 				if ban == "" {
 					return nil
 				}
-				log.Info("check:", context.String("ban"))
-				e := seed.CheckNameExists(context.String("ban"), 1, 2, 3, 4, 5, 6, 7, 8)
+
+				limit := context.Int("limit")
+				var checkList []int
+				for i := 0; i <= limit; i++ {
+					checkList = append(checkList, i)
+				}
+				log.With("ban", context.String("ban"), "limit", limit).Info("check")
+				e := seed.CheckNameExists(context.String("ban"), checkList...)
 				if e != nil {
 					log.Error(e)
 					return e
@@ -115,12 +117,4 @@ func Cmdseed(app *cli.App) *cli.Command {
 		Subcommands: nil,
 		Flags:       flags,
 	}
-}
-
-func UpdateAppWithPath(version, path string) error {
-	object, e := rest.AddFile(path)
-	if e != nil {
-		return e
-	}
-	return seed.UpdateApp(version, object.Hash)
 }
