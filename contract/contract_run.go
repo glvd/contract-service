@@ -1,8 +1,8 @@
 package contract
 
 import (
-	"github.com/yinhevr/seed"
 	"gopkg.in/urfave/cli.v2"
+	"math/big"
 )
 
 // CmdContract ...
@@ -12,13 +12,13 @@ func CmdContract(app *cli.App) *cli.Command {
 			Name:    "address",
 			Aliases: []string{"a"},
 			Value:   "",
-			Usage:   "ct address",
+			Usage:   "contract address",
 		},
 		&cli.StringFlag{
 			Name:    "type",
 			Aliases: []string{"t"},
 			Value:   "video",
-			Usage:   "ct process type",
+			Usage:   "contract process type",
 		},
 		&cli.StringFlag{
 			Name:  "ban",
@@ -38,9 +38,13 @@ func CmdContract(app *cli.App) *cli.Command {
 			Name:  "path",
 			Usage: "set the app path to add  hash",
 		},
-		&cli.StringFlag{
+		&cli.IntFlag{
 			Name:  "limit",
 			Usage: "set the ban max numbers",
+		},
+		&cli.Int64Flag{
+			Name:  "code",
+			Usage: "set the version code for update",
 		},
 		&cli.StringFlag{
 			Name:    "key",
@@ -49,11 +53,11 @@ func CmdContract(app *cli.App) *cli.Command {
 		},
 	)
 	return &cli.Command{
-		Name:    "ct",
+		Name:    "contract",
 		Aliases: []string{"C"},
-		Usage:   "ct share the video info to ct.",
+		Usage:   "contract share the video info to ct.",
 		Action: func(context *cli.Context) error {
-			log.Info("ct call")
+			log.Info("contract call")
 			key := context.String("key")
 			if key == "" {
 				panic("key must set use -key or Env(seedKey)")
@@ -65,6 +69,11 @@ func CmdContract(app *cli.App) *cli.Command {
 			version := context.String("release")
 			path := context.String("path")
 			hash := context.String("hash")
+			code := context.Int64("code")
+			contract := NewContract(key, address)
+			if contract == nil {
+				panic("null contract")
+			}
 			switch context.String("t") {
 			case "video":
 				log.Info("video:", context.String("ban"))
@@ -81,35 +90,44 @@ func CmdContract(app *cli.App) *cli.Command {
 					checkList = append(checkList, i)
 				}
 				log.With("ban", context.String("ban"), "limit", limit).Info("check")
-				e := seed.CheckNameExists(context.String("ban"), checkList...)
+				e := contract.CheckNameExists(context.String("ban"), checkList...)
 				if e != nil {
 					log.Error(e)
 					return e
 				}
 			case "hot":
-
-			case "app":
-				if path != "" {
-					if err := UpdateAppWithPath(version, path); err != nil {
-						log.Error(err)
-						return err
-					}
-					return nil
-				} else if hash != "" {
-					e := seed.UpdateApp(version, hash)
+			case "status":
+				var ver string
+				var lastHash string
+				var e error
+				if code > 0 {
+					ver, e = contract.GetCodeVersion(big.NewInt(code))
 					if e != nil {
 						log.Error(e)
 						return e
 					}
 				} else {
-					ver, lastHash, e := seed.GetLastVersionHash()
+					ver, lastHash, e = contract.GetLastVersionHash()
 					if e != nil {
 						log.Error(e)
 						return e
 					}
-					log.With("version", ver, "hash", lastHash).Info("last")
 				}
-
+				log.With("version", ver, "hash", lastHash, "code", code).Info("last")
+			case "app":
+				if path != "" {
+					if err := contract.UpdateAppWithPath(code, version, path); err != nil {
+						log.Error(err)
+						return err
+					}
+					return nil
+				} else {
+					e := contract.UpdateApp(code, version, hash)
+					if e != nil {
+						log.Error(e)
+						return e
+					}
+				}
 			}
 
 			return nil

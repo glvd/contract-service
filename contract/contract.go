@@ -10,7 +10,6 @@ import (
 	shell "github.com/godcong/go-ipfs-restapi"
 	"github.com/godcong/go-trait"
 	jsoniter "github.com/json-iterator/go"
-	"github.com/yinhevr/seed"
 	"github.com/yinhevr/seed/model"
 	"golang.org/x/xerrors"
 	"math/big"
@@ -34,12 +33,12 @@ type Contract struct {
 	processor []ProcessorFunc
 }
 
-func (c *Contract) UpdateAppWithPath(version, path string) error {
+func (c *Contract) UpdateAppWithPath(code int64, version, path string) error {
 	object, e := c.shell.AddFile(path)
 	if e != nil {
 		return e
 	}
-	return seed.UpdateApp(version, object.Hash)
+	return c.UpdateApp(code, version, object.Hash)
 }
 
 func bangumi() ProcessorFunc {
@@ -82,8 +81,8 @@ func NewContract(key, contract string) *Contract {
 }
 
 // PrivateKey ...
-func (eth *Contract) PrivateKey() (key *ecdsa.PrivateKey) {
-	privateKey, err := crypto.HexToECDSA(eth.key)
+func (c *Contract) PrivateKey() (key *ecdsa.PrivateKey) {
+	privateKey, err := crypto.HexToECDSA(c.key)
 	if err != nil {
 		return nil
 	}
@@ -91,14 +90,14 @@ func (eth *Contract) PrivateKey() (key *ecdsa.PrivateKey) {
 }
 
 // RegisterContract ...
-func (eth *Contract) RegisterContract(fn func(eth *Contract) interface{}) {
-	eth.processor = append(eth.processor, fn)
+func (c *Contract) RegisterContract(fn func(eth *Contract) interface{}) {
+	c.processor = append(c.processor, fn)
 }
 
 // ProcContract ...
-func (eth *Contract) ProcContract(fn func(v interface{}) (bool, error)) (e error) {
-	for _, proc := range eth.processor {
-		if b, e := fn(proc(eth)); b {
+func (c *Contract) ProcContract(fn func(v interface{}) (bool, error)) (e error) {
+	for _, proc := range c.processor {
+		if b, e := fn(proc(c)); b {
 			return e
 		}
 	}
@@ -106,8 +105,8 @@ func (eth *Contract) ProcContract(fn func(v interface{}) (bool, error)) (e error
 }
 
 // InfoInput ...
-func InfoInput(video *model.Video) (e error) {
-	e = infoInput(eth, video)
+func (c *Contract) InfoInput(video *model.Video) (e error) {
+	e = infoInput(c, video)
 	if e != nil {
 		return e
 	}
@@ -115,7 +114,7 @@ func InfoInput(video *model.Video) (e error) {
 }
 
 // CheckNameExists ...
-func CheckNameExists(ban string, idx ...int) (e error) {
+func (c *Contract) CheckNameExists(ban string, idx ...int) (e error) {
 	idxStr := ""
 	nb := ""
 	if idx == nil {
@@ -125,7 +124,7 @@ func CheckNameExists(ban string, idx ...int) (e error) {
 	for _, i := range idx {
 		idxStr = strconv.FormatInt(int64(i), 10)
 		nb = strings.ToUpper(ban + "@" + idxStr)
-		e = CheckExist(nb)
+		e = c.CheckExist(nb)
 		if e != nil {
 			return e
 		}
@@ -134,8 +133,8 @@ func CheckNameExists(ban string, idx ...int) (e error) {
 }
 
 // GetLastVersionCode ...
-func GetLastVersionCode() (code *big.Int, e error) {
-	err := eth.ProcContract(func(v interface{}) (b bool, e error) {
+func (c *Contract) GetLastVersionCode() (code *big.Int, e error) {
+	err := c.ProcContract(func(v interface{}) (b bool, e error) {
 		data, b := v.(*Dhash)
 		if !b {
 			return false, nil
@@ -149,9 +148,45 @@ func GetLastVersionCode() (code *big.Int, e error) {
 	return
 }
 
+func (c *Contract) GetLatest() (code *big.Int, hash string, e error) {
+	err := c.ProcContract(func(v interface{}) (b bool, e error) {
+		data, b := v.(*Dhash)
+		if !b {
+			return false, nil
+		}
+		code, hash, e = data.GetLatest(&bind.CallOpts{Pending: true})
+		if e != nil {
+			return false, e
+		}
+		return true, nil
+	})
+	if err != nil {
+		return &big.Int{}, "", err
+	}
+	return
+}
+
+func (c *Contract) GetCodeVersion(code *big.Int) (ver string, e error) {
+	err := c.ProcContract(func(v interface{}) (b bool, e error) {
+		data, b := v.(*Dhash)
+		if !b {
+			return false, nil
+		}
+		ver, e = data.VersionTable(&bind.CallOpts{Pending: true}, code)
+		if e != nil {
+			return false, e
+		}
+		return true, nil
+	})
+	if err != nil {
+		return "", err
+	}
+	return
+}
+
 // GetLastVersionHash ...
-func GetLastVersionHash() (ver, hash string, e error) {
-	err := eth.ProcContract(func(v interface{}) (b bool, e error) {
+func (c *Contract) GetLastVersionHash() (ver, hash string, e error) {
+	err := c.ProcContract(func(v interface{}) (b bool, e error) {
 		data, b := v.(*Dhash)
 		if !b {
 			return false, nil
@@ -173,13 +208,13 @@ func GetLastVersionHash() (ver, hash string, e error) {
 }
 
 // UpdateHotList ...
-func UpdateHotList(list ...string) (e error) {
-	err := eth.ProcContract(func(v interface{}) (b bool, e error) {
+func (c *Contract) UpdateHotList(list ...string) (e error) {
+	err := c.ProcContract(func(v interface{}) (b bool, e error) {
 		data, b := v.(*Dhash)
 		if !b {
 			return false, nil
 		}
-		opt := bind.NewKeyedTransactor(eth.PrivateKey())
+		opt := bind.NewKeyedTransactor(c.PrivateKey())
 		bytes, e := jsoniter.Marshal(list)
 		if e != nil {
 			return false, e
@@ -189,7 +224,7 @@ func UpdateHotList(list ...string) (e error) {
 			return true, e
 		}
 		ctx := context.Background()
-		receipt, err := bind.WaitMined(ctx, eth.conn, transaction)
+		receipt, err := bind.WaitMined(ctx, c.conn, transaction)
 		if err != nil {
 			return true, err
 		}
@@ -203,9 +238,8 @@ func UpdateHotList(list ...string) (e error) {
 }
 
 // GetHostList ...
-func GetHostList() (list []string) {
-
-	err := eth.ProcContract(func(v interface{}) (b bool, e error) {
+func (c *Contract) GetHostList() (list []string) {
+	err := c.ProcContract(func(v interface{}) (b bool, e error) {
 		data, b := v.(*Dhash)
 		if !b {
 			return false, nil
@@ -227,8 +261,8 @@ func GetHostList() (list []string) {
 }
 
 // CheckExist ...
-func CheckExist(ban string) (e error) {
-	return eth.ProcContract(func(v interface{}) (b bool, e error) {
+func (c *Contract) CheckExist(ban string) (e error) {
+	return c.ProcContract(func(v interface{}) (b bool, e error) {
 		data, b := v.(*BangumiData)
 		if !b {
 			return false, nil
@@ -244,11 +278,11 @@ func CheckExist(ban string) (e error) {
 }
 
 // Close ...
-func (eth *Contract) Close() {
-	if eth.conn == nil {
+func (c *Contract) Close() {
+	if c.conn == nil {
 		return
 	}
-	eth.conn.Close()
+	c.conn.Close()
 }
 
 // ContractProcessor ...
@@ -256,13 +290,13 @@ func (eth *Contract) Close() {
 //	ContractProc(eth *Contract) error
 //}
 
-func singleInput(eth *Contract, video *model.Video) (e error) {
-	return eth.ProcContract(func(v interface{}) (b bool, e error) {
+func singleInput(c *Contract, video *model.Video) (e error) {
+	return c.ProcContract(func(v interface{}) (b bool, e error) {
 		data, b := (v).(*BangumiData)
 		if !b {
 			return false, nil
 		}
-		opt := bind.NewKeyedTransactor(eth.PrivateKey())
+		opt := bind.NewKeyedTransactor(c.PrivateKey())
 		name := video.Bangumi
 		//list := video.VideoGroupList[0]
 		//objMax := len(list.Object)
@@ -270,7 +304,7 @@ func singleInput(eth *Contract, video *model.Video) (e error) {
 		//for i := 0; i < objMax; i++ {
 		//	idxStr := strconv.FormatInt(int64(i+1), 10)
 		upperName := strings.ToUpper(name + "@" + video.Episode)
-		e = CheckExist(upperName)
+		e = c.CheckExist(upperName)
 		if e == nil {
 			return
 		}
@@ -291,7 +325,7 @@ func singleInput(eth *Contract, video *model.Video) (e error) {
 			return true, err
 		}
 		ctx := context.Background()
-		receipt, err := bind.WaitMined(ctx, eth.conn, transaction)
+		receipt, err := bind.WaitMined(ctx, c.conn, transaction)
 		if err != nil {
 			return true, err
 		}
@@ -302,17 +336,17 @@ func singleInput(eth *Contract, video *model.Video) (e error) {
 
 }
 
-func multipleInput(eth *Contract, video *model.Video) (e error) {
-	return eth.ProcContract(func(v interface{}) (b bool, e error) {
+func multipleInput(c *Contract, video *model.Video) (e error) {
+	return c.ProcContract(func(v interface{}) (b bool, e error) {
 		data, b := (v).(*BangumiData)
 		if !b {
 			return false, nil
 		}
-		opt := bind.NewKeyedTransactor(eth.PrivateKey())
+		opt := bind.NewKeyedTransactor(c.PrivateKey())
 		name := video.Bangumi
 
 		upperName := strings.ToUpper(name + "@" + video.Episode)
-		e = CheckExist(upperName)
+		e = c.CheckExist(upperName)
 		if e == nil {
 			return
 		}
@@ -333,7 +367,7 @@ func multipleInput(eth *Contract, video *model.Video) (e error) {
 			return true, err
 		}
 		ctx := context.Background()
-		receipt, err := bind.WaitMined(ctx, eth.conn, transaction)
+		receipt, err := bind.WaitMined(ctx, c.conn, transaction)
 		if err != nil {
 			//log.Fatalf("tx mining error:%v\n", err)
 			return true, err
@@ -361,24 +395,19 @@ func infoInput(eth *Contract, video *model.Video) (e error) {
 }
 
 // UpdateApp ...
-func UpdateApp(version string, hash string) (e error) {
-	return updateAppHash(version, hash)
+func (c *Contract) UpdateApp(code int64, version string, hash string) (e error) {
+	return updateAppHash(c, code, version, hash)
 }
 
-func updateAppHash(version string, hash string) (e error) {
-	return eth.ProcContract(func(v interface{}) (b bool, e error) {
+func updateAppHash(c *Contract, code int64, version string, hash string) (e error) {
+	return c.ProcContract(func(v interface{}) (b bool, e error) {
 		data, b := v.(*Dhash)
 		if !b {
 			return false, nil
 		}
 
-		code, e := GetLastVersionCode()
-		if e != nil {
-			return true, e
-		}
-		one := big.NewInt(1)
-		code = code.Add(code, one)
-		key := eth.PrivateKey()
+		code := big.NewInt(code)
+		key := c.PrivateKey()
 		opt := bind.NewKeyedTransactor(key)
 		transaction, err := data.UpdateVersion(opt, version, hash, code)
 		if err != nil {
@@ -386,7 +415,7 @@ func updateAppHash(version string, hash string) (e error) {
 		}
 
 		ctx := context.Background()
-		receipt, err := bind.WaitMined(ctx, eth.conn, transaction)
+		receipt, err := bind.WaitMined(ctx, c.conn, transaction)
 		if err != nil {
 			return true, e
 		}
