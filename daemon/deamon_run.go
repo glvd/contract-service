@@ -1,4 +1,4 @@
-package contract
+package daemon
 
 import (
 	"github.com/godcong/go-trait"
@@ -8,8 +8,8 @@ import (
 
 var log = trait.NewZapSugar()
 
-// CmdContract ...
-func CmdContract(app *cli.App) *cli.Command {
+// CmdDaemon ...
+func CmdDaemon(app *cli.App) *cli.Command {
 	flags := append(app.Flags,
 		&cli.StringFlag{
 			Name:    "address",

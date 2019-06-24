@@ -20,8 +20,6 @@ import (
 // GatwayAddress ...
 const defaultGatewayAddress = "https://ropsten.infura.io/QVsqBu3yopMu2svcHqRj"
 
-var log = trait.NewZapSugar()
-
 // Contract ...
 type Contract struct {
 	eth       *Contract
