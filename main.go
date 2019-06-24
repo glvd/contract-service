@@ -2,16 +2,11 @@ package main
 
 import (
 	"contract-service/contract"
-	"github.com/godcong/go-trait"
 	_ "github.com/mattn/go-sqlite3"
 	"gopkg.in/urfave/cli.v2"
 	"os"
 	"sort"
 )
-
-const bootIPFS = "/ip4/47.101.169.94/tcp/4001/ipfs/QmeF1HVnBYTzFFLGm4VmAsHM4M7zZS3WUYx62PiKC2sqRq"
-
-var log = trait.NewZapSugar()
 
 func globalFlags() []cli.Flag {
 	shell := &cli.StringFlag{
