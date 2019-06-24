@@ -123,15 +123,14 @@ func CmdContract(app *cli.App) *cli.Command {
 						return err
 					}
 					return nil
-				} else {
-					e := contract.UpdateApp(code, version, hash)
-					if e != nil {
-						log.Error(e)
-						return e
-					}
 				}
+				e := contract.UpdateApp(code, version, hash)
+				if e != nil {
+					log.Error(e)
+					return e
+				}
+				return nil
 			}
-
 			return nil
 		},
 		Subcommands: nil,
