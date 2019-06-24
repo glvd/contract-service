@@ -106,14 +106,16 @@ func CmdContract(app *cli.App) *cli.Command {
 						log.Error(e)
 						return e
 					}
-				} else {
-					ver, lastHash, e = contract.GetLastVersionHash()
-					if e != nil {
-						log.Error(e)
-						return e
-					}
+					log.With("version", ver, "hash", lastHash, "code", code).Info("version:", ver)
+					return nil
+				}
+				ver, lastHash, e = contract.GetLastVersionHash()
+				if e != nil {
+					log.Error(e)
+					return e
 				}
 				log.With("version", ver, "hash", lastHash, "code", code).Info("last")
+				return nil
 			case "app":
 				if path != "" {
 					if err := contract.UpdateAppWithPath(code, version, path); err != nil {
