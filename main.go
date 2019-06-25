@@ -1,6 +1,7 @@
 package main
 
 import (
+	"contract-service/add"
 	"contract-service/contract"
 	_ "github.com/mattn/go-sqlite3"
 	"gopkg.in/urfave/cli.v2"
@@ -67,7 +68,7 @@ func runApp() error {
 		Usage:   "seed is a video manage tool use ipfs,eth,sqlite3 and so on.",
 		Action: func(c *cli.Context) error {
 			if quick := c.Bool("q"); quick {
-				//seed.QuickProcess()
+				//add.QuickProcess()
 			}
 
 			return nil
@@ -75,7 +76,7 @@ func runApp() error {
 		Flags: flags,
 	}
 
-	app.Commands = append(app.Commands, contract.CmdContract(app))
+	app.Commands = append(app.Commands, contract.CmdContract(app), add.CmdAdd(app))
 
 	sort.Sort(cli.FlagsByName(app.Flags))
 	sort.Sort(cli.CommandsByName(app.Commands))

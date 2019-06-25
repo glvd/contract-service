@@ -8,7 +8,7 @@ require (
 	github.com/godcong/go-trait v0.0.0-20190528080809-9a857488365f
 	github.com/json-iterator/go v1.1.6
 	github.com/mattn/go-sqlite3 v1.10.0
-	github.com/yinhevr/seed v0.0.0-20190613110105-92040d37093c
+	github.com/yinhevr/seed v0.0.0-20190625095512-b5faf061ee4a
 	golang.org/x/xerrors v0.0.0-20190315151331-d61658bd2e18
 	gopkg.in/urfave/cli.v2 v2.0.0-20180128182452-d3ae77c26ac8
 )
