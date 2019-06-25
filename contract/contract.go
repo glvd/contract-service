@@ -8,7 +8,6 @@ import (
 	"github.com/ethereum/go-ethereum/crypto"
 	"github.com/ethereum/go-ethereum/ethclient"
 	shell "github.com/godcong/go-ipfs-restapi"
-	"github.com/godcong/go-trait"
 	jsoniter "github.com/json-iterator/go"
 	"github.com/yinhevr/seed/model"
 	"golang.org/x/xerrors"
