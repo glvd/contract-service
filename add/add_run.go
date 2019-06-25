@@ -60,7 +60,18 @@ func CmdAdd(app *cli.App) *cli.Command {
 		Aliases: []string{"A"},
 		Usage:   "add file to db",
 		Action: func(context *cli.Context) error {
-			s := seed.NewSeed(seed.Information(context.String("json"), seed.InfoFlagBSON), seed.DatabaseOption("sqlite3", "cs.db"))
+			path := ""
+			if context.NArg() > 0 {
+				path = context.Args().Get(0)
+			}
+			s := seed.NewSeed(seed.DatabaseOption("sqlite3", "cs.db"))
+			j := context.String("json")
+			if j != "" {
+				s.Register(seed.Information(context.String("json"), seed.InfoFlagBSON))
+			}
+			if path != "" {
+				s.Register(seed.Process(path))
+			}
 			s.AfterInit(seed.SyncDatabase())
 			s.Workspace = context.String("workspace")
 			s.Start()
