@@ -3,6 +3,7 @@ package main
 import (
 	"contract-service/add"
 	"contract-service/contract"
+	"contract-service/pin"
 	_ "github.com/mattn/go-sqlite3"
 	"gopkg.in/urfave/cli.v2"
 	"os"
@@ -82,7 +83,7 @@ func runApp() error {
 		Flags: flags,
 	}
 
-	app.Commands = append(app.Commands, contract.CmdContract(app), add.CmdAdd(app))
+	app.Commands = append(app.Commands, contract.CmdContract(app), add.CmdAdd(app), pin.CmdPin(app))
 
 	sort.Sort(cli.FlagsByName(app.Flags))
 	sort.Sort(cli.CommandsByName(app.Commands))
