@@ -54,8 +54,14 @@ func globalFlags() []cli.Flag {
 		Usage:   "check if the video is synced",
 	}
 
+	database := &cli.StringFlag{
+		Name:    "database",
+		Aliases: []string{"d"},
+		Usage:   "set the database pathname",
+	}
+
 	return []cli.Flag{
-		shell, userpass, json, boot, pin, sync, config,
+		shell, userpass, json, boot, pin, sync, config, database,
 	}
 
 }

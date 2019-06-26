@@ -17,12 +17,11 @@ func CmdAdd(app *cli.App) *cli.Command {
 			Value:   "",
 			Usage:   "putted files",
 		},
-		//&cli.StringFlag{
-		//	Name:    "type",
-		//	Aliases: []string{"t"},
-		//	Value:   "video",
-		//	Usage:   "contract process type",
-		//},
+		&cli.BoolFlag{
+			Name:  "skip",
+			Value: true,
+			Usage: "skip convert if not h264/aac",
+		},
 		//&cli.StringFlag{
 		//	Name:  "ban",
 		//	Usage: "ban no to check",
@@ -64,7 +63,11 @@ func CmdAdd(app *cli.App) *cli.Command {
 			if context.NArg() > 0 {
 				path = context.Args().Get(0)
 			}
-			s := seed.NewSeed(seed.DatabaseOption("sqlite3", "cs.db"))
+			db := context.String("database")
+			if db == "" {
+				db = "cs.db"
+			}
+			s := seed.NewSeed(seed.DatabaseOption("sqlite3", db))
 			j := context.String("json")
 			if j != "" {
 				s.Register(seed.Information(context.String("json"), seed.InfoFlagBSON))
@@ -72,6 +75,11 @@ func CmdAdd(app *cli.App) *cli.Command {
 			if path != "" {
 				s.Register(seed.Process(path))
 			}
+
+			if context.Bool("skip") {
+				s.Register(seed.SkipConvertOption())
+			}
+
 			s.AfterInit(seed.SyncDatabase())
 			s.Workspace = context.String("workspace")
 			s.Start()
