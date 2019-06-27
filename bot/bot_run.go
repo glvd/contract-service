@@ -45,13 +45,11 @@ func CmdBot(app *cli.App) *cli.Command {
 		//},
 	)
 	return &cli.Command{
-		Name:    "pin",
-		Aliases: []string{"P"},
+		Name:    "bot",
+		Aliases: []string{"B"},
 		Usage:   "pin file to ipfs",
 		Action: func(context *cli.Context) error {
-
 			message.BootWithGAE(context.String("config"))
-
 			return nil
 		},
 		Subcommands: nil,
