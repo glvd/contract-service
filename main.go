@@ -2,6 +2,7 @@ package main
 
 import (
 	"contract-service/add"
+	"contract-service/bot"
 	"contract-service/contract"
 	"contract-service/pin"
 	_ "github.com/mattn/go-sqlite3"
@@ -83,7 +84,7 @@ func runApp() error {
 		Flags: flags,
 	}
 
-	app.Commands = append(app.Commands, contract.CmdContract(app), add.CmdAdd(app), pin.CmdPin(app))
+	app.Commands = append(app.Commands, contract.CmdContract(app), add.CmdAdd(app), pin.CmdPin(app), bot.CmdBot(app))
 
 	sort.Sort(cli.FlagsByName(app.Flags))
 	sort.Sort(cli.CommandsByName(app.Commands))
