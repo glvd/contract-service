@@ -19,7 +19,7 @@ func CmdAdd(app *cli.App) *cli.Command {
 		},
 		&cli.BoolFlag{
 			Name:  "skip",
-			Value: true,
+			Value: false,
 			Usage: "skip convert if not h264/aac",
 		},
 		//&cli.StringFlag{
