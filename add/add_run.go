@@ -76,6 +76,8 @@ func CmdAdd(app *cli.App) *cli.Command {
 				s.Register(seed.Process(path))
 			}
 
+			s.Register(seed.ShellOption(context.String("shell")))
+
 			if context.Bool("skip") {
 				s.Register(seed.SkipConvertOption())
 			}
