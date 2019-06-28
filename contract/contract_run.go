@@ -2,6 +2,7 @@ package contract
 
 import (
 	"github.com/godcong/go-trait"
+	"github.com/yinhevr/seed/model"
 	"gopkg.in/urfave/cli.v2"
 	"math/big"
 )
@@ -44,6 +45,10 @@ func CmdContract(app *cli.App) *cli.Command {
 		&cli.IntFlag{
 			Name:  "limit",
 			Usage: "set the ban max numbers",
+		},
+		&cli.StringFlag{
+			Name:  "from",
+			Usage: "tell me where the list from db/args",
 		},
 		&cli.Int64Flag{
 			Name:  "code",
@@ -106,7 +111,18 @@ func CmdContract(app *cli.App) *cli.Command {
 					return e
 				}
 			case "hot":
-				e := contract.UpdateHotList(context.Args().Slice()...)
+				list := context.Args().Slice()
+				if context.String("from") == "db" {
+					videos, e := model.TopList(nil, 50)
+					if e != nil {
+						log.Error()
+						return e
+					}
+					for _, video := range *videos {
+						list = append(list, video.Bangumi)
+					}
+				}
+				e := contract.UpdateHotList(list...)
 				if e != nil {
 					log.Error()
 					return e
