@@ -56,9 +56,16 @@ func CmdContract(app *cli.App) *cli.Command {
 		},
 	)
 	return &cli.Command{
-		Name:    "contract",
-		Aliases: []string{"C"},
-		Usage:   "contract share the video info to ct.",
+		Name:          "contract",
+		Aliases:       []string{"C"},
+		Usage:         "contract share the video info to ct.",
+		UsageText:     "",
+		Description:   "",
+		ArgsUsage:     "",
+		Category:      "",
+		ShellComplete: nil,
+		Before:        nil,
+		After:         nil,
 		Action: func(context *cli.Context) error {
 			log.Info("contract call")
 			key := context.String("key")
@@ -99,6 +106,11 @@ func CmdContract(app *cli.App) *cli.Command {
 					return e
 				}
 			case "hot":
+				e := contract.UpdateHotList(context.Args().Slice()...)
+				if e != nil {
+					log.Error()
+					return e
+				}
 			case "status":
 				var ver string
 				var lastHash string
@@ -136,7 +148,13 @@ func CmdContract(app *cli.App) *cli.Command {
 			}
 			return nil
 		},
-		Subcommands: nil,
-		Flags:       flags,
+		OnUsageError:       nil,
+		Subcommands:        nil,
+		Flags:              flags,
+		SkipFlagParsing:    false,
+		HideHelp:           false,
+		Hidden:             false,
+		HelpName:           "",
+		CustomHelpTemplate: "",
 	}
 }
