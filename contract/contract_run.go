@@ -1,8 +1,10 @@
 package contract
 
 import (
+	"github.com/go-xorm/xorm"
 	"github.com/godcong/go-trait"
 	"github.com/yinhevr/seed/model"
+	"golang.org/x/xerrors"
 	"gopkg.in/urfave/cli.v2"
 	"math/big"
 )
@@ -91,24 +93,47 @@ func CmdContract(app *cli.App) *cli.Command {
 			}
 			switch context.String("t") {
 			case "video":
-				log.Info("video:", context.String("ban"))
-				//return seedProc(key, address)
-			case "check":
-				ban := context.String("ban")
-				if ban == "" {
-					return nil
+				var session *xorm.Session
+				if context.NArg() > 0 {
+					var ins []interface{}
+					for _, v := range context.Args().Slice() {
+						ins = append(ins, v)
+					}
+					session = model.DB().In("bangumi", ins...)
 				}
+				if context.String("from") == "db" {
+					videos, e := model.TopList(session, 0)
+					if e != nil {
+						log.Error()
+						return e
+					}
+					for _, video := range *videos {
+						e := contract.InfoInput(video)
+						if e != nil {
+							log.Error(e)
+							continue
+						}
+					}
+				}
+
+			case "check":
+				if context.NArg() <= 0 {
+					return xerrors.New("nothing to check")
+				}
+				bans := context.Args().Slice()
 
 				limit := context.Int("limit")
 				var checkList []int
 				for i := 0; i <= limit; i++ {
 					checkList = append(checkList, i)
 				}
-				log.With("ban", context.String("ban"), "limit", limit).Info("check")
-				e := contract.CheckNameExists(context.String("ban"), checkList...)
-				if e != nil {
-					log.Error(e)
-					return e
+				for _, ban := range bans {
+					log.With("ban", ban, "limit", limit).Info("check")
+					e := contract.CheckNameExists(ban, checkList...)
+					if e != nil {
+						log.Error(e)
+						continue
+					}
 				}
 			case "hot":
 				list := context.Args().Slice()
