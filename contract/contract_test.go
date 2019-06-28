@@ -6,21 +6,9 @@ import (
 
 // TestETH_CheckExist ...
 func TestGetHostList(t *testing.T) {
-	err := InitGlobalETH("", "")
-	if err != nil {
-		return
+	lists, e := getHotList("D:\\EventSummary.csv")
+	for _, list := range lists {
+		log.Infof("%+v", list)
 	}
-	list := GetHostList()
-	t.Log(list)
-}
-
-// TestUpdateHotList ...
-func TestUpdateHotList(t *testing.T) {
-	err := InitGlobalETH("", "")
-	if err != nil {
-		return
-	}
-	list := UpdateHotList()
-	t.Log(list)
-
+	t.Log(lists, e)
 }

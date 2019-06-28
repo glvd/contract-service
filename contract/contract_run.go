@@ -1,12 +1,16 @@
 package contract
 
 import (
+	"encoding/csv"
 	"github.com/go-xorm/xorm"
+	"github.com/gocarina/gocsv"
 	"github.com/godcong/go-trait"
 	"github.com/yinhevr/seed/model"
 	"golang.org/x/xerrors"
 	"gopkg.in/urfave/cli.v2"
+	"io"
 	"math/big"
+	"os"
 )
 
 var log = trait.NewZapSugar()
@@ -26,10 +30,10 @@ func CmdContract(app *cli.App) *cli.Command {
 			Value:   "video",
 			Usage:   "contract process type",
 		},
-		&cli.StringFlag{
-			Name:  "ban",
-			Usage: "ban no to check",
-		},
+		//&cli.StringFlag{
+		//	Name:  "ban",
+		//	Usage: "ban no to check",
+		//},
 		&cli.StringFlag{
 			Name:    "release",
 			Value:   "v0.0.1",
@@ -137,7 +141,7 @@ func CmdContract(app *cli.App) *cli.Command {
 				}
 			case "hot":
 				list := context.Args().Slice()
-				if context.String("from") == "db" {
+				if from := context.String("from"); from == "db" {
 					videos, e := model.TopList(nil, 50)
 					if e != nil {
 						log.Error()
@@ -145,6 +149,14 @@ func CmdContract(app *cli.App) *cli.Command {
 					}
 					for _, video := range *videos {
 						list = append(list, video.Bangumi)
+					}
+				} else if from == "csv" {
+					lists, e := getHotList(context.String("path"))
+					if e != nil {
+						return e
+					}
+					for _, li := range lists {
+						list = append(list, li.EventName)
 					}
 				}
 				e := contract.UpdateHotList(list...)
@@ -198,4 +210,34 @@ func CmdContract(app *cli.App) *cli.Command {
 		HelpName:           "",
 		CustomHelpTemplate: "",
 	}
+}
+
+type HotList struct {
+	EventName             string  `csv:"Event Name"`
+	AppName               string  `csv:"App Name"`
+	TotalOccurrences      int64   `csv:"Total Occurrences"`
+	AvgEventsPerSession   float64 `csv:"Avg Events per Session"`
+	OccurrencesDailyAvg   int64   `csv:"Occurrences Daily Avg"`
+	UniqueDevicesDailyAvg int64   `csv:"Unique Devices Daily Avg"`
+}
+
+func getHotList(path string) ([]*HotList, error) {
+	file, e := os.Open(path)
+	if e != nil {
+		log.Error(e)
+		return nil, e
+	}
+	var hl []*HotList
+	gocsv.SetCSVReader(func(in io.Reader) gocsv.CSVReader {
+		r := csv.NewReader(in)
+		r.Comma = ','
+		r.Comment = '#'
+		return r // Allows use pipe as delimiter
+	})
+
+	e = gocsv.UnmarshalFile(file, &hl)
+	if e != nil {
+		return nil, e
+	}
+	return hl, nil
 }
