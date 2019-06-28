@@ -1,8 +1,8 @@
 package bot
 
 import (
-	"github.com/girlvr/yinhe_bot/message"
 	"github.com/godcong/go-trait"
+	"github.com/yinhevr/yinhe_bot/message"
 	"gopkg.in/urfave/cli.v2"
 )
 
