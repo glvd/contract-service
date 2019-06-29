@@ -86,7 +86,7 @@ func CmdAdd(app *cli.App) *cli.Command {
 
 			if path != "" {
 				log.Info("path: ", path)
-				s.Register(seed.Process(path))
+				s.Register(seed.Process(path), seed.Update(seed.UpdateMethodVideo, seed.UpdateContentHash))
 			}
 
 			s.Register(seed.ShellOption(context.String("shell")))
