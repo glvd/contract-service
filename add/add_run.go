@@ -70,7 +70,7 @@ func CmdAdd(app *cli.App) *cli.Command {
 			s := seed.NewSeed(seed.DatabaseOption("sqlite3", db))
 			j := context.String("json")
 			if j != "" {
-				s.Register(seed.Information(context.String("json"), seed.InfoFlagBSON))
+				s.Register(seed.Information(j, seed.InfoFlagBSON))
 			}
 			if path != "" {
 				s.Register(seed.Process(path))
