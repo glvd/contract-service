@@ -95,7 +95,7 @@ func CmdContract(app *cli.App) *cli.Command {
 			if contract == nil {
 				panic("null contract")
 			}
-			switch context.String("t") {
+			switch context.String("type") {
 			case "video":
 				var session *xorm.Session
 				if context.NArg() > 0 {
