@@ -305,12 +305,14 @@ func singleInput(c *Contract, video *model.Video) (e error) {
 		if e == nil {
 			return
 		}
+		roles := strings.Join(video.Role, " ")
+
 		transaction, err := data.InfoInput(opt,
 			strings.ToUpper(upperName),
 			video.PosterHash,
-			video.Role[0],
+			roles,
 			video.M3U8Hash,
-			video.Alias[0],
+			video.Intro,
 			video.Sharpness,
 			video.Episode,
 			video.TotalEpisode,
