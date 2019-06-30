@@ -9,6 +9,7 @@ import (
 	"contract-service/contract"
 	"contract-service/pin"
 
+	"github.com/ethereum/go-ethereum/log"
 	_ "github.com/mattn/go-sqlite3"
 	"github.com/yinhevr/seed/model"
 	"gopkg.in/urfave/cli.v2"
@@ -79,6 +80,7 @@ func runApp() error {
 		Name:    "seed",
 		Usage:   "seed is a video manage tool use ipfs,eth,sqlite3 and so on.",
 		Action: func(c *cli.Context) error {
+			log.Info("main call")
 			eng, e := model.InitDB("sqlite3", c.String("database"))
 			if e != nil {
 				return e

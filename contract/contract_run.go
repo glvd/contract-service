@@ -100,9 +100,20 @@ func CmdContract(app *cli.App) *cli.Command {
 			switch context.String("type") {
 			case "video":
 				var session *xorm.Session
+
+				db := context.String("database")
+				if db == "" {
+					db = "cs.db"
+				}
+				eng, e := model.InitDB("sqlite3", db)
+				if e != nil {
+					return e
+				}
+				model.InitMainDB(eng)
 				if context.NArg() > 0 {
 					session = model.DB().In("bangumi", context.Args().Slice())
 				}
+
 				if context.String("from") == "db" {
 					videos, e := model.TopList(session, 0)
 
