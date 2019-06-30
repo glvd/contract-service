@@ -2,15 +2,16 @@ package contract
 
 import (
 	"encoding/csv"
+	"io"
+	"math/big"
+	"os"
+
 	"github.com/go-xorm/xorm"
 	"github.com/gocarina/gocsv"
 	"github.com/godcong/go-trait"
 	"github.com/yinhevr/seed/model"
 	"golang.org/x/xerrors"
 	"gopkg.in/urfave/cli.v2"
-	"io"
-	"math/big"
-	"os"
 )
 
 var log = trait.NewZapSugar()
@@ -100,11 +101,7 @@ func CmdContract(app *cli.App) *cli.Command {
 			case "video":
 				var session *xorm.Session
 				if context.NArg() > 0 {
-					var ins []interface{}
-					for _, v := range context.Args().Slice() {
-						ins = append(ins, v)
-					}
-					session = model.DB().In("bangumi", ins...)
+					session = model.DB().In("bangumi", context.Args().Slice())
 				}
 				if context.String("from") == "db" {
 					videos, e := model.TopList(session, 0)
