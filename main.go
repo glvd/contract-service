@@ -1,14 +1,17 @@
 package main
 
 import (
+	"os"
+	"sort"
+
 	"contract-service/add"
 	"contract-service/bot"
 	"contract-service/contract"
 	"contract-service/pin"
+
 	_ "github.com/mattn/go-sqlite3"
+	"github.com/yinhevr/seed/model"
 	"gopkg.in/urfave/cli.v2"
-	"os"
-	"sort"
 )
 
 func globalFlags() []cli.Flag {
@@ -58,6 +61,7 @@ func globalFlags() []cli.Flag {
 
 	database := &cli.StringFlag{
 		Name:    "database",
+		Value:   "cs.db",
 		Aliases: []string{"d"},
 		Usage:   "set the database pathname",
 	}
@@ -75,10 +79,11 @@ func runApp() error {
 		Name:    "seed",
 		Usage:   "seed is a video manage tool use ipfs,eth,sqlite3 and so on.",
 		Action: func(c *cli.Context) error {
-			if quick := c.Bool("q"); quick {
-				//add.QuickProcess()
+			eng, e := model.InitDB("sqlite3", c.String("database"))
+			if e != nil {
+				return e
 			}
-
+			model.InitMainDB(eng)
 			return nil
 		},
 		Flags: flags,
