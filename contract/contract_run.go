@@ -105,10 +105,12 @@ func CmdContract(app *cli.App) *cli.Command {
 				}
 				if context.String("from") == "db" {
 					videos, e := model.TopList(session, 0)
+
 					if e != nil {
 						log.Error()
 						return e
 					}
+					log.Info("find:", len(*videos))
 					for _, video := range *videos {
 						e := contract.InfoInput(video)
 						if e != nil {
