@@ -54,6 +54,7 @@ func CmdContract(app *cli.App) *cli.Command {
 		},
 		&cli.StringFlag{
 			Name:  "from",
+			Value: "db",
 			Usage: "tell me where the list from db/args",
 		},
 		&cli.Int64Flag{
