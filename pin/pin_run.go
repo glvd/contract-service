@@ -3,6 +3,7 @@ package pin
 import (
 	"github.com/godcong/go-trait"
 	"github.com/yinhevr/seed"
+	"github.com/yinhevr/seed/model"
 	"gopkg.in/urfave/cli.v2"
 )
 
@@ -48,11 +49,15 @@ func CmdPin(app *cli.App) *cli.Command {
 		Aliases: []string{"P"},
 		Usage:   "pin file to ipfs",
 		Action: func(context *cli.Context) error {
-
 			db := context.String("database")
 			if db == "" {
 				db = "cs.db"
 			}
+			eng, e := model.InitDB("sqlite3", db)
+			if e != nil {
+				return e
+			}
+			model.InitMainDB(eng)
 			ps := seed.PinStatusAll
 			switch context.String("status") {
 			case "relate":
