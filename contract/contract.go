@@ -264,7 +264,7 @@ func (c *Contract) CheckExist(ban string) (e error) {
 		if !b {
 			return false, nil
 		}
-		hash, e := data.QueryHash(&bind.CallOpts{Pending: true}, "ban")
+		hash, e := data.QueryHash(&bind.CallOpts{Pending: true}, ban)
 		log.With("size", len(hash), "hash", hash, "name", ban).Info("checked")
 		if hash == "" || hash == "," || len(hash) != 46 {
 			return true, xerrors.New(ban + " hash is not found!")
