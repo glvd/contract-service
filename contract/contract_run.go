@@ -98,9 +98,7 @@ func CmdContract(app *cli.App) *cli.Command {
 				panic("null contract")
 			}
 			db := context.String("database")
-			if db == "" {
-				db = "cs.db"
-			}
+			log.Info("database:", db)
 			eng, e := model.InitDB("sqlite3", db)
 			if e != nil {
 				return e
