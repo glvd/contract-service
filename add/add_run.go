@@ -101,6 +101,7 @@ func CmdAdd(app *cli.App) *cli.Command {
 
 			if context.Bool("skip") {
 				s.Register(seed.SkipConvertOption())
+				s.Register(seed.SkipSourceOption())
 			}
 
 			s.AfterInit(seed.SyncDatabase())

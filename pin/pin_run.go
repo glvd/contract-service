@@ -73,7 +73,10 @@ func CmdPin(app *cli.App) *cli.Command {
 			if j != "" {
 				s.Register(seed.Information(context.String("json"), seed.InfoFlagBSON))
 			}
-
+			shell := context.String("shell")
+			if shell != "" {
+				s.Register(seed.ShellOption(shell))
+			}
 			s.AfterInit(seed.SyncDatabase())
 			s.Workspace = context.String("workspace")
 			s.Start()
