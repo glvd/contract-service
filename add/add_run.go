@@ -1,6 +1,7 @@
 package add
 
 import (
+	"github.com/yinhevr/seed/model"
 	"os"
 	"path/filepath"
 
@@ -73,11 +74,18 @@ func CmdAdd(app *cli.App) *cli.Command {
 			if context.NArg() > 0 {
 				path = context.Args().Get(0)
 			}
+
 			db := context.String("database")
 			if db == "" {
 				db = "cs.db"
 			}
-			s := seed.NewSeed(seed.DatabaseOption("sqlite3", db))
+			eng, e := model.InitDB("sqlite3", db)
+			if e != nil {
+				return e
+			}
+			model.InitMainDB(eng)
+
+			s := seed.NewSeed(seed.DatabaseOption("sqlite3", context.String("database")))
 			j := context.String("json")
 			if j != "" {
 				log.Info("json: ", j)
