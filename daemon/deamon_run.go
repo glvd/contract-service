@@ -2,7 +2,9 @@ package daemon
 
 import (
 	"github.com/godcong/go-trait"
+	"github.com/yinhevr/seed"
 	"gopkg.in/urfave/cli.v2"
+	"time"
 )
 
 var log = trait.NewZapSugar()
@@ -59,7 +61,54 @@ func CmdDaemon(app *cli.App) *cli.Command {
 		Aliases: []string{"D"},
 		Usage:   "daemon handle the target path to process add",
 		Action: func(context *cli.Context) error {
+			path := ""
+			if context.NArg() > 0 {
+				path = context.Args().Get(0)
+			}
 
+			db := context.String("database")
+			if db == "" {
+				db = "cs.db"
+			}
+			eng, e := model.InitDB("sqlite3", db)
+			if e != nil {
+				return e
+			}
+			model.InitMainDB(eng)
+
+			s := seed.NewSeed(seed.DatabaseOption("sqlite3", context.String("database")))
+			j := context.String("json")
+			if j != "" {
+				log.Info("json: ", j)
+				s.Register(seed.Information(j, seed.InfoFlagBSON, getList(path)...))
+			}
+
+			if path != "" {
+				log.Info("path: ", path)
+				s.Register(seed.Process(path), seed.Update(seed.UpdateMethodVideo, seed.UpdateContentHash))
+			}
+
+			s.Register(seed.ShellOption(context.String("shell")))
+
+			if context.Bool("skip") {
+				s.Register(seed.SkipConvertOption())
+				s.Register(seed.SkipSourceOption())
+			}
+
+			move := context.String("move")
+			if move == "" {
+				panic("cannot handle without move")
+			}
+			s.Register(seed.Move(move))
+			s.AfterInit(seed.SyncDatabase())
+			s.Workspace = context.String("workspace")
+
+			for {
+				s.Start()
+				s.Wait()
+				log.Info("waiting for next")
+				time.Sleep(15 * time.Second)
+			}
 			return nil
 		},
 		Subcommands: nil,
