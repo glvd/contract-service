@@ -21,11 +21,7 @@ func CmdAdd(app *cli.App) *cli.Command {
 			Value:   "",
 			Usage:   "putted files",
 		},
-		&cli.BoolFlag{
-			Name:  "skip",
-			Value: false,
-			Usage: "skip convert if not h264/aac",
-		},
+
 		//&cli.StringFlag{
 		//	Name:  "ban",
 		//	Usage: "ban no to check",

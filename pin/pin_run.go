@@ -77,6 +77,12 @@ func CmdPin(app *cli.App) *cli.Command {
 			if shell != "" {
 				s.Register(seed.ShellOption(shell))
 			}
+
+			if context.Bool("skip") {
+				s.Register(seed.SkipConvertOption())
+				s.Register(seed.SkipSourceOption())
+			}
+
 			s.AfterInit(seed.SyncDatabase())
 			s.Workspace = context.String("workspace")
 			s.Start()
