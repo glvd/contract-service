@@ -1,10 +1,12 @@
 package daemon
 
 import (
+	"time"
+
 	"github.com/godcong/go-trait"
 	"github.com/yinhevr/seed"
+	"github.com/yinhevr/seed/model"
 	"gopkg.in/urfave/cli.v2"
-	"time"
 )
 
 var log = trait.NewZapSugar()
@@ -80,8 +82,9 @@ func CmdDaemon(app *cli.App) *cli.Command {
 			j := context.String("json")
 			if j != "" {
 				log.Info("json: ", j)
-				s.Register(seed.Information(j, seed.InfoFlagBSON, getList(path)...))
+				s.Register(seed.Information(j, seed.InfoFlagBSON))
 			}
+			s.Workspace = context.String("workspace")
 
 			if path != "" {
 				log.Info("path: ", path)

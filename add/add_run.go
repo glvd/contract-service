@@ -1,9 +1,10 @@
 package add
 
 import (
-	"github.com/yinhevr/seed/model"
 	"os"
 	"path/filepath"
+
+	"github.com/yinhevr/seed/model"
 
 	"github.com/godcong/go-trait"
 	"github.com/yinhevr/seed"
@@ -119,6 +120,9 @@ func CmdAdd(app *cli.App) *cli.Command {
 }
 
 func getList(path string) (list []string) {
+	if path == "" {
+		return
+	}
 	files := getFilters(path)
 	if files == nil {
 		return
