@@ -1,6 +1,7 @@
 package main
 
 import (
+	"github.com/godcong/go-trait"
 	"os"
 	"sort"
 
@@ -9,11 +10,12 @@ import (
 	"contract-service/contract"
 	"contract-service/pin"
 
-	"github.com/ethereum/go-ethereum/log"
 	_ "github.com/mattn/go-sqlite3"
 	"github.com/yinhevr/seed/model"
 	"gopkg.in/urfave/cli.v2"
 )
+
+var log = trait.NewZapSugar()
 
 func globalFlags() []cli.Flag {
 	shell := &cli.StringFlag{
@@ -109,6 +111,11 @@ func runApp() error {
 }
 
 func main() {
+	defer func() {
+		if err := recover(); err != nil {
+			log.Error(err)
+		}
+	}()
 	if err := runApp(); err != nil {
 		panic(err)
 	}

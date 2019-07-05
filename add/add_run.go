@@ -164,6 +164,7 @@ func getFilters(path string) (files map[string]string) {
 	_, file := filepath.Split(path)
 	return map[string]string{onlyName(file): ""}
 }
+
 func onlyName(name string) string {
 	_, name = filepath.Split(name)
 	for i := len(name) - 1; i >= 0 && !os.IsPathSeparator(name[i]); i-- {
