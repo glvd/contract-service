@@ -23,10 +23,10 @@ func CmdAdd(app *cli.App) *cli.Command {
 			Usage:   "putted files",
 		},
 
-		//&cli.StringFlag{
-		//	Name:  "ban",
-		//	Usage: "ban no to check",
-		//},
+		&cli.IntFlag{
+			Name:  "scale",
+			Usage: "set scale value",
+		},
 		//&cli.StringFlag{
 		//	Name:    "release",
 		//	Value:   "v0.0.1",
@@ -92,6 +92,7 @@ func CmdAdd(app *cli.App) *cli.Command {
 			if path != "" {
 				log.Info("path: ", path)
 				s.Register(seed.Process(path), seed.Update(seed.UpdateMethodVideo, seed.UpdateContentHash))
+				s.Scale = context.Int64("scale")
 			}
 
 			s.Register(seed.ShellOption(context.String("shell")))
