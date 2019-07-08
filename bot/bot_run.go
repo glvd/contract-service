@@ -49,7 +49,7 @@ func CmdBot(app *cli.App) *cli.Command {
 		Aliases: []string{"B"},
 		Usage:   "pin file to ipfs",
 		Action: func(context *cli.Context) error {
-			message.BootWithGAE(context.String("config"), "8081")
+			message.BootWithGAE(context.String("config"), "8443")
 			return nil
 		},
 		Subcommands: nil,
