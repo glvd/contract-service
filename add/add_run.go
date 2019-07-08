@@ -27,12 +27,10 @@ func CmdAdd(app *cli.App) *cli.Command {
 			Name:  "scale",
 			Usage: "set scale value",
 		},
-		//&cli.StringFlag{
-		//	Name:    "release",
-		//	Value:   "v0.0.1",
-		//	Aliases: []string{"r"},
-		//	Usage:   "set the application version",
-		//},
+		&cli.StringFlag{
+			Name:  "move",
+			Usage: "move the success file to ...",
+		},
 		//&cli.StringFlag{
 		//	Name:  "hash",
 		//	Usage: "set the app ipfs hash",
