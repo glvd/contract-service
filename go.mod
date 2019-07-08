@@ -26,7 +26,7 @@ require (
 	github.com/rs/cors v1.6.0 // indirect
 	github.com/syndtr/goleveldb v1.0.0 // indirect
 	github.com/yinhevr/seed v0.0.0-20190708081950-1d3964df5270
-	github.com/yinhevr/yinhe_bot v0.0.0-20190708094419-930cf545dad2
+	github.com/yinhevr/yinhe_bot v0.0.0-20190708095134-d40ff652c9c3
 	golang.org/x/xerrors v0.0.0-20190510150013-5403a72a6aaf
 	gopkg.in/natefinch/npipe.v2 v2.0.0-20160621034901-c1b8fa8bdcce // indirect
 	gopkg.in/urfave/cli.v1 v1.20.0 // indirect
