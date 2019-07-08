@@ -2,6 +2,7 @@ package bot
 
 import (
 	"github.com/godcong/go-trait"
+	"github.com/yinhevr/seed/model"
 	"github.com/yinhevr/yinhe_bot/message"
 	"gopkg.in/urfave/cli.v2"
 )
@@ -49,6 +50,16 @@ func CmdBot(app *cli.App) *cli.Command {
 		Aliases: []string{"B"},
 		Usage:   "pin file to ipfs",
 		Action: func(context *cli.Context) error {
+			db := context.String("database")
+			if db == "" {
+				db = "cs.db"
+			}
+			eng, e := model.InitDB("sqlite3", db)
+			if e != nil {
+				return e
+			}
+			model.InitMainDB(eng)
+
 			message.BootWithGAE(context.String("config"), "8443")
 			return nil
 		},
