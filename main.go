@@ -1,6 +1,7 @@
 package main
 
 import (
+	"contract-service/transfer"
 	"github.com/godcong/go-trait"
 	"os"
 	"sort"
@@ -99,7 +100,13 @@ func runApp() error {
 		Flags: flags,
 	}
 
-	app.Commands = append(app.Commands, contract.CmdContract(app), add.CmdAdd(app), pin.CmdPin(app), bot.CmdBot(app))
+	app.Commands = []*cli.Command{
+		contract.CmdContract(app),
+		add.CmdAdd(app),
+		pin.CmdPin(app),
+		bot.CmdBot(app),
+		transfer.CmdTransfer(app),
+	}
 
 	sort.Sort(cli.FlagsByName(app.Flags))
 	sort.Sort(cli.CommandsByName(app.Commands))

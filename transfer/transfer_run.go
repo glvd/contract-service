@@ -18,9 +18,9 @@ func CmdTransfer(app *cli.App) *cli.Command {
 		},
 	)
 	return &cli.Command{
-		Name:    "pin",
-		Aliases: []string{"P"},
-		Usage:   "pin file to ipfs",
+		Name:    "transfer",
+		Aliases: []string{"T"},
+		Usage:   "transfer from other or to other database",
 		Action: func(context *cli.Context) error {
 			db := context.String("database")
 			if db == "" {
