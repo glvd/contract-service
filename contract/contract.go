@@ -303,7 +303,7 @@ func singleInput(c *Contract, video *model.Video) (e error) {
 		var hash string
 		upperName := strings.ToUpper(name + "@" + video.Episode)
 		hash, e = c.CheckExist(upperName)
-		if e == nil || hash == video.M3U8Hash {
+		if e == nil && hash == video.M3U8Hash {
 			return
 		}
 		roles := strings.Join(video.Role, " ")
@@ -348,7 +348,7 @@ func multipleInput(c *Contract, video *model.Video) (e error) {
 		var hash string
 		upperName := strings.ToUpper(name + "@" + video.Episode)
 		hash, e = c.CheckExist(upperName)
-		if e == nil || hash == video.M3U8Hash {
+		if e == nil && hash == video.M3U8Hash {
 			return
 		}
 		transaction, err := data.InfoInput(opt,

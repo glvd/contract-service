@@ -141,7 +141,7 @@ func CmdContract(app *cli.App) *cli.Command {
 
 				limit := context.Int("limit")
 				var checkList []int
-				for i := 0; i <= limit; i++ {
+				for i := 1; i <= limit; i++ {
 					checkList = append(checkList, i)
 				}
 				for _, ban := range bans {
