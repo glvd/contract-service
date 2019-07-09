@@ -3,7 +3,6 @@ package transfer
 import (
 	"github.com/godcong/go-trait"
 	"github.com/yinhevr/seed"
-	"github.com/yinhevr/seed/model"
 	"gopkg.in/urfave/cli.v2"
 )
 
@@ -26,15 +25,15 @@ func CmdTransfer(app *cli.App) *cli.Command {
 			if db == "" {
 				db = "cs.db"
 			}
-			eng, e := model.InitDB("sqlite3", db)
-			if e != nil {
-				return e
-			}
-			model.InitMainDB(eng)
+			//eng, e := model.InitDB("sqlite3", db)
+			//if e != nil {
+			//	return e
+			//}
+			//model.InitMainDB(eng)
 
 			from := context.String("from")
 			s := seed.NewSeed(seed.DatabaseOption("sqlite3", db), seed.Transfer(from, seed.InfoFlagSQLite, seed.TransferStatusOther))
-
+			s.AfterInit(seed.ShowSQLOption(), seed.SyncDatabase())
 			s.Start()
 
 			s.Wait()
