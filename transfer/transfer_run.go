@@ -16,33 +16,6 @@ func CmdTransfer(app *cli.App) *cli.Command {
 			Name:  "from",
 			Usage: "set the other sqlite3 path",
 		},
-		//&cli.StringFlag{
-		//	Name:    "release",
-		//	Value:   "v0.0.1",
-		//	Aliases: []string{"r"},
-		//	Usage:   "set the application version",
-		//},
-		//&cli.StringFlag{
-		//	Name:  "hash",
-		//	Usage: "set the app ipfs hash",
-		//},
-		//&cli.StringFlag{
-		//	Name:  "path",
-		//	Usage: "set the app path to add  hash",
-		//},
-		//&cli.IntFlag{
-		//	Name:  "limit",
-		//	Usage: "set the ban max numbers",
-		//},
-		//&cli.Int64Flag{
-		//	Name:  "code",
-		//	Usage: "set the version code for update",
-		//},
-		//&cli.StringFlag{
-		//	Name:    "key",
-		//	Usage:   "set the ct process key",
-		//	EnvVars: []string{"seedKey"},
-		//},
 	)
 	return &cli.Command{
 		Name:    "pin",
@@ -58,33 +31,10 @@ func CmdTransfer(app *cli.App) *cli.Command {
 				return e
 			}
 			model.InitMainDB(eng)
-			ps := seed.PinStatusAll
-			switch context.String("status") {
-			case "relate":
-				ps = seed.PinStatusAssignRelate
-			case "hash":
-				ps = seed.PinStatusAssignHash
-			case "unfinished":
-				ps = seed.PinStatusUnfinished
-			}
 
-			s := seed.NewSeed(seed.DatabaseOption("sqlite3", db), seed.Pin(ps, context.Args().Slice()...))
-			j := context.String("json")
-			if j != "" {
-				s.Register(seed.Information(context.String("json"), seed.InfoFlagBSON))
-			}
-			shell := context.String("shell")
-			if shell != "" {
-				s.Register(seed.ShellOption(shell))
-			}
+			from := context.String("from")
+			s := seed.NewSeed(seed.DatabaseOption("sqlite3", db), seed.Transfer(from, seed.InfoFlagSQLite, seed.TransferStatusOther))
 
-			if context.Bool("skip") {
-				s.Register(seed.SkipConvertOption())
-				s.Register(seed.SkipSourceOption())
-			}
-
-			s.AfterInit(seed.SyncDatabase())
-			s.Workspace = context.String("workspace")
 			s.Start()
 
 			s.Wait()
