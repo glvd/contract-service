@@ -122,6 +122,9 @@ func CmdContract(app *cli.App) *cli.Command {
 					}
 					log.Info("find:", len(*videos))
 					for _, video := range *videos {
+						if video.M3U8Hash == "" {
+							continue
+						}
 						e := contract.InfoInput(video)
 						if e != nil {
 							log.Error(e)
