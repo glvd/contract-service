@@ -121,7 +121,7 @@ func (c *Contract) CheckNameExists(ban string, idx ...int) (e error) {
 	for _, i := range idx {
 		idxStr = strconv.FormatInt(int64(i), 10)
 		nb = strings.ToUpper(ban + "@" + idxStr)
-		e = c.CheckExist(nb)
+		_, e = c.CheckExist(nb)
 		if e != nil {
 			return e
 		}
@@ -258,20 +258,20 @@ func (c *Contract) GetHostList() (list []string) {
 }
 
 // CheckExist ...
-func (c *Contract) CheckExist(ban string) (e error) {
-	return c.ProcContract(func(v interface{}) (b bool, e error) {
+func (c *Contract) CheckExist(ban string) (hash string, e error) {
+	e = c.ProcContract(func(v interface{}) (b bool, e error) {
 		data, b := v.(*BangumiData)
 		if !b {
 			return false, nil
 		}
-		hash, e := data.QueryHash(&bind.CallOpts{Pending: true}, ban)
+		hash, e = data.QueryHash(&bind.CallOpts{Pending: true}, ban)
 		log.With("size", len(hash), "hash", hash, "name", ban).Info("checked")
 		if hash == "" || hash == "," || len(hash) != 46 {
 			return true, xerrors.New(ban + " hash is not found!")
 		}
 		return true, e
 	})
-
+	return
 }
 
 // Close ...
@@ -300,9 +300,10 @@ func singleInput(c *Contract, video *model.Video) (e error) {
 		//objMaxStr := strconv.FormatInt(int64(objMax), 10)
 		//for i := 0; i < objMax; i++ {
 		//	idxStr := strconv.FormatInt(int64(i+1), 10)
+		var hash string
 		upperName := strings.ToUpper(name + "@" + video.Episode)
-		e = c.CheckExist(upperName)
-		if e == nil {
+		hash, e = c.CheckExist(upperName)
+		if e == nil || hash == video.M3U8Hash {
 			return
 		}
 		roles := strings.Join(video.Role, " ")
@@ -344,9 +345,10 @@ func multipleInput(c *Contract, video *model.Video) (e error) {
 		opt := bind.NewKeyedTransactor(c.PrivateKey())
 		name := video.Bangumi
 
+		var hash string
 		upperName := strings.ToUpper(name + "@" + video.Episode)
-		e = c.CheckExist(upperName)
-		if e == nil {
+		hash, e = c.CheckExist(upperName)
+		if e == nil || hash == video.M3U8Hash {
 			return
 		}
 		transaction, err := data.InfoInput(opt,
