@@ -16,12 +16,11 @@ func CmdBot(app *cli.App) *cli.Command {
 			Name:  "status",
 			Usage: "set the pin status (all/relate/hash/unfinished) default is all",
 		},
-		//&cli.StringFlag{
-		//	Name:    "release",
-		//	Value:   "v0.0.1",
-		//	Aliases: []string{"r"},
-		//	Usage:   "set the application version",
-		//},
+		&cli.StringFlag{
+			Name:  "port",
+			Value: "443",
+			Usage: "set the bot handle port",
+		},
 		//&cli.StringFlag{
 		//	Name:  "hash",
 		//	Usage: "set the app ipfs hash",
@@ -60,7 +59,7 @@ func CmdBot(app *cli.App) *cli.Command {
 			}
 			model.InitMainDB(eng)
 
-			message.BootWithGAE(context.String("config"), "8443")
+			message.BootWithGAE(context.String("config"), context.String("port"))
 			return nil
 		},
 		Subcommands: nil,
