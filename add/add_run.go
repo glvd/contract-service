@@ -28,8 +28,8 @@ func CmdAdd(app *cli.App) *cli.Command {
 			Usage: "set scale value",
 		},
 		&cli.StringFlag{
-			Name:  "move",
-			Usage: "move the success file to ...",
+			Name:  "infomove",
+			Usage: "move the success info file to ...",
 		},
 		//&cli.StringFlag{
 		//	Name:  "hash",
@@ -85,6 +85,12 @@ func CmdAdd(app *cli.App) *cli.Command {
 			if j != "" {
 				log.Info("json: ", j)
 				s.Register(seed.Information(j, seed.InfoFlagBSON, getList(path)...))
+			}
+
+			imove := context.String("infomove")
+			if imove != "" {
+				log.Info("infomove", imove)
+				s.Register(seed.MoveInfo(imove))
 			}
 
 			if path != "" {

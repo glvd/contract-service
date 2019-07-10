@@ -2,6 +2,7 @@ package contract
 
 import (
 	"encoding/csv"
+	shell "github.com/godcong/go-ipfs-restapi"
 	"io"
 	"math/big"
 	"os"
@@ -97,6 +98,12 @@ func CmdContract(app *cli.App) *cli.Command {
 			if contract == nil {
 				panic("null contract")
 			}
+			sh := context.String("shell")
+			if sh == "" {
+				sh = "localhost:5001"
+			}
+			contract.shell = shell.NewShell(sh)
+
 			db := context.String("database")
 			log.Info("database:", db)
 			eng, e := model.InitDB("sqlite3", db)
