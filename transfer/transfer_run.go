@@ -15,6 +15,10 @@ func CmdTransfer(app *cli.App) *cli.Command {
 			Name:  "from",
 			Usage: "set the other sqlite3 path",
 		},
+		&cli.StringFlag{
+			Name:  "status",
+			Usage: "set transfer status",
+		},
 	)
 	return &cli.Command{
 		Name:    "transfer",
@@ -32,7 +36,13 @@ func CmdTransfer(app *cli.App) *cli.Command {
 			//model.InitMainDB(eng)
 
 			from := context.String("from")
-			s := seed.NewSeed(seed.DatabaseOption("sqlite3", db), seed.Transfer(from, seed.InfoFlagSQLite, seed.TransferStatusOther))
+			status := seed.TransferStatusOther
+			switch context.String("status") {
+			case "old":
+				status = seed.TransferStatusOld
+			}
+
+			s := seed.NewSeed(seed.DatabaseOption("sqlite3", db), seed.Transfer(from, seed.InfoFlagSQLite, status))
 			s.AfterInit(seed.ShowSQLOption(), seed.SyncDatabase())
 			s.Start()
 
