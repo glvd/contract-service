@@ -16,6 +16,10 @@ func CmdTransfer(app *cli.App) *cli.Command {
 			Usage: "set the other sqlite3 path",
 		},
 		&cli.StringFlag{
+			Name:  "to",
+			Usage: "set the json output path",
+		},
+		&cli.StringFlag{
 			Name:  "status",
 			Usage: "set transfer status",
 		},
