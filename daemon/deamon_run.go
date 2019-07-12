@@ -62,6 +62,10 @@ func CmdDaemon(app *cli.App) *cli.Command {
 			Name:  "move",
 			Usage: "move to",
 		},
+		&cli.IntFlag{
+			Name:  "scale",
+			Usage: "set scale value",
+		},
 		&cli.StringFlag{
 			Name:    "workspace",
 			Aliases: []string{"w"},
@@ -100,6 +104,7 @@ func CmdDaemon(app *cli.App) *cli.Command {
 			if path != "" {
 				log.Info("path: ", path)
 				s.Register(seed.Process(path), seed.Update(seed.UpdateMethodVideo, seed.UpdateContentHash))
+				s.Scale = context.Int64("scale")
 			}
 
 			s.Register(seed.ShellOption(context.String("shell")))
@@ -121,7 +126,7 @@ func CmdDaemon(app *cli.App) *cli.Command {
 			for {
 				s.Start()
 				s.Wait()
-				log.Info("waiting for next")
+				log.With("Handle", path).Info("waiting for next")
 				time.Sleep(15 * time.Second)
 			}
 			return nil
