@@ -39,16 +39,19 @@ func CmdTransfer(app *cli.App) *cli.Command {
 			//}
 			//model.InitMainDB(eng)
 
-			from := context.String("from")
+			path := context.String("from")
 			status := seed.TransferStatusFromOther
+			flag := seed.InfoFlagSQLite
 			switch context.String("status") {
 			case "old":
 				status = seed.TransferStatusFromOld
 			case "json":
+				path = context.String("to")
 				status = seed.TransferStatusToJSON
+				flag = seed.InfoFlagJSON
 			}
 
-			s := seed.NewSeed(seed.DatabaseOption("sqlite3", db), seed.Transfer(from, seed.InfoFlagSQLite, status))
+			s := seed.NewSeed(seed.DatabaseOption("sqlite3", db), seed.Transfer(path, flag, status))
 			s.AfterInit(seed.ShowSQLOption(), seed.SyncDatabase())
 			s.Start()
 

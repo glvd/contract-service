@@ -43,10 +43,10 @@ func CmdAdd(app *cli.App) *cli.Command {
 		//	Name:  "limit",
 		//	Usage: "set the ban max numbers",
 		//},
-		//&cli.Int64Flag{
-		//	Name:  "code",
-		//	Usage: "set the version code for update",
-		//},
+		&cli.IntFlag{
+			Name:  "limit",
+			Usage: "set the max process limit",
+		},
 		//&cli.StringFlag{
 		//	Name:    "key",
 		//	Usage:   "set the ct process key",
@@ -85,6 +85,7 @@ func CmdAdd(app *cli.App) *cli.Command {
 			if j != "" {
 				log.Info("json: ", j)
 				s.Register(seed.Information(j, seed.InfoFlagBSON, getList(path)...))
+				s.MaxLimit = context.Int("limit")
 			}
 
 			imove := context.String("infomove")
