@@ -58,6 +58,16 @@ func CmdDaemon(app *cli.App) *cli.Command {
 			Usage:   "set the ct process key",
 			EnvVars: []string{"seedKey"},
 		},
+		&cli.StringFlag{
+			Name:  "move",
+			Usage: "move to",
+		},
+		&cli.StringFlag{
+			Name:    "workspace",
+			Aliases: []string{"w"},
+			Value:   "",
+			Usage:   "putted files",
+		},
 	)
 	return &cli.Command{
 		Name:    "daemon",
@@ -101,6 +111,7 @@ func CmdDaemon(app *cli.App) *cli.Command {
 
 			move := context.String("move")
 			if move == "" || strings.Index(move, path) != -1 {
+				log.With("move", move, "path", path).Error("output")
 				panic("cannot handle without move or same with path")
 			}
 			s.Register(seed.MoveProc(move))

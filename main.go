@@ -1,6 +1,7 @@
 package main
 
 import (
+	"contract-service/daemon"
 	"contract-service/transfer"
 	"github.com/godcong/go-trait"
 	"os"
@@ -105,6 +106,7 @@ func runApp() error {
 		add.CmdAdd(app),
 		pin.CmdPin(app),
 		bot.CmdBot(app),
+		daemon.CmdDaemon(app),
 		transfer.CmdTransfer(app),
 	}
 
