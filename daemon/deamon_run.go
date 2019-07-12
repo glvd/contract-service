@@ -1,6 +1,7 @@
 package daemon
 
 import (
+	"strings"
 	"time"
 
 	"github.com/godcong/go-trait"
@@ -99,10 +100,10 @@ func CmdDaemon(app *cli.App) *cli.Command {
 			}
 
 			move := context.String("move")
-			if move == "" {
-				panic("cannot handle without move")
+			if move == "" || strings.Index(move, path) != -1 {
+				panic("cannot handle without move or same with path")
 			}
-			s.Register(seed.Move(move))
+			s.Register(seed.MoveProc(move))
 			s.AfterInit(seed.SyncDatabase())
 			s.Workspace = context.String("workspace")
 
