@@ -282,11 +282,6 @@ func (c *Contract) Close() {
 	c.conn.Close()
 }
 
-// ContractProcessor ...
-//type ContractProcessor interface {
-//	ContractProc(eth *Contract) error
-//}
-
 func singleInput(c *Contract, video *model.Video) (e error) {
 	return c.ProcContract(func(v interface{}) (b bool, e error) {
 		data, b := (v).(*BangumiData)
@@ -295,11 +290,6 @@ func singleInput(c *Contract, video *model.Video) (e error) {
 		}
 		opt := bind.NewKeyedTransactor(c.PrivateKey())
 		name := video.Bangumi
-		//list := video.VideoGroupList[0]
-		//objMax := len(list.Object)
-		//objMaxStr := strconv.FormatInt(int64(objMax), 10)
-		//for i := 0; i < objMax; i++ {
-		//	idxStr := strconv.FormatInt(int64(i+1), 10)
 		var hash string
 		upperName := strings.ToUpper(name + "@" + video.Episode)
 		hash, e = c.CheckExist(upperName)
