@@ -458,6 +458,7 @@ func addReplaceNode(c *Contract, index int64, newNode ...string) (e error) {
 					}
 				}
 				if !exist {
+					log.With("node", nodeT).Info("add")
 					transaction, e := node.Add(opt, nodeT)
 					if e != nil {
 						return true, e
@@ -467,9 +468,9 @@ func addReplaceNode(c *Contract, index int64, newNode ...string) (e error) {
 						return true, e
 					}
 					log.Debugf("receipt is :%x\n", string(receipt.TxHash[:]))
-					return true, nil
 				}
 			}
+			return true, nil
 		}
 
 		if newNode == nil || len(newNode) == 0 {
