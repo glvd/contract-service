@@ -32,10 +32,15 @@ func CmdContract(app *cli.App) *cli.Command {
 			Value:   "video",
 			Usage:   "contract process type",
 		},
-		//&cli.StringFlag{
-		//	Name:  "ban",
-		//	Usage: "ban no to check",
-		//},
+		&cli.StringFlag{
+			Name:  "node",
+			Usage: "node add the node to accelerate",
+		},
+		&cli.Int64Flag{
+			Name:  "index",
+			Value: -1,
+			Usage: "index set the node replace index",
+		},
 		&cli.StringFlag{
 			Name:    "release",
 			Value:   "v0.0.1",
@@ -218,8 +223,12 @@ func CmdContract(app *cli.App) *cli.Command {
 					return e
 				}
 				return nil
-			case "node":
-
+			case "acc":
+				e := contract.AddReplaceNode(context.String("node"), context.Int64("index"))
+				if e != nil {
+					log.Error(e)
+					return e
+				}
 			}
 			return nil
 		},
