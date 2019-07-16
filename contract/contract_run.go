@@ -224,7 +224,12 @@ func CmdContract(app *cli.App) *cli.Command {
 				}
 				return nil
 			case "acc":
-				e := contract.AddReplaceNode(context.String("node"), context.Int64("index"))
+				var nodes []string
+				if context.NArg() > 0 {
+					nodes = context.Args().Slice()
+				}
+				log.With("nodes", nodes).Info("add node")
+				e := contract.AddReplaceNode(context.Int64("index"), nodes...)
 				if e != nil {
 					log.Error(e)
 					return e

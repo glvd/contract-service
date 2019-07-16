@@ -31,10 +31,10 @@ func CmdAdd(app *cli.App) *cli.Command {
 			Name:  "infomove",
 			Usage: "move the success info file to ...",
 		},
-		//&cli.StringFlag{
-		//	Name:  "hash",
-		//	Usage: "set the app ipfs hash",
-		//},
+		&cli.BoolFlag{
+			Name:  "fix",
+			Usage: "fix video",
+		},
 		//&cli.StringFlag{
 		//	Name:  "path",
 		//	Usage: "set the app path to add  hash",

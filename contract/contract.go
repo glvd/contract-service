@@ -58,6 +58,16 @@ func dhash() ProcessorFunc {
 	}
 }
 
+func node() ProcessorFunc {
+	return func(eth *Contract) interface{} {
+		tk, err := NewAccelerateNode(common.HexToAddress(eth.contract), eth.conn)
+		if err != nil {
+			return nil
+		}
+		return tk
+	}
+}
+
 // ProcessorFunc ...
 type ProcessorFunc func(eth *Contract) interface{}
 
@@ -73,7 +83,7 @@ func NewContract(key, contract string) *Contract {
 		key:       key,
 		gateway:   defaultGatewayAddress,
 		contract:  contract,
-		processor: []ProcessorFunc{bangumi(), dhash()},
+		processor: []ProcessorFunc{bangumi(), dhash(), node()},
 	}
 }
 
@@ -274,8 +284,8 @@ func (c *Contract) CheckExist(ban string) (hash string, e error) {
 	return
 }
 
-func (c *Contract) AddReplaceNode(node string, index int64) (e error) {
-	return addReplaceNode(c, node, index)
+func (c *Contract) AddReplaceNode(index int64, node ...string) (e error) {
+	return addReplaceNode(c, index, node...)
 }
 
 // Close ...
@@ -420,7 +430,7 @@ func updateAppHash(c *Contract, code int64, version string, hash string) (e erro
 	})
 }
 
-func addReplaceNode(c *Contract, newNode string, index int64) (e error) {
+func addReplaceNode(c *Contract, index int64, newNode ...string) (e error) {
 	return c.ProcContract(func(v interface{}) (b bool, e error) {
 		node, b := v.(*AccelerateNode)
 		if !b {
@@ -437,25 +447,36 @@ func addReplaceNode(c *Contract, newNode string, index int64) (e error) {
 				return true, e
 			}
 			log.With("total", len(nodes)).Info(nodes)
-			for i, n := range nodes {
-				if newNode == n {
-					log.With("index", i, "node", n).Info("exist")
+			var exist bool
+			for _, nodeT := range newNode {
+				exist = false
+				for i, n := range nodes {
+					if nodeT == n {
+						log.With("index", i, "node", n).Info("exist")
+						exist = true
+						break
+					}
+				}
+				if !exist {
+					transaction, e := node.Add(opt, nodeT)
+					if e != nil {
+						return true, e
+					}
+					receipt, err := bind.WaitMined(ctx, c.conn, transaction)
+					if err != nil {
+						return true, e
+					}
+					log.Debugf("receipt is :%x\n", string(receipt.TxHash[:]))
 					return true, nil
 				}
 			}
-			transaction, e := node.Add(opt, newNode)
-			if e != nil {
-				return true, e
-			}
-			receipt, err := bind.WaitMined(ctx, c.conn, transaction)
-			if err != nil {
-				return true, e
-			}
-			log.Debugf("receipt is :%x\n", string(receipt.TxHash[:]))
-			return true, nil
 		}
 
-		transaction, err := node.Replace(opt, uint32(index), newNode)
+		if newNode == nil || len(newNode) == 0 {
+			return true, xerrors.New("no data")
+		}
+
+		transaction, err := node.Replace(opt, uint32(index), newNode[0])
 		if err != nil {
 			return true, e
 		}
