@@ -86,9 +86,9 @@ func globalFlags() []cli.Flag {
 func runApp() error {
 	flags := globalFlags()
 	app := &cli.App{
-		Version: "v0.0.1",
-		Name:    "seed",
-		Usage:   "seed is a video manage tool use ipfs,eth,sqlite3 and so on.",
+		Version: "v0.0.2",
+		Name:    "service",
+		Usage:   "service is a video manage tool use ipfs,eth,sqlite3 and so on.",
 		Action: func(c *cli.Context) error {
 			log.Info("main call")
 			eng, e := model.InitDB("sqlite3", c.String("database"))

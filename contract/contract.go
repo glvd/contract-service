@@ -274,6 +274,10 @@ func (c *Contract) CheckExist(ban string) (hash string, e error) {
 	return
 }
 
+func (c *Contract) AddReplaceNode(node string, index int64) (e error) {
+	return addReplaceNode(c, node, index)
+}
+
 // Close ...
 func (c *Contract) Close() {
 	if c.conn == nil {
@@ -411,6 +415,54 @@ func updateAppHash(c *Contract, code int64, version string, hash string) (e erro
 			return true, e
 		}
 		log.Info(version + "@" + hash + " success")
+		log.Debugf("receipt is :%x\n", string(receipt.TxHash[:]))
+		return true, nil
+	})
+}
+
+func addReplaceNode(c *Contract, newNode string, index int64) (e error) {
+	return c.ProcContract(func(v interface{}) (b bool, e error) {
+		node, b := v.(*AccelerateNode)
+		if !b {
+			return false, nil
+		}
+
+		key := c.PrivateKey()
+		opt := bind.NewKeyedTransactor(key)
+		ctx := context.Background()
+		nodes, e := node.Get(&bind.CallOpts{Pending: true})
+		if e != nil {
+			return true, e
+		}
+
+		if index == -1 {
+			for i, n := range nodes {
+				if newNode == n {
+					log.With("index", i, "node", n).Info("exist")
+					return true, nil
+				}
+			}
+			transaction, e := node.Add(opt, newNode)
+			if e != nil {
+				return true, e
+			}
+			receipt, err := bind.WaitMined(ctx, c.conn, transaction)
+			if err != nil {
+				return true, e
+			}
+			log.Debugf("receipt is :%x\n", string(receipt.TxHash[:]))
+			return true, nil
+		}
+
+		transaction, err := node.Replace(opt, uint32(index), newNode)
+		if err != nil {
+			return true, e
+		}
+
+		receipt, err := bind.WaitMined(ctx, c.conn, transaction)
+		if err != nil {
+			return true, e
+		}
 		log.Debugf("receipt is :%x\n", string(receipt.TxHash[:]))
 		return true, nil
 	})

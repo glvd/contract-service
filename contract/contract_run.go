@@ -218,6 +218,8 @@ func CmdContract(app *cli.App) *cli.Command {
 					return e
 				}
 				return nil
+			case "node":
+
 			}
 			return nil
 		},
