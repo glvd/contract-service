@@ -430,12 +430,13 @@ func addReplaceNode(c *Contract, newNode string, index int64) (e error) {
 		key := c.PrivateKey()
 		opt := bind.NewKeyedTransactor(key)
 		ctx := context.Background()
-		nodes, e := node.Get(&bind.CallOpts{Pending: true})
-		if e != nil {
-			return true, e
-		}
 
 		if index == -1 {
+			nodes, e := node.Get(&bind.CallOpts{Pending: true})
+			if e != nil {
+				return true, e
+			}
+			log.With("total", len(nodes)).Info(nodes)
 			for i, n := range nodes {
 				if newNode == n {
 					log.With("index", i, "node", n).Info("exist")
