@@ -66,6 +66,8 @@ func CmdPin(app *cli.App) *cli.Command {
 				ps = seed.PinStatusAssignHash
 			case "unfinished":
 				ps = seed.PinStatusUnfinished
+			case "slice":
+				ps = seed.PinStatusSliceOnly
 			}
 
 			s := seed.NewSeed(seed.DatabaseOption("sqlite3", db), seed.Pin(ps, context.Args().Slice()...))
