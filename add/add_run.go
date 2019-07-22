@@ -35,10 +35,10 @@ func CmdAdd(app *cli.App) *cli.Command {
 			Name:  "fix",
 			Usage: "fix video",
 		},
-		//&cli.StringFlag{
-		//	Name:  "path",
-		//	Usage: "set the app path to add  hash",
-		//},
+		&cli.BoolFlag{
+			Name:  "source",
+			Usage: "set source skip true/false",
+		},
 		//&cli.IntFlag{
 		//	Name:  "limit",
 		//	Usage: "set the ban max numbers",
