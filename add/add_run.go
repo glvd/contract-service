@@ -43,10 +43,10 @@ func CmdAdd(app *cli.App) *cli.Command {
 			Name:  "source",
 			Usage: "set bool to skip add source file",
 		},
-		//&cli.IntFlag{
-		//	Name:  "limit",
-		//	Usage: "set the ban max numbers",
-		//},
+		&cli.BoolFlag{
+			Name:  "nocheck",
+			Usage: "set bool to check added",
+		},
 		&cli.IntFlag{
 			Name:  "limit",
 			Usage: "set the max process limit",
@@ -115,6 +115,10 @@ func CmdAdd(app *cli.App) *cli.Command {
 
 			if context.Bool("skip") {
 				s.Register(seed.SkipConvertOption())
+			}
+
+			if context.Bool("nocheck") {
+				s.NoCheck = true
 			}
 
 			s.AfterInit(seed.SyncDatabase())
