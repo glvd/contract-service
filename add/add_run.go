@@ -36,8 +36,12 @@ func CmdAdd(app *cli.App) *cli.Command {
 			Usage: "fix video",
 		},
 		&cli.BoolFlag{
+			Name:  "exist",
+			Usage: "set bool to skip exist file",
+		},
+		&cli.BoolFlag{
 			Name:  "source",
-			Usage: "set source skip true/false",
+			Usage: "set bool to skip add source file",
 		},
 		//&cli.IntFlag{
 		//	Name:  "limit",
@@ -102,9 +106,15 @@ func CmdAdd(app *cli.App) *cli.Command {
 
 			s.Register(seed.ShellOption(context.String("shell")))
 
+			if context.Bool("exist") {
+				s.Register(seed.SkipExistOption())
+			}
+			if context.Bool("source") {
+				s.Register(seed.SkipSourceOption())
+			}
+
 			if context.Bool("skip") {
 				s.Register(seed.SkipConvertOption())
-				s.Register(seed.SkipSourceOption())
 			}
 
 			s.AfterInit(seed.SyncDatabase())
