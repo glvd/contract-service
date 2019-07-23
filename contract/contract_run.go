@@ -186,7 +186,7 @@ func CmdContract(app *cli.App) *cli.Command {
 				}
 				e := contract.UpdateHotList(list...)
 				if e != nil {
-					log.Error()
+					log.Error(e)
 					return e
 				}
 			case "status":
