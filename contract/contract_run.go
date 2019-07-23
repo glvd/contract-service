@@ -169,7 +169,7 @@ func CmdContract(app *cli.App) *cli.Command {
 				if from := context.String("from"); from == "db" {
 					videos, e := model.TopList(nil, 50)
 					if e != nil {
-						log.Error()
+						log.Error(e)
 						return e
 					}
 					for _, video := range *videos {
