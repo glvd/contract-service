@@ -50,11 +50,10 @@ func CmdUpdate(app *cli.App) *cli.Command {
 			Name:  "limit",
 			Usage: "set the max process limit",
 		},
-		//&cli.StringFlag{
-		//	Name:    "key",
-		//	Usage:   "set the ct process key",
-		//	EnvVars: []string{"seedKey"},
-		//},
+		&cli.StringFlag{
+			Name:  "method",
+			Usage: "set the update method",
+		},
 	)
 	return &cli.Command{
 		Name:          "update",
