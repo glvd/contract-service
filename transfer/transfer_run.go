@@ -23,6 +23,10 @@ func CmdTransfer(app *cli.App) *cli.Command {
 			Name:  "status",
 			Usage: "set transfer status",
 		},
+		&cli.BoolFlag{
+			Name:  "showsql",
+			Usage: "show sql",
+		},
 	)
 	return &cli.Command{
 		Name:    "transfer",
@@ -52,7 +56,12 @@ func CmdTransfer(app *cli.App) *cli.Command {
 			}
 
 			s := seed.NewSeed(seed.DatabaseOption("sqlite3", db), seed.Transfer(path, flag, status))
-			s.AfterInit(seed.ShowSQLOption(), seed.SyncDatabase())
+
+			if context.Bool("showsql") {
+				s.AfterInit(seed.ShowSQLOption())
+			}
+
+			s.AfterInit(seed.SyncDatabase())
 			s.Start()
 
 			s.Wait()
