@@ -90,7 +90,16 @@ func CmdUpdate(app *cli.App) *cli.Command {
 				log.Info("path: ", path)
 
 			}
-			s.Register(seed.Update(seed.UpdateMethodVideo, seed.UpdateContentHash))
+
+			method := seed.UpdateMethodAll
+			switch context.String("method") {
+			case "video":
+				method = seed.UpdateMethodVideo
+			case "unfinished":
+				method = seed.UpdateMethodUnfinished
+			}
+
+			s.Register(seed.Update(method, seed.UpdateContentHash))
 			s.AfterInit(seed.SyncDatabase())
 			s.Start()
 
