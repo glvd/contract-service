@@ -3,6 +3,7 @@ package main
 import (
 	"contract-service/daemon"
 	"contract-service/transfer"
+	"contract-service/update"
 	"github.com/godcong/go-trait"
 	"os"
 	"sort"
@@ -108,6 +109,7 @@ func runApp() error {
 		bot.CmdBot(app),
 		daemon.CmdDaemon(app),
 		transfer.CmdTransfer(app),
+		update.CmdUpdate(app),
 	}
 
 	sort.Sort(cli.FlagsByName(app.Flags))
