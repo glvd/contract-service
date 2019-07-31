@@ -64,6 +64,10 @@ func CmdContract(app *cli.App) *cli.Command {
 			Value: "db",
 			Usage: "tell me where the list from db/args",
 		},
+		&cli.BoolFlag{
+			Name:  "update",
+			Usage: "set the bool to update hash",
+		},
 		&cli.Int64Flag{
 			Name:  "code",
 			Usage: "set the version code for update",
@@ -137,7 +141,7 @@ func CmdContract(app *cli.App) *cli.Command {
 						if video.M3U8Hash == "" {
 							continue
 						}
-						e := contract.InfoInput(video)
+						e := contract.InfoInput(video, context.Bool("update"))
 						if e != nil {
 							log.Error(e)
 							continue

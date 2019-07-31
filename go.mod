@@ -11,8 +11,8 @@ require (
 	github.com/godcong/go-trait v0.0.0-20190528080809-9a857488365f
 	github.com/json-iterator/go v1.1.6
 	github.com/mattn/go-sqlite3 v1.10.0
-	github.com/yinhevr/seed v0.0.0-20190725094022-f69d31cbf027
-	github.com/yinhevr/yinhe_bot v0.0.0-20190725064719-fdcd936178ce
+	github.com/yinhevr/seed v0.0.0-20190731100939-1712c192584d
+	github.com/yinhevr/yinhe_bot v0.0.0-20190729104656-b45555ca0eaa
 	golang.org/x/xerrors v0.0.0-20190510150013-5403a72a6aaf
 	gopkg.in/urfave/cli.v2 v2.0.0-20180128182452-d3ae77c26ac8
 )

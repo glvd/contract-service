@@ -112,8 +112,8 @@ func (c *Contract) ProcContract(fn func(v interface{}) (bool, error)) (e error) 
 }
 
 // InfoInput ...
-func (c *Contract) InfoInput(video *model.Video) (e error) {
-	e = infoInput(c, video)
+func (c *Contract) InfoInput(video *model.Video, b bool) (e error) {
+	e = singleInput(c, video, b)
 	if e != nil {
 		return e
 	}
@@ -296,7 +296,7 @@ func (c *Contract) Close() {
 	c.conn.Close()
 }
 
-func singleInput(c *Contract, video *model.Video) (e error) {
+func singleInput(c *Contract, video *model.Video, update bool) (e error) {
 	return c.ProcContract(func(v interface{}) (b bool, e error) {
 		data, b := (v).(*BangumiData)
 		if !b {
@@ -310,6 +310,11 @@ func singleInput(c *Contract, video *model.Video) (e error) {
 		if e == nil && hash == video.M3U8Hash {
 			return
 		}
+		//TODO:
+		//if !update && hash == video.M3U8Hash {
+		//	return
+		//}
+
 		roles := strings.Join(video.Role, " ")
 
 		transaction, err := data.InfoInput(opt,
@@ -383,20 +388,6 @@ func multipleInput(c *Contract, video *model.Video) (e error) {
 		return true, nil
 	})
 
-}
-
-// InfoInput ...
-func infoInput(eth *Contract, video *model.Video) (e error) {
-	//if video == nil || video.VideoGroupList == nil {
-	//	return
-	//}
-	//
-	//vgMax := len(video.VideoGroupList)
-	fn := singleInput
-	//if vgMax > 1 {
-	//	fn = multipleInput
-	//}
-	return fn(eth, video)
 }
 
 // UpdateApp ...
