@@ -4,9 +4,9 @@ import (
 	"strings"
 	"time"
 
+	"github.com/glvd/seed"
+	"github.com/glvd/seed/model"
 	"github.com/godcong/go-trait"
-	"github.com/yinhevr/seed"
-	"github.com/yinhevr/seed/model"
 	"gopkg.in/urfave/cli.v2"
 )
 

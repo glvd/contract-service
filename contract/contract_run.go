@@ -7,10 +7,10 @@ import (
 	"math/big"
 	"os"
 
+	"github.com/glvd/seed/model"
 	"github.com/go-xorm/xorm"
 	"github.com/gocarina/gocsv"
 	"github.com/godcong/go-trait"
-	"github.com/yinhevr/seed/model"
 	"golang.org/x/xerrors"
 	"gopkg.in/urfave/cli.v2"
 )

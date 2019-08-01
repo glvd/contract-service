@@ -4,10 +4,10 @@ import (
 	"os"
 	"path/filepath"
 
-	"github.com/yinhevr/seed/model"
+	"github.com/glvd/seed/model"
 
+	"github.com/glvd/seed"
 	"github.com/godcong/go-trait"
-	"github.com/yinhevr/seed"
 	"gopkg.in/urfave/cli.v2"
 )
 

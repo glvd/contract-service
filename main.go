@@ -13,8 +13,8 @@ import (
 	"contract-service/contract"
 	"contract-service/pin"
 
+	"github.com/glvd/seed/model"
 	_ "github.com/mattn/go-sqlite3"
-	"github.com/yinhevr/seed/model"
 	"gopkg.in/urfave/cli.v2"
 )
 

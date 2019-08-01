@@ -1,9 +1,9 @@
 package bot
 
 import (
+	"github.com/glvd/bot/message"
+	"github.com/glvd/seed/model"
 	"github.com/godcong/go-trait"
-	"github.com/yinhevr/seed/model"
-	"github.com/yinhevr/yinhe_bot/message"
 	"gopkg.in/urfave/cli.v2"
 )
 
