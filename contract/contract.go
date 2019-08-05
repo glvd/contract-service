@@ -284,18 +284,12 @@ func (c *Contract) CheckExist(ban string) (hash string, e error) {
 	return
 }
 
-func (c *Contract) CheckInfo(ban string, hash1, ep1 string, sp1 string, te1 string, ts1 string) (hash string, e error) {
-	log.With("hash", hash1, "episode", ep1, "sharpness", sp1, "total episode", te1, "total season", ts1).Info("input")
+func (c *Contract) CheckInfo(ban string, hash1, sp1 string, te1 string, ts1 string) (hash string, e error) {
+	log.With("hash", hash1, "sharpness", sp1, "total episode", te1, "total season", ts1).Info("input")
 	e = c.ProcContract(func(v interface{}) (b bool, e error) {
 		data, b := v.(*BangumiData)
 		if !b {
 			return false, nil
-		}
-
-		episode, e := data.QueryEpisode(&bind.CallOpts{Pending: true}, ban)
-		if episode != ep1 {
-			log.With("size", len(hash), "episode", episode, "name", ban).Info("checked")
-			return true, xerrors.New(ban + " episode is not found!")
 		}
 
 		sharpness, e := data.QuerySharpness(&bind.CallOpts{Pending: true}, ban)
