@@ -293,25 +293,25 @@ func (c *Contract) CheckInfo(ban string, hash1, ep1 string, sp1 string, te1 stri
 		}
 
 		episode, e := data.QueryEpisode(&bind.CallOpts{Pending: true}, ban)
-		if episode == "" || episode != ep1 {
+		if episode != ep1 {
 			log.With("size", len(hash), "episode", episode, "name", ban).Info("checked")
 			return true, xerrors.New(ban + " episode is not found!")
 		}
 
 		sharpness, e := data.QuerySharpness(&bind.CallOpts{Pending: true}, ban)
-		if sharpness == "" || sharpness != sp1 {
+		if sharpness != sp1 {
 			log.With("size", len(hash), "sharpness", sharpness, "name", ban).Info("checked")
 			return true, xerrors.New(ban + " sharpness is not found!")
 		}
 
 		te, e := data.QueryTotalEpisode(&bind.CallOpts{Pending: true}, ban)
-		if te == "" || te != te1 {
+		if te != te1 {
 			log.With("size", len(hash), "te", te, "name", ban).Info("checked")
 			return true, xerrors.New(ban + " total episode is not found!")
 		}
 
 		ts, e := data.QueryTotalSeason(&bind.CallOpts{Pending: true}, ban)
-		if ts == "" || ts != ts1 {
+		if ts != ts1 {
 			log.With("size", len(hash), "ts", ts, "name", ban).Info("checked")
 			return true, xerrors.New(ban + " total season is not found!")
 		}
