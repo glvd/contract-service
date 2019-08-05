@@ -344,11 +344,14 @@ func singleInput(c *Contract, video *model.Video, update bool) (e error) {
 		upperName := strings.ToUpper(name + "@" + video.Episode)
 
 		hash, e = c.CheckExist(upperName)
+		if e != nil {
+			return
+		}
 		if update {
-			hash, e = c.CheckInfo(upperName, video.Episode, video.Sharpness, video.TotalEpisode, video.Season)
+			hash, e = c.CheckInfo(upperName, hash, video.Episode, video.Sharpness, video.TotalEpisode, video.Season)
 		}
 
-		if e == nil && hash == video.M3U8Hash {
+		if e != nil || hash == video.M3U8Hash {
 			return
 		}
 
