@@ -284,17 +284,11 @@ func (c *Contract) CheckExist(ban string) (hash string, e error) {
 	return
 }
 
-func (c *Contract) CheckInfo(ban string, ep1 string, sp1 string, te1, string, ts1 string) (hash string, e error) {
+func (c *Contract) CheckInfo(ban string, hash1, ep1 string, sp1 string, te1 string, ts1 string) (hash string, e error) {
 	e = c.ProcContract(func(v interface{}) (b bool, e error) {
 		data, b := v.(*BangumiData)
 		if !b {
 			return false, nil
-		}
-
-		hash, e = data.QueryHash(&bind.CallOpts{Pending: true}, ban)
-		log.With("size", len(hash), "hash", hash, "name", ban).Info("checked")
-		if hash == "" || hash == "," || len(hash) != 46 {
-			return true, xerrors.New(ban + " hash is not found!")
 		}
 
 		episode, e := data.QueryEpisode(&bind.CallOpts{Pending: true}, ban)
@@ -320,7 +314,7 @@ func (c *Contract) CheckInfo(ban string, ep1 string, sp1 string, te1, string, ts
 			log.With("size", len(hash), "ts", ts, "name", ban).Info("checked")
 			return true, xerrors.New(ban + " total season is not found!")
 		}
-
+		hash = hash1
 		return true, e
 	})
 	return
@@ -351,7 +345,7 @@ func singleInput(c *Contract, video *model.Video, update bool) (e error) {
 
 		hash, e = c.CheckExist(upperName)
 		if update {
-			hash, e = c.CheckInfo(upperName)
+			hash, e = c.CheckInfo(upperName, video.Episode, video.Sharpness, video.TotalEpisode, video.Season)
 		}
 
 		if e == nil && hash == video.M3U8Hash {
