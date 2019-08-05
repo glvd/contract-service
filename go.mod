@@ -5,7 +5,7 @@ go 1.12
 require (
 	github.com/ethereum/go-ethereum v1.8.27
 	github.com/glvd/bot v0.0.0-20190801085055-fe6721e01212
-	github.com/glvd/seed v0.0.0-20190801082710-968c0b240e8d
+	github.com/glvd/seed v0.0.0-20190805083430-afba7b68cef3
 	github.com/go-xorm/xorm v0.7.1
 	github.com/gocarina/gocsv v0.0.0-20190624090726-71ad6676df57
 	github.com/godcong/go-ffmpeg-cmd v0.0.0-20190717070803-b5b8a925af97 // indirect
