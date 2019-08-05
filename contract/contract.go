@@ -339,17 +339,19 @@ func singleInput(c *Contract, video *model.Video, update bool) (e error) {
 		upperName := strings.ToUpper(name + "@" + video.Episode)
 
 		hash, e = c.CheckExist(upperName)
-		if e != nil {
-			return
-		}
-		if update {
-			hash, e = c.CheckInfo(upperName, hash, video.Sharpness, video.TotalEpisode, video.Season)
+
+		if e == nil {
+			if update {
+				hash, e = c.CheckInfo(upperName, hash, video.Sharpness, video.TotalEpisode, video.Season)
+			}
+			if e == nil && hash == video.M3U8Hash {
+				return
+			}
 		}
 
-		if e == nil && hash == video.M3U8Hash {
-			return
+		if len(video.Role) > 5 {
+			video.Role = video.Role[:5]
 		}
-
 		roles := strings.Join(video.Role, " ")
 
 		transaction, err := data.InfoInput(opt,
