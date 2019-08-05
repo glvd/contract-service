@@ -343,7 +343,7 @@ func singleInput(c *Contract, video *model.Video, update bool) (e error) {
 			return
 		}
 		if update {
-			hash, e = c.CheckInfo(upperName, hash, video.Episode, video.Sharpness, video.TotalEpisode, video.Season)
+			hash, e = c.CheckInfo(upperName, hash, video.Sharpness, video.TotalEpisode, video.Season)
 		}
 
 		if e == nil && hash == video.M3U8Hash {
