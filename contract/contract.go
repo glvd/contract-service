@@ -285,6 +285,7 @@ func (c *Contract) CheckExist(ban string) (hash string, e error) {
 }
 
 func (c *Contract) CheckInfo(ban string, hash1, ep1 string, sp1 string, te1 string, ts1 string) (hash string, e error) {
+	log.With("hash", hash1, "episode", ep1, "sharpness", sp1, "total episode", te1, "total season", ts1).Info("input")
 	e = c.ProcContract(func(v interface{}) (b bool, e error) {
 		data, b := v.(*BangumiData)
 		if !b {
@@ -351,7 +352,7 @@ func singleInput(c *Contract, video *model.Video, update bool) (e error) {
 			hash, e = c.CheckInfo(upperName, hash, video.Episode, video.Sharpness, video.TotalEpisode, video.Season)
 		}
 
-		if e != nil || hash == video.M3U8Hash {
+		if e == nil && hash == video.M3U8Hash {
 			return
 		}
 
