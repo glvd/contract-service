@@ -284,6 +284,48 @@ func (c *Contract) CheckExist(ban string) (hash string, e error) {
 	return
 }
 
+func (c *Contract) CheckInfo(ban string, ep1 string, sp1 string, te1, string, ts1 string) (hash string, e error) {
+	e = c.ProcContract(func(v interface{}) (b bool, e error) {
+		data, b := v.(*BangumiData)
+		if !b {
+			return false, nil
+		}
+
+		hash, e = data.QueryHash(&bind.CallOpts{Pending: true}, ban)
+		log.With("size", len(hash), "hash", hash, "name", ban).Info("checked")
+		if hash == "" || hash == "," || len(hash) != 46 {
+			return true, xerrors.New(ban + " hash is not found!")
+		}
+
+		episode, e := data.QueryEpisode(&bind.CallOpts{Pending: true}, ban)
+		if episode == "" || episode != ep1 {
+			log.With("size", len(hash), "episode", episode, "name", ban).Info("checked")
+			return true, xerrors.New(ban + " episode is not found!")
+		}
+
+		sharpness, e := data.QuerySharpness(&bind.CallOpts{Pending: true}, ban)
+		if sharpness == "" || sharpness != sp1 {
+			log.With("size", len(hash), "sharpness", sharpness, "name", ban).Info("checked")
+			return true, xerrors.New(ban + " sharpness is not found!")
+		}
+
+		te, e := data.QueryTotalEpisode(&bind.CallOpts{Pending: true}, ban)
+		if te == "" || te != te1 {
+			log.With("size", len(hash), "te", te, "name", ban).Info("checked")
+			return true, xerrors.New(ban + " total episode is not found!")
+		}
+
+		ts, e := data.QueryTotalSeason(&bind.CallOpts{Pending: true}, ban)
+		if ts == "" || ts != ts1 {
+			log.With("size", len(hash), "ts", ts, "name", ban).Info("checked")
+			return true, xerrors.New(ban + " total season is not found!")
+		}
+
+		return true, e
+	})
+	return
+}
+
 func (c *Contract) AddReplaceNode(index int64, node ...string) (e error) {
 	return addReplaceNode(c, index, node...)
 }
@@ -306,14 +348,15 @@ func singleInput(c *Contract, video *model.Video, update bool) (e error) {
 		name := video.Bangumi
 		var hash string
 		upperName := strings.ToUpper(name + "@" + video.Episode)
+
 		hash, e = c.CheckExist(upperName)
+		if update {
+			hash, e = c.CheckInfo(upperName)
+		}
+
 		if e == nil && hash == video.M3U8Hash {
 			return
 		}
-		//TODO:
-		//if !update && hash == video.M3U8Hash {
-		//	return
-		//}
 
 		roles := strings.Join(video.Role, " ")
 
