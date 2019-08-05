@@ -137,11 +137,12 @@ func CmdContract(app *cli.App) *cli.Command {
 						return e
 					}
 					log.Info("find:", len(*videos))
+					update := context.Bool("update")
 					for _, video := range *videos {
-						if video.M3U8Hash == "" {
+						if !update && video.M3U8Hash == "" {
 							continue
 						}
-						e := contract.InfoInput(video, context.Bool("update"))
+						e := contract.InfoInput(video, update)
 						if e != nil {
 							log.Error(e)
 							continue
