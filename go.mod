@@ -11,8 +11,8 @@ require (
 	github.com/edsrzf/mmap-go v1.0.0 // indirect
 	github.com/ethereum/go-ethereum v1.8.27
 	github.com/fjl/memsize v0.0.0-20190710130421-bcb5799ab5e5 // indirect
-	github.com/glvd/bot v0.0.0-20190806082528-3ce37de57c30
-	github.com/glvd/seed v0.0.0-20190806091254-7cfade54ca85
+	github.com/glvd/bot v0.0.0-20190806104516-48f1f01c0e2a
+	github.com/glvd/seed v0.0.0-20190806100046-c4181ed6e320
 	github.com/go-xorm/xorm v0.7.1
 	github.com/gocarina/gocsv v0.0.0-20190624090726-71ad6676df57
 	github.com/godcong/go-ipfs-restapi v0.0.3-0.20190422054229-f13eeaa39df0
