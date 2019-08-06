@@ -70,6 +70,8 @@ func CmdPin(app *cli.App) *cli.Command {
 				ps = seed.PinStatusSliceOnly
 			case "video":
 				ps = seed.PinStatusVideo
+			case "poster":
+				ps = seed.PinStatusPoster
 			}
 
 			s := seed.NewSeed(seed.DatabaseOption("sqlite3", db), seed.Pin(ps, context.Args().Slice()...))
