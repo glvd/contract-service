@@ -19,7 +19,7 @@ func CmdPin(app *cli.App) *cli.Command {
 		&cli.StringFlag{
 			Name:  "type",
 			Usage: "set the pin check type",
-			Value: "all",
+			Value: "recursive",
 		},
 		//&cli.StringFlag{
 		//	Name:  "path",
