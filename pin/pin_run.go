@@ -17,9 +17,9 @@ func CmdPin(app *cli.App) *cli.Command {
 			Usage: "set the pin status (all/relate/hash/unfinished) default is all",
 		},
 		&cli.StringFlag{
-			Name:        "type",
-			DefaultText: "all",
-			Usage:       "set the pin check type",
+			Name:  "type",
+			Usage: "set the pin check type",
+			Value: "all",
 		},
 		//&cli.StringFlag{
 		//	Name:  "path",
