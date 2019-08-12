@@ -154,6 +154,8 @@ func CmdPin(app *cli.App) *cli.Command {
 							seed.CheckSkipArg(csa)),
 					)
 
+					s.AfterInit(seed.ShowSQLOption())
+
 					s.From = context.String("from")
 					api := context.String("api")
 					if api != "" {
