@@ -22,6 +22,11 @@ func CmdPin(app *cli.App) *cli.Command {
 			Value: "recursive",
 		},
 		&cli.StringFlag{
+			Name:  "ctype",
+			Usage: "set the pin check type pin/unpin",
+			Value: "pin",
+		},
+		&cli.StringFlag{
 			Name:  "from",
 			Usage: "get the from address",
 		},
@@ -136,7 +141,9 @@ func CmdPin(app *cli.App) *cli.Command {
 					model.InitMainDB(eng)
 					tp := context.String("type")
 
-					s := seed.NewSeed(seed.DatabaseOption("sqlite3", db), seed.Check(seed.CheckTypeArg(tp)))
+					s := seed.NewSeed(seed.DatabaseOption("sqlite3", db),
+						seed.Check(seed.CheckPinTypeArg(tp),
+							seed.CheckTypeArg(seed.CheckType(context.String("ctype")))))
 					s.From = context.String("from")
 					api := context.String("api")
 					if api != "" {
