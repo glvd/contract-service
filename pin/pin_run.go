@@ -21,10 +21,10 @@ func CmdPin(app *cli.App) *cli.Command {
 			Usage: "set the pin check type",
 			Value: "recursive",
 		},
-		//&cli.StringFlag{
-		//	Name:  "path",
-		//	Usage: "set the app path to add  hash",
-		//},
+		&cli.StringFlag{
+			Name:  "from",
+			Usage: "get the from address",
+		},
 		//&cli.IntFlag{
 		//	Name:  "limit",
 		//	Usage: "set the ban max numbers",
@@ -136,8 +136,8 @@ func CmdPin(app *cli.App) *cli.Command {
 					model.InitMainDB(eng)
 					tp := context.String("type")
 
-					s := seed.NewSeed(seed.DatabaseOption("sqlite3", db), seed.Check(tp))
-
+					s := seed.NewSeed(seed.DatabaseOption("sqlite3", db), seed.Check(seed.CheckTypeArg(tp)))
+					s.From = context.String("from")
 					api := context.String("api")
 					if api != "" {
 						s.Register(seed.APIOption(api))
