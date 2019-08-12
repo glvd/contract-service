@@ -147,6 +147,7 @@ func CmdPin(app *cli.App) *cli.Command {
 					if stype != "" {
 						csa = strings.Split(stype, ",")
 					}
+					log.With("types", csa).Info("skip check")
 					s := seed.NewSeed(seed.DatabaseOption("sqlite3", db),
 						seed.Check(seed.CheckPinTypeArg(tp),
 							seed.CheckTypeArg(seed.CheckType(ctp)),
