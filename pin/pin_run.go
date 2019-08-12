@@ -1,6 +1,8 @@
 package pin
 
 import (
+	"strings"
+
 	"github.com/glvd/seed"
 	"github.com/glvd/seed/model"
 	"github.com/godcong/go-trait"
@@ -38,11 +40,10 @@ func CmdPin(app *cli.App) *cli.Command {
 		//	Name:  "code",
 		//	Usage: "set the version code for update",
 		//},
-		//&cli.StringFlag{
-		//	Name:    "key",
-		//	Usage:   "set the ct process key",
-		//	EnvVars: []string{"seedKey"},
-		//},
+		&cli.StringFlag{
+			Name:  "stype",
+			Usage: "skip type",
+		},
 	)
 	return &cli.Command{
 		Name:    "pin",
@@ -140,10 +141,18 @@ func CmdPin(app *cli.App) *cli.Command {
 					}
 					model.InitMainDB(eng)
 					tp := context.String("type")
-
+					ctp := context.String("ctype")
+					stype := context.String("stype")
+					var csa []string
+					if stype != "" {
+						csa = strings.Split(stype, ",")
+					}
 					s := seed.NewSeed(seed.DatabaseOption("sqlite3", db),
 						seed.Check(seed.CheckPinTypeArg(tp),
-							seed.CheckTypeArg(seed.CheckType(context.String("ctype")))))
+							seed.CheckTypeArg(seed.CheckType(ctp)),
+							seed.CheckSkipArg(csa)),
+					)
+
 					s.From = context.String("from")
 					api := context.String("api")
 					if api != "" {
