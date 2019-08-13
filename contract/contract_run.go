@@ -2,10 +2,11 @@ package contract
 
 import (
 	"encoding/csv"
-	shell "github.com/godcong/go-ipfs-restapi"
 	"io"
 	"math/big"
 	"os"
+
+	shell "github.com/godcong/go-ipfs-restapi"
 
 	"github.com/glvd/seed/model"
 	"github.com/go-xorm/xorm"
@@ -21,10 +22,9 @@ var log = trait.NewZapSugar()
 func CmdContract(app *cli.App) *cli.Command {
 	flags := append(app.Flags,
 		&cli.StringFlag{
-			Name:    "address",
-			Aliases: []string{"a"},
-			Value:   "",
-			Usage:   "contract address",
+			Name:  "address",
+			Value: "",
+			Usage: "contract address",
 		},
 		&cli.StringFlag{
 			Name:    "type",
