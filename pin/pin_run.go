@@ -84,6 +84,8 @@ func CmdPin(app *cli.App) *cli.Command {
 						ps = seed.PinStatusVideo
 					case "poster":
 						ps = seed.PinStatusPoster
+					case "sync":
+						ps = seed.PinStatusSync
 					}
 					stype := context.String("stype")
 					var csa []string
