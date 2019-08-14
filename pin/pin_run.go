@@ -80,15 +80,21 @@ func CmdPin(app *cli.App) *cli.Command {
 						ps = seed.PinStatusAssignHash
 					case "unfinished":
 						ps = seed.PinStatusUnfinished
-					case "slice":
-						ps = seed.PinStatusSliceOnly
 					case "video":
 						ps = seed.PinStatusVideo
 					case "poster":
 						ps = seed.PinStatusPoster
 					}
+					stype := context.String("stype")
+					var csa []string
+					if stype != "" {
+						csa = strings.Split(stype, ",")
+					}
 
-					s := seed.NewSeed(seed.DatabaseOption("sqlite3", db), seed.Pin(ps, context.Args().Slice()...))
+					s := seed.NewSeed(seed.DatabaseOption("sqlite3", db),
+						seed.Pin(seed.PinStatusArg(ps),
+							seed.PinSkipArg(csa),
+							seed.PinListArg(context.Args().Slice()...)))
 					j := context.String("json")
 					if j != "" {
 						s.Register(seed.Information(context.String("json"), seed.InfoFlagBSON))

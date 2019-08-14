@@ -18,7 +18,7 @@ import (
 
 // GatwayAddress ...
 //const defaultGatewayAddress = "https://ropsten.infura.io/QVsqBu3yopMu2svcHqRj"
-const defaultGatewayAddress = "/home/godcong/.ethereum/geth.ipc"
+const defaultGatewayAddress = "http://192.168.1.13:8545"
 
 // Contract ...
 type Contract struct {
