@@ -97,6 +97,7 @@ func CmdPin(app *cli.App) *cli.Command {
 						seed.Pin(seed.PinStatusArg(ps),
 							seed.PinSkipArg(csa),
 							seed.PinListArg(context.Args().Slice()...)))
+					s.From = context.String("from")
 					j := context.String("json")
 					if j != "" {
 						s.Register(seed.Information(context.String("json"), seed.InfoFlagBSON))
