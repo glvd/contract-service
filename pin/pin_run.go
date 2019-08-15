@@ -36,10 +36,10 @@ func CmdPin(app *cli.App) *cli.Command {
 		//	Name:  "limit",
 		//	Usage: "set the ban max numbers",
 		//},
-		//&cli.Int64Flag{
-		//	Name:  "code",
-		//	Usage: "set the version code for update",
-		//},
+		&cli.BoolFlag{
+			Name:  "showsql",
+			Usage: "set the show sql option",
+		},
 		&cli.StringFlag{
 			Name:  "stype",
 			Usage: "skip type",
@@ -113,6 +113,10 @@ func CmdPin(app *cli.App) *cli.Command {
 					}
 
 					s.AfterInit(seed.SyncDatabase())
+					if context.Bool("showsql") {
+						s.AfterInit(seed.ShowSQLOption())
+					}
+
 					s.Workspace = context.String("workspace")
 					s.Start()
 
