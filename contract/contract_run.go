@@ -198,6 +198,7 @@ func CmdContract(app *cli.App) *cli.Command {
 				var ver string
 				var lastHash string
 				var e error
+				log.With("key", key, "address", address).Info("input info")
 				if code > 0 {
 					ver, e = contract.GetCodeVersion(big.NewInt(code))
 					if e != nil {
