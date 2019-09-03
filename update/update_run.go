@@ -87,7 +87,6 @@ func CmdUpdate(app *cli.App) *cli.Command {
 			//path := context.String("from")
 			if path != "" {
 				log.Info("path: ", path)
-
 			}
 
 			method := seed.UpdateMethodAll

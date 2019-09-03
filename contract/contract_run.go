@@ -95,7 +95,7 @@ func CmdContract(app *cli.App) *cli.Command {
 			if key == "" {
 				panic("key must set use -key or Env(seedKey)")
 			}
-			address := context.String("a")
+			address := context.String("address")
 			if address == "" {
 				panic("address must set use -address,-a")
 			}
@@ -204,7 +204,7 @@ func CmdContract(app *cli.App) *cli.Command {
 						log.Error(e)
 						return e
 					}
-					log.With("version", ver, "hash", lastHash, "code", code).Info("version:", ver)
+					log.With("version", ver, "hash", lastHash, "code", code).Info("version")
 					return nil
 				}
 				ver, lastHash, e = contract.GetLastVersionHash()
@@ -212,6 +212,7 @@ func CmdContract(app *cli.App) *cli.Command {
 					log.Error(e)
 					return e
 				}
+
 				log.With("version", ver, "hash", lastHash, "code", code).Info("last")
 				return nil
 			case "app":
