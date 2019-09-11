@@ -5,6 +5,7 @@ import (
 	"path/filepath"
 
 	"github.com/glvd/seed/model"
+	"github.com/glvd/seed/task"
 
 	"github.com/glvd/seed"
 	"github.com/godcong/go-trait"
@@ -17,38 +18,40 @@ var log = trait.NewZapSugar()
 func CmdAdd(app *cli.App) *cli.Command {
 	flags := append(app.Flags,
 		&cli.StringFlag{
-			Name:    "workspace",
-			Aliases: []string{"w"},
-			Value:   "",
-			Usage:   "putted files",
+			Name:    "output",
+			Aliases: []string{"O"},
+			//Value:   "",
+			Usage: "slice output path",
 		},
 
 		&cli.IntFlag{
 			Name:  "scale",
+			Value: 720,
 			Usage: "set scale value",
 		},
 		&cli.StringFlag{
-			Name:  "infomove",
-			Usage: "move the success info file to ...",
+			Name:  "resource",
+			Usage: "set the resource path",
 		},
-		&cli.BoolFlag{
-			Name:  "fix",
-			Usage: "fix video",
-		},
-		&cli.BoolFlag{
-			Name:  "exist",
-			Usage: "set bool to skip exist file",
-		},
-		&cli.BoolFlag{
-			Name:  "source",
-			Usage: "set bool to skip add source file",
-		},
-		&cli.BoolFlag{
-			Name:  "nocheck",
-			Usage: "set bool to check added",
-		},
+		//&cli.BoolFlag{
+		//	Name:  "fix",
+		//	Usage: "fix video",
+		//},
+		//&cli.BoolFlag{
+		//	Name:  "exist",
+		//	Usage: "set bool to skip exist file",
+		//},
+		//&cli.BoolFlag{
+		//	Name:  "source",
+		//	Usage: "set bool to skip add source file",
+		//},
+		//&cli.BoolFlag{
+		//	Name:  "nocheck",
+		//	Usage: "set bool to check added",
+		//},
 		&cli.IntFlag{
 			Name:  "limit",
+			Value: 5000,
 			Usage: "set the max process limit",
 		},
 		//&cli.StringFlag{
@@ -58,8 +61,8 @@ func CmdAdd(app *cli.App) *cli.Command {
 		//},
 	)
 	return &cli.Command{
-		Name:          "add",
-		Aliases:       []string{"A"},
+		Name: "add",
+		//Aliases:       []string{"A"},
 		Usage:         "add file to db",
 		UsageText:     "",
 		Description:   "",
@@ -69,63 +72,65 @@ func CmdAdd(app *cli.App) *cli.Command {
 		Before:        nil,
 		After:         nil,
 		Action: func(context *cli.Context) error {
-			path := ""
-			if context.NArg() > 0 {
-				path = context.Args().Get(0)
-			}
+			seeder := seed.NewSeed()
 
 			db := context.String("database")
 			if db == "" {
 				db = "cs.db"
 			}
-			eng, e := model.InitDB("sqlite3", db)
+
+			engine, e := model.InitSQLite3(db)
 			if e != nil {
 				return e
 			}
-			model.InitMainDB(eng)
+			database := seed.NewDatabase(engine)
+			database.RegisterSync(model.Video{}, model.Pin{}, model.Unfinished{})
 
-			s := seed.NewSeed(seed.DatabaseOption("sqlite3", context.String("database")))
+			process := seed.NewProcess()
+			slice := seed.NewSlice()
+			slice.Scale = toScale(context.Int64("scale"))
+			slice.SliceOutput = context.String("output")
+			seeder.Register(database, process, slice)
+
+			//imove := context.String("infomove")
+			//if imove != "" {
+			//	log.Info("infomove", imove)
+			//	s.Register(seed.MoveInfo(imove))
+			//}
+
+			//s.Register(seed.ShellOption(context.String("shell")))
+			api := seed.NewAPI(context.String("shell"))
+			seeder.Register(api)
+
+			//s.Workspace = context.String("workspace")
+
+			seeder.Start()
+
 			j := context.String("json")
 			if j != "" {
-				log.Info("json: ", j)
-				s.Register(seed.Information(j, seed.InfoFlagBSON, getList(path)...))
-				s.MaxLimit = context.Int("limit")
+				information := task.NewInformation()
+				information.Path = j
+				information.InfoType = task.InfoTypeBSON
+				information.ResourcePath = context.String("resource")
+				information.Limit = context.Int("limit")
+				seeder.AddTasker(information)
 			}
-
-			imove := context.String("infomove")
-			if imove != "" {
-				log.Info("infomove", imove)
-				s.Register(seed.MoveInfo(imove))
+			path := ""
+			if context.NArg() > 0 {
+				path = context.Args().Get(0)
 			}
-
 			if path != "" {
 				log.Info("path: ", path)
-				s.Register(seed.Process(path), seed.Update(seed.UpdateMethodVideo, seed.UpdateContentHash))
-				s.Scale = context.Int64("scale")
+				vslice := task.NewVideoSlice()
+				vslice.Path = path
+				//vslice.
+				seeder.AddTasker(vslice)
 			}
 
-			s.Register(seed.ShellOption(context.String("shell")))
+			update := task.NewUpdate()
+			seeder.AddTasker(update)
 
-			if context.Bool("exist") {
-				s.Register(seed.SkipExistOption())
-			}
-			if context.Bool("source") {
-				s.Register(seed.SkipSourceOption())
-			}
-
-			if context.Bool("skip") {
-				s.Register(seed.SkipConvertOption())
-			}
-
-			if context.Bool("nocheck") {
-				s.NoCheck = true
-			}
-
-			s.AfterInit(seed.SyncDatabase())
-			s.Workspace = context.String("workspace")
-			s.Start()
-
-			s.Wait()
+			seeder.Wait()
 			return nil
 		},
 		OnUsageError:       nil,
@@ -137,6 +142,17 @@ func CmdAdd(app *cli.App) *cli.Command {
 		HelpName:           "",
 		CustomHelpTemplate: "",
 	}
+}
+
+func toScale(i int64) seed.Scale {
+	if i == 480 {
+		return seed.LowScale
+	} else if i == 1080 {
+		return seed.MiddleScale
+	} else {
+
+	}
+	return seed.MiddleScale
 }
 
 func getList(path string) (list []string) {

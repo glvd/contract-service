@@ -4,9 +4,6 @@ import (
 	"os"
 	"path/filepath"
 
-	"github.com/glvd/seed/model"
-
-	"github.com/glvd/seed"
 	"github.com/godcong/go-trait"
 	"gopkg.in/urfave/cli.v2"
 )
@@ -67,41 +64,42 @@ func CmdUpdate(app *cli.App) *cli.Command {
 		Before:        nil,
 		After:         nil,
 		Action: func(context *cli.Context) error {
-			path := ""
-			if context.NArg() > 0 {
-				path = context.Args().Get(0)
-			}
-
-			db := context.String("database")
-			if db == "" {
-				db = "cs.db"
-			}
-			eng, e := model.InitDB("sqlite3", db)
-			if e != nil {
-				return e
-			}
-			model.InitMainDB(eng)
-
-			s := seed.NewSeed(seed.DatabaseOption("sqlite3", context.String("database")))
-
-			//path := context.String("from")
-			if path != "" {
-				log.Info("path: ", path)
-			}
-
-			method := seed.UpdateMethodAll
-			switch context.String("method") {
-			case "video":
-				method = seed.UpdateMethodVideo
-			case "unfinished":
-				method = seed.UpdateMethodUnfinished
-			}
-
-			s.Register(seed.Update(method, seed.UpdateContentHash))
-			s.AfterInit(seed.SyncDatabase())
-			s.Start()
-
-			s.Wait()
+			//path := ""
+			//if context.NArg() > 0 {
+			//	path = context.Args().Get(0)
+			//}
+			//
+			//db := context.String("database")
+			//if db == "" {
+			//	db = "cs.db"
+			//}
+			//eng, e := model.InitDB("sqlite3", db)
+			//if e != nil {
+			//	return e
+			//}
+			//model.InitMainDB(eng)
+			//
+			//s := seed.NewSeed(seed.DatabaseOption("sqlite3", context.String("database")))
+			//
+			////path := context.String("from")
+			//if path != "" {
+			//	log.Info("path: ", path)
+			//}
+			//
+			//method := seed.UpdateMethodAll
+			//switch context.String("method") {
+			//case "video":
+			//	method = seed.UpdateMethodVideo
+			//case "unfinished":
+			//	method = seed.UpdateMethodUnfinished
+			//}
+			//
+			//s.Register(seed.Update(method, seed.UpdateContentHash))
+			//s.AfterInit(seed.SyncDatabase())
+			//s.Start()
+			//
+			//s.Wait()
+			//TODO
 			return nil
 		},
 		OnUsageError:       nil,

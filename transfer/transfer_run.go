@@ -1,7 +1,6 @@
 package transfer
 
 import (
-	"github.com/glvd/seed"
 	"github.com/godcong/go-trait"
 	"gopkg.in/urfave/cli.v2"
 )
@@ -33,38 +32,39 @@ func CmdTransfer(app *cli.App) *cli.Command {
 		Aliases: []string{"T"},
 		Usage:   "transfer from other or to other database",
 		Action: func(context *cli.Context) error {
-			db := context.String("database")
-			if db == "" {
-				db = "cs.db"
-			}
-			//eng, e := model.InitDB("sqlite3", db)
-			//if e != nil {
-			//	return e
+			//db := context.String("database")
+			//if db == "" {
+			//	db = "cs.db"
 			//}
-			//model.InitMainDB(eng)
-
-			path := context.String("from")
-			status := seed.TransferStatusFromOther
-			flag := seed.InfoFlagSQLite
-			switch context.String("status") {
-			case "old":
-				status = seed.TransferStatusFromOld
-			case "json":
-				path = context.String("to")
-				status = seed.TransferStatusToJSON
-				flag = seed.InfoFlagJSON
-			}
-
-			s := seed.NewSeed(seed.DatabaseOption("sqlite3", db), seed.Transfer(path, flag, status))
-
-			if context.Bool("showsql") {
-				s.AfterInit(seed.ShowSQLOption())
-			}
-
-			s.AfterInit(seed.SyncDatabase())
-			s.Start()
-
-			s.Wait()
+			////eng, e := model.InitDB("sqlite3", db)
+			////if e != nil {
+			////	return e
+			////}
+			////model.InitMainDB(eng)
+			//
+			//path := context.String("from")
+			//status := seed.TransferStatusFromOther
+			//flag := seed.InfoFlagSQLite
+			//switch context.String("status") {
+			//case "old":
+			//	status = seed.TransferStatusFromOld
+			//case "json":
+			//	path = context.String("to")
+			//	status = seed.TransferStatusToJSON
+			//	flag = seed.InfoFlagJSON
+			//}
+			//
+			//s := seed.NewSeed(seed.DatabaseOption("sqlite3", db), seed.Transfer(path, flag, status))
+			//
+			//if context.Bool("showsql") {
+			//	s.AfterInit(seed.ShowSQLOption())
+			//}
+			//
+			//s.AfterInit(seed.SyncDatabase())
+			//s.Start()
+			//
+			//s.Wait()
+			//TODO
 			return nil
 		},
 		Subcommands: nil,

@@ -11,14 +11,14 @@ require (
 	github.com/ethereum/go-ethereum v1.8.27
 	github.com/fjl/memsize v0.0.0-20190710130421-bcb5799ab5e5 // indirect
 	github.com/glvd/bot v0.0.0-20190806104516-48f1f01c0e2a
-	github.com/glvd/seed v0.0.0-20190814093211-20515ecd1cb3
+	github.com/glvd/seed v0.0.0-20190911054359-7312ac5dfa1b
 	github.com/go-xorm/xorm v0.7.1
 	github.com/gocarina/gocsv v0.0.0-20190624090726-71ad6676df57
 	github.com/godcong/go-ipfs-restapi v0.0.3-0.20190422054229-f13eeaa39df0
-	github.com/godcong/go-trait v0.0.0-20190813100119-644e192a7cf3
+	github.com/godcong/go-trait v0.0.0-20190816072228-f216e906756e
 	github.com/golang/snappy v0.0.1 // indirect
 	github.com/hashicorp/golang-lru v0.5.3 // indirect
-	github.com/json-iterator/go v1.1.6
+	github.com/json-iterator/go v1.1.7
 	github.com/karalabe/hid v1.0.0 // indirect
 	github.com/kr/pty v1.1.3 // indirect
 	github.com/mattn/go-sqlite3 v1.10.0
