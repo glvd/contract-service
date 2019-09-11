@@ -1,8 +1,6 @@
 package pin
 
 import (
-	"strings"
-
 	"github.com/glvd/seed"
 	"github.com/glvd/seed/model"
 	"github.com/godcong/go-trait"
@@ -63,64 +61,64 @@ func CmdPin(app *cli.App) *cli.Command {
 				Before:        nil,
 				After:         nil,
 				Action: func(context *cli.Context) error {
-					db := context.String("database")
-					if db == "" {
-						db = "cs.db"
-					}
-					eng, e := model.InitDB("sqlite3", db)
-					if e != nil {
-						return e
-					}
-					model.InitMainDB(eng)
-					ps := seed.PinStatusAll
-					switch context.String("status") {
-					case "relate":
-						ps = seed.PinStatusAssignRelate
-					case "hash":
-						ps = seed.PinStatusAssignHash
-					case "unfinished":
-						ps = seed.PinStatusUnfinished
-					case "video":
-						ps = seed.PinStatusVideo
-					case "poster":
-						ps = seed.PinStatusPoster
-					case "sync":
-						ps = seed.PinStatusSync
-					}
-					stype := context.String("stype")
-					var csa []string
-					if stype != "" {
-						csa = strings.Split(stype, ",")
-					}
-
-					s := seed.NewSeed(seed.DatabaseOption("sqlite3", db),
-						seed.Pin(seed.PinStatusArg(ps),
-							seed.PinSkipArg(csa),
-							seed.PinListArg(context.Args().Slice()...)))
-					s.From = context.String("from")
-					j := context.String("json")
-					if j != "" {
-						s.Register(seed.Information(context.String("json"), seed.InfoFlagBSON))
-					}
-					shell := context.String("shell")
-					if shell != "" {
-						s.Register(seed.ShellOption(shell))
-					}
-
-					if context.Bool("skip") {
-						s.Register(seed.SkipConvertOption())
-						s.Register(seed.SkipSourceOption())
-					}
-
-					s.AfterInit(seed.SyncDatabase())
-					if context.Bool("showsql") {
-						s.AfterInit(seed.ShowSQLOption())
-					}
-
-					s.Workspace = context.String("workspace")
-					s.Start()
-
-					s.Wait()
+					//db := context.String("database")
+					//if db == "" {
+					//	db = "cs.db"
+					//}
+					//eng, e := model.InitDB("sqlite3", db)
+					//if e != nil {
+					//	return e
+					//}
+					//model.InitMainDB(eng)
+					//ps := seed.PinStatusAll
+					//switch context.String("status") {
+					//case "relate":
+					//	ps = seed.PinStatusAssignRelate
+					//case "hash":
+					//	ps = seed.PinStatusAssignHash
+					//case "unfinished":
+					//	ps = seed.PinStatusUnfinished
+					//case "video":
+					//	ps = seed.PinStatusVideo
+					//case "poster":
+					//	ps = seed.PinStatusPoster
+					//case "sync":
+					//	ps = seed.PinStatusSync
+					//}
+					//stype := context.String("stype")
+					//var csa []string
+					//if stype != "" {
+					//	csa = strings.Split(stype, ",")
+					//}
+					//
+					//s := seed.NewSeed(seed.DatabaseOption("sqlite3", db),
+					//	seed.Pin(seed.PinStatusArg(ps),
+					//		seed.PinSkipArg(csa),
+					//		seed.PinListArg(context.Args().Slice()...)))
+					//s.From = context.String("from")
+					//j := context.String("json")
+					//if j != "" {
+					//	s.Register(seed.Information(context.String("json"), seed.InfoFlagBSON))
+					//}
+					//shell := context.String("shell")
+					//if shell != "" {
+					//	s.Register(seed.ShellOption(shell))
+					//}
+					//
+					//if context.Bool("skip") {
+					//	s.Register(seed.SkipConvertOption())
+					//	s.Register(seed.SkipSourceOption())
+					//}
+					//
+					//s.AfterInit(seed.SyncDatabase())
+					//if context.Bool("showsql") {
+					//	s.AfterInit(seed.ShowSQLOption())
+					//}
+					//
+					//s.Workspace = context.String("workspace")
+					//s.Start()
+					//
+					//s.Wait()
 					return nil
 				},
 				OnUsageError:       nil,
@@ -144,6 +142,22 @@ func CmdPin(app *cli.App) *cli.Command {
 				Before:        nil,
 				After:         nil,
 				Action: func(context *cli.Context) error {
+					seeder := seed.NewSeed()
+
+					db := context.String("database")
+					if db == "" {
+						db = "cs.db"
+					}
+
+					engine, e := model.InitSQLite3(db)
+					if e != nil {
+						return e
+					}
+					database := seed.NewDatabase(engine)
+					database.RegisterSync(model.Video{}, model.Pin{}, model.Unfinished{})
+
+					api := seed.NewAPI(context.String("shell"))
+					seeder.Register(database, api)
 					//db := context.String("database")
 					//if db == "" {
 					//	db = "cs.db"

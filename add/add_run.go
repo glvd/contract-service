@@ -87,10 +87,14 @@ func CmdAdd(app *cli.App) *cli.Command {
 			database.RegisterSync(model.Video{}, model.Pin{}, model.Unfinished{})
 
 			process := seed.NewProcess()
+
 			slice := seed.NewSlice()
 			slice.Scale = toScale(context.Int64("scale"))
 			slice.SliceOutput = context.String("output")
-			seeder.Register(database, process, slice)
+
+			api := seed.NewAPI(context.String("shell"))
+
+			seeder.Register(database, process, api, slice)
 
 			//imove := context.String("infomove")
 			//if imove != "" {
@@ -99,8 +103,6 @@ func CmdAdd(app *cli.App) *cli.Command {
 			//}
 
 			//s.Register(seed.ShellOption(context.String("shell")))
-			api := seed.NewAPI(context.String("shell"))
-			seeder.Register(api)
 
 			//s.Workspace = context.String("workspace")
 
