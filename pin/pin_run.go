@@ -174,6 +174,18 @@ func CmdPin(app *cli.App) *cli.Command {
 
 					api := seed.NewAPI(context.String("shell"))
 					seeder.Register(database, api)
+					pin := task.NewPin()
+					pin.Type = task.PinTypeCheck
+
+					skip := strings.Split(context.String("skip"), ",")
+					for _, s := range skip {
+						pin.SkipType = append(pin.SkipType, s)
+					}
+
+					seeder.Start()
+					seeder.AddTasker(pin)
+					seeder.Wait()
+
 					//db := context.String("database")
 					//if db == "" {
 					//	db = "cs.db"
