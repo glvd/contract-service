@@ -1,6 +1,8 @@
 package pin
 
 import (
+	"strings"
+
 	"github.com/glvd/seed"
 	"github.com/glvd/seed/model"
 	"github.com/glvd/seed/task"
@@ -80,6 +82,10 @@ func CmdPin(app *cli.App) *cli.Command {
 					pin := task.NewPin()
 					pin.Type = task.PinTypeAdd
 
+					skip := strings.Split(context.String("skip"), ",")
+					for _, s := range skip {
+						pin.SkipType = append(pin.SkipType, s)
+					}
 					//ps := seed.PinStatusAll
 					//switch context.String("status") {
 					//case "relate":
