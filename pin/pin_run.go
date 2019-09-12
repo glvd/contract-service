@@ -166,7 +166,10 @@ func CmdPin(app *cli.App) *cli.Command {
 					}
 					database := seed.NewDatabase(engine)
 					//database.RegisterSync(model.Video{}, model.Pin{}, model.Unfinished{})
-
+					e = model.Sync(engine)
+					if e != nil {
+						return e
+					}
 					api := seed.NewAPI(context.String("shell"))
 					seeder.Register(database, api)
 					pin := task.NewPin()
