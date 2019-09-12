@@ -165,16 +165,16 @@ func CmdPin(app *cli.App) *cli.Command {
 						return e
 					}
 					database := seed.NewDatabase(engine)
-					//database.RegisterSync(model.Video{}, model.Pin{}, model.Unfinished{})
-					e = model.Sync(engine)
-					if e != nil {
-						return e
-					}
+					database.RegisterSync(model.Video{}, model.Pin{}, model.Unfinished{})
+					//e = model.Sync(engine)
+					//if e != nil {
+					//	return e
+					//}
 					api := seed.NewAPI(context.String("shell"))
 					seeder.Register(database, api)
 					pin := task.NewPin()
 					pin.Type = task.PinTypeCheck
-
+					pin.Table = task.PinTableVideo
 					skip := strings.Split(context.String("skip"), ",")
 					for _, s := range skip {
 						pin.SkipType = append(pin.SkipType, s)
