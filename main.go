@@ -1,19 +1,20 @@
 package main
 
 import (
+	"os"
+	"sort"
+
 	"contract-service/daemon"
 	"contract-service/transfer"
 	"contract-service/update"
+
 	"github.com/godcong/go-trait"
-	"os"
-	"sort"
 
 	"contract-service/add"
 	"contract-service/bot"
 	"contract-service/contract"
 	"contract-service/pin"
 
-	"github.com/glvd/seed/model"
 	_ "github.com/mattn/go-sqlite3"
 	"gopkg.in/urfave/cli.v2"
 )
@@ -99,11 +100,7 @@ func runApp() error {
 		Usage:   "service is a video manage tool use ipfs,eth,sqlite3 and so on.",
 		Action: func(c *cli.Context) error {
 			log.Info("main call")
-			eng, e := model.InitDB("sqlite3", c.String("database"))
-			if e != nil {
-				return e
-			}
-			model.InitMainDB(eng)
+
 			return nil
 		},
 		Flags: flags,

@@ -28,11 +28,14 @@ type WriteThree struct {
 const WriteMax = 1000
 
 func TestMutexWrite(t *testing.T) {
-	eng, e := model.InitDB("sqlite3", "mutex1.db")
+	eng, e := model.InitSQLite3("mutex1.db")
 	if e != nil {
 		return
 	}
-	eng.Sync2(WriteThree{}, WriteTwo{}, WriteOne{})
+	e = eng.Sync2(WriteThree{}, WriteTwo{}, WriteOne{})
+	if e != nil {
+		return
+	}
 	wg := &sync.WaitGroup{}
 	wg.Add(1)
 	go func() {
