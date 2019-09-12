@@ -73,12 +73,6 @@ func globalFlags() []cli.Flag {
 		Usage:   "check if the video is synced",
 	}
 
-	skip := &cli.BoolFlag{
-		Name:  "skip",
-		Value: false,
-		Usage: "skip convert if not h264/aac",
-	}
-
 	database := &cli.StringFlag{
 		Name:    "database",
 		Value:   "cs.db",
@@ -87,7 +81,7 @@ func globalFlags() []cli.Flag {
 	}
 
 	return []cli.Flag{
-		shell, userpass, json, boot, pin, sync, config, database, skip, api,
+		shell, userpass, json, boot, pin, sync, config, database, api,
 	}
 
 }

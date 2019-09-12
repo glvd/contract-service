@@ -160,12 +160,7 @@ func CmdPin(app *cli.App) *cli.Command {
 				Action: func(context *cli.Context) error {
 					seeder := seed.NewSeed()
 
-					db := context.String("database")
-					if db == "" {
-						db = "cs.db"
-					}
-
-					engine, e := model.InitSQLite3(db)
+					engine, e := model.InitSQLite3(context.String("database"))
 					if e != nil {
 						return e
 					}
