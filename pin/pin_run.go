@@ -3,6 +3,7 @@ package pin
 import (
 	"github.com/glvd/seed"
 	"github.com/glvd/seed/model"
+	"github.com/glvd/seed/task"
 	"github.com/godcong/go-trait"
 	"gopkg.in/urfave/cli.v2"
 )
@@ -17,14 +18,13 @@ func CmdPin(app *cli.App) *cli.Command {
 			Usage: "set the pin status (all/relate/hash/unfinished) default is all",
 		},
 		&cli.StringFlag{
-			Name:  "type",
-			Usage: "set the pin check type",
-			Value: "recursive",
+			Name:  "table",
+			Usage: "which table to pin",
+			Value: "video",
 		},
 		&cli.StringFlag{
-			Name:  "ctype",
-			Usage: "set the pin check type pin/unpin",
-			Value: "pin",
+			Name:  "skip",
+			Usage: "set the skip args",
 		},
 		&cli.StringFlag{
 			Name:  "from",
@@ -38,16 +38,15 @@ func CmdPin(app *cli.App) *cli.Command {
 			Name:  "showsql",
 			Usage: "set the show sql option",
 		},
-		&cli.StringFlag{
-			Name:  "stype",
-			Usage: "skip type",
-		},
+		//&cli.StringFlag{
+		//	Name:  "stype",
+		//	Usage: "skip type",
+		//},
 	)
 	return &cli.Command{
-		Name:    "pin",
-		Aliases: []string{"P"},
-		Usage:   "pin file to ipfs",
-		Action:  nil,
+		Name:   "pin",
+		Usage:  "pin file to ipfs",
+		Action: nil,
 		Subcommands: []*cli.Command{
 			{
 				Name:          "add",
@@ -61,15 +60,26 @@ func CmdPin(app *cli.App) *cli.Command {
 				Before:        nil,
 				After:         nil,
 				Action: func(context *cli.Context) error {
-					//db := context.String("database")
-					//if db == "" {
-					//	db = "cs.db"
-					//}
-					//eng, e := model.InitDB("sqlite3", db)
-					//if e != nil {
-					//	return e
-					//}
-					//model.InitMainDB(eng)
+					seeder := seed.NewSeed()
+
+					db := context.String("database")
+					if db == "" {
+						db = "cs.db"
+					}
+
+					engine, e := model.InitSQLite3(db)
+					if e != nil {
+						return e
+					}
+					database := seed.NewDatabase(engine)
+					database.RegisterSync(model.Video{}, model.Pin{}, model.Unfinished{})
+
+					api := seed.NewAPI(context.String("shell"))
+					seeder.Register(database, api)
+
+					pin := task.NewPin()
+					pin.Type = task.PinTypeAdd
+
 					//ps := seed.PinStatusAll
 					//switch context.String("status") {
 					//case "relate":
