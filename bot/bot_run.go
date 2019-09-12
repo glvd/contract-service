@@ -2,7 +2,6 @@ package bot
 
 import (
 	"github.com/glvd/bot/message"
-	"github.com/glvd/seed/model"
 	"github.com/godcong/go-trait"
 	"gopkg.in/urfave/cli.v2"
 )
@@ -53,11 +52,11 @@ func CmdBot(app *cli.App) *cli.Command {
 			if db == "" {
 				db = "cs.db"
 			}
-			eng, e := model.InitDB("sqlite3", db)
-			if e != nil {
-				return e
-			}
-			model.InitMainDB(eng)
+			//eng, e := model.InitDB("sqlite3", db)
+			//if e != nil {
+			//	return e
+			//}
+			//model.InitMainDB(eng)
 
 			message.BootWithGAE(context.String("config"), context.String("port"))
 			return nil

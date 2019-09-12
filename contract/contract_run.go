@@ -115,22 +115,21 @@ func CmdContract(app *cli.App) *cli.Command {
 
 			db := context.String("database")
 			log.Info("database:", db)
-			eng, e := model.InitDB("sqlite3", db)
+			eng, e := model.InitSQLite3(db)
 			if e != nil {
 				return e
 			}
-			model.InitMainDB(eng)
 
 			switch context.String("type") {
 			case "video":
 				var session *xorm.Session
-
+				session = eng.NoCache()
 				if context.NArg() > 0 {
-					session = model.DB().In("bangumi", context.Args().Slice())
+					session = eng.In("bangumi", context.Args().Slice())
 				}
 
 				if context.String("from") == "db" {
-					videos, e := model.TopList(session, 0)
+					videos, e := model.Top(session, 0)
 
 					if e != nil {
 						log.Error()
@@ -172,7 +171,8 @@ func CmdContract(app *cli.App) *cli.Command {
 			case "hot":
 				list := context.Args().Slice()
 				if from := context.String("from"); from == "db" {
-					videos, e := model.TopList(nil, 50)
+					//TODO
+					videos, e := model.Top(nil, 50)
 					if e != nil {
 						log.Error(e)
 						return e

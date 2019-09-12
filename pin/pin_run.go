@@ -170,7 +170,7 @@ func CmdPin(app *cli.App) *cli.Command {
 						return e
 					}
 					database := seed.NewDatabase(engine)
-					database.RegisterSync(model.Video{}, model.Pin{}, model.Unfinished{})
+					//database.RegisterSync(model.Video{}, model.Pin{}, model.Unfinished{})
 
 					api := seed.NewAPI(context.String("shell"))
 					seeder.Register(database, api)
