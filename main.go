@@ -74,7 +74,7 @@ func globalFlags() []cli.Flag {
 	}
 
 	return []cli.Flag{
-		shell, userpass, json, boot, pin, sync, config, database, api,
+		shell, userpass, json, boot, pin, sync, config, database,
 	}
 
 }

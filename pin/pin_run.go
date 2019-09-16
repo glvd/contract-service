@@ -109,6 +109,32 @@ func CmdPin(app *cli.App) *cli.Command {
 				Before:        nil,
 				After:         nil,
 				Action: func(context *cli.Context) error {
+					seeder := seed.NewSeed()
+
+					engine, e := model.InitSQLite3(context.String("database"))
+					if e != nil {
+						return e
+					}
+					database := seed.NewDatabase(engine)
+					database.RegisterSync(model.Video{}, model.Pin{}, model.Unfinished{})
+					//e = model.Sync(engine)
+					//if e != nil {
+					//	return e
+					//}
+					api := seed.NewAPI(context.String("shell"))
+					seeder.Register(database, api)
+					pin := task.NewPin()
+					pin.Type = task.PinTypeSync
+					pin.Table = task.PinTablePin
+					skip := strings.Split(context.String("skip"), ",")
+					for _, s := range skip {
+						pin.SkipType = append(pin.SkipType, s)
+					}
+
+					seeder.Start()
+					seeder.AddTasker(pin)
+					seeder.Wait()
+
 					return nil
 				},
 				OnUsageError:       nil,
