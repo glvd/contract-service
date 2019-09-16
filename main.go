@@ -25,9 +25,9 @@ func globalFlags() []cli.Flag {
 	shell := &cli.StringFlag{
 		Name:        "shell",
 		Aliases:     []string{"s"},
-		Value:       "localhost:5001",
+		Value:       "/ip4/127.0.0.1/tcp/5001",
 		Usage:       "set the ipfs api address:port",
-		DefaultText: "localhost:5001",
+		DefaultText: "/ip4/127.0.0.1/tcp/5001",
 	}
 	api := &cli.StringFlag{
 		Name:        "api",
