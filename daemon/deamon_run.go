@@ -69,9 +69,8 @@ func CmdDaemon(app *cli.App) *cli.Command {
 		},
 	)
 	return &cli.Command{
-		Name:    "daemon",
-		Aliases: []string{"D"},
-		Usage:   "daemon handle the target path to process add",
+		Name:  "daemon",
+		Usage: "daemon handle the target path to process add",
 		Action: func(context *cli.Context) error {
 			//path := ""
 			//if context.NArg() > 0 {

@@ -80,7 +80,6 @@ func CmdContract(app *cli.App) *cli.Command {
 	)
 	return &cli.Command{
 		Name:          "contract",
-		Aliases:       []string{"C"},
 		Usage:         "contract share the video info to ct.",
 		UsageText:     "",
 		Description:   "",

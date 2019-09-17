@@ -61,8 +61,7 @@ func CmdAdd(app *cli.App) *cli.Command {
 		//},
 	)
 	return &cli.Command{
-		Name: "add",
-		//Aliases:       []string{"A"},
+		Name:          "add",
 		Usage:         "add file to db",
 		UsageText:     "",
 		Description:   "",

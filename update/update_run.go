@@ -54,7 +54,6 @@ func CmdUpdate(app *cli.App) *cli.Command {
 	)
 	return &cli.Command{
 		Name:          "update",
-		Aliases:       []string{"U"},
 		Usage:         "update db",
 		UsageText:     "",
 		Description:   "",

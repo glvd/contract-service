@@ -44,9 +44,8 @@ func CmdBot(app *cli.App) *cli.Command {
 		//},
 	)
 	return &cli.Command{
-		Name:    "bot",
-		Aliases: []string{"B"},
-		Usage:   "pin file to ipfs",
+		Name:  "bot",
+		Usage: "pin file to ipfs",
 		Action: func(context *cli.Context) error {
 			db := context.String("database")
 			if db == "" {

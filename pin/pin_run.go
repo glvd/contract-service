@@ -20,14 +20,9 @@ func CmdPin(app *cli.App) *cli.Command {
 			Usage: "set the pin status (all/relate/hash/unfinished) default is all",
 		},
 		&cli.StringFlag{
-			Name: "table",
-			//Aliases:     nil,
+			Name:  "table",
 			Usage: "which table to pin",
-			//EnvVars:     nil,
-			//Hidden:      false,
 			Value: "default",
-			//DefaultText: "",
-			//Destination: nil,
 		},
 		&cli.StringFlag{
 			Name:  "skip",
