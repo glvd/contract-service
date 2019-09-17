@@ -130,7 +130,6 @@ func CmdPin(app *cli.App) *cli.Command {
 					seeder.Register(database, api)
 					pin := task.NewPin()
 					pin.Type = task.PinTypeSync
-
 					pin.Table = task.PinTablePin
 					if v := context.String("table"); v != "default" {
 						pin.Table = task.PinTable(v)
