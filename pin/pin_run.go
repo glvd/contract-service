@@ -20,9 +20,14 @@ func CmdPin(app *cli.App) *cli.Command {
 			Usage: "set the pin status (all/relate/hash/unfinished) default is all",
 		},
 		&cli.StringFlag{
-			Name:  "table",
+			Name: "table",
+			//Aliases:     nil,
 			Usage: "which table to pin",
-			Value: "video",
+			//EnvVars:     nil,
+			//Hidden:      false,
+			Value: "default",
+			//DefaultText: "",
+			//Destination: nil,
 		},
 		&cli.StringFlag{
 			Name:  "skip",
@@ -125,7 +130,13 @@ func CmdPin(app *cli.App) *cli.Command {
 					seeder.Register(database, api)
 					pin := task.NewPin()
 					pin.Type = task.PinTypeSync
+
 					pin.Table = task.PinTablePin
+					if v := context.String("table"); v != "default" {
+						pin.Table = task.PinTable(v)
+					}
+
+					pin.From = context.String("from")
 					skip := strings.Split(context.String("skip"), ",")
 					for _, s := range skip {
 						pin.SkipType = append(pin.SkipType, s)
@@ -139,7 +150,7 @@ func CmdPin(app *cli.App) *cli.Command {
 				},
 				OnUsageError:       nil,
 				Subcommands:        nil,
-				Flags:              nil,
+				Flags:              flags,
 				SkipFlagParsing:    false,
 				HideHelp:           false,
 				Hidden:             false,
@@ -174,7 +185,10 @@ func CmdPin(app *cli.App) *cli.Command {
 					seeder.Register(database, api)
 					pin := task.NewPin()
 					pin.Type = task.PinTypeCheck
-					pin.Table = task.PinTableVideo
+					pin.Table = task.PinTablePin
+					if v := context.String("table"); v != "default" {
+						pin.Table = task.PinTable(v)
+					}
 					skip := strings.Split(context.String("skip"), ",")
 					for _, s := range skip {
 						pin.SkipType = append(pin.SkipType, s)
