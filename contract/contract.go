@@ -3,6 +3,10 @@ package contract
 import (
 	"context"
 	"crypto/ecdsa"
+	"math/big"
+	"strconv"
+	"strings"
+
 	"github.com/ethereum/go-ethereum/accounts/abi/bind"
 	"github.com/ethereum/go-ethereum/common"
 	"github.com/ethereum/go-ethereum/crypto"
@@ -11,15 +15,19 @@ import (
 	shell "github.com/godcong/go-ipfs-restapi"
 	jsoniter "github.com/json-iterator/go"
 	"golang.org/x/xerrors"
-	"math/big"
-	"strconv"
-	"strings"
 )
 
 // GatwayAddress ...
 const defaultGatewayAddress = "https://ropsten.infura.io/QVsqBu3yopMu2svcHqRj"
 
 //const defaultGatewayAddress = "http://192.168.1.13:8545"
+var bangumiContract = "0x333e1e53683FC252E4BF87f1A300A6140d58105d"
+var accContract = "0x80b57a43e5a2c7ad2ce28fbb40c6a58bcf2aa252"
+var appContract = "0x4ed0462cb2ecf365dea3503a445cb8e25a23dc03"
+
+func init() {
+
+}
 
 // Contract ...
 type Contract struct {
@@ -27,7 +35,6 @@ type Contract struct {
 	shell     *shell.Shell
 	conn      *ethclient.Client
 	key       string
-	contract  string
 	gateway   string
 	processor []ProcessorFunc
 }
@@ -42,7 +49,7 @@ func (c *Contract) UpdateAppWithPath(code int64, version, path string) error {
 
 func bangumi() ProcessorFunc {
 	return func(eth *Contract) interface{} {
-		tk, err := NewBangumiData(common.HexToAddress(eth.contract), eth.conn)
+		tk, err := NewBangumiData(common.HexToAddress(bangumiContract), eth.conn)
 		if err != nil {
 			return nil
 		}
@@ -52,7 +59,7 @@ func bangumi() ProcessorFunc {
 
 func dhash() ProcessorFunc {
 	return func(eth *Contract) interface{} {
-		tk, err := NewDhash(common.HexToAddress(eth.contract), eth.conn)
+		tk, err := NewDhash(common.HexToAddress(appContract), eth.conn)
 		if err != nil {
 			return nil
 		}
@@ -62,7 +69,7 @@ func dhash() ProcessorFunc {
 
 func node() ProcessorFunc {
 	return func(eth *Contract) interface{} {
-		tk, err := NewAccelerateNode(common.HexToAddress(eth.contract), eth.conn)
+		tk, err := NewAccelerateNode(common.HexToAddress(accContract), eth.conn)
 		if err != nil {
 			return nil
 		}
@@ -74,7 +81,7 @@ func node() ProcessorFunc {
 type ProcessorFunc func(eth *Contract) interface{}
 
 // NewContract ...
-func NewContract(key, contract string) *Contract {
+func NewContract(key string) *Contract {
 	// Create an IPC based RPC connection to a remote node and instantiate a contract binding
 	conn, err := ethclient.Dial(defaultGatewayAddress)
 	if err != nil {
@@ -84,7 +91,6 @@ func NewContract(key, contract string) *Contract {
 		conn:      conn,
 		key:       key,
 		gateway:   defaultGatewayAddress,
-		contract:  contract,
 		processor: []ProcessorFunc{bangumi(), dhash(), node()},
 	}
 }
