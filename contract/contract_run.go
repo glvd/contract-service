@@ -94,15 +94,15 @@ func CmdContract(app *cli.App) *cli.Command {
 			if key == "" {
 				panic("key must set use -key or Env(seedKey)")
 			}
-			address := context.String("address")
-			if address == "" {
-				panic("address must set use -address,-a")
-			}
+			//address := context.String("address")
+			//if address == "" {
+			//	panic("address must set use -address,-a")
+			//}
 			version := context.String("release")
 			path := context.String("path")
 			hash := context.String("hash")
 			code := context.Int64("code")
-			contract := NewContract(key, address)
+			contract := NewContract(key)
 			if contract == nil {
 				panic("null contract")
 			}
