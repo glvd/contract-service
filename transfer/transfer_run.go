@@ -1,6 +1,11 @@
 package transfer
 
 import (
+	"errors"
+
+	"github.com/glvd/seed"
+	"github.com/glvd/seed/model"
+	"github.com/glvd/seed/task"
 	"github.com/godcong/go-trait"
 	"gopkg.in/urfave/cli.v2"
 )
@@ -11,62 +16,104 @@ var log = trait.NewZapSugar()
 func CmdTransfer(app *cli.App) *cli.Command {
 	flags := append(app.Flags,
 		&cli.StringFlag{
-			Name:  "from",
-			Usage: "set the other sqlite3 path",
-		},
-		&cli.StringFlag{
-			Name:  "to",
-			Usage: "set the json output path",
+			Name: "path",
+			//Value: ".json",
+			Usage: "transfer path input/output",
 		},
 		&cli.StringFlag{
 			Name:  "status",
 			Usage: "set transfer status",
 		},
-		&cli.BoolFlag{
-			Name:  "showsql",
-			Usage: "show sql",
-		},
 	)
 	return &cli.Command{
 		Name:  "transfer",
 		Usage: "transfer from other or to other database",
-		Action: func(context *cli.Context) error {
-			//db := context.String("database")
-			//if db == "" {
-			//	db = "cs.db"
-			//}
-			////eng, e := model.InitDB("sqlite3", db)
-			////if e != nil {
-			////	return e
-			////}
-			////model.InitMainDB(eng)
-			//
-			//path := context.String("from")
-			//status := seed.TransferStatusFromOther
-			//flag := seed.InfoFlagSQLite
-			//switch context.String("status") {
-			//case "old":
-			//	status = seed.TransferStatusFromOld
-			//case "json":
-			//	path = context.String("to")
-			//	status = seed.TransferStatusToJSON
-			//	flag = seed.InfoFlagJSON
-			//}
-			//
-			//s := seed.NewSeed(seed.DatabaseOption("sqlite3", db), seed.Transfer(path, flag, status))
-			//
-			//if context.Bool("showsql") {
-			//	s.AfterInit(seed.ShowSQLOption())
-			//}
-			//
-			//s.AfterInit(seed.SyncDatabase())
-			//s.Start()
-			//
-			//s.Wait()
-			//TODO
-			return nil
+		Subcommands: []*cli.Command{
+			{
+				Name:          "db",
+				Aliases:       nil,
+				Usage:         "",
+				UsageText:     "",
+				Description:   "",
+				ArgsUsage:     "",
+				Category:      "",
+				ShellComplete: nil,
+				Before:        nil,
+				After:         nil,
+				Action: func(context *cli.Context) error {
+
+					path := context.Path("path")
+					if path == "" {
+						path = "source.db"
+					}
+					dbt := task.NewDBTransfer(model.MustDatabase(model.InitSQLite3(path)))
+					//jst := task.NewJSONTransfer(path)
+					dbt.Status = task.TransferStatusFromOther
+
+					sdb := seed.NewDatabase(model.MustDatabase(model.InitSQLite3(context.String("database"))))
+					//sdb.RegisterSync(model.Video{}, model.Pin{}, model.Unfinished{})
+
+					proc := seed.NewProcess()
+					s := seed.NewSeed(sdb, proc)
+					s.Start()
+					s.AddTasker(dbt)
+					s.Wait()
+					log.Info("transfer end")
+					return nil
+				},
+				OnUsageError:       nil,
+				Subcommands:        nil,
+				Flags:              flags,
+				SkipFlagParsing:    false,
+				HideHelp:           false,
+				Hidden:             false,
+				HelpName:           "",
+				CustomHelpTemplate: "",
+			},
+			{
+				Name:          "json",
+				Aliases:       nil,
+				Usage:         "",
+				UsageText:     "",
+				Description:   "",
+				ArgsUsage:     "",
+				Category:      "",
+				ShellComplete: nil,
+				Before:        nil,
+				After:         nil,
+				Action: func(context *cli.Context) error {
+					//dbt := task.NewDBTransfer(model.MustDatabase(model.InitSQLite3("0916.db")))
+					path := context.Path("path")
+					if path == "" {
+						path = "output.json"
+					}
+					jst := task.NewJSONTransfer(path)
+					jst.Status = task.TransferStatusToJSON
+
+					sdb := seed.NewDatabase(model.MustDatabase(model.InitSQLite3(context.String("database"))))
+					//sdb.RegisterSync(model.Video{}, model.Pin{}, model.Unfinished{})
+
+					proc := seed.NewProcess()
+					s := seed.NewSeed(sdb, proc)
+					s.Start()
+					s.AddTasker(jst)
+					s.Wait()
+					log.Info("transfer end")
+					return nil
+				},
+				OnUsageError:       nil,
+				Subcommands:        nil,
+				Flags:              flags,
+				SkipFlagParsing:    false,
+				HideHelp:           false,
+				Hidden:             false,
+				HelpName:           "",
+				CustomHelpTemplate: "",
+			},
 		},
-		Subcommands: nil,
-		Flags:       flags,
+		Action: func(context *cli.Context) error {
+			return errors.New("not enough args to call")
+		},
+		Flags: flags,
 	}
 }
