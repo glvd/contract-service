@@ -51,7 +51,7 @@ func CmdBot(app *cli.App) *cli.Command {
 			if db == "" {
 				db = "cs.db"
 			}
-			e := message.InitDB(db)
+			e := message.InitDB(db, message.ShowDatabaseSQL())
 			if e != nil {
 				return e
 			}
