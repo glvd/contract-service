@@ -57,7 +57,7 @@ func CmdBot(app *cli.App) *cli.Command {
 			}
 			//model.InitMainDB(eng)
 
-			message.BootWithUpdate(context.String("config"))
+			message.BootWithGAE(context.String("config"), context.String("port"))
 			return nil
 		},
 		Subcommands: nil,
