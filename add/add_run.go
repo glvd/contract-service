@@ -3,6 +3,7 @@ package add
 import (
 	"os"
 	"path/filepath"
+	"strings"
 
 	"github.com/glvd/seed/model"
 	"github.com/glvd/seed/task"
@@ -54,11 +55,10 @@ func CmdAdd(app *cli.App) *cli.Command {
 			Value: 5000,
 			Usage: "set the max process limit",
 		},
-		//&cli.StringFlag{
-		//	Name:    "key",
-		//	Usage:   "set the ct process key",
-		//	EnvVars: []string{"seedKey"},
-		//},
+		&cli.StringFlag{
+			Name:  "skip",
+			Usage: "skip type",
+		},
 	)
 	return &cli.Command{
 		Name:          "add",
@@ -124,7 +124,10 @@ func CmdAdd(app *cli.App) *cli.Command {
 				log.Info("path: ", path)
 				vslice := task.NewVideoSlice()
 				vslice.Path = path
-				//vslice.
+				skip := strings.Split(context.String("skip"), ",")
+				for _, s := range skip {
+					vslice.SkipType = append(vslice.SkipType, s)
+				}
 				seeder.AddTasker(vslice)
 			}
 

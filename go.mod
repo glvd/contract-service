@@ -12,7 +12,7 @@ require (
 	github.com/ethereum/go-ethereum v1.8.27
 	github.com/fjl/memsize v0.0.0-20190710130421-bcb5799ab5e5 // indirect
 	github.com/glvd/bot v0.0.0-20190912063919-32513da9007a
-	github.com/glvd/seed v0.0.0-20190916091322-f2825ff13b51
+	github.com/glvd/seed v0.0.0-20190919090848-319aeb69d5f1
 	github.com/go-xorm/xorm v0.7.1
 	github.com/gocarina/gocsv v0.0.0-20190624090726-71ad6676df57
 	github.com/godcong/go-ipfs-restapi v0.0.3-0.20190422054229-f13eeaa39df0
