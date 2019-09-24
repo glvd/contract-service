@@ -20,7 +20,7 @@ func TestGetHostList(t *testing.T) {
 }
 
 func TestVideoInfo(t *testing.T) {
-	infos, e := os.Open("D:\\ipfstest\\accnode\\54c0fa4a3d982656c51fe7dfbdcc21923a7678cb")
+	infos, e := os.Open("D:\\ipfstest\\accnode\\UTC--2019-08-20T02-58-22.119842600Z--945d35cd4a6549213e8d37feb5d708ec98906902")
 	if e != nil {
 		t.Fatal(e)
 	}
@@ -39,8 +39,8 @@ func TestVideoInfo(t *testing.T) {
 		t.Fatal(e)
 	}
 	transaction, err := info.Add(opt, Struct0{
-		FindNo:     "abp-721",
-		Bangumi:    "abp-721",
+		FindNo:     "abp-723",
+		Bangumi:    "abp-723",
 		Intro:      "",
 		Alias:      nil,
 		Role:       nil,
@@ -48,7 +48,7 @@ func TestVideoInfo(t *testing.T) {
 		PosterHash: "posterxxxxxxxxxxx",
 		Uncensored: false,
 	}, Struct1{
-		Bangumi:   "abp-721",
+		Bangumi:   "abp-723",
 		Visit:     0,
 		Series:    "",
 		Tags:      nil,
@@ -56,7 +56,7 @@ func TestVideoInfo(t *testing.T) {
 		Sharpness: "",
 		Format:    "",
 	}, Struct2{
-		Bangumi:    "abp-721",
+		Bangumi:    "abp-723",
 		Key:        "",
 		M3u8:       "",
 		SourceHash: "sourcexxxxxxxxxx",
