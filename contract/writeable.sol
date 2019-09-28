@@ -6,28 +6,24 @@ import "https://github.com/OpenZeppelin/openzeppelin-solidity/blob/master/contra
    @dev this contract is changed from Ownable
 */
 contract Writeable is Ownable {
-    address[] private _writer;
+    mapping(address => bool) private _writer;
 
-    event WritershipIncreased(uint indexed idx, address indexed newWriter);
-    event WritershipDecreased(uint indexed idx, address indexed oldWriter);
+    event WritershipIncreased(address indexed newWriter);
+    event WritershipDecreased(address indexed oldWriter);
     constructor () internal {
         address msgSender = _msgSender();
-        _writer.push(msgSender);
-        emit WritershipIncreased(_writer.length, msgSender);
+        _writer[msgSender] = true;
+        emit WritershipIncreased(msgSender);
     }
 
     /**
      * @dev Returns the address[] of the current writer.
      */
-    function writer() public view returns (address[] memory) {
-        return _writer;
-    }
-
-    function remove(uint _index) public onlyOwner{
-        require(_index < _writer.length, "Writeable: index overflow");
-        emit WritershipDecreased(_index, _writer[_index]);
-        _writer[_index] = _writer[_writer.length-1];
-        _writer.length--;
+    function writer() public view returns (address) {
+        if (isWriter() == true){
+            return _msgSender();
+        }
+        return address(0);
     }
 
     modifier onlyWriter() {
@@ -36,17 +32,12 @@ contract Writeable is Ownable {
     }
 
     function isWriter() public view returns (bool) {
-        for (uint i = 0 ; i< _writer.length;i++) {
-            if (_msgSender() == _writer[i]){
-                return true;
-            }
-        }
-        return false;
+        return _writer[_msgSender()];
     }
 
     function renounceWritership() public onlyOwner {
-        delete _writer;
-        emit WritershipDecreased(_writer.length, address(0));
+        _writer[_msgSender()] = false;
+        emit WritershipDecreased(_msgSender());
     }
 
     function decreaseWritership(address oldWriter) public onlyOwner {
@@ -54,14 +45,9 @@ contract Writeable is Ownable {
     }
     
     function _decreaseWritership(address oldWriter) internal {
-        require(_writer.length > 0, "Writerable: old writer has no data");
-        for (uint i = 0; i < _writer.length; i++){
-            if (_writer[i] == oldWriter){
-                remove(i);
-                return;
-            }
-        }
-        return;
+        require(_writer[oldWriter] == true, "Writerable: old writer was not writer");
+        _writer[oldWriter]=false;
+        emit WritershipDecreased(oldWriter);
     }
     
     function increasedWritership(address newWriter) public onlyOwner {
@@ -70,7 +56,7 @@ contract Writeable is Ownable {
 
     function _increaseWritership(address newWriter) internal {
         require(newWriter != address(0), "Writerable: new writer is the zero address");
-        _writer.push(newWriter);
-         emit WritershipIncreased(_writer.length, newWriter);
+        _writer[newWriter]=true;
+        emit WritershipIncreased(newWriter);
     }
 }
