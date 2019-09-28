@@ -3,14 +3,14 @@ pragma experimental ABIEncoderV2;
 import "https://github.com/OpenZeppelin/openzeppelin-solidity/blob/master/contracts/ownership/Ownable.sol";
 
 contract DMessage is Ownable{
-     struct Message {
+    struct Message {
        string id;         //self id
        string content;    //jsoncontent
        string version;    //jsonversion
     }
-    string[] msgIds;
-    mapping(string => bool) mappingMessageFlags; //id => flag
-    mapping(string => Message) mappingMessages;  //id=>message
+    string[] private msgIds;
+    mapping(string => bool) private mappingMessageFlags; //id => flag
+    mapping(string => Message) private mappingMessages;  //id=>message
     
         /*
      * @dev 添加一个值到数组
@@ -43,6 +43,7 @@ contract DMessage is Ownable{
      * @return _value uint, 返回结果
      */
     function getMsgId(uint _index) public view returns (string memory _value) {
+        require(_index >= msgIds.length, "Message ID: index is overflow");
         return msgIds[_index];
     }
 
@@ -67,9 +68,7 @@ contract DMessage is Ownable{
     }
 
     function addMessage(Message memory msg)public onlyOwner returns(bool) {
-        if (mappingMessageFlags[msg.id]){
-            return false;
-        }
+        require(mappingMessageFlags[msg.id] == true, "Message: add message is exist");
         mappingMessages[msg.id] = msg;
         mappingMessageFlags[msg.id] = true;
         addMsgId(msg.id);
@@ -77,6 +76,7 @@ contract DMessage is Ownable{
     }
 
     function updateMessage(Message memory msg)public onlyOwner returns(bool) {
+       require(mappingMessageFlags[msg.id] == false, "Message: update message is not found");
        if (!mappingMessageFlags[msg.id]){
            return false;
        } 
@@ -89,19 +89,16 @@ contract DMessage is Ownable{
     }
 
     function getMessage(string memory id) public view returns (Message memory) {
+       require(mappingMessageFlags[id] == false, "Message: get message is not found");
        return mappingMessages[id];
     }
     
     function getMessages(uint  start,uint limit)public view returns (Message[] memory,uint){
-        Message[] memory msg;
-        if (start > msgIds.length) {
-            return (msg,0);
-        }
-        
+        require(start > msgIds.length, "Message: start length is bigger than length");
         if ((start + limit) > msgIds.length){
             limit = msgIds.length - start;
         }
-        msg = new Message[](limit);
+         Message[] memory msg = new Message[](limit);
 
         for (uint i = 0 ; i < limit ; i++){
             msg[i] = getMessage(getMsgId(start+i));
@@ -119,9 +116,7 @@ contract DMessage is Ownable{
     }
 
     function delMessage(string memory id)public onlyOwner returns(Message memory,bool){
-        if (!mappingMessageFlags[id]){
-            return (mappingMessages[id],false);
-        }
+        require(mappingMessageFlags[id] == false, "Message: delete message is not found");
         mappingMessageFlags[id]=false;
         recount();
         return (mappingMessages[id],true);
