@@ -17,7 +17,7 @@ contract Writeable is Ownable {
     }
 
     /**
-     * @dev Returns the address[] of the current writer.
+     * @dev Returns the address of the current writer.
      */
     function writer() public view returns (address) {
         if (isWriter() == true){
@@ -26,34 +26,61 @@ contract Writeable is Ownable {
         return address(0);
     }
 
+    /**
+     * @dev Throws if called by any account other than the writer.
+    */
     modifier onlyWriter() {
         require(isWriter(), "Writeable: caller is not the writer");
         _;
     }
-
+    
+    /**
+     * @dev Returns true if the caller is the current writer.
+     */
     function isWriter() public view returns (bool) {
         return _writer[_msgSender()];
     }
 
+    /**
+     * @dev Leaves the contract without owner. It will not be possible to call
+     * `onlyOwner` functions anymore. Can only be called by the current writer.
+     *
+     * NOTE: Renouncing ownership will leave the contract without an owner,
+     * thereby removing any functionality that is only available to the owner.
+     */
     function renounceWritership() public onlyOwner {
         _writer[_msgSender()] = false;
         emit WritershipDecreased(_msgSender());
     }
-
-    function decreaseWritership(address oldWriter) public onlyOwner {
-       _decreaseWritership(oldWriter);
-    }
     
+    /**
+     * @dev Decrease writership of the contract to a new account (`oldWriter`).
+     * Can only be called by the current owner.
+     */
+    function decreaseWritership(address oldWriter) public onlyOwner {
+        _decreaseWritership(oldWriter);
+    }
+
+    /**
+     * @dev Decrease writership of the contract to a new account (`oldWriter`).
+     */
     function _decreaseWritership(address oldWriter) internal {
         require(_writer[oldWriter] == true, "Writerable: old writer was not writer");
         _writer[oldWriter]=false;
         emit WritershipDecreased(oldWriter);
     }
     
-    function increasedWritership(address newWriter) public onlyOwner {
+    /**
+     * @dev Increase writership of the contract to a new account (`newWriter`).
+     * Can only be called by the current owner.
+     */    
+    function increaseWritership(address newWriter) public onlyOwner {
         _increaseWritership(newWriter);
     }
-
+    
+    /**
+     * @dev Increase writership of the contract to a new account (`newWriter`).
+     */
     function _increaseWritership(address newWriter) internal {
         require(newWriter != address(0), "Writerable: new writer is the zero address");
         _writer[newWriter]=true;
