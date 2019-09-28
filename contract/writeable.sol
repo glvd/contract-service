@@ -1,8 +1,8 @@
 pragma solidity ^0.5.0;
 pragma experimental ABIEncoderV2;
-import "writeable.sol";
+import "https://github.com/OpenZeppelin/openzeppelin-solidity/blob/master/contracts/ownership/Ownable.sol";
 
-contract DMessage is Writeable{
+contract DMessage is Ownable{
     struct Message {
        string id;         //self id
        string content;    //jsoncontent
@@ -67,7 +67,7 @@ contract DMessage is Writeable{
         return msgIds;
     }
 
-    function addMessage(Message memory msg)public onlyWriter returns(bool) {
+    function addMessage(Message memory msg)public onlyOwner returns(bool) {
         require(mappingMessageFlags[msg.id] == true, "Message: add message is exist");
         mappingMessages[msg.id] = msg;
         mappingMessageFlags[msg.id] = true;
@@ -75,8 +75,8 @@ contract DMessage is Writeable{
         return true;
     }
 
-    function updateMessage(Message memory msg)public onlyWriter returns(bool) {
-       require(mappingMessageFlags[msg.id] == false, "Message: update message is not exist");
+    function updateMessage(Message memory msg)public onlyOwner returns(bool) {
+       require(mappingMessageFlags[msg.id] == false, "Message: update message is not found");
        if (!mappingMessageFlags[msg.id]){
            return false;
        } 
@@ -89,7 +89,7 @@ contract DMessage is Writeable{
     }
 
     function getMessage(string memory id) public view returns (Message memory) {
-       require(mappingMessageFlags[id] == false, "Message: get message is not exist");
+       require(mappingMessageFlags[id] == false, "Message: get message is not found");
        return mappingMessages[id];
     }
     
@@ -116,7 +116,7 @@ contract DMessage is Writeable{
     }
 
     function delMessage(string memory id)public onlyOwner returns(Message memory,bool){
-        require(mappingMessageFlags[id] == false, "Message: delete message is not exist");
+        require(mappingMessageFlags[id] == false, "Message: delete message is not found");
         mappingMessageFlags[id]=false;
         recount();
         return (mappingMessages[id],true);
