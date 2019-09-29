@@ -7,7 +7,6 @@ contract DTag is Ownable{
     DMessage message;
 
     struct Tag {
-    //   bool flag;
       mapping(string => bool) flags;
       mapping(string => string[]) tags;   //tag标记=>id
     }
@@ -18,54 +17,67 @@ contract DTag is Ownable{
     
     mapping(string => Tag) private mappingTags;   //tag名称=>tag
     
-    function checkMessages(string[] memory ids)public view returns(uint,bool){
-        for (uint i = 0 ;i<ids.length;i++){
-            if (!message.checkMessage(ids[i])){
-                return (i,false);
-            }
-        }
-        return (ids.length,true);
+    function addTagIds(string memory tag, string memory sub,string[] memory ids) public onlyOwner{
+        require(mappingTags[tag].flags[sub] == false,"Tag: tag is exist");
+        setTagIds(tag,sub,ids);
     }
-      
-    function addTag(string memory tag, string memory sub,string[] memory ids) public onlyOwner{
-        checkMessages(ids);
+    
+    function setTagIds(string memory tag,string memory sub,string[] memory ids)public onlyOwner{
+        require(message.checkAllMessage(ids) == true,"Tag: message is not exist");
         mappingTags[tag].flags[sub] = true;
         mappingTags[tag].tags[sub] = ids;
     }
     
-    function replaceTag(string memory tag,  string memory sub,string[] memory ids) public onlyOwner{
+    function replaceTagIds(string memory tag,  string memory sub,string[] memory ids) public onlyOwner{
         require(mappingTags[tag].flags[sub] == true,"Tag: tag is not exist");
-        checkMessages(ids);
+        require(message.checkAllMessage(ids) == true,"Tag: message is not exist");
         mappingTags[tag].tags[sub] = ids;
     }
 
-    function addOrReplacTag(string memory tag, string memory sub, string[] memory ids)public onlyOwner{
-        checkMessages(ids);
-        mappingTags[tag].flags[sub] = true;
-        mappingTags[tag].tags[sub] = ids;
-    }
-
-    function addTagId(string memory tag,string memory sub, string memory id)public onlyOwner{
+    function _addTagId(string memory tag,string memory sub,string memory id) private {
         mappingTags[tag].flags[sub] = true;
         mappingTags[tag].tags[sub].push(id);
     }
+
+    function addTagId(string memory tag,string memory sub, string memory id)public onlyOwner{
+        require(message.checkMessage(id) == true,"Tag: message is not found");
+        _addTagId(tag,sub,id);
+    }
     
-    function getTagSub(string memory tag, string memory sub) public view returns(string[] memory) {
-        require(mappingTags[tag].flags[sub] == true,"Tag: tag is not exist");
+    function checkTag(string memory tag,string memory sub)public view returns(bool){
+        return mappingTags[tag].flags[sub];
+    }
+    
+    function getTagIds(string memory tag, string memory sub) public view returns(string[] memory) {
+        // require(mappingTags[tag].flags[sub] == true,"Tag: tag is not exist");
         return mappingTags[tag].tags[sub];
     }
     
-    function addTagMessage(string memory tag,string memory sub, DMessage.Message memory msg)public onlyOwner returns(bool) {
-        message.addMessage(msg);
-        addTagId(tag,sub,msg.id);
+    function checkTagIds(string memory tag,string memory sub)public view returns(uint,bool){
+        return message.checkMessages(mappingTags[tag].tags[sub]);
     }
     
-    // function getTagMessage(string memory tag, string memory sub) public returns (Message[] memory) {
-    //   string[] list =   getTagSub(tag,sub);
-    //   Message[] msg;
-    //     for (uint i = 0; i < list.length; i++){
-    //         msg.push(mappingMessages[list[i]]);
-    //     }
-    //     return msg;
-    // }
+    function fixTagIds(string memory tag,string memory sub)public returns(uint _size){
+        for (uint i = 0; i < mappingTags[tag].tags[sub].length; i++){
+            if (!message.checkMessage(mappingTags[tag].tags[sub][i])){
+                mappingTags[tag].tags[sub][i] = mappingTags[tag].tags[sub][mappingTags[tag].tags[sub].length-1];
+                mappingTags[tag].tags[sub].length--;
+            }
+        }
+        return mappingTags[tag].tags[sub].length;
+    }
+    
+    function addTagMessage(string memory tag,string memory sub, string memory id, string memory content,string memory version)public onlyOwner returns(bool) {
+        message.addMessage(id,content,version);
+        _addTagId(tag,sub,id);
+    }
+    
+    function getTagMessage(string memory tag, string memory sub) public view returns (DMessage.Message[] memory _value,uint _size) {
+        _size = mappingTags[tag].tags[sub].length;
+        _value = new DMessage.Message[](_size);
+        for (uint i = 0; i < _size; i++){
+            _value[i] = message.getMessage(mappingTags[tag].tags[sub][i]);
+        }
+        return (_value,_size);
+    }
 }

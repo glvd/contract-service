@@ -7,15 +7,44 @@ import "https://github.com/OpenZeppelin/openzeppelin-solidity/blob/master/contra
 */
 contract Writeable is Ownable {
     mapping(address => bool) private _writer;
+    mapping(uint => address) private _writers;
+    uint private count;
     
     event WritershipIncreased(address indexed newWriter);
     event WritershipDecreased(address indexed oldWriter);
     constructor () internal {
         address msgSender = _msgSender();
         _writer[msgSender] = true;
+        count = 0;
         emit WritershipIncreased(msgSender);
     }
 
+    function del(uint idx) private {
+        if (idx >= count){
+            return;
+        }
+        _writers[idx] = _writers[count-1];
+        count--;
+    }
+
+    /**
+     * @dev Returns the address[] of the writers.
+     */
+    function writers() public view returns (address[] memory _value){
+        _value = new address[](count);
+        for (uint i = 0;i<count;i++) {
+            _value[i]=_writers[i];
+        }
+        return _value;
+    }
+    
+    function recount() private {
+        for (uint i = 0 ; i < count ;i++){
+            if (_writer[_writers[i]] == false){
+                del(i);
+            }
+        }
+    }
     /**
      * @dev Returns the address of the current writer.
      */
@@ -48,6 +77,7 @@ contract Writeable is Ownable {
         require(_writer[oldWriter] == true, "Writerable: old writer was not writer");
         require(oldWriter != address(0),"Writerable: new writer is the zero address");
         _writer[oldWriter]=false;
+        recount();
         emit WritershipDecreased(oldWriter);
     }
     
@@ -59,6 +89,8 @@ contract Writeable is Ownable {
         require(newWriter != address(0),"Writerable: new writer is the zero address");
         require(_writer[newWriter] == false, "Writerable: new writer is exist");
         _writer[newWriter]=true;
+        _writers[count]=newWriter;
+        count++;
         emit WritershipIncreased(newWriter);
     }
 }

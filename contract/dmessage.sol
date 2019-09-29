@@ -52,7 +52,7 @@ contract DMessage is Writeable{
      * @return _value uint, 返回结果
      */
     function getMsgId(uint _index) public view returns (string memory _value) {
-        require(_index < count, "Message ID: index is overflow");
+        // require(_index < count, "Message ID: index is overflow");
         return mappingIds[_index];
         // return msgIds[_index];
     }
@@ -102,23 +102,41 @@ contract DMessage is Writeable{
         return mappingMessageFlags[id];
     }
 
+    function checkAllMessage(string[] memory ids)public view returns(bool){
+         for (uint i = 0; i< ids.length;i++){
+            if (!checkMessage(ids[i])){
+                return false;
+            }
+        }
+        return true;
+    }
+
+    function checkMessages(string[] memory ids)public view returns(uint,bool){
+        for (uint i = 0; i< ids.length;i++){
+            if (!checkMessage(ids[i])){
+                return (i,false);
+            }
+        }
+        return (0,true);
+    }
+
     function getMessage(string memory id) public view returns (Message memory) {
-       require(mappingMessageFlags[id] == true, "Message: get message is not exist");
+    //   require(mappingMessageFlags[id] == true, "Message: get message is not exist");
        return mappingMessages[id];
     }
     
-    function getMessages(uint  start,uint limit)public view returns (Message[] memory,uint){
-        require(start < count, "Message: start length is bigger than length");
+    function getMessages(uint  start,uint limit)public view returns (Message[] memory _value,uint _size){
+        // require(start < count, "Message: start length is bigger than length");
         if ((start + limit) >= count){
             limit = count - start;
         }
-        Message[] memory msgs = new Message[](limit);
+        _value = new Message[](limit);
 
         for (uint i = 0 ; i < limit ; i++){
-            msgs[i] = getMessage(getMsgId(start+i));
+            _value[i] = getMessage(getMsgId(start+i));
         }
         
-        return (msgs,limit);
+        return (_value,limit);
     }
     
     function recount() private {
