@@ -93,9 +93,6 @@ contract DMessage is Writeable{
 
     function updateMessage(string memory id, string memory content,string memory version)public onlyWriter returns(bool) {
        require(mappingMessageFlags[id] == true, "Message: update message is not exist");
-       if (!mappingMessageFlags[id]){
-           return false;
-       } 
        Message memory newMessage = Message({id:id,content:content,version:version});
        mappingMessages[id] = newMessage;
        return true;
@@ -111,8 +108,8 @@ contract DMessage is Writeable{
     }
     
     function getMessages(uint  start,uint limit)public view returns (Message[] memory,uint){
-        require(start <= count, "Message: start length is bigger than length");
-        if ((start + limit) > count){
+        require(start < count, "Message: start length is bigger than length");
+        if ((start + limit) >= count){
             limit = count - start;
         }
         Message[] memory msgs = new Message[](limit);
