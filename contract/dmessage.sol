@@ -1,6 +1,6 @@
 pragma solidity ^0.5.0;
 pragma experimental ABIEncoderV2;
-import "writeable.sol";
+import "./writeable.sol";
 
 contract DMessage is Writeable{
     struct Message {
@@ -8,16 +8,24 @@ contract DMessage is Writeable{
        string content;    //jsoncontent
        string version;    //jsonversion
     }
-    string[] private msgIds;
+    
     mapping(string => bool) private mappingMessageFlags; //id => flag
     mapping(string => Message) private mappingMessages;  //id=>message
+    mapping(uint256 => string) private mappingIds;
+    uint256 private count;
     
-        /*
+    constructor() public {
+        count = 0;
+    }
+    
+    /*
      * @dev 添加一个值到数组
      * @param _value string, 要传入的数值
      */
     function addMsgId(string memory _value) private {
-        msgIds.push(_value);
+        mappingIds[count] = _value;
+        count++;
+        // msgIds.push(_value);
     }
 
     /*
@@ -25,7 +33,8 @@ contract DMessage is Writeable{
      * @return length uint,返回数组的长度
      */
     function getMsgLength()public view returns (uint256) {
-        return msgIds.length;
+        return count;
+        // return msgIds.length;
     }
 
     /*
@@ -34,7 +43,7 @@ contract DMessage is Writeable{
      * @param _value string, 要修改的值
      */
     function updateMsgId(uint _index, string memory  _value) private {
-        msgIds[_index] = _value;
+        mappingIds[_index] = _value;
     }
 
     /*
@@ -43,8 +52,9 @@ contract DMessage is Writeable{
      * @return _value uint, 返回结果
      */
     function getMsgId(uint _index) public view returns (string memory _value) {
-        require(_index >= msgIds.length, "Message ID: index is overflow");
-        return msgIds[_index];
+        require(_index < count, "Message ID: index is overflow");
+        return mappingIds[_index];
+        // return msgIds[_index];
     }
 
     /*
@@ -52,35 +62,42 @@ contract DMessage is Writeable{
      * @param _index uint, 索引值
      */
     function delMsgId(uint _index) private {
-        if (_index >= msgIds.length){
+        if (_index >= count){
           return;  
-        } 
-        msgIds[_index] = msgIds[msgIds.length-1];
-        msgIds.length--;
+        }
+        mappingIds[_index] = mappingIds[count-1];
+        // delete mappingIds[count-1];
+        count--;
     }
 
     /*
      * @dev 取得所有的值
      * @return msgIds []string,返回数组
      */
-    function getMsgIds() public view returns (string[] memory _value) {
-        return msgIds;
+    function getMsgIds() public view returns (string[] memory) {
+        string[] memory ids = new string[](count);
+        for (uint256 i = 0; i< count; i++) {
+            ids[i] = mappingIds[i];
+        }
+        return ids;
     }
 
-    function addMessage(Message memory msg)public onlyWriter returns(bool) {
-        require(mappingMessageFlags[msg.id] == true, "Message: add message is exist");
-        mappingMessages[msg.id] = msg;
-        mappingMessageFlags[msg.id] = true;
-        addMsgId(msg.id);
+    function addMessage(string memory id, string memory content,string memory version)public onlyWriter returns(bool) {
+        require(mappingMessageFlags[id] == false, "Message: add message is exist");
+        Message memory newMessage = Message({id:id,content:content,version:version});
+        mappingMessages[id] = newMessage;
+        mappingMessageFlags[id] = true;
+        addMsgId(id);
         return true;
     }
 
-    function updateMessage(Message memory msg)public onlyWriter returns(bool) {
-       require(mappingMessageFlags[msg.id] == false, "Message: update message is not exist");
-       if (!mappingMessageFlags[msg.id]){
+    function updateMessage(string memory id, string memory content,string memory version)public onlyWriter returns(bool) {
+       require(mappingMessageFlags[id] == true, "Message: update message is not exist");
+       if (!mappingMessageFlags[id]){
            return false;
        } 
-       mappingMessages[msg.id] = msg;
+       Message memory newMessage = Message({id:id,content:content,version:version});
+       mappingMessages[id] = newMessage;
        return true;
     }
 
@@ -89,34 +106,34 @@ contract DMessage is Writeable{
     }
 
     function getMessage(string memory id) public view returns (Message memory) {
-       require(mappingMessageFlags[id] == false, "Message: get message is not exist");
+       require(mappingMessageFlags[id] == true, "Message: get message is not exist");
        return mappingMessages[id];
     }
     
     function getMessages(uint  start,uint limit)public view returns (Message[] memory,uint){
-        require(start > msgIds.length, "Message: start length is bigger than length");
-        if ((start + limit) > msgIds.length){
-            limit = msgIds.length - start;
+        require(start <= count, "Message: start length is bigger than length");
+        if ((start + limit) > count){
+            limit = count - start;
         }
-         Message[] memory msg = new Message[](limit);
+        Message[] memory msgs = new Message[](limit);
 
         for (uint i = 0 ; i < limit ; i++){
-            msg[i] = getMessage(getMsgId(start+i));
+            msgs[i] = getMessage(getMsgId(start+i));
         }
         
-        return (msg,limit);
+        return (msgs,limit);
     }
     
     function recount() private {
         for (uint i = 0 ; i < getMsgLength() ;i++){
-            if (!mappingMessageFlags[getMsgId(i)]){
+            if (!checkMessage(getMsgId(i))){
                 delMsgId(i);
             }
         }
     }
 
     function delMessage(string memory id)public onlyOwner returns(Message memory,bool){
-        require(mappingMessageFlags[id] == false, "Message: delete message is not exist");
+        require(mappingMessageFlags[id] == true, "Message: delete message is not exist");
         mappingMessageFlags[id]=false;
         recount();
         return (mappingMessages[id],true);
