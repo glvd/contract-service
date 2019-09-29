@@ -18,7 +18,8 @@ import (
 )
 
 // GatwayAddress ...
-const defaultGatewayAddress = "http://139.196.215.224:8545"
+//const defaultGatewayAddress = "http://139.196.215.224:8545"
+const defaultGatewayAddress = "https://ropsten.infura.io/QVsqBu3yopMu2svcHqRj"
 
 //const defaultGatewayAddress = "http://192.168.1.13:8545"
 //var bangumiContract = "0x333e1e53683FC252E4BF87f1A300A6140d58105d"
