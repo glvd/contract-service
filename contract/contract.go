@@ -23,7 +23,10 @@ const defaultGatewayAddress = "https://ropsten.infura.io/QVsqBu3yopMu2svcHqRj"
 
 //const defaultGatewayAddress = "http://192.168.1.13:8545"
 //var bangumiContract = "0x333e1e53683FC252E4BF87f1A300A6140d58105d"
-var bangumiContract = "0xc15266BB7C1FC17d5aD614dfdbA7316038F35725"
+
+var bangumiContract = "0xb5eb6bf5eab725e9285d0d27201603ecf31a1d37"
+
+//var bangumiContract = "0xc15266BB7C1FC17d5aD614dfdbA7316038F35725"
 var accContract = "0x80b57a43e5a2c7ad2ce28fbb40c6a58bcf2aa252"
 var appContract = "0x4ed0462cb2ecf365dea3503a445cb8e25a23dc03"
 
