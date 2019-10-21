@@ -30,7 +30,7 @@ contract DNode is Ownable{
     }
 
     function getLastVersion() public view returns(string memory,string memory){
-        require(lastVersion > 0, "Version: version index is not exist");
+        require(lastVersion > 0, "Version: index version is not exist");
         return getVersion(lastVersion-1);
     }
 
@@ -38,12 +38,12 @@ contract DNode is Ownable{
         return (mappingVersions[idx].version,mappingVersions[idx].hash);
     }
 
-    function setVersion(uint idx,string memory ver,string memory hash)public{
-        require(idx < lastVersion, "Version: version index is not exist");
+    function setVersion(uint idx,string memory ver,string memory hash)public onlyOwner{
+        require(idx < lastVersion, "Version: index version is not exist");
         mappingVersions[idx] = Version({version:ver,hash:hash});
     }
 
-    function setLastVersion(string memory ver,string memory hash)public{
+    function setLastVersion(string memory ver,string memory hash)public onlyOwner{
         mappingVersions[lastVersion] = Version({version:ver,hash:hash});
         lastVersion++;
     }
@@ -51,12 +51,12 @@ contract DNode is Ownable{
     function remove(uint idx) public onlyOwner{
         require(idx < mappingNodes[last].count, "Node: delete node is not exist");
         uint limit = mappingNodes[last].count;
-        mappingNodes[last].swarms[idx]= mappingNodes[last].swarms[limit-1];
+        mappingNodes[last].swarms[idx] = mappingNodes[last].swarms[limit-1];
         mappingNodes[last].count--;
     }
 
     function store(string memory swarm)public onlyOwner{
-         mappingNodes[last].swarms[mappingNodes[last].count]= swarm;
+         mappingNodes[last].swarms[mappingNodes[last].count] = swarm;
          mappingNodes[last].count++;
     }
 
