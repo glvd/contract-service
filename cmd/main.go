@@ -1,3 +1,4 @@
+//go:generate statik -f -src=./api/restapi
 package main
 
 import (
@@ -109,6 +110,22 @@ func runApp() error {
 	return nil
 }
 
+// @title Swagger Example API
+// @version 1.0
+// @description This is a sample server Petstore server.
+// @termsOfService http://swagger.io/terms/
+
+// @contact.name API Support
+// @contact.url http://www.swagger.io/support
+// @contact.email support@swagger.io
+
+// @schemes http https
+
+// @license.name MIT
+// @license.url https://github.com/godcong/wego-manager/blob/master/LICENSE
+
+// @host localhost:8080
+// @BasePath /v0
 func main() {
 	defer func() {
 		if err := recover(); err != nil {
