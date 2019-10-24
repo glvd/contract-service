@@ -1,5 +1,7 @@
 package service
 
+import "service/api"
+
 type ConversionConfig struct {
 	Limit    int    `json:"limit"`
 	Addr     string `json:"addr"`
@@ -9,15 +11,16 @@ type ConversionConfig struct {
 
 // Config ...
 type Config struct {
-	RestPort   string           `json:"rest_port"`
-	RPCPort    string           `json:"rpc_port"`
+	API        api.Config       `json:"api"`
 	Conversion ConversionConfig `json:"conversion"`
 }
 
 func DefaultConfig() *Config {
 	return &Config{
-		RestPort: "8084",
-		RPCPort:  "8095",
+		API: api.Config{
+			RestPort: "8084",
+			RPCPort:  "8095",
+		},
 		Conversion: ConversionConfig{
 			Limit:    1,
 			Addr:     "localhost:3306",
