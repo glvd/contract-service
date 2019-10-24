@@ -4,22 +4,19 @@ import (
 	"os"
 	"sort"
 
-	"contract-service/daemon"
-	"contract-service/transfer"
-	"contract-service/update"
+	"service/daemon"
+	"service/transfer"
+	"service/update"
 
-	"github.com/godcong/go-trait"
+	"service/add"
+	"service/bot"
+	"service/contract"
+	"service/pin"
 
-	"contract-service/add"
-	"contract-service/bot"
-	"contract-service/contract"
-	"contract-service/pin"
-
+	"github.com/goextension/log"
 	_ "github.com/mattn/go-sqlite3"
 	"gopkg.in/urfave/cli.v2"
 )
-
-var log = trait.NewZapSugar()
 
 func globalFlags() []cli.Flag {
 	shell := &cli.StringFlag{
