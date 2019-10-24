@@ -6,10 +6,9 @@ service Service {
 
     rpc AddWork (WorkRequest) returns (WorkReply) {
     }
-    rpc AsyncAddWork (WorkRequest) returns (bool) {
+    rpc AsyncAddWork (WorkRequest) returns (WorkReply) {
     }
     rpc WorkStatus (string) returns (WorkReply) {
-
     }
 }
 
@@ -20,10 +19,16 @@ enum WorkMode {
 }
 
 message WorkRequest {
-
+    WorkMode work_mode = 1;
+    string video_path = 2 [packed = true];
+    string poster_path = 3;
+    string thumb_path = 4;
+    string sample_path = 5 [packed = true];
+    string video_info = 6;
 }
 
 message WorkReply {
-
+    string work_id = 1;
+    string error = 2;
 }
 
