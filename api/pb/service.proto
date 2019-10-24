@@ -1,0 +1,29 @@
+syntax = "proto3";
+package api.pb;
+
+
+service Service {
+
+    rpc AddWork (WorkRequest) returns (WorkReply) {
+    }
+    rpc AsyncAddWork (WorkRequest) returns (bool) {
+    }
+    rpc WorkStatus (string) returns (WorkReply) {
+
+    }
+}
+
+enum WorkMode {
+    LocalMode = 0;
+    RemoteMode = 1;
+    DownloadMode = 2;
+}
+
+message WorkRequest {
+
+}
+
+message WorkReply {
+
+}
+
