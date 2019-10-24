@@ -1,4 +1,4 @@
-package main
+package server
 
 import (
 	"fmt"
@@ -10,23 +10,28 @@ import (
 	"github.com/glvd/seed/model"
 )
 
+// WriteOne ...
 type WriteOne struct {
 	Name  string
 	Value string
 }
 
+// WriteTwo ...
 type WriteTwo struct {
 	Name  string
 	Value string
 }
 
+// WriteThree ...
 type WriteThree struct {
 	Name  string
 	Value string
 }
 
+// WriteMax ...
 const WriteMax = 1000
 
+// TestMutexWrite ...
 func TestMutexWrite(t *testing.T) {
 	eng, e := model.InitSQLite3("mutex1.db")
 	if e != nil {
