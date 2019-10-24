@@ -30,6 +30,7 @@ func InitRestAPI(config api.Config) Client {
 	return rest
 }
 
-func (*restapi) initRestHandle() {
+func (api *restapi) initRestHandle() {
+	api.eng.Handle("POST", "/task")
 
 }
