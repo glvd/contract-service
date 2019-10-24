@@ -35,5 +35,5 @@ func (api *restapi) initRestHandle() {
 	api.eng.Handle("POST", "/task")
 	api.eng.Handle("GET", "/task/:id")
 	api.eng.Handle("DELETE", "task/:id")
-
+	api.eng.Handle("GET", "/nodes")
 }
