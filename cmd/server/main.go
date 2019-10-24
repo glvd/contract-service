@@ -1,5 +1,5 @@
 //go:generate statik -f -src=./api/restapi
-package server
+package main
 
 import (
 	"os"

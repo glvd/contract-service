@@ -1,6 +1,6 @@
 module service
 
-go 1.12
+go 1.13
 
 require (
 	cloud.google.com/go v0.46.2 // indirect
@@ -25,7 +25,6 @@ require (
 	github.com/golang/snappy v0.0.1 // indirect
 	github.com/json-iterator/go v1.1.7
 	github.com/karalabe/hid v1.0.0 // indirect
-	github.com/kr/pty v1.1.3 // indirect
 	github.com/mattn/go-isatty v0.0.9 // indirect
 	github.com/mattn/go-sqlite3 v1.11.0
 	github.com/pborman/uuid v1.2.0 // indirect
