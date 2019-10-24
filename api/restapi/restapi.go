@@ -31,6 +31,9 @@ func InitRestAPI(config api.Config) Client {
 }
 
 func (api *restapi) initRestHandle() {
+	api.eng.Handle("GET", "/tasks")
 	api.eng.Handle("POST", "/task")
+	api.eng.Handle("GET", "/task/:id")
+	api.eng.Handle("DELETE", "task/:id")
 
 }
