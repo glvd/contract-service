@@ -7,6 +7,7 @@ import (
 )
 
 type rpcclient struct {
+	cfg       api.Config
 	rpcClient *rpc.Client
 }
 
@@ -17,7 +18,7 @@ func NewClient() api.Client {
 	}
 }
 
-func (r rpcclient) Start() error {
+func (r *rpcclient) Start() error {
 	panic("start")
 }
 
