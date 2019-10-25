@@ -6,13 +6,6 @@ import (
 	"sort"
 
 	"service/daemon"
-	"service/transfer"
-	"service/update"
-
-	"service/add"
-	"service/bot"
-	"service/contract"
-	"service/pin"
 
 	"github.com/goextension/log"
 	_ "github.com/mattn/go-sqlite3"
@@ -20,59 +13,9 @@ import (
 )
 
 func globalFlags() []cli.Flag {
-	shell := &cli.StringFlag{
-		Name:        "shell",
-		Aliases:     []string{"s"},
-		Value:       "/ip4/127.0.0.1/tcp/5001",
-		Usage:       "set the ipfs api address:port",
-		DefaultText: "/ip4/127.0.0.1/tcp/5001",
-	}
-
-	config := &cli.StringFlag{
-		Name:    "config",
-		Aliases: []string{"c"},
-		Usage:   "sometime need set config",
-	}
-
-	userpass := &cli.StringFlag{
-		Name:    "userpass",
-		Aliases: []string{"u"},
-		Usage:   "set the database user:password",
-	}
-
-	json := &cli.StringFlag{
-		Name:    "json",
-		Aliases: []string{"j"},
-		Usage:   "set the json file path",
-	}
-
-	boot := &cli.StringFlag{
-		Name:    "bootstrap",
-		Aliases: []string{"b"},
-		Usage:   "set the ipfs bootstrap swarm address to quick connect",
-	}
-
-	pin := &cli.BoolFlag{
-		Name:    "pin",
-		Aliases: []string{"p"},
-		Usage:   "set to pin on ipfs",
-	}
-
-	sync := &cli.BoolFlag{
-		Name:    "sync",
-		Aliases: []string{"n"},
-		Usage:   "check if the video is synced",
-	}
-
-	database := &cli.StringFlag{
-		Name:    "database",
-		Value:   "cs.db",
-		Aliases: []string{"d"},
-		Usage:   "set the database pathname",
-	}
 
 	return []cli.Flag{
-		shell, userpass, json, boot, pin, sync, config, database,
+		//shell, userpass, json, boot, pin, sync, config, database,
 	}
 
 }
@@ -92,13 +35,7 @@ func runApp() error {
 	}
 
 	app.Commands = []*cli.Command{
-		contract.CmdContract(app),
-		add.CmdAdd(app),
-		pin.CmdPin(app),
-		bot.CmdBot(app),
 		daemon.CmdDaemon(app),
-		transfer.CmdTransfer(app),
-		update.CmdUpdate(app),
 	}
 
 	sort.Sort(cli.FlagsByName(app.Flags))

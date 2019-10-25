@@ -17,66 +17,22 @@ func CmdDaemon(app *cli.App) *cli.Command {
 			Value: ".service",
 			Usage: "set the config path",
 		},
-		&cli.StringFlag{
-			Name:    "type",
-			Aliases: []string{"t"},
-			Value:   "video",
-			Usage:   "contract process type",
-		},
-		&cli.StringFlag{
-			Name:  "ban",
-			Usage: "ban no to check",
-		},
-		&cli.StringFlag{
-			Name:    "release",
-			Value:   "v0.0.1",
-			Aliases: []string{"r"},
-			Usage:   "set the application version",
-		},
-		&cli.StringFlag{
-			Name:  "hash",
-			Usage: "set the app ipfs hash",
-		},
-		&cli.StringFlag{
-			Name:  "path",
-			Usage: "set the app path to add  hash",
-		},
-		&cli.IntFlag{
-			Name:  "limit",
-			Usage: "set the ban max numbers",
-		},
-		&cli.Int64Flag{
-			Name:  "code",
-			Usage: "set the version code for update",
-		},
-		&cli.StringFlag{
-			Name:    "key",
-			Usage:   "set the ct process key",
-			EnvVars: []string{"seedKey"},
-		},
-		&cli.StringFlag{
-			Name:  "move",
-			Usage: "move to",
-		},
-		&cli.IntFlag{
-			Name:  "scale",
-			Usage: "set scale value",
-		},
-		&cli.StringFlag{
-			Name:    "workspace",
-			Aliases: []string{"w"},
-			Value:   "",
-			Usage:   "putted files",
-		},
 	)
 	return &cli.Command{
 		Before: func(context *cli.Context) error {
 			service.Path = context.String("config")
 			//service.ConfigName = context.String("")
+
+			return nil
 		},
 		Name:  "daemon",
 		Usage: "daemon handle the target path to process add",
 		Action: func(context *cli.Context) error {
+			s := service.NewService()
+			e := s.Start()
+			if e != nil {
+				return e
+			}
 			//path := ""
 			//if context.NArg() > 0 {
 			//	path = context.Args().Get(0)
