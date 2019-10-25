@@ -22,6 +22,7 @@ func responseSuccess(ctx *gin.Context, v interface{}) {
 func formatterResponse(ctx *gin.Context, err error, v interface{}) {
 	if err != nil {
 		responseFailed(ctx, err)
+		return
 	}
 	responseSuccess(ctx, v)
 }

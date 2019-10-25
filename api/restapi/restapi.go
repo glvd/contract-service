@@ -146,9 +146,6 @@ func (r *restapi) GetVideos(manager *api.Manager) func(ctx *gin.Context) {
 func (r *restapi) getTasks() func(ctx *gin.Context) {
 	return func(ctx *gin.Context) {
 		tasks, e := r.manager.Client(api.RPCCLient).GetTasks(r.manager)
-		if e != nil {
-			return
-		}
 		formatterResponse(ctx, e, tasks)
 	}
 }
