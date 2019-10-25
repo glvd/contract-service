@@ -1,6 +1,8 @@
 package daemon
 
 import (
+	"service"
+
 	"github.com/godcong/go-trait"
 	"gopkg.in/urfave/cli.v2"
 )
@@ -11,10 +13,9 @@ var log = trait.NewZapSugar()
 func CmdDaemon(app *cli.App) *cli.Command {
 	flags := append(app.Flags,
 		&cli.StringFlag{
-			Name:    "run",
-			Aliases: []string{"a"},
-			Value:   "",
-			Usage:   "contract address",
+			Name:  "config",
+			Value: ".service",
+			Usage: "set the config path",
 		},
 		&cli.StringFlag{
 			Name:    "type",
@@ -69,6 +70,10 @@ func CmdDaemon(app *cli.App) *cli.Command {
 		},
 	)
 	return &cli.Command{
+		Before: func(context *cli.Context) error {
+			service.Path = context.String("config")
+			//service.ConfigName = context.String("")
+		},
 		Name:  "daemon",
 		Usage: "daemon handle the target path to process add",
 		Action: func(context *cli.Context) error {

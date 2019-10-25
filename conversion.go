@@ -6,7 +6,7 @@ import (
 	"github.com/glvd/conversion"
 )
 
-func initConversion(cfg *ConversionConfig) (*conversion.Task, error) {
+func initConversion(cfg ConversionConfig) (*conversion.Task, error) {
 	eng, err := conversion.InitMySQL(
 		conversion.LoginOption(cfg.Addr, cfg.Username, cfg.Password))
 	if err != nil {

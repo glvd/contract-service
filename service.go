@@ -1,23 +1,44 @@
 package service
 
 import (
+	"io/ioutil"
+	"path/filepath"
+
 	"github.com/glvd/conversion"
 	"github.com/goextension/log"
 	"github.com/goextension/tool"
 )
 
+var Path = ".service"
+
 // Service ...
 type Service struct {
-	config Config
 	secret string
+	config *Config
 	task   *conversion.Task
 }
 
 // NewService ...
 func NewService() *Service {
+	cfg := DefaultConfig()
 
+	e := cfg.LoadJSON()
+	if e != nil {
+		log.Panicw("can't load json file", "error", e)
+	}
 	secret := tool.GenerateRandomString(32)
-	task := initConversion()
+	e = ioutil.WriteFile(filepath.Join(Path, "secret"), []byte(secret), 0600)
+	if e != nil {
+		log.Panicw("can't save secret file", "error", e)
+	}
+	task, err := initConversion(cfg.Conversion)
+	if err != nil {
+		log.Error(err)
+		panic(err)
+	}
+
+	cfg.SaveJSON()
+
 	return &Service{
 		secret: secret,
 		task:   task,

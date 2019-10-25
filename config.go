@@ -1,6 +1,15 @@
 package service
 
-import "service/api"
+import (
+	"encoding/json"
+	"io/ioutil"
+	"os"
+	"path/filepath"
+
+	"service/api"
+)
+
+const ConfigName = "service.json"
 
 type ConversionConfig struct {
 	Limit    int    `json:"limit"`
@@ -13,6 +22,42 @@ type ConversionConfig struct {
 type Config struct {
 	API        api.Config       `json:"api"`
 	Conversion ConversionConfig `json:"conversion"`
+}
+
+func jsonPath() string {
+	return filepath.Join(Path, ConfigName)
+}
+
+func (config *Config) LoadJSON() error {
+	_, e := os.Stat(jsonPath())
+	//skip when config not exist
+	if e != nil && os.IsNotExist(e) {
+		return nil
+	} else if e != nil {
+		return e
+	}
+	file, e := os.Open(jsonPath())
+	if e != nil {
+		return e
+	}
+	dec := json.NewDecoder(file)
+	e = dec.Decode(config)
+	if e != nil {
+		return e
+	}
+	return nil
+}
+
+func (config *Config) SaveJSON() error {
+	bytes, e := json.Marshal(config)
+	if e != nil {
+		return e
+	}
+	e = ioutil.WriteFile(jsonPath(), bytes, 0600)
+	if e != nil {
+		return e
+	}
+	return nil
 }
 
 func DefaultConfig() *Config {
