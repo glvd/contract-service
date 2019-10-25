@@ -37,6 +37,7 @@ func CmdDaemon(app *cli.App) *cli.Command {
 			if e != nil {
 				return e
 			}
+			s.Wait()
 			//path := ""
 			//if context.NArg() > 0 {
 			//	path = context.Args().Get(0)

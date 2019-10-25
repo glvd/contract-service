@@ -8,6 +8,7 @@ import (
 	"path/filepath"
 
 	"service/api"
+	"service/api/restapi"
 
 	"github.com/glvd/conversion"
 	"github.com/goextension/log"
@@ -41,6 +42,7 @@ func init() {
 
 // Service ...
 type Service struct {
+	done    chan bool
 	secret  string
 	config  *Config
 	manager *api.Manager
@@ -69,12 +71,15 @@ func NewService() *Service {
 	}
 
 	manager := api.NewManager()
+	manager.Register(api.RestAPI, restapi.NewRestAPI(cfg.API))
+	//manager.Register(api.RPCCLient,rpc)
 
 	e = cfg.SaveJSON()
 	if e != nil {
 		log.Panicw("can't save json file", "error", e)
 	}
 	return &Service{
+		done:    make(chan bool),
 		secret:  secret,
 		config:  cfg,
 		manager: manager,
@@ -91,9 +96,13 @@ func (s *Service) Start() error {
 			return
 		}
 	}()
-	_ = s.manager.StartAll()
+	s.manager.StartAll()
 
 	return nil
+}
+
+func (s *Service) Wait() {
+	<-s.done
 }
 
 // Stop ...

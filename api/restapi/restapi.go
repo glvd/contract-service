@@ -93,8 +93,8 @@ func (r *restapi) Start() error {
 	return nil
 }
 
-func (r *restapi) GetTasks(manager *api.Manager) []*api.Task {
-	return nil
+func (r *restapi) GetTasks(manager *api.Manager) ([]*api.Task, error) {
+	return nil, nil
 }
 
 func (r *restapi) PostTask(manager *api.Manager) func(ctx *gin.Context) {
