@@ -23,10 +23,14 @@ func (m *Manager) Register(name string, client Client) {
 	m.clients[name] = client
 }
 
-func (m *Manager) Client(name string) (client Client, b bool) {
+func (m *Manager) Client(name string) (client Client) {
 	m.Lock()
 	defer m.Unlock()
+	var b bool
 	client, b = m.clients[name]
+	if !b {
+		return dummyClient{}
+	}
 	return
 }
 
