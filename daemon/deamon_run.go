@@ -1,6 +1,8 @@
 package daemon
 
 import (
+	"os"
+
 	"service"
 
 	"github.com/godcong/go-trait"
@@ -20,8 +22,10 @@ func CmdDaemon(app *cli.App) *cli.Command {
 	)
 	return &cli.Command{
 		Before: func(context *cli.Context) error {
-			service.Path = context.String("config")
-			//service.ConfigName = context.String("")
+			service.DefaultPath = context.String("config")
+			if firstRunCheck() {
+				_ = os.MkdirAll(service.DefaultPath, 0755)
+			}
 
 			return nil
 		},
@@ -89,4 +93,13 @@ func CmdDaemon(app *cli.App) *cli.Command {
 		Subcommands: nil,
 		Flags:       flags,
 	}
+}
+
+func firstRunCheck() bool {
+	if _, err := os.Stat(service.DefaultPath); err != nil {
+		if os.IsNotExist(err) {
+			return true
+		}
+	}
+	return false
 }

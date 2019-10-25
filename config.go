@@ -25,7 +25,7 @@ type Config struct {
 }
 
 func jsonPath() string {
-	return filepath.Join(Path, ConfigName)
+	return filepath.Join(DefaultPath, ConfigName)
 }
 
 func (config *Config) LoadJSON() error {
@@ -49,7 +49,7 @@ func (config *Config) LoadJSON() error {
 }
 
 func (config *Config) SaveJSON() error {
-	bytes, e := json.Marshal(config)
+	bytes, e := json.MarshalIndent(config, "", "  ")
 	if e != nil {
 		return e
 	}

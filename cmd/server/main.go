@@ -9,8 +9,17 @@ import (
 
 	"github.com/goextension/log"
 	_ "github.com/mattn/go-sqlite3"
+	"go.uber.org/zap"
 	"gopkg.in/urfave/cli.v2"
 )
+
+func init() {
+	logger, e := zap.NewProduction(zap.AddCallerSkip(1))
+	if e != nil {
+		panic(e)
+	}
+	log.Register(logger.Sugar())
+}
 
 func globalFlags() []cli.Flag {
 
