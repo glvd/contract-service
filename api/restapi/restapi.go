@@ -25,8 +25,36 @@ type restapi struct {
 	manager *api.Manager
 }
 
-func (r *restapi) Stop() {
+func (r *restapi) PostTask(manager *api.Manager) error {
 	panic("implement me")
+}
+
+func (r *restapi) GetTask(manager *api.Manager, id string) error {
+	panic("implement me")
+}
+
+func (r *restapi) DeleteTask(manager *api.Manager, id string) error {
+	panic("implement me")
+}
+
+func (r *restapi) GetNode(manager *api.Manager) {
+	panic("implement me")
+}
+
+func (r *restapi) PostNode(manager *api.Manager) {
+	panic("implement me")
+}
+
+func (r *restapi) DeleteNode(manager *api.Manager) {
+	panic("implement me")
+}
+
+func (r *restapi) GetVideos(manager *api.Manager) {
+	panic("implement me")
+}
+
+func (r *restapi) Stop() {
+
 }
 
 func (r *restapi) init() {
