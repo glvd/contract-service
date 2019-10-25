@@ -7,6 +7,8 @@ import (
 	"os/user"
 	"path/filepath"
 
+	"service/api"
+
 	"github.com/glvd/conversion"
 	"github.com/goextension/log"
 	"github.com/goextension/tool"
@@ -39,9 +41,10 @@ func init() {
 
 // Service ...
 type Service struct {
-	secret string
-	config *Config
-	task   *conversion.Task
+	secret  string
+	config  *Config
+	manager *api.Manager
+	task    *conversion.Task
 }
 
 // NewService ...
@@ -65,13 +68,17 @@ func NewService() *Service {
 		log.Panicw("init conversion failed", "error", err)
 	}
 
+	manager := api.NewManager()
+
 	e = cfg.SaveJSON()
 	if e != nil {
 		log.Panicw("can't save json file", "error", e)
 	}
 	return &Service{
-		secret: secret,
-		task:   task,
+		secret:  secret,
+		config:  cfg,
+		manager: manager,
+		task:    task,
 	}
 }
 
@@ -84,6 +91,8 @@ func (s *Service) Start() error {
 			return
 		}
 	}()
+	_ = s.manager.StartAll()
+
 	return nil
 }
 
