@@ -15,10 +15,10 @@ type server struct {
 	rpcServer *rpc.Server
 }
 
-func main() {
+func (s *server) Start() {
 
 	server := rpc.NewServer()
-	//server.Register()//tartget)
+	server.Register("")
 
 	ln, err := net.Listen("tcp", ":"+"port")
 	if err != nil {

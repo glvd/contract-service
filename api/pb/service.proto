@@ -3,7 +3,6 @@ package api.pb;
 
 
 service Service {
-
     rpc AddWork (WorkRequest) returns (WorkReply) {
     }
     rpc AsyncAddWork (WorkRequest) returns (WorkReply) {

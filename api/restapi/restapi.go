@@ -25,15 +25,15 @@ type restapi struct {
 	manager *api.Manager
 }
 
-func (r *restapi) PostTask(manager *api.Manager) error {
+func (r *restapi) AddWork(manager *api.Manager) error {
 	panic("implement me")
 }
 
-func (r *restapi) GetTask(manager *api.Manager, id string) error {
+func (r *restapi) GetWork(manager *api.Manager, id string) error {
 	panic("implement me")
 }
 
-func (r *restapi) DeleteTask(manager *api.Manager, id string) error {
+func (r *restapi) DeleteWork(manager *api.Manager, id string) error {
 	panic("implement me")
 }
 
@@ -125,13 +125,13 @@ func (r *restapi) Start() error {
 	return nil
 }
 
-func (r *restapi) GetTasks(manager *api.Manager) ([]*api.Task, error) {
+func (r *restapi) GetWorks(manager *api.Manager) ([]*api.Work, error) {
 	return nil, nil
 }
 
 func (r *restapi) getTasks() func(ctx *gin.Context) {
 	return func(ctx *gin.Context) {
-		tasks, e := r.manager.Client(api.RPCCLient).GetTasks(r.manager)
+		tasks, e := r.manager.Client(api.RPCCLient).GetWorks(r.manager)
 		formatterResponse(ctx, e, tasks)
 	}
 }

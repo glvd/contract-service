@@ -26,7 +26,7 @@ func (r rpcclient) Stop() {
 	panic("implement me")
 }
 
-func (r rpcclient) GetTasks(manager *api.Manager) ([]*api.Task, error) {
+func (r rpcclient) GetTasks(manager *api.Manager) ([]*api.Work, error) {
 	panic("implement me")
 }
 
