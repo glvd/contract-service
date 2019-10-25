@@ -27,3 +27,15 @@ func (m *Manager) Client(name string) (client Client, b bool) {
 	client, b = m.clients[name]
 	return
 }
+
+func (m *Manager) StartAll() (e error) {
+	m.Lock()
+	defer m.Unlock()
+	for _, cli := range m.clients {
+		e = cli.Start()
+		if e != nil {
+			return
+		}
+	}
+	return nil
+}
