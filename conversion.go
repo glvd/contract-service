@@ -13,7 +13,10 @@ func initConversion(cfg ConversionConfig) (*conversion.Task, error) {
 		return nil, fmt.Errorf("init conversion:%w", err)
 	}
 	conversion.RegisterDatabase(eng)
-
+	conversion.SetNodeAddress(cfg.NodeAddr)
+	if err := conversion.ConnectToNode(); err != nil {
+		return nil, fmt.Errorf("can't connect to ipfs node:%w", err)
+	}
 	t := conversion.NewTask()
 	t.Limit = cfg.Limit
 	t.SetAutoStop(false)

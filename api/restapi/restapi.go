@@ -4,11 +4,11 @@ import (
 	"service/api"
 
 	"github.com/gin-gonic/gin"
+	"github.com/goextension/log"
 )
 
 type RestAPI interface {
 	api.Client
-	Init(manager *api.Manager)
 }
 
 type Handle struct {
@@ -29,7 +29,11 @@ func (r *restapi) Stop() {
 	panic("implement me")
 }
 
-func (r *restapi) Init(manager *api.Manager) {
+func (r *restapi) init() {
+	if r.manager == nil {
+		log.Panicw("manager is null")
+	}
+
 	var restapiHandles = []Handle{
 		{
 			Method:   "GET",
@@ -206,10 +210,15 @@ func Manager(manager *api.Manager) Options {
 }
 
 // InitRestAPI ...
-func NewRestAPI(config api.Config) RestAPI {
+func NewRestAPI(config api.Config, options ...Options) RestAPI {
 	rest := &restapi{
 		version: "v0",
 		cfg:     config,
+		eng:     gin.Default(),
 	}
+	for _, option := range options {
+		option(rest)
+	}
+	rest.init()
 	return rest
 }

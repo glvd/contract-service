@@ -7,25 +7,26 @@ import (
 )
 
 type Manager struct {
-	sync.Mutex
+	mutex   *sync.Mutex
 	clients map[string]Client
 }
 
 func NewManager() *Manager {
 	return &Manager{
+		mutex:   &sync.Mutex{},
 		clients: make(map[string]Client),
 	}
 }
 
 func (m *Manager) Register(name string, client Client) {
-	m.Lock()
-	defer m.Unlock()
+	m.mutex.Lock()
+	defer m.mutex.Unlock()
 	m.clients[name] = client
 }
 
 func (m *Manager) Client(name string) (client Client) {
-	m.Lock()
-	defer m.Unlock()
+	m.mutex.Lock()
+	defer m.mutex.Unlock()
 	var b bool
 	client, b = m.clients[name]
 	if !b {
@@ -35,8 +36,8 @@ func (m *Manager) Client(name string) (client Client) {
 }
 
 func (m *Manager) StartAll() {
-	m.Lock()
-	defer m.Unlock()
+	m.mutex.Lock()
+	defer m.mutex.Unlock()
 	for name, cli := range m.clients {
 		go func(name string, client Client) {
 			e := cli.Start()

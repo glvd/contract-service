@@ -9,7 +9,6 @@ import (
 	shell "github.com/godcong/go-ipfs-restapi"
 
 	"github.com/glvd/seed/model"
-	"github.com/go-xorm/xorm"
 	"github.com/gocarina/gocsv"
 	"github.com/godcong/go-trait"
 	"golang.org/x/xerrors"
@@ -114,39 +113,35 @@ func CmdContract(app *cli.App) *cli.Command {
 
 			db := context.String("database")
 			log.Info("database:", db)
-			eng, e := model.InitSQLite3(db)
-			if e != nil {
-				return e
-			}
 
 			switch context.String("type") {
 			case "video":
-				var session *xorm.Session
-				session = eng.NoCache()
-				if context.NArg() > 0 {
-					session = eng.In("bangumi", context.Args().Slice())
-				}
-
-				if context.String("from") == "db" {
-					videos, e := model.Top(session, 0)
-
-					if e != nil {
-						log.Error()
-						return e
-					}
-					log.Info("find:", len(*videos))
-					update := context.Bool("update")
-					for _, video := range *videos {
-						if !update && video.M3U8Hash == "" {
-							continue
-						}
-						e := contract.InfoInput(video, update)
-						if e != nil {
-							log.Error(e)
-							continue
-						}
-					}
-				}
+				//var session *xorm.Session
+				//session = eng.NoCache()
+				//if context.NArg() > 0 {
+				//	session = eng.In("bangumi", context.Args().Slice())
+				//}
+				//
+				//if context.String("from") == "db" {
+				//	videos, e := model.Top(session, 0)
+				//
+				//	if e != nil {
+				//		log.Error()
+				//		return e
+				//	}
+				//	log.Info("find:", len(*videos))
+				//	update := context.Bool("update")
+				//	for _, video := range *videos {
+				//		if !update && video.M3U8Hash == "" {
+				//			continue
+				//		}
+				//		e := contract.InfoInput(video, update)
+				//		if e != nil {
+				//			log.Error(e)
+				//			continue
+				//		}
+				//	}
+				//}
 
 			case "check":
 				if context.NArg() <= 0 {
