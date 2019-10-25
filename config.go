@@ -16,6 +16,7 @@ type ConversionConfig struct {
 	Addr     string `json:"addr"`
 	Username string `json:"username"`
 	Password string `json:"password"`
+	NodeAddr string `json:"node_addr"`
 }
 
 // Config ...
@@ -71,6 +72,7 @@ func DefaultConfig() *Config {
 			Addr:     "localhost:3306",
 			Username: "root",
 			Password: "111111",
+			NodeAddr: "/ip4/127.0.0.1/tcp/5001",
 		},
 	}
 }
