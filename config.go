@@ -19,7 +19,7 @@ func DefaultConfig() *Config {
 	return &Config{
 		API: api.Config{
 			RestPort: "8084",
-			RPCPort:  "8095",
+			RPCPort:  "8085",
 		},
 		Conversion: ConversionConfig{
 			Limit:    1,
