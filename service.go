@@ -52,20 +52,23 @@ func NewService() *Service {
 	if e != nil {
 		log.Panicw("can't load json file", "error", e)
 	}
-	secret := tool.GenerateRandomString(32)
-	log.Warnw("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!SECRET!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!", "secret", secret)
+	secret := tool.GenerateRandomString(64)
+	fmt.Println("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!SECRET!!!!!!!!!!!!!!!!!!!!!!!!!!!!!")
+	fmt.Println(secret)
+	fmt.Println("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!SECRET!!!!!!!!!!!!!!!!!!!!!!!!!!!!!")
 	e = ioutil.WriteFile(filepath.Join(DefaultPath, "secret"), []byte(secret), 0600)
 	if e != nil {
 		log.Panicw("can't save secret file", "error", e)
 	}
 	task, err := initConversion(cfg.Conversion)
 	if err != nil {
-		log.Error(err)
-		panic(err)
+		log.Panicw("init conversion failed", "error", err)
 	}
 
-	cfg.SaveJSON()
-
+	e = cfg.SaveJSON()
+	if e != nil {
+		log.Panicw("can't save json file", "error", e)
+	}
 	return &Service{
 		secret: secret,
 		task:   task,
