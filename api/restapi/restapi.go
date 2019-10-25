@@ -101,48 +101,6 @@ func (r *restapi) GetTasks(manager *api.Manager) ([]*api.Task, error) {
 	return nil, nil
 }
 
-func (r *restapi) PostTask(manager *api.Manager) func(ctx *gin.Context) {
-	return func(ctx *gin.Context) {
-
-	}
-}
-
-func (r *restapi) GetTask(manager *api.Manager) func(ctx *gin.Context) {
-	return func(ctx *gin.Context) {
-
-	}
-}
-
-func (r *restapi) DeleteTask(manager *api.Manager) func(ctx *gin.Context) {
-	return func(ctx *gin.Context) {
-
-	}
-}
-
-func (r *restapi) GetNode(manager *api.Manager) func(ctx *gin.Context) {
-	return func(ctx *gin.Context) {
-
-	}
-}
-
-func (r *restapi) PostNode(manager *api.Manager) func(ctx *gin.Context) {
-	return func(ctx *gin.Context) {
-
-	}
-}
-
-func (r *restapi) DeleteNode(manager *api.Manager) func(ctx *gin.Context) {
-	return func(ctx *gin.Context) {
-
-	}
-}
-
-func (r *restapi) GetVideos(manager *api.Manager) func(ctx *gin.Context) {
-	return func(ctx *gin.Context) {
-
-	}
-}
-
 func (r *restapi) getTasks() func(ctx *gin.Context) {
 	return func(ctx *gin.Context) {
 		tasks, e := r.manager.Client(api.RPCCLient).GetTasks(r.manager)

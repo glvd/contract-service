@@ -1,6 +1,7 @@
 package api
 
 import (
+	"context"
 	"sync"
 
 	"github.com/goextension/log"
@@ -9,13 +10,17 @@ import (
 type Manager struct {
 	mutex   *sync.Mutex
 	clients map[string]Client
+	ctx     context.Context
+	cancel  context.CancelFunc
 }
 
-func NewManager() *Manager {
-	return &Manager{
+func NewManager(ctx context.Context) *Manager {
+	m := &Manager{
 		mutex:   &sync.Mutex{},
 		clients: make(map[string]Client),
 	}
+	m.ctx, m.cancel = context.WithCancel(ctx)
+	return m
 }
 
 func (m *Manager) Register(name string, client Client) {

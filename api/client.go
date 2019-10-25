@@ -14,8 +14,14 @@ type Client interface {
 	Start() error
 	Stop()
 	GetTasks(manager *Manager) ([]*Task, error)
+	PostTask(manager *Manager) error
+	GetTask(manager *Manager, id string) error
+	DeleteTask(manager *Manager, id string) error
+	GetNode(manager *Manager)
+	PostNode(manager *Manager)
+	DeleteNode(manager *Manager)
+	GetVideos(manager *Manager)
 }
-
 type Task struct {
 }
 

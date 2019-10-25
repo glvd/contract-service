@@ -1,6 +1,7 @@
 package service
 
 import (
+	"context"
 	"fmt"
 	"io/ioutil"
 	"os"
@@ -42,6 +43,8 @@ func init() {
 
 // Service ...
 type Service struct {
+	ctx     context.Context
+	cancel  context.CancelFunc
 	done    chan bool
 	secret  string
 	config  *Config
@@ -51,6 +54,7 @@ type Service struct {
 
 // NewService ...
 func NewService() *Service {
+	ctx, cancel := context.WithCancel(context.Background())
 	cfg := DefaultConfig()
 
 	e := cfg.LoadJSON()
@@ -70,7 +74,7 @@ func NewService() *Service {
 		log.Panicw("init conversion failed", "error", err)
 	}
 
-	manager := api.NewManager()
+	manager := api.NewManager(ctx)
 
 	rest := restapi.NewRestAPI(cfg.API, restapi.Manager(manager))
 
@@ -82,6 +86,8 @@ func NewService() *Service {
 		log.Panicw("can't save json file", "error", e)
 	}
 	return &Service{
+		ctx:     ctx,
+		cancel:  cancel,
 		done:    make(chan bool),
 		secret:  secret,
 		config:  cfg,
