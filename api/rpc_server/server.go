@@ -3,10 +3,10 @@ package rpc_server
 import "net/rpc"
 
 type server struct {
-	rpcServ *rpc.Server
+	rpcServer *rpc.Server
 }
 
 func NewServer() *server {
-	rpcServ := rpc.NewServer()
-	return &server{rpcServ: rpcServ}
+	rpcServer := rpc.NewServer()
+	return &server{rpcServer: rpcServer}
 }
