@@ -58,10 +58,9 @@ func (r *rpcclient) Start() (err error) {
 
 // Stop ...
 func (r *rpcclient) Stop() {
-
 	e := r.conn.Close()
 	if e != nil {
-		log.Warnw("close conn")
+		log.Warnw("closed conn")
 	}
 }
 
@@ -80,13 +79,25 @@ func (r *rpcclient) GetWork(manager *api.Manager, id string) (*api.Work, error) 
 	if err != nil {
 		return nil, err
 	}
-	work := api.RPCWorkToWork(reply.Work, reply.Status)
+	work := api.RPCWorkToWork(reply.Works[0])
 	return work, nil
 }
 
 // GetWorks ...
 func (r *rpcclient) GetWorks(manager *api.Manager) ([]*api.Work, error) {
-	return nil, nil
+	reply, err := client(r.conn).Work(manager.Context(), &pb.WorkRequest{
+		Msg:      pb.MessageType_Status,
+		WorkMode: pb.WorkMode_LocalMode,
+		ID:       "",
+	})
+	if err != nil {
+		return nil, err
+	}
+	var works []*api.Work
+	for _, w := range reply.Works {
+		works = append(works, api.RPCWorkToWork(w))
+	}
+	return works, nil
 }
 
 // AddWork ...

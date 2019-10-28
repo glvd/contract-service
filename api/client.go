@@ -52,10 +52,10 @@ type dummyClient struct {
 
 var _ Client = &dummyClient{}
 
-// WorkToAPIWork ...
-func RPCWorkToWork(work *pb.Work, status pb.WorkStatus) *Work {
+// RPCWorkToWork ...
+func RPCWorkToWork(work *pb.Work) *Work {
 	return &Work{
-		WorkStatus: (int32)(status),
+		WorkStatus: (int32)(work.Status),
 		VideoPath:  work.GetVideoPath(),
 		PosterPath: work.GetPosterPath(),
 		ThumbPath:  work.GetThumbPath(),
@@ -64,9 +64,10 @@ func RPCWorkToWork(work *pb.Work, status pb.WorkStatus) *Work {
 	}
 }
 
-// APIWorkToWork ...
+// WorkToRPCWork ...
 func WorkToRPCWork(work *Work) *pb.Work {
 	return &pb.Work{
+		Status:     pb.WorkStatus(work.WorkStatus),
 		VideoPath:  work.VideoPath,
 		PosterPath: work.PosterPath,
 		ThumbPath:  work.ThumbPath,

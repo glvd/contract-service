@@ -49,7 +49,7 @@ func (r *restapi) GetWork(manager *api.Manager, id string) (*api.Work, error) {
 
 // GetWorks ...
 func (r *restapi) GetWorks(manager *api.Manager) ([]*api.Work, error) {
-	return nil, nil
+	return r.manager.Client(api.RPCClient).GetWorks(r.manager)
 }
 
 // DeleteWork ...
@@ -149,8 +149,9 @@ func (r *restapi) Start() error {
 
 func (r *restapi) getWorks() func(ctx *gin.Context) {
 	return func(ctx *gin.Context) {
-		tasks, e := r.manager.Client(api.RPCClient).GetWorks(r.manager)
-		formatterResponse(ctx, e, tasks)
+		works, e := r.GetWorks(r.manager)
+
+		formatterResponse(ctx, e, works)
 	}
 }
 

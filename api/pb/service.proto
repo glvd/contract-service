@@ -33,14 +33,18 @@ enum MessageType {
     Add = 0;
     AsyncAdd = 1;
     Status = 2;
+    List = 3;
+    Delete = 4;
 }
 
 message Work {
-    repeated string video_path = 4;
-    string poster_path = 5;
-    string thumb_path = 6;
-    repeated string sample_path = 7;
-    string video_info = 8;
+    WorkStatus status = 1;
+    string work_id = 2;
+    repeated string video_path = 3;
+    string poster_path = 4;
+    string thumb_path = 5;
+    repeated string sample_path = 6;
+    string video_info = 7;
 }
 
 message WorkRequest {
@@ -52,10 +56,9 @@ message WorkRequest {
 
 message WorkReply {
     MessageType msg = 1;
-    WorkStatus status = 2;
-    Work work = 3;
-    string work_id = 4;
-    string error = 5;
+    int32 total = 2;
+    repeated Work works = 3;
+    string error = 4;
 }
 
 message NodeRequest {

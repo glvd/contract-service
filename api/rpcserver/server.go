@@ -30,7 +30,7 @@ var workHandles map[string]interface{}
 // Work ...
 func (s *server) Work(ctx context.Context, req *pb.WorkRequest) (*pb.WorkReply, error) {
 	cli := s.manager.Client(api.LocalClient)
-	work := api.RPCWorkToWork(req.Work, 0)
+	work := api.RPCWorkToWork(req.Work)
 	switch req.Msg {
 	case pb.MessageType_Add:
 		if err := cli.AddWork(s.manager, *work); err != nil {
@@ -43,10 +43,26 @@ func (s *server) Work(ctx context.Context, req *pb.WorkRequest) (*pb.WorkReply, 
 		}
 		work := api.WorkToRPCWork(getWork)
 		return &pb.WorkReply{
-			Msg:    req.Msg,
-			Status: pb.WorkStatus(getWork.WorkStatus),
-			Work:   work,
+			Msg:   req.Msg,
+			Works: []*pb.Work{work},
 		}, nil
+	case pb.MessageType_List:
+		getWorks, err := cli.GetWorks(s.manager)
+		if err != nil {
+			return nil, err
+		}
+		var works []*pb.Work
+
+		for _, w := range getWorks {
+			works = append(works, api.WorkToRPCWork(w))
+		}
+		return &pb.WorkReply{
+			Msg:   req.Msg,
+			Total: 0,
+			Works: nil,
+			Error: "",
+		}, nil
+
 	}
 
 	return &pb.WorkReply{}, nil
