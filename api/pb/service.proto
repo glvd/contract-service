@@ -1,5 +1,5 @@
 syntax = "proto3";
-package api.pb;
+package pb;
 
 
 service Service {
@@ -30,11 +30,12 @@ enum MessageType {
 message WorkRequest {
     MessageType msg = 1;
     WorkMode work_mode = 2;
-    repeated string video_path = 3;
-    string poster_path = 4;
-    string thumb_path = 5;
-    repeated string sample_path = 6;
-    string video_info = 7;
+    string ID = 3;
+    repeated string video_path = 4;
+    string poster_path = 5;
+    string thumb_path = 6;
+    repeated string sample_path = 7;
+    string video_info = 8;
 }
 
 message WorkReply {

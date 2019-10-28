@@ -66,12 +66,19 @@ func (r *rpcclient) DeleteWork(manager *api.Manager, id string) error {
 
 // GetWork ...
 func (r *rpcclient) GetWork(manager *api.Manager, id string) error {
-	panic("implement me")
+	if _, err := r.rpcClient.Work(manager.Context(), &pb.WorkRequest{
+		Msg:      pb.MessageType_Status,
+		WorkMode: pb.WorkMode_LocalMode,
+		ID:       id,
+	}); err != nil {
+		return err
+	}
+	return nil
 }
 
 // GetWorks ...
 func (r *rpcclient) GetWorks(manager *api.Manager) ([]*api.Work, error) {
-	panic("implement me")
+	return nil, nil
 }
 
 // AddWork ...
