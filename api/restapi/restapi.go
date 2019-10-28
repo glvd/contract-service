@@ -95,12 +95,12 @@ func (r *restapi) init() {
 		},
 		{
 			"GET",
-			"/task/:id",
+			"/work/:id",
 			r.getWork(),
 		},
 		{
 			"DELETE",
-			"/task/:id",
+			"/work/:id",
 			r.deleteWork(),
 		},
 		{
