@@ -7,10 +7,12 @@ import (
 	"github.com/goextension/log"
 )
 
+// RestAPI ...
 type RestAPI interface {
 	api.Client
 }
 
+// Handle ...
 type Handle struct {
 	Method   string
 	Path     string
@@ -25,34 +27,47 @@ type restapi struct {
 	manager *api.Manager
 }
 
-func (r *restapi) AddWork(manager *api.Manager) error {
+// AddWork ...
+func (r *restapi) AddWork(manager *api.Manager, work api.Work) error {
 	panic("implement me")
 }
 
+// GetNode ...
+func (r *restapi) GetNode(manager *api.Manager, id string) {
+	panic("implement me")
+}
+
+// AddNode ...
+func (r *restapi) AddNode(manager *api.Manager, node api.Node) {
+	panic("implement me")
+}
+
+// GetWork ...
 func (r *restapi) GetWork(manager *api.Manager, id string) error {
 	panic("implement me")
 }
 
+// DeleteWork ...
 func (r *restapi) DeleteWork(manager *api.Manager, id string) error {
 	panic("implement me")
 }
 
-func (r *restapi) GetNode(manager *api.Manager) {
-	panic("implement me")
-}
-
+// PostNode ...
 func (r *restapi) PostNode(manager *api.Manager) {
 	panic("implement me")
 }
 
+// DeleteNode ...
 func (r *restapi) DeleteNode(manager *api.Manager) {
 	panic("implement me")
 }
 
+// GetVideos ...
 func (r *restapi) GetVideos(manager *api.Manager) {
 	panic("implement me")
 }
 
+// Stop ...
 func (r *restapi) Stop() {
 
 }
@@ -117,6 +132,7 @@ func (r *restapi) init() {
 	}
 }
 
+// Start ...
 func (r *restapi) Start() error {
 	err := r.eng.Run(":" + r.cfg.RestPort)
 	if err != nil {
@@ -125,13 +141,14 @@ func (r *restapi) Start() error {
 	return nil
 }
 
+// GetWorks ...
 func (r *restapi) GetWorks(manager *api.Manager) ([]*api.Work, error) {
 	return nil, nil
 }
 
 func (r *restapi) getTasks() func(ctx *gin.Context) {
 	return func(ctx *gin.Context) {
-		tasks, e := r.manager.Client(api.RPCCLient).GetWorks(r.manager)
+		tasks, e := r.manager.Client(api.RPCClient).GetWorks(r.manager)
 		formatterResponse(ctx, e, tasks)
 	}
 }
@@ -184,15 +201,17 @@ func (r *restapi) getVideos() func(ctx *gin.Context) {
 	}
 }
 
+// Options ...
 type Options func(restapi *restapi)
 
+// Manager ...
 func Manager(manager *api.Manager) Options {
 	return func(restapi *restapi) {
 		restapi.manager = manager
 	}
 }
 
-// InitRestAPI ...
+// NewRestAPI ...
 func NewRestAPI(config api.Config, options ...Options) RestAPI {
 	rest := &restapi{
 		version: "v0",
