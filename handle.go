@@ -30,7 +30,7 @@ func (s *serviceHandle) AddWork(manager *api.Manager, work api.Work) error {
 		return err
 	}
 
-	iWork, e := conversion.NewInfoWork(&info,
+	iwork, e := conversion.NewInfoWork(&info,
 		conversion.VideoPathOption(work.VideoPath),
 		conversion.PosterPathOption(work.PosterPath),
 		conversion.ThumbPathOption(work.ThumbPath),
@@ -40,7 +40,7 @@ func (s *serviceHandle) AddWork(manager *api.Manager, work api.Work) error {
 	if e != nil {
 		return e
 	}
-	e = s.task.AddWorker(iWork)
+	e = s.task.AddWorker(iwork)
 	if e != nil {
 		return e
 	}
