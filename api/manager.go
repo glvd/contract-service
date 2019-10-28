@@ -7,8 +7,14 @@ import (
 	"github.com/goextension/log"
 )
 
+type Runnable interface {
+	Start() error
+	Stop()
+}
+
 type Manager struct {
 	mutex   *sync.Mutex
+	server  Server
 	clients map[string]Client
 	ctx     context.Context
 	cancel  context.CancelFunc
@@ -23,10 +29,14 @@ func NewManager(ctx context.Context) *Manager {
 	return m
 }
 
-func (m *Manager) Register(name string, client Client) {
+func (m *Manager) RegisterClient(name string, client Client) {
 	m.mutex.Lock()
 	defer m.mutex.Unlock()
 	m.clients[name] = client
+}
+
+func (m *Manager) SetServer(server Server) {
+	m.server = server
 }
 
 func (m *Manager) Client(name string) (client Client) {

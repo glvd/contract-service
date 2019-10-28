@@ -1,39 +1,59 @@
 package rpc_server
 
 import (
-	"io"
-	"log"
+	"context"
+	"fmt"
 	"net"
-	"net/rpc"
 
 	"service/api"
+	pb "service/api/pb"
+
+	"google.golang.org/grpc"
 )
 
 type server struct {
 	cfg       api.Config
 	manager   *api.Manager
-	rpcServer *rpc.Server
+	rpcServer *grpc.Server
 }
 
-func (s *server) Start() {
+func (s *server) Work(context.Context, *pb.WorkRequest) (*pb.WorkReply, error) {
+	panic("implement me")
+}
 
-	server := rpc.NewServer()
-	//server.Register()//tartget)
+func (s *server) Node(context.Context, *pb.NodeRequest) (*pb.NodeReply, error) {
+	panic("implement me")
+}
 
-	ln, err := net.Listen("tcp", ":"+"port")
+func (s *server) Stop() {
+	panic("implement me")
+}
+
+type Options func(sever *server)
+
+func init() {
+
+}
+func NewRPCServer(cfg api.Config, options ...Options) api.Server {
+	s := &server{
+		cfg: cfg,
+	}
+	for _, option := range options {
+		option(s)
+	}
+	return s
+}
+
+func (s *server) Start() error {
+
+	lis, err := net.Listen("tcp", ":"+s.cfg.RPCPort)
 	if err != nil {
-		panic(err)
+		return fmt.Errorf("failed to listen:%w", err)
 	}
-
-	for {
-		conn, err := ln.Accept()
-		if err != nil {
-			log.Print("rpc.Serve: accept:", err.Error())
-			return
-		}
-		go serveConn(server, conn)
+	s.rpcServer = grpc.NewServer()
+	pb.RegisterServiceServer(grpcServer, &server{})
+	if err := grpcServer.Serve(lis); err != nil {
+		return fmt.Errorf("failed to server:%w", err)
 	}
-}
-
-func serveConn(server *rpc.Server, conn io.ReadWriteCloser) {
+	return nil
 }

@@ -93,7 +93,7 @@ func CmdUpdate(app *cli.App) *cli.Command {
 			//	method = seed.UpdateMethodUnfinished
 			//}
 			//
-			//s.Register(seed.Update(method, seed.UpdateContentHash))
+			//s.RegisterClient(seed.Update(method, seed.UpdateContentHash))
 			//s.AfterInit(seed.SyncDatabase())
 			//s.Start()
 			//

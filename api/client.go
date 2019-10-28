@@ -11,8 +11,7 @@ const RPCServer = "rpcserver"
 const RestAPI = "restapi"
 
 type Client interface {
-	Start() error
-	Stop()
+	Runnable
 	GetWorks(manager *Manager) ([]*Work, error)
 	AddWork(manager *Manager) error
 	GetWork(manager *Manager, id string) error

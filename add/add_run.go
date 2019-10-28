@@ -98,10 +98,10 @@ func CmdAdd(app *cli.App) *cli.Command {
 			//imove := context.String("infomove")
 			//if imove != "" {
 			//	log.Info("infomove", imove)
-			//	s.Register(seed.MoveInfo(imove))
+			//	s.RegisterClient(seed.MoveInfo(imove))
 			//}
 
-			//s.Register(seed.ShellOption(context.String("shell")))
+			//s.RegisterClient(seed.ShellOption(context.String("shell")))
 
 			//s.Workspace = context.String("workspace")
 

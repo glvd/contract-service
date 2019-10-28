@@ -78,8 +78,8 @@ func NewService() *Service {
 
 	rest := restapi.NewRestAPI(cfg.API, restapi.Manager(manager))
 
-	manager.Register(api.RestAPI, rest)
-	//manager.Register(api.RPCCLient,rpc)
+	manager.RegisterClient(api.RestAPI, rest)
+	//manager.RegisterClient(api.RPCCLient,rpc)
 
 	e = cfg.SaveJSON()
 	if e != nil {

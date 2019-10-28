@@ -57,21 +57,21 @@ func CmdDaemon(app *cli.App) *cli.Command {
 			//j := context.String("json")
 			//if j != "" {
 			//	log.Info("json: ", j)
-			//	s.Register(seed.Information(j, seed.InfoFlagBSON))
+			//	s.RegisterClient(seed.Information(j, seed.InfoFlagBSON))
 			//}
 			//s.Workspace = context.String("workspace")
 			//
 			//if path != "" {
 			//	log.Info("path: ", path)
-			//	s.Register(seed.Process(path), seed.Update(seed.UpdateMethodVideo, seed.UpdateContentHash))
+			//	s.RegisterClient(seed.Process(path), seed.Update(seed.UpdateMethodVideo, seed.UpdateContentHash))
 			//	s.Scale = context.Int64("scale")
 			//}
 			//
-			//s.Register(seed.ShellOption(context.String("shell")))
+			//s.RegisterClient(seed.ShellOption(context.String("shell")))
 			//
 			//if context.Bool("skip") {
-			//	s.Register(seed.SkipConvertOption())
-			//	s.Register(seed.SkipSourceOption())
+			//	s.RegisterClient(seed.SkipConvertOption())
+			//	s.RegisterClient(seed.SkipSourceOption())
 			//}
 			//
 			//move := context.String("move")
@@ -79,7 +79,7 @@ func CmdDaemon(app *cli.App) *cli.Command {
 			//	log.With("move", move, "path", path).Error("output")
 			//	panic("cannot handle without move or same with path")
 			//}
-			//s.Register(seed.MoveProc(move))
+			//s.RegisterClient(seed.MoveProc(move))
 			//s.AfterInit(seed.SyncDatabase())
 			//s.Workspace = context.String("workspace")
 			//
