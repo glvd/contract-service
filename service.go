@@ -83,7 +83,9 @@ func NewService() *Service {
 
 	rest := restapi.NewRestAPI(cfg.API, restapi.Manager(manager))
 	manager.RegisterClient(api.RestAPI, rest)
-	local := &serviceHandle{}
+	local := &serviceHandle{
+		task: task,
+	}
 	manager.RegisterClient(api.LocalClient, local)
 
 	e = cfg.SaveJSON()

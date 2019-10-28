@@ -23,7 +23,7 @@ type Client interface {
 	Runnable
 	GetWorks(manager *Manager) ([]*Work, error)
 	AddWork(manager *Manager, work Work) error
-	GetWork(manager *Manager, id string) (Work, error)
+	GetWork(manager *Manager, id string) (*Work, error)
 	DeleteWork(manager *Manager, id string) error
 	GetNode(manager *Manager, id string)
 	AddNode(manager *Manager, node Node)
@@ -60,7 +60,7 @@ func (d dummyClient) DeleteWork(manager *Manager, id string) error {
 }
 
 // GetWork ...
-func (d dummyClient) GetWork(manager *Manager, id string) (Work, error) {
+func (d dummyClient) GetWork(manager *Manager, id string) (*Work, error) {
 	panic("implement me")
 }
 

@@ -12,6 +12,8 @@ func initConversion(cfg ConversionConfig) (*conversion.Task, error) {
 	if err != nil {
 		return nil, fmt.Errorf("init conversion:%w", err)
 	}
+
+	conversion.RegisterCache()
 	conversion.RegisterDatabase(eng)
 	conversion.SetNodeAddress(cfg.NodeAddr)
 	if err := conversion.ConnectToNode(); err != nil {
