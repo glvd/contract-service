@@ -3,16 +3,16 @@ package api.pb;
 
 
 service Service {
-    rpc AddWork (WorkRequest) returns (WorkReply) {
+    rpc Work (WorkRequest) returns (WorkReply) {
     }
-    rpc AsyncAddWork (WorkRequest) returns (WorkReply) {
+    //    rpc AsyncAddWork (WorkRequest) returns (WorkReply) {
+    //    }
+    //    rpc WorkStatus (WorkRequest) returns (WorkReply) {
+    //    }
+    rpc Node (NodeRequest) returns (NodeReply) {
     }
-    rpc WorkStatus (string) returns (WorkReply) {
-    }
-    rpc AddNode (NodeRequest) returns (NodeReply) {
-    }
-    rpc NodeStatus (string) returns (NodeReply) {
-    }
+    //    rpc NodeStatus (WorkRequest) returns (NodeReply) {
+    //    }
 }
 
 enum WorkMode {
@@ -21,24 +21,32 @@ enum WorkMode {
     DownloadMode = 2;
 }
 
+enum MessageType {
+    Add = 0;
+    AsyncAdd = 1;
+    Status = 2;
+}
+
 message WorkRequest {
-    WorkMode work_mode = 1;
-    string video_path = 2 [packed = true];
-    string poster_path = 3;
-    string thumb_path = 4;
-    string sample_path = 5 [packed = true];
-    string video_info = 6;
+    MessageType msg = 1;
+    WorkMode work_mode = 2;
+    repeated string video_path = 3;
+    string poster_path = 4;
+    string thumb_path = 5;
+    repeated string sample_path = 6;
+    string video_info = 7;
 }
 
 message WorkReply {
-    string work_id = 1;
-    string error = 2;
+    MessageType msg = 1;
+    string work_id = 2;
+    string error = 3;
 }
 
 message NodeRequest {
-
+    MessageType msg = 1;
 }
 
 message NodeReply {
-
+    MessageType msg = 1;
 }

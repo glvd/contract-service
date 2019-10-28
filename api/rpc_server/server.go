@@ -18,7 +18,7 @@ type server struct {
 func (s *server) Start() {
 
 	server := rpc.NewServer()
-	server.Register("")
+	//server.Register()//tartget)
 
 	ln, err := net.Listen("tcp", ":"+"port")
 	if err != nil {

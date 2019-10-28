@@ -20,6 +20,7 @@ require (
 	github.com/godcong/go-trait v0.0.0-20190816072228-f216e906756e
 	github.com/goextension/log v0.0.0-20191022085446-44e082c339c1
 	github.com/goextension/tool v0.0.2
+	github.com/golang/protobuf v1.3.2
 	github.com/golang/snappy v0.0.1 // indirect
 	github.com/json-iterator/go v1.1.7
 	github.com/karalabe/hid v1.0.0 // indirect
@@ -30,7 +31,11 @@ require (
 	github.com/rs/cors v1.7.0 // indirect
 	github.com/swaggo/swag v1.6.3 // indirect
 	go.uber.org/zap v1.10.0
+	golang.org/x/net v0.0.0-20191027233614-53de4c7853b5 // indirect
+	golang.org/x/sys v0.0.0-20191027211539-f8518d3b3627 // indirect
 	golang.org/x/xerrors v0.0.0-20190717185122-a985d3407aa7
+	google.golang.org/genproto v0.0.0-20191009194640-548a555dbc03 // indirect
+	google.golang.org/grpc v1.24.0
 	gopkg.in/natefinch/npipe.v2 v2.0.0-20160621034901-c1b8fa8bdcce // indirect
 	gopkg.in/urfave/cli.v1 v1.20.0 // indirect
 	gopkg.in/urfave/cli.v2 v2.0.0-20180128182452-d3ae77c26ac8
