@@ -43,8 +43,13 @@ func (r *restapi) AddNode(manager *api.Manager, node api.Node) {
 }
 
 // GetWork ...
-func (r *restapi) GetWork(manager *api.Manager, id string) error {
+func (r *restapi) GetWork(manager *api.Manager, id string) (*api.Work, error) {
 	panic("implement me")
+}
+
+// GetWorks ...
+func (r *restapi) GetWorks(manager *api.Manager) ([]*api.Work, error) {
+	return nil, nil
 }
 
 // DeleteWork ...
@@ -139,11 +144,6 @@ func (r *restapi) Start() error {
 		return err
 	}
 	return nil
-}
-
-// GetWorks ...
-func (r *restapi) GetWorks(manager *api.Manager) ([]*api.Work, error) {
-	return nil, nil
 }
 
 func (r *restapi) getTasks() func(ctx *gin.Context) {
