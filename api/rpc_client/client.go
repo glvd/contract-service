@@ -1,47 +1,75 @@
 package rpc_client
 
 import (
-	"net/rpc"
+	"log"
+	"strings"
 
 	"service/api"
+	"service/api/pb"
+
+	"google.golang.org/grpc"
 )
 
 type rpcclient struct {
 	cfg       api.Config
-	rpcClient *rpc.Client
+	rpcClient pb.ServiceClient
 }
 
-func NewClient() api.Client {
-	rpcClient := rpc.NewClient(nil)
+func NewClient(cfg api.Config) api.Client {
 	return &rpcclient{
-		rpcClient: rpcClient,
+		cfg: cfg,
 	}
 }
 
+func rpcAddr(addr, port string) string {
+	if addr == "" {
+		addr = "127.0.0.1"
+	}
+	return strings.Join([]string{addr, port}, ":")
+}
+
 func (r *rpcclient) Start() error {
-	panic("start")
+	// Set up a connection to the server.
+	conn, err := grpc.Dial(rpcAddr(r.cfg.RPCAddr, r.cfg.RPCPort), grpc.WithInsecure(), grpc.WithBlock())
+	if err != nil {
+		log.Fatalf("did not connect: %v", err)
+	}
+	defer conn.Close()
+	r.rpcClient = pb.NewServiceClient(conn)
+
+	// Contact the server and print out its response.
+	//name := defaultName
+	//if len(os.Args) > 1 {
+	//	name = os.Args[1]
+	//}
+	//ctx, cancel := context.WithTimeout(context.Background(), time.Second)
+	//defer cancel()
+	//r, err := c.SayHello(ctx, &pb.HelloRequest{Name: name})
+	//if err != nil {
+	//	log.Fatalf("could not greet: %v", err)
+	//}
+	//log.Printf("Greeting: %s", r.GetMessage())
 }
 
 func (r rpcclient) Stop() {
 	panic("implement me")
 }
 
-func (r rpcclient) GetTasks(manager *api.Manager) ([]*api.Work, error) {
+func (r *rpcclient) AddWork(manager *api.Manager) error {
 	panic("implement me")
 }
 
-func (r rpcclient) PostTask(manager *api.Manager) error {
+func (r *rpcclient) DeleteWork(manager *api.Manager, id string) error {
 	panic("implement me")
 }
 
-func (r rpcclient) GetTask(manager *api.Manager, id string) error {
+func (r *rpcclient) GetWork(manager *api.Manager, id string) error {
 	panic("implement me")
 }
 
-func (r rpcclient) DeleteTask(manager *api.Manager, id string) error {
+func (r *rpcclient) GetWorks(manager *api.Manager) ([]*api.Work, error) {
 	panic("implement me")
 }
-
 func (r rpcclient) GetNode(manager *api.Manager) {
 	panic("implement me")
 }

@@ -8,6 +8,7 @@ import (
 	"service/api"
 	pb "service/api/pb"
 
+	"github.com/goextension/log"
 	"google.golang.org/grpc"
 )
 
@@ -22,10 +23,6 @@ func (s *server) Work(context.Context, *pb.WorkRequest) (*pb.WorkReply, error) {
 }
 
 func (s *server) Node(context.Context, *pb.NodeRequest) (*pb.NodeReply, error) {
-	panic("implement me")
-}
-
-func (s *server) Stop() {
 	panic("implement me")
 }
 
@@ -45,15 +42,21 @@ func NewRPCServer(cfg api.Config, options ...Options) api.Server {
 }
 
 func (s *server) Start() error {
-
 	lis, err := net.Listen("tcp", ":"+s.cfg.RPCPort)
 	if err != nil {
 		return fmt.Errorf("failed to listen:%w", err)
 	}
 	s.rpcServer = grpc.NewServer()
-	pb.RegisterServiceServer(grpcServer, &server{})
-	if err := grpcServer.Serve(lis); err != nil {
-		return fmt.Errorf("failed to server:%w", err)
-	}
+	pb.RegisterServiceServer(s.rpcServer, &server{})
+	go func() {
+		if err := s.rpcServer.Serve(lis); err != nil {
+			log.Panicw("failed to server", "error", err)
+		}
+	}()
 	return nil
+}
+func (s *server) Stop() {
+	if s.rpcServer != nil {
+		s.rpcServer.Stop()
+	}
 }
