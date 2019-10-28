@@ -13,11 +13,11 @@ const RestAPI = "restapi"
 type Client interface {
 	Runnable
 	GetWorks(manager *Manager) ([]*Work, error)
-	AddWork(manager *Manager) error
+	AddWork(manager *Manager, work Work) error
 	GetWork(manager *Manager, id string) error
 	DeleteWork(manager *Manager, id string) error
-	GetNode(manager *Manager)
-	PostNode(manager *Manager)
+	GetNode(manager *Manager, id string)
+	AddNode(manager *Manager, node Node)
 	DeleteNode(manager *Manager)
 	GetVideos(manager *Manager)
 }
@@ -28,36 +28,10 @@ type Work struct {
 	SamplePath string
 	VideoInfo  string
 }
+type Node struct {
+}
 
 type dummyClient struct {
-}
-
-func (d dummyClient) AddWork(manager *Manager) error {
-	panic("implement me")
-}
-
-func (d dummyClient) GetWork(manager *Manager, id string) error {
-	panic("implement me")
-}
-
-func (d dummyClient) DeleteWork(manager *Manager, id string) error {
-	panic("implement me")
-}
-
-func (d dummyClient) GetNode(manager *Manager) {
-	panic("implement me")
-}
-
-func (d dummyClient) PostNode(manager *Manager) {
-	panic("implement me")
-}
-
-func (d dummyClient) DeleteNode(manager *Manager) {
-	panic("implement me")
-}
-
-func (d dummyClient) GetVideos(manager *Manager) {
-	panic("implement me")
 }
 
 func (d dummyClient) Start() error {

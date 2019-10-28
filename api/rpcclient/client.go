@@ -1,4 +1,4 @@
-package rpc_client
+package rpcclient
 
 import (
 	"log"
@@ -49,10 +49,10 @@ func (r *rpcclient) Start() error {
 	//	log.Fatalf("could not greet: %v", err)
 	//}
 	//log.Printf("Greeting: %s", r.GetMessage())
+	return nil
 }
 
-func (r rpcclient) Stop() {
-	panic("implement me")
+func (r *rpcclient) Stop() {
 }
 
 func (r *rpcclient) AddWork(manager *api.Manager) error {

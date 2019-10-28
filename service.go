@@ -10,6 +10,7 @@ import (
 
 	"service/api"
 	"service/api/restapi"
+	"service/api/rpcserver"
 
 	"github.com/glvd/conversion"
 	"github.com/goextension/log"
@@ -76,8 +77,10 @@ func NewService() *Service {
 
 	manager := api.NewManager(ctx)
 
-	rest := restapi.NewRestAPI(cfg.API, restapi.Manager(manager))
+	rpcServer := rpcserver.NewRPCServer(cfg.API)
+	manager.SetServer(rpcServer)
 
+	rest := restapi.NewRestAPI(cfg.API, restapi.Manager(manager))
 	manager.RegisterClient(api.RestAPI, rest)
 	//manager.RegisterClient(api.RPCCLient,rpc)
 
@@ -105,6 +108,11 @@ func (s *Service) Start() error {
 			return
 		}
 	}()
+
+	go func() {
+
+	}()
+
 	s.manager.StartAll()
 
 	return nil

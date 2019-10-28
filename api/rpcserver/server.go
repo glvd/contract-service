@@ -1,4 +1,4 @@
-package rpc_server
+package rpcserver
 
 import (
 	"context"
@@ -6,7 +6,7 @@ import (
 	"net"
 
 	"service/api"
-	pb "service/api/pb"
+	"service/api/pb"
 
 	"github.com/goextension/log"
 	"google.golang.org/grpc"
@@ -18,8 +18,8 @@ type server struct {
 	rpcServer *grpc.Server
 }
 
-func (s *server) Work(context.Context, *pb.WorkRequest) (*pb.WorkReply, error) {
-	panic("implement me")
+func (s *server) Work(ctx context.Context, req *pb.WorkRequest) (*pb.WorkReply, error) {
+	return &pb.WorkReply{}, nil
 }
 
 func (s *server) Node(context.Context, *pb.NodeRequest) (*pb.NodeReply, error) {
@@ -55,6 +55,7 @@ func (s *server) Start() error {
 	}()
 	return nil
 }
+
 func (s *server) Stop() {
 	if s.rpcServer != nil {
 		s.rpcServer.Stop()

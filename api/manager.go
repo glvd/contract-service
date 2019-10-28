@@ -53,6 +53,13 @@ func (m *Manager) Client(name string) (client Client) {
 func (m *Manager) StartAll() {
 	m.mutex.Lock()
 	defer m.mutex.Unlock()
+	go func() {
+		e := m.server.Start()
+		if e != nil {
+			log.Panicw("can't start rpc server", "name", "rpc server", "error", e)
+		}
+	}()
+
 	for name, cli := range m.clients {
 		go func(name string, client Client) {
 			e := cli.Start()
