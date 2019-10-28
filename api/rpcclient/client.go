@@ -1,6 +1,7 @@
 package rpcclient
 
 import (
+	"errors"
 	"log"
 	"strings"
 
@@ -15,6 +16,7 @@ type rpcclient struct {
 	rpcClient pb.ServiceClient
 }
 
+// NewClient ...
 func NewClient(cfg api.Config) api.Client {
 	return &rpcclient{
 		cfg: cfg,
@@ -28,6 +30,7 @@ func rpcAddr(addr, port string) string {
 	return strings.Join([]string{addr, port}, ":")
 }
 
+// Start ...
 func (r *rpcclient) Start() error {
 	// Set up a connection to the server.
 	conn, err := grpc.Dial(rpcAddr(r.cfg.RPCAddr, r.cfg.RPCPort), grpc.WithInsecure(), grpc.WithBlock())
@@ -52,36 +55,66 @@ func (r *rpcclient) Start() error {
 	return nil
 }
 
+// Stop ...
 func (r *rpcclient) Stop() {
 }
 
-func (r *rpcclient) AddWork(manager *api.Manager) error {
-	panic("implement me")
-}
-
+// DeleteWork ...
 func (r *rpcclient) DeleteWork(manager *api.Manager, id string) error {
 	panic("implement me")
 }
 
+// GetWork ...
 func (r *rpcclient) GetWork(manager *api.Manager, id string) error {
 	panic("implement me")
 }
 
+// GetWorks ...
 func (r *rpcclient) GetWorks(manager *api.Manager) ([]*api.Work, error) {
 	panic("implement me")
 }
-func (r rpcclient) GetNode(manager *api.Manager) {
+
+// AddWork ...
+func (r *rpcclient) AddWork(manager *api.Manager, work api.Work) error {
+	reply, e := r.rpcClient.Work(manager.Context(), &pb.WorkRequest{
+		Msg:        pb.MessageType_Add,
+		WorkMode:   pb.WorkMode_LocalMode,
+		VideoPath:  work.VideoPath,
+		PosterPath: work.PosterPath,
+		ThumbPath:  work.ThumbPath,
+		SamplePath: work.SamplePath,
+		VideoInfo:  work.VideoInfo,
+	})
+	if e != nil {
+		return e
+	}
+	if reply.Error != "" {
+		return errors.New(reply.Error)
+	}
+	return nil
+}
+
+// GetNode ...
+func (r *rpcclient) GetNode(manager *api.Manager, id string) {
 	panic("implement me")
 }
 
+// AddNode ...
+func (r *rpcclient) AddNode(manager *api.Manager, node api.Node) {
+	panic("implement me")
+}
+
+// PostNode ...
 func (r rpcclient) PostNode(manager *api.Manager) {
 	panic("implement me")
 }
 
+// DeleteNode ...
 func (r rpcclient) DeleteNode(manager *api.Manager) {
 	panic("implement me")
 }
 
+// GetVideos ...
 func (r rpcclient) GetVideos(manager *api.Manager) {
 	panic("implement me")
 }

@@ -56,6 +56,11 @@ func (m *Manager) Client(name string) (client Client) {
 	return
 }
 
+// Context ...
+func (m *Manager) Context() context.Context {
+	return m.ctx
+}
+
 // StartAll ...
 func (m *Manager) StartAll() {
 	m.mutex.Lock()
