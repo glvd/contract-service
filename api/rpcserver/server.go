@@ -54,11 +54,9 @@ func (s *server) Start() error {
 	}
 	s.rpcServer = grpc.NewServer()
 	pb.RegisterServiceServer(s.rpcServer, &server{})
-	go func() {
-		if err := s.rpcServer.Serve(lis); err != nil {
-			log.Panicw("failed to server", "error", err)
-		}
-	}()
+	if err := s.rpcServer.Serve(lis); err != nil {
+		log.Panicw("failed to server", "error", err)
+	}
 	return nil
 }
 

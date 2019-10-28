@@ -83,7 +83,7 @@ func NewService() *Service {
 
 	rest := restapi.NewRestAPI(cfg.API, restapi.Manager(manager))
 	manager.RegisterClient(api.RestAPI, rest)
-	local := &core{}
+	local := &serviceHandle{}
 	manager.RegisterClient(api.LocalClient, local)
 
 	e = cfg.SaveJSON()
@@ -104,16 +104,6 @@ func NewService() *Service {
 // Start ...
 func (s *Service) Start() error {
 	//start conversion task
-	go func() {
-		if err := s.task.Start(); err != nil {
-			log.Panicw(err.Error(), "func", "service|start")
-			return
-		}
-	}()
-
-	go func() {
-
-	}()
 
 	s.manager.StartAll()
 
