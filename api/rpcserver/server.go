@@ -18,19 +18,24 @@ type server struct {
 	rpcServer *grpc.Server
 }
 
-func (s *server) Work(ctx context.Context, req *pb.WorkRequest) (*pb.WorkReply, error) {
-	return &pb.WorkReply{}, nil
-}
-
-func (s *server) Node(context.Context, *pb.NodeRequest) (*pb.NodeReply, error) {
-	panic("implement me")
-}
-
+// Options ...
 type Options func(sever *server)
 
 func init() {
 
 }
+
+// Work ...
+func (s *server) Work(ctx context.Context, req *pb.WorkRequest) (*pb.WorkReply, error) {
+	return &pb.WorkReply{}, nil
+}
+
+// Node ...
+func (s *server) Node(context.Context, *pb.NodeRequest) (*pb.NodeReply, error) {
+	return &pb.NodeReply{}, nil
+}
+
+// NewRPCServer ...
 func NewRPCServer(cfg api.Config, options ...Options) api.Server {
 	s := &server{
 		cfg: cfg,
@@ -41,6 +46,7 @@ func NewRPCServer(cfg api.Config, options ...Options) api.Server {
 	return s
 }
 
+// Start ...
 func (s *server) Start() error {
 	lis, err := net.Listen("tcp", ":"+s.cfg.RPCPort)
 	if err != nil {
@@ -56,6 +62,7 @@ func (s *server) Start() error {
 	return nil
 }
 
+// Stop ...
 func (s *server) Stop() {
 	if s.rpcServer != nil {
 		s.rpcServer.Stop()

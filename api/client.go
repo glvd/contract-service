@@ -36,7 +36,7 @@ type Work struct {
 	VideoPath  []string
 	PosterPath string
 	ThumbPath  string
-	SamplePath string
+	SamplePath []string
 	VideoInfo  string
 }
 

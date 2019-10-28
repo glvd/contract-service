@@ -17,6 +17,7 @@ import (
 	"github.com/goextension/tool"
 )
 
+// DefaultFolder ...
 var (
 	DefaultFolder = ".service"
 	DefaultPath   string
@@ -82,7 +83,8 @@ func NewService() *Service {
 
 	rest := restapi.NewRestAPI(cfg.API, restapi.Manager(manager))
 	manager.RegisterClient(api.RestAPI, rest)
-	//manager.RegisterClient(api.RPCCLient,rpc)
+	local := &core{}
+	manager.RegisterClient(api.LocalClient, local)
 
 	e = cfg.SaveJSON()
 	if e != nil {
@@ -118,6 +120,7 @@ func (s *Service) Start() error {
 	return nil
 }
 
+// Wait ...
 func (s *Service) Wait() {
 	<-s.done
 }

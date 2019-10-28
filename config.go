@@ -9,8 +9,10 @@ import (
 	"service/api"
 )
 
+// ConfigName ...
 const ConfigName = "service.json"
 
+// ConversionConfig ...
 type ConversionConfig struct {
 	Limit    int    `json:"limit"`
 	Addr     string `json:"addr"`
@@ -29,6 +31,7 @@ func jsonPath() string {
 	return filepath.Join(DefaultPath, ConfigName)
 }
 
+// LoadJSON ...
 func (config *Config) LoadJSON() error {
 	_, e := os.Stat(jsonPath())
 	//skip when config not exist
@@ -49,6 +52,7 @@ func (config *Config) LoadJSON() error {
 	return nil
 }
 
+// SaveJSON ...
 func (config *Config) SaveJSON() error {
 	bytes, e := json.MarshalIndent(config, "", "  ")
 	if e != nil {
@@ -61,6 +65,7 @@ func (config *Config) SaveJSON() error {
 	return nil
 }
 
+// DefaultConfig ...
 func DefaultConfig() *Config {
 	return &Config{
 		API: api.Config{
