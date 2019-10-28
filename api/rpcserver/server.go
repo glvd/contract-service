@@ -86,6 +86,7 @@ func NewRPCServer(cfg api.Config, options ...Options) api.Server {
 
 // Start ...
 func (s *server) Start() error {
+	log.Info("rpc server was handle on :", s.cfg.RPCPort)
 	lis, err := net.Listen("tcp", ":"+s.cfg.RPCPort)
 	if err != nil {
 		return fmt.Errorf("failed to listen:%w", err)
