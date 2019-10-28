@@ -139,7 +139,7 @@ func (r *restapi) init() {
 
 // Start ...
 func (r *restapi) Start() error {
-	log.Info("rest was hanle on port:", r.cfg.RestPort)
+	log.Info("rest was handle on port:", r.cfg.RestPort)
 	err := r.eng.Run(":" + r.cfg.RestPort)
 	if err != nil {
 		return err

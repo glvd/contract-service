@@ -35,7 +35,7 @@ func client(conn *grpc.ClientConn) pb.ServiceClient {
 
 // Start ...
 func (r *rpcclient) Start() (err error) {
-	// Set up a connection to the server.
+	log.Info("rpc client was dail on:", r.cfg.RPCPort)
 	r.conn, err = grpc.Dial(rpcAddr(r.cfg.RPCAddr, r.cfg.RPCPort), grpc.WithInsecure(), grpc.WithBlock())
 	if err != nil {
 		log.Panicf("did not connect: %v", err)
