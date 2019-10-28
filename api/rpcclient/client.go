@@ -71,15 +71,17 @@ func (r *rpcclient) DeleteWork(manager *api.Manager, id string) error {
 }
 
 // GetWork ...
-func (r *rpcclient) GetWork(manager *api.Manager, id string) error {
-	if _, err := client(r.conn).Work(manager.Context(), &pb.WorkRequest{
+func (r *rpcclient) GetWork(manager *api.Manager, id string) (*api.Work, error) {
+	reply, err := client(r.conn).Work(manager.Context(), &pb.WorkRequest{
 		Msg:      pb.MessageType_Status,
 		WorkMode: pb.WorkMode_LocalMode,
 		ID:       id,
-	}); err != nil {
-		return err
+	})
+	if err != nil {
+		return nil, err
 	}
-	return nil
+	work := api.RPCWorkToWork(reply.Work, reply.Status)
+	return work, nil
 }
 
 // GetWorks ...
@@ -90,13 +92,9 @@ func (r *rpcclient) GetWorks(manager *api.Manager) ([]*api.Work, error) {
 // AddWork ...
 func (r *rpcclient) AddWork(manager *api.Manager, work api.Work) error {
 	reply, e := client(r.conn).Work(manager.Context(), &pb.WorkRequest{
-		Msg:        pb.MessageType_Add,
-		WorkMode:   pb.WorkMode_LocalMode,
-		VideoPath:  work.VideoPath,
-		PosterPath: work.PosterPath,
-		ThumbPath:  work.ThumbPath,
-		SamplePath: work.SamplePath,
-		VideoInfo:  work.VideoInfo,
+		Msg:      pb.MessageType_Add,
+		WorkMode: pb.WorkMode_LocalMode,
+		Work:     api.WorkToRPCWork(&work),
 	})
 	if e != nil {
 		return e

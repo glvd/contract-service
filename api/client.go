@@ -3,6 +3,8 @@ package api
 import (
 	"errors"
 
+	"service/api/pb"
+
 	"github.com/goextension/log"
 )
 
@@ -33,6 +35,7 @@ type Client interface {
 
 // Work ...
 type Work struct {
+	WorkStatus int32
 	VideoPath  []string
 	PosterPath string
 	ThumbPath  string
@@ -48,6 +51,29 @@ type dummyClient struct {
 }
 
 var _ Client = &dummyClient{}
+
+// WorkToAPIWork ...
+func RPCWorkToWork(work *pb.Work, status pb.WorkStatus) *Work {
+	return &Work{
+		WorkStatus: (int32)(status),
+		VideoPath:  work.GetVideoPath(),
+		PosterPath: work.GetPosterPath(),
+		ThumbPath:  work.GetThumbPath(),
+		SamplePath: work.GetSamplePath(),
+		VideoInfo:  work.GetVideoInfo(),
+	}
+}
+
+// APIWorkToWork ...
+func WorkToRPCWork(work *Work) *pb.Work {
+	return &pb.Work{
+		VideoPath:  work.VideoPath,
+		PosterPath: work.PosterPath,
+		ThumbPath:  work.ThumbPath,
+		SamplePath: work.SamplePath,
+		VideoInfo:  work.VideoInfo,
+	}
+}
 
 // AddWork ...
 func (d dummyClient) AddWork(manager *Manager, work Work) error {
