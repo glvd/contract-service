@@ -2,18 +2,18 @@ package rpcclient
 
 import (
 	"errors"
-	"log"
 	"strings"
 
 	"service/api"
 	"service/api/pb"
 
+	"github.com/goextension/log"
 	"google.golang.org/grpc"
 )
 
 type rpcclient struct {
-	cfg       api.Config
-	rpcClient pb.ServiceClient
+	cfg  api.Config
+	conn *grpc.ClientConn
 }
 
 // NewClient ...
@@ -29,16 +29,17 @@ func rpcAddr(addr, port string) string {
 	}
 	return strings.Join([]string{addr, port}, ":")
 }
+func client(conn *grpc.ClientConn) pb.ServiceClient {
+	return pb.NewServiceClient(conn)
+}
 
 // Start ...
-func (r *rpcclient) Start() error {
+func (r *rpcclient) Start() (err error) {
 	// Set up a connection to the server.
-	conn, err := grpc.Dial(rpcAddr(r.cfg.RPCAddr, r.cfg.RPCPort), grpc.WithInsecure(), grpc.WithBlock())
+	r.conn, err = grpc.Dial(rpcAddr(r.cfg.RPCAddr, r.cfg.RPCPort), grpc.WithInsecure(), grpc.WithBlock())
 	if err != nil {
-		log.Fatalf("did not connect: %v", err)
+		log.Panicf("did not connect: %v", err)
 	}
-	defer conn.Close()
-	r.rpcClient = pb.NewServiceClient(conn)
 
 	// Contact the server and print out its response.
 	//name := defaultName
@@ -57,6 +58,11 @@ func (r *rpcclient) Start() error {
 
 // Stop ...
 func (r *rpcclient) Stop() {
+
+	e := r.conn.Close()
+	if e != nil {
+		log.Warnw("close conn")
+	}
 }
 
 // DeleteWork ...
@@ -66,7 +72,7 @@ func (r *rpcclient) DeleteWork(manager *api.Manager, id string) error {
 
 // GetWork ...
 func (r *rpcclient) GetWork(manager *api.Manager, id string) error {
-	if _, err := r.rpcClient.Work(manager.Context(), &pb.WorkRequest{
+	if _, err := client(r.conn).Work(manager.Context(), &pb.WorkRequest{
 		Msg:      pb.MessageType_Status,
 		WorkMode: pb.WorkMode_LocalMode,
 		ID:       id,
@@ -83,7 +89,7 @@ func (r *rpcclient) GetWorks(manager *api.Manager) ([]*api.Work, error) {
 
 // AddWork ...
 func (r *rpcclient) AddWork(manager *api.Manager, work api.Work) error {
-	reply, e := r.rpcClient.Work(manager.Context(), &pb.WorkRequest{
+	reply, e := client(r.conn).Work(manager.Context(), &pb.WorkRequest{
 		Msg:        pb.MessageType_Add,
 		WorkMode:   pb.WorkMode_LocalMode,
 		VideoPath:  work.VideoPath,
