@@ -85,23 +85,23 @@ func (r *restapi) init() {
 	var restapiHandles = []Handle{
 		{
 			Method:   "GET",
-			Path:     "/tasks",
-			Function: r.getTasks(),
+			Path:     "/works",
+			Function: r.getWorks(),
 		},
 		{
 			"POST",
-			"/task",
-			r.postTask(),
+			"/work",
+			r.addWork(),
 		},
 		{
 			"GET",
 			"/task/:id",
-			r.getTask(),
+			r.getWork(),
 		},
 		{
 			"DELETE",
 			"/task/:id",
-			r.deleteTask(),
+			r.deleteWork(),
 		},
 		{
 			"GET",
@@ -139,6 +139,7 @@ func (r *restapi) init() {
 
 // Start ...
 func (r *restapi) Start() error {
+	log.Info("rest was hanle on port:", r.cfg.RestPort)
 	err := r.eng.Run(":" + r.cfg.RestPort)
 	if err != nil {
 		return err
@@ -146,27 +147,27 @@ func (r *restapi) Start() error {
 	return nil
 }
 
-func (r *restapi) getTasks() func(ctx *gin.Context) {
+func (r *restapi) getWorks() func(ctx *gin.Context) {
 	return func(ctx *gin.Context) {
 		tasks, e := r.manager.Client(api.RPCClient).GetWorks(r.manager)
 		formatterResponse(ctx, e, tasks)
 	}
 }
 
-func (r *restapi) postTask() func(ctx *gin.Context) {
+func (r *restapi) addWork() func(ctx *gin.Context) {
 	return func(ctx *gin.Context) {
 
 	}
 }
 
-func (r *restapi) getTask() func(ctx *gin.Context) {
+func (r *restapi) getWork() func(ctx *gin.Context) {
 
 	return func(ctx *gin.Context) {
 
 	}
 }
 
-func (r *restapi) deleteTask() func(ctx *gin.Context) {
+func (r *restapi) deleteWork() func(ctx *gin.Context) {
 
 	return func(ctx *gin.Context) {
 

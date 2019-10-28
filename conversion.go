@@ -2,6 +2,7 @@ package service
 
 import (
 	"fmt"
+	"path/filepath"
 
 	"github.com/glvd/conversion"
 )
@@ -13,6 +14,7 @@ func initConversion(cfg ConversionConfig) (*conversion.Task, error) {
 		return nil, fmt.Errorf("init conversion:%w", err)
 	}
 
+	conversion.CachePath = filepath.Join(DefaultPath, cfg.Cache)
 	conversion.RegisterCache()
 	conversion.RegisterDatabase(eng)
 	conversion.SetNodeAddress(cfg.NodeAddr)

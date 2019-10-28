@@ -10,6 +10,7 @@ import (
 
 	"service/api"
 	"service/api/restapi"
+	"service/api/rpcclient"
 	"service/api/rpcserver"
 
 	"github.com/glvd/conversion"
@@ -83,6 +84,8 @@ func NewService() *Service {
 
 	rest := restapi.NewRestAPI(cfg.API, restapi.Manager(manager))
 	manager.RegisterClient(api.RestAPI, rest)
+	rpcClient := rpcclient.NewClient(cfg.API)
+	manager.RegisterClient(api.RPCClient, rpcClient)
 	local := &serviceHandle{
 		task: task,
 	}

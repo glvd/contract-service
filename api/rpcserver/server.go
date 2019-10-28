@@ -25,8 +25,30 @@ func init() {
 
 }
 
+var workHandles map[string]interface{}
+
 // Work ...
 func (s *server) Work(ctx context.Context, req *pb.WorkRequest) (*pb.WorkReply, error) {
+	cli := s.manager.Client(api.LocalClient)
+	work := api.RPCWorkToWork(req.Work, 0)
+	switch req.Msg {
+	case pb.MessageType_Add:
+		if err := cli.AddWork(s.manager, *work); err != nil {
+			return nil, err
+		}
+	case pb.MessageType_Status:
+		getWork, err := cli.GetWork(s.manager, req.ID)
+		if err != nil {
+			return nil, err
+		}
+		work := api.WorkToRPCWork(getWork)
+		return &pb.WorkReply{
+			Msg:    req.Msg,
+			Status: pb.WorkStatus(getWork.WorkStatus),
+			Work:   work,
+		}, nil
+	}
+
 	return &pb.WorkReply{}, nil
 }
 
