@@ -9,6 +9,10 @@ service Service {
     }
     rpc WorkStatus (string) returns (WorkReply) {
     }
+    rpc AddNode (NodeRequest) returns (NodeReply) {
+    }
+    rpc NodeStatus (string) returns (NodeReply) {
+    }
 }
 
 enum WorkMode {
@@ -31,3 +35,10 @@ message WorkReply {
     string error = 2;
 }
 
+message NodeRequest {
+
+}
+
+message NodeReply {
+
+}
