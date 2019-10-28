@@ -73,19 +73,19 @@ func (s *serviceHandle) GetWork(manager *api.Manager, id string) (*api.Work, err
 	if err != nil {
 		return nil, err
 	}
-	w := iwork.Work()
-	return &api.Work{
-		VideoPath:  w.VideoPaths,
-		PosterPath: w.PosterPath,
-		ThumbPath:  w.ThumbPath,
-		SamplePath: w.SamplePath,
-		VideoInfo:  iwork.Info(),
-	}, nil
+	return work(iwork), nil
 }
 
 // GetWorks ...
-func (s *serviceHandle) GetWorks(manager *api.Manager) ([]*api.Work, error) {
-	panic("implement me")
+func (s *serviceHandle) GetWorks(manager *api.Manager) (works []*api.Work, e error) {
+	iworks, err := s.task.AllRun()
+	if err != nil {
+		return nil, err
+	}
+	for _, w := range iworks {
+		works = append(works, work(w))
+	}
+	return
 }
 
 // Start ...
@@ -99,4 +99,15 @@ func (s *serviceHandle) Start() error {
 // Stop ...
 func (s *serviceHandle) Stop() {
 	panic("implement me")
+}
+
+func work(iwork conversion.IWork) *api.Work {
+	w := iwork.Work()
+	return &api.Work{
+		VideoPath:  w.VideoPaths,
+		PosterPath: w.PosterPath,
+		ThumbPath:  w.ThumbPath,
+		SamplePath: w.SamplePath,
+		VideoInfo:  iwork.Info(),
+	}
 }
