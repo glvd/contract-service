@@ -1,6 +1,9 @@
 package restapi
 
 import (
+	"net/http"
+	"strings"
+
 	"service/api"
 
 	"github.com/gin-gonic/gin"
@@ -50,7 +53,13 @@ func (r *restapi) GetWork(manager *api.Manager, id string) (*api.Work, error) {
 
 // GetWorks ...
 func (r *restapi) GetWorks(manager *api.Manager) ([]*api.Work, error) {
-	return r.manager.Client(api.RPCClient).GetWorks(r.manager)
+	var works []*api.Work
+	resp, err := http.Get(r.URL("works"))
+	err = decodeResponse(resp, err, &works)
+	if err != nil {
+		return nil, err
+	}
+	return works, nil
 }
 
 // DeleteWork ...
@@ -71,6 +80,11 @@ func (r *restapi) DeleteNode(manager *api.Manager) {
 // GetVideos ...
 func (r *restapi) GetVideos(manager *api.Manager) {
 	panic("implement me")
+}
+
+// URL ...
+func (r *restapi) URL(prefix string) string {
+	return strings.Join([]string{"http://" + r.cfg.Remote + ":" + r.cfg.RestPort, r.version, prefix}, "/")
 }
 
 // Stop ...
@@ -157,7 +171,7 @@ func (r *restapi) Start() error {
 
 func (r *restapi) getWorks() func(ctx *gin.Context) {
 	return func(ctx *gin.Context) {
-		works, e := r.GetWorks(r.manager)
+		works, e := r.manager.Client(api.RPCClient).GetWorks(r.manager)
 		formatterResponse(ctx, e, works)
 	}
 }

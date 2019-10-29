@@ -5,6 +5,7 @@ import (
 	"path/filepath"
 )
 
+// Daemon ...
 type Daemon struct {
 	path string
 }

@@ -70,7 +70,10 @@ func (config *Config) SaveJSON() error {
 func DefaultConfig() *Config {
 	return &Config{
 		API: api.Config{
+			Timeout:  30,
+			Remote:   "127.0.0.1",
 			RestPort: "8084",
+			RPCAddr:  "127.0.0.1",
 			RPCPort:  "8085",
 		},
 		Conversion: ConversionConfig{
