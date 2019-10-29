@@ -56,6 +56,7 @@ func (s *rpcserver) Work(ctx context.Context, req *pb.WorkRequest) (*pb.WorkRepl
 			Works: []*pb.Work{work},
 		}, nil
 	case pb.MessageType_List:
+		log.Info("rpc server", "handle", "GetWorks")
 		getWorks, err := cli.GetWorks(s.manager)
 		if err != nil {
 			return nil, err
@@ -101,7 +102,7 @@ func (s *rpcserver) Start() error {
 		return fmt.Errorf("failed to listen:%w", err)
 	}
 	s.rpcServer = grpc.NewServer()
-	pb.RegisterServiceServer(s.rpcServer, &rpcserver{})
+	pb.RegisterServiceServer(s.rpcServer, s)
 	if err := s.rpcServer.Serve(lis); err != nil {
 		return fmt.Errorf("failed to rpcserver:%w", err)
 	}

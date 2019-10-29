@@ -102,8 +102,9 @@ func (r *rpcclient) GetWork(manager *api.Manager, id string) (*api.Work, error) 
 
 // GetWorks ...
 func (r *rpcclient) GetWorks(manager *api.Manager) ([]*api.Work, error) {
+	log.Info("rpc client", "connect", "GetWorks")
 	reply, err := client(r.conn).Work(manager.Context(), &pb.WorkRequest{
-		Msg:      pb.MessageType_Status,
+		Msg:      pb.MessageType_List,
 		WorkMode: pb.WorkMode_LocalMode,
 		ID:       "",
 	})

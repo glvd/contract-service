@@ -54,6 +54,9 @@ var _ Client = &dummyClient{}
 
 // RPCWorkToWork ...
 func RPCWorkToWork(work *pb.Work) *Work {
+	if work == nil {
+		return &Work{}
+	}
 	return &Work{
 		WorkStatus: (int32)(work.Status),
 		VideoPath:  work.GetVideoPath(),
@@ -66,6 +69,9 @@ func RPCWorkToWork(work *pb.Work) *Work {
 
 // WorkToRPCWork ...
 func WorkToRPCWork(work *Work) *pb.Work {
+	if work == nil {
+		return &pb.Work{}
+	}
 	return &pb.Work{
 		Status:     pb.WorkStatus(work.WorkStatus),
 		VideoPath:  work.VideoPath,

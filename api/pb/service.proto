@@ -51,7 +51,7 @@ message WorkRequest {
     MessageType msg = 1;
     WorkMode work_mode = 2;
     string ID = 3;
-    Work work = 5;
+    Work work = 4;
 }
 
 message WorkReply {
