@@ -42,7 +42,7 @@ func (s *rpcserver) Work(ctx context.Context, req *pb.WorkRequest) (*pb.WorkRepl
 	work := api.RPCWorkToWork(req.Work)
 	switch req.Msg {
 	case pb.MessageType_Add:
-		log.Info("rpc server", "handle", "AddWork")
+		log.Infow("rpc server", "handle", "AddWork")
 		if err := cli.AddWork(s.manager, *work); err != nil {
 			return nil, err
 		}
@@ -57,7 +57,7 @@ func (s *rpcserver) Work(ctx context.Context, req *pb.WorkRequest) (*pb.WorkRepl
 			Works: []*pb.Work{work},
 		}, nil
 	case pb.MessageType_List:
-		log.Info("rpc server", "handle", "GetWorks")
+		log.Infow("rpc server", "handle", "GetWorks")
 		getWorks, err := cli.GetWorks(s.manager)
 		if err != nil {
 			return nil, err

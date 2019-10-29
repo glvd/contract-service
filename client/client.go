@@ -2,6 +2,7 @@ package client
 
 import (
 	"context"
+	"io/ioutil"
 	"os"
 	"path/filepath"
 
@@ -57,16 +58,20 @@ func CmdClientAdd(app *cli.App) *cli.Command {
 		},
 		After: nil,
 		Action: func(ctx *cli.Context) error {
+			bytes, e := ioutil.ReadFile(ctx.String("json"))
+			if e != nil {
+				return e
+			}
 			work := api.Work{
 				WorkStatus: 0,
 				VideoPath:  ctx.Args().Slice(),
 				PosterPath: ctx.String("poster"),
 				ThumbPath:  ctx.String("thumb"),
 				SamplePath: ctx.StringSlice("sample"),
-				VideoInfo:  ctx.String("json"),
+				VideoInfo:  string(bytes),
 			}
 
-			e := _manager.Client(api.RestAPI).AddWork(_manager, work)
+			e = _manager.Client(api.RestAPI).AddWork(_manager, work)
 			if e != nil {
 				return e
 			}

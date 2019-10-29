@@ -27,6 +27,7 @@ func (s *serviceHandle) AddWork(manager *api.Manager, work api.Work) error {
 	dec := json.NewDecoder(reader)
 	info := conversion.VideoPornInfo{}
 	if err := dec.Decode(&info); err != nil {
+		log.Errorw("decode info error", "source", work.VideoInfo, "error", err)
 		return err
 	}
 
@@ -82,6 +83,7 @@ func (s *serviceHandle) GetWorks(manager *api.Manager) (works []*api.Work, e err
 	if err != nil {
 		return nil, err
 	}
+	log.Infow("get all works", "works", iworks)
 	for _, w := range iworks {
 		works = append(works, work(w))
 	}
