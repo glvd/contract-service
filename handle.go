@@ -106,6 +106,7 @@ func (s *serviceHandle) Stop() {
 func work(iwork conversion.IWork) *api.Work {
 	w := iwork.Work()
 	return &api.Work{
+		ID:         iwork.ID(),
 		VideoPath:  w.VideoPaths,
 		PosterPath: w.PosterPath,
 		ThumbPath:  w.ThumbPath,
