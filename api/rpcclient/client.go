@@ -120,6 +120,7 @@ func (r *rpcclient) GetWorks(manager *api.Manager) ([]*api.Work, error) {
 
 // AddWork ...
 func (r *rpcclient) AddWork(manager *api.Manager, work api.Work) error {
+	log.Infow("rpc client", "func", "AddWork")
 	reply, e := client(r.conn).Work(manager.Context(), &pb.WorkRequest{
 		Msg:      pb.MessageType_Add,
 		WorkMode: pb.WorkMode_LocalMode,

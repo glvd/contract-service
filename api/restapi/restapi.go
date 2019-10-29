@@ -3,7 +3,6 @@ package restapi
 import (
 	"bytes"
 	"encoding/json"
-	"fmt"
 	"io/ioutil"
 	"net/http"
 	"strings"
@@ -46,10 +45,7 @@ func (r *restapi) AddWork(manager *api.Manager, work api.Work) error {
 	if e != nil {
 		return e
 	}
-	if resp.StatusCode != 200 {
-		return fmt.Errorf("wrong response status:%d", resp.StatusCode)
-	}
-	return nil
+	return decodeResponse(resp, e, struct{}{})
 }
 
 // GetNode ...
