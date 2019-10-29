@@ -47,7 +47,8 @@ func (s *rpcserver) Work(ctx context.Context, req *pb.WorkRequest) (*pb.WorkRepl
 			return nil, err
 		}
 	case pb.MessageType_Status:
-		getWork, err := cli.GetWork(s.manager, req.ID)
+		log.Infow("rpc server", "handle", "GetWork")
+		getWork, err := cli.GetWork(s.manager, work.ID)
 		if err != nil {
 			return nil, err
 		}

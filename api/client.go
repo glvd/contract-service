@@ -59,8 +59,8 @@ func RPCWorkToWork(work *pb.Work) *Work {
 		return &Work{}
 	}
 	return &Work{
-		ID:         work.GetWorkId(),
 		WorkStatus: (int32)(work.Status),
+		ID:         work.GetID(),
 		VideoPath:  work.GetVideoPath(),
 		PosterPath: work.GetPosterPath(),
 		ThumbPath:  work.GetThumbPath(),
@@ -76,6 +76,7 @@ func WorkToRPCWork(work *Work) *pb.Work {
 	}
 	return &pb.Work{
 		Status:     pb.WorkStatus(work.WorkStatus),
+		ID:         work.ID,
 		VideoPath:  work.VideoPath,
 		PosterPath: work.PosterPath,
 		ThumbPath:  work.ThumbPath,
