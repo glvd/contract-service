@@ -13,13 +13,12 @@ var log = trait.NewZapSugar()
 
 // CmdDaemon ...
 func CmdDaemon(app *cli.App) *cli.Command {
-	flags := append(app.Flags,
-		&cli.StringFlag{
-			Name:  "config",
-			Value: ".service",
-			Usage: "set the config path",
-		},
-	)
+	flags := append(app.Flags) //&cli.StringFlag{
+	//	Name:  "config",
+	//	Value: ".service",
+	//	Usage: "set the config path",
+	//},
+
 	return &cli.Command{
 		Before: func(context *cli.Context) error {
 			service.DefaultPath = context.String("config")

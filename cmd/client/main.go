@@ -5,7 +5,7 @@ import (
 	"os"
 	"sort"
 
-	"service/daemon"
+	"service/add"
 
 	"github.com/goextension/log"
 	_ "github.com/mattn/go-sqlite3"
@@ -48,7 +48,7 @@ func runApp() error {
 	}
 
 	app.Commands = []*cli.Command{
-		daemon.CmdDaemon(app),
+		add.CmdAdd(app),
 	}
 
 	sort.Sort(cli.FlagsByName(app.Flags))

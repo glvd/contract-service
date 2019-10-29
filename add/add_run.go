@@ -3,10 +3,6 @@ package add
 import (
 	"os"
 	"path/filepath"
-	"strings"
-
-	"github.com/glvd/seed/model"
-	"github.com/glvd/seed/task"
 
 	"github.com/glvd/seed"
 	"github.com/godcong/go-trait"
@@ -34,22 +30,6 @@ func CmdAdd(app *cli.App) *cli.Command {
 			Name:  "resource",
 			Usage: "set the resource path",
 		},
-		//&cli.BoolFlag{
-		//	Name:  "fix",
-		//	Usage: "fix video",
-		//},
-		//&cli.BoolFlag{
-		//	Name:  "exist",
-		//	Usage: "set bool to skip exist file",
-		//},
-		//&cli.BoolFlag{
-		//	Name:  "source",
-		//	Usage: "set bool to skip add source file",
-		//},
-		//&cli.BoolFlag{
-		//	Name:  "nocheck",
-		//	Usage: "set bool to check added",
-		//},
 		&cli.IntFlag{
 			Name:  "limit",
 			Value: 5000,
@@ -71,70 +51,7 @@ func CmdAdd(app *cli.App) *cli.Command {
 		Before:        nil,
 		After:         nil,
 		Action: func(context *cli.Context) error {
-			seeder := seed.NewSeed()
 
-			db := context.String("database")
-			if db == "" {
-				db = "cs.db"
-			}
-
-			engine, e := model.InitSQLite3(db)
-			if e != nil {
-				return e
-			}
-			database := seed.NewDatabase(engine)
-			database.RegisterSync(model.Video{}, model.Pin{}, model.Unfinished{})
-
-			process := seed.NewProcess()
-
-			slice := seed.NewSlice()
-			slice.Scale = toScale(context.Int64("scale"))
-			slice.SliceOutput = context.String("output")
-
-			api := seed.NewAPI(context.String("shell"))
-
-			seeder.Register(database, process, api, slice)
-
-			//imove := context.String("infomove")
-			//if imove != "" {
-			//	log.Info("infomove", imove)
-			//	s.RegisterClient(seed.MoveInfo(imove))
-			//}
-
-			//s.RegisterClient(seed.ShellOption(context.String("shell")))
-
-			//s.Workspace = context.String("workspace")
-
-			seeder.Start()
-
-			j := context.String("json")
-			if j != "" {
-				information := task.NewInformation()
-				information.Path = j
-				information.InfoType = task.InfoTypeBSON
-				information.ResourcePath = context.String("resource")
-				information.Limit = context.Int("limit")
-				seeder.AddTasker(information)
-			}
-			path := ""
-			if context.NArg() > 0 {
-				path = context.Args().Get(0)
-			}
-			if path != "" {
-				log.Info("path: ", path)
-				vslice := task.NewVideoSlice()
-				vslice.Path = path
-				skip := strings.Split(context.String("skip"), ",")
-				for _, s := range skip {
-					vslice.SkipType = append(vslice.SkipType, s)
-				}
-				seeder.AddTasker(vslice)
-			}
-
-			update := task.NewUpdate()
-			seeder.AddTasker(update)
-
-			seeder.Wait()
 			return nil
 		},
 		OnUsageError:       nil,
