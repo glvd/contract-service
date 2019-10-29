@@ -70,13 +70,4 @@ func (m *Manager) StartAll() {
 		}
 	}()
 
-	for name, cli := range m.clients {
-		log.Infow("starting client", "name", name)
-		go func(name string, client Client) {
-			e := cli.Start()
-			if e != nil {
-				log.Panicw("can't start client", "name", name, "error", e)
-			}
-		}(name, cli)
-	}
 }

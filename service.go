@@ -78,19 +78,6 @@ func NewService() *Service {
 	}
 
 	manager := api.NewManager(ctx)
-
-	rpcServer := rpcserver.NewRPCServer(cfg.API, rpcserver.Manager(manager))
-	manager.SetServer(rpcServer)
-
-	rest := restapi.NewRestAPI(cfg.API, restapi.Manager(manager))
-	manager.RegisterClient(api.RestAPI, rest)
-	rpcClient := rpcclient.NewClient(cfg.API)
-	manager.RegisterClient(api.RPCClient, rpcClient)
-	local := &serviceHandle{
-		task: task,
-	}
-	manager.RegisterClient(api.LocalClient, local)
-
 	e = cfg.SaveJSON()
 	if e != nil {
 		log.Panicw("can't save json file", "error", e)
@@ -109,8 +96,41 @@ func NewService() *Service {
 // Start ...
 func (s *Service) Start() error {
 	//start conversion task
+	rpcServer := rpcserver.NewRPCServer(s.config.API, rpcserver.Manager(s.manager))
+	s.manager.SetServer(rpcServer)
+	go func() {
+		e := rpcServer.Start()
+		if e != nil {
+			log.Errorw("start rpc server failed", "error", e)
+		}
+	}()
+	rest := restapi.NewRestAPI(s.config.API, restapi.Manager(s.manager))
+	go func() {
+		e := rest.Start()
+		if e != nil {
+			log.Errorw("start rest client failed", "error", e)
+		}
+	}()
+	s.manager.RegisterClient(api.RestAPI, rest)
+	rpcClient := rpcclient.NewClient(s.config.API)
+	go func() {
+		e := rpcClient.Start()
+		if e != nil {
+			log.Errorw("start rpc client failed", "error", e)
+		}
+	}()
+	s.manager.RegisterClient(api.RPCClient, rpcClient)
 
-	s.manager.StartAll()
+	taskClient := &serviceHandle{
+		task: s.task,
+	}
+	go func() {
+		e := taskClient.Start()
+		if e != nil {
+			log.Errorw("start task client failed", "error", e)
+		}
+	}()
+	s.manager.RegisterClient(api.LocalClient, taskClient)
 
 	return nil
 }

@@ -22,7 +22,7 @@ const RestAPI = "restapi"
 
 // Client ...
 type Client interface {
-	Runnable
+	//Runnable
 	GetWorks(manager *Manager) ([]*Work, error)
 	AddWork(manager *Manager, work Work) error
 	GetWork(manager *Manager, id string) (*Work, error)

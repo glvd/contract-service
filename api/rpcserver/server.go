@@ -12,26 +12,32 @@ import (
 	"google.golang.org/grpc"
 )
 
-type server struct {
+// RPCServer ...
+type RPCServer interface {
+	api.Runnable
+	//api.Client
+}
+
+type rpcserver struct {
 	cfg       api.Config
 	manager   *api.Manager
 	rpcServer *grpc.Server
 }
 
 // Options ...
-type Options func(sever *server)
+type Options func(sever *rpcserver)
 
 var workHandles map[string]interface{}
 
 // Manager ...
 func Manager(manager *api.Manager) Options {
-	return func(s *server) {
+	return func(s *rpcserver) {
 		s.manager = manager
 	}
 }
 
 // Work ...
-func (s *server) Work(ctx context.Context, req *pb.WorkRequest) (*pb.WorkReply, error) {
+func (s *rpcserver) Work(ctx context.Context, req *pb.WorkRequest) (*pb.WorkReply, error) {
 	cli := s.manager.Client(api.LocalClient)
 	work := api.RPCWorkToWork(req.Work)
 	switch req.Msg {
@@ -72,13 +78,13 @@ func (s *server) Work(ctx context.Context, req *pb.WorkRequest) (*pb.WorkReply, 
 }
 
 // Node ...
-func (s *server) Node(context.Context, *pb.NodeRequest) (*pb.NodeReply, error) {
+func (s *rpcserver) Node(context.Context, *pb.NodeRequest) (*pb.NodeReply, error) {
 	return &pb.NodeReply{}, nil
 }
 
 // NewRPCServer ...
 func NewRPCServer(cfg api.Config, options ...Options) api.Server {
-	s := &server{
+	s := &rpcserver{
 		cfg: cfg,
 	}
 	for _, option := range options {
@@ -88,22 +94,22 @@ func NewRPCServer(cfg api.Config, options ...Options) api.Server {
 }
 
 // Start ...
-func (s *server) Start() error {
-	log.Info("rpc server was handle on :", s.cfg.RPCPort)
+func (s *rpcserver) Start() error {
+	log.Info("rpc rpcserver was handle on :", s.cfg.RPCPort)
 	lis, err := net.Listen("tcp", ":"+s.cfg.RPCPort)
 	if err != nil {
 		return fmt.Errorf("failed to listen:%w", err)
 	}
 	s.rpcServer = grpc.NewServer()
-	pb.RegisterServiceServer(s.rpcServer, &server{})
+	pb.RegisterServiceServer(s.rpcServer, &rpcserver{})
 	if err := s.rpcServer.Serve(lis); err != nil {
-		return fmt.Errorf("failed to server:%w", err)
+		return fmt.Errorf("failed to rpcserver:%w", err)
 	}
 	return nil
 }
 
 // Stop ...
-func (s *server) Stop() {
+func (s *rpcserver) Stop() {
 	if s.rpcServer != nil {
 		s.rpcServer.Stop()
 	}

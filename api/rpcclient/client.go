@@ -11,6 +11,12 @@ import (
 	"google.golang.org/grpc"
 )
 
+// RPCClient ...
+type RPCClient interface {
+	api.Runnable
+	api.Client
+}
+
 type rpcclient struct {
 	cfg     api.Config
 	conn    *grpc.ClientConn
@@ -28,7 +34,7 @@ func Manager(manager *api.Manager) Options {
 }
 
 // NewClient ...
-func NewClient(cfg api.Config) api.Client {
+func NewClient(cfg api.Config) RPCClient {
 	return &rpcclient{
 		cfg: cfg,
 	}

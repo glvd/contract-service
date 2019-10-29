@@ -9,6 +9,7 @@ import (
 
 // RestAPI ...
 type RestAPI interface {
+	api.Runnable
 	api.Client
 }
 
