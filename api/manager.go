@@ -3,8 +3,6 @@ package api
 import (
 	"context"
 	"sync"
-
-	"github.com/goextension/log"
 )
 
 // Runnable ...
@@ -15,9 +13,8 @@ type Runnable interface {
 
 // Manager ...
 type Manager struct {
-	mutex   *sync.Mutex
 	server  Server
-	clients map[string]Client
+	clients *sync.Map
 	ctx     context.Context
 	cancel  context.CancelFunc
 }
@@ -25,8 +22,7 @@ type Manager struct {
 // NewManager ...
 func NewManager(ctx context.Context) *Manager {
 	m := &Manager{
-		mutex:   &sync.Mutex{},
-		clients: make(map[string]Client),
+		clients: &sync.Map{},
 	}
 	m.ctx, m.cancel = context.WithCancel(ctx)
 	return m
@@ -34,9 +30,7 @@ func NewManager(ctx context.Context) *Manager {
 
 // RegisterClient ...
 func (m *Manager) RegisterClient(name string, client Client) {
-	m.mutex.Lock()
-	defer m.mutex.Unlock()
-	m.clients[name] = client
+	m.clients.Store(name, client)
 }
 
 // SetServer ...
@@ -46,28 +40,14 @@ func (m *Manager) SetServer(server Server) {
 
 // Client ...
 func (m *Manager) Client(name string) (client Client) {
-	m.mutex.Lock()
-	defer m.mutex.Unlock()
-	var b bool
-	client, b = m.clients[name]
-	if !b {
+	value, ok := m.clients.Load(name)
+	if !ok {
 		return dummyClient{}
 	}
-	return
+	return value.(Client)
 }
 
 // Context ...
 func (m *Manager) Context() context.Context {
 	return m.ctx
-}
-
-// StartAll ...
-func (m *Manager) StartAll() {
-	go func() {
-		e := m.server.Start()
-		if e != nil {
-			log.Panicw("can't start rpc server", "name", "rpc server", "error", e)
-		}
-	}()
-
 }

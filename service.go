@@ -96,6 +96,17 @@ func NewService() *Service {
 // Start ...
 func (s *Service) Start() error {
 	//start conversion task
+	taskClient := &serviceHandle{
+		task: s.task,
+	}
+	go func() {
+		e := taskClient.Start()
+		if e != nil {
+			log.Errorw("start task client failed", "error", e)
+		}
+	}()
+	s.manager.RegisterClient(api.LocalClient, taskClient)
+	//log.Infof("manager is null:%t", s.manager == nil)
 	rpcServer := rpcserver.NewRPCServer(s.config.API, rpcserver.Manager(s.manager))
 	s.manager.SetServer(rpcServer)
 	go func() {
@@ -120,17 +131,6 @@ func (s *Service) Start() error {
 		}
 	}()
 	s.manager.RegisterClient(api.RPCClient, rpcClient)
-
-	taskClient := &serviceHandle{
-		task: s.task,
-	}
-	go func() {
-		e := taskClient.Start()
-		if e != nil {
-			log.Errorw("start task client failed", "error", e)
-		}
-	}()
-	s.manager.RegisterClient(api.LocalClient, taskClient)
 
 	return nil
 }

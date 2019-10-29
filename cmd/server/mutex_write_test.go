@@ -1,13 +1,11 @@
 package main
 
 import (
-	"fmt"
+	"log"
 	"math/rand"
 	"sync"
 	"testing"
 	"time"
-
-	"github.com/glvd/seed/model"
 )
 
 // WriteOne ...
@@ -33,58 +31,15 @@ const WriteMax = 1000
 
 // TestMutexWrite ...
 func TestMutexWrite(t *testing.T) {
-	eng, e := model.InitSQLite3("mutex1.db")
-	if e != nil {
-		return
+	m := &sync.Mutex{}
+	m.Lock()
+	defer m.Unlock()
+	for i := 0; i < WriteMax; i++ {
+		go func(i int) {
+			log.Println("sleep", i)
+			time.Sleep(time.Duration(i) * time.Second)
+		}(i)
 	}
-	e = eng.Sync2(WriteThree{}, WriteTwo{}, WriteOne{})
-	if e != nil {
-		return
-	}
-	wg := &sync.WaitGroup{}
-	wg.Add(1)
-	go func() {
-		for i := 0; i < WriteMax; i++ {
-			_, e := eng.InsertOne(&WriteOne{
-				Name:  fmt.Sprintf("Name(%d)", i),
-				Value: GenerateRandomString(64),
-			})
-			if e != nil {
-				log.Error(e)
-				return
-			}
-		}
-		wg.Done()
-	}()
-	wg.Add(1)
-	go func() {
-		for i := 0; i < WriteMax; i++ {
-			_, e := eng.InsertOne(&WriteTwo{
-				Name:  fmt.Sprintf("Name(%d)", i),
-				Value: GenerateRandomString(64),
-			})
-			if e != nil {
-				log.Error(e)
-				return
-			}
-		}
-		wg.Done()
-	}()
-	go func() {
-		for i := 0; i < WriteMax; i++ {
-			_, e := eng.InsertOne(&WriteThree{
-				Name:  fmt.Sprintf("Name(%d)", i),
-				Value: GenerateRandomString(64),
-			})
-			if e != nil {
-				log.Error(e)
-				return
-			}
-		}
-		wg.Done()
-	}()
-
-	wg.Wait()
 }
 
 /*RandomKind RandomKind */
