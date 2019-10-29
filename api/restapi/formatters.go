@@ -17,10 +17,19 @@ func responseFailed(ctx *gin.Context, err error) {
 }
 
 func responseSuccess(ctx *gin.Context, v interface{}) {
+	data, e := json.MarshalIndent(v, "", " ")
+	if e != nil {
+		ctx.JSON(200, gin.H{
+			"CODE":    200,
+			"MESSAGE": "SUCCESS",
+			"DATA":    nil,
+		})
+	}
+
 	ctx.JSON(200, gin.H{
 		"CODE":    200,
 		"MESSAGE": "SUCCESS",
-		"DATA":    v,
+		"DATA":    data,
 	})
 }
 
@@ -48,7 +57,7 @@ func decodeResponse(resp *http.Response, err error, v interface{}) error {
 
 	err = json.Unmarshal(bytes, &d)
 	if err != nil {
-		return fmt.Errorf("decode error:%w", err)
+		return fmt.Errorf("decode %s error:%w", string(bytes), err)
 	}
 	if d.Code != 200 {
 		return fmt.Errorf("code status error:%d", d.Code)

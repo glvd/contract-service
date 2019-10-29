@@ -70,7 +70,7 @@ func (s *rpcserver) Work(ctx context.Context, req *pb.WorkRequest) (*pb.WorkRepl
 		return &pb.WorkReply{
 			Msg:   req.Msg,
 			Total: 0,
-			Works: nil,
+			Works: works,
 			Error: "",
 		}, nil
 

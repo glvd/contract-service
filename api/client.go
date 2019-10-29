@@ -35,12 +35,12 @@ type Client interface {
 
 // Work ...
 type Work struct {
-	WorkStatus int32
-	VideoPath  []string
-	PosterPath string
-	ThumbPath  string
-	SamplePath []string
-	VideoInfo  string
+	WorkStatus int32    `json:"work_status"`
+	VideoPath  []string `json:"video_path"`
+	PosterPath string   `json:"poster_path"`
+	ThumbPath  string   `json:"thumb_path"`
+	SamplePath []string `json:"sample_path"`
+	VideoInfo  string   `json:"video_info"`
 }
 
 // Node ...
