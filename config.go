@@ -14,6 +14,7 @@ const ConfigName = "service.json"
 
 // ConversionConfig ...
 type ConversionConfig struct {
+	Tmp      string `json:"tmp"`
 	Cache    string `json:"cache"`
 	Limit    int    `json:"limit"`
 	Addr     string `json:"addr"`
@@ -77,6 +78,7 @@ func DefaultConfig() *Config {
 			RPCPort:  "8085",
 		},
 		Conversion: ConversionConfig{
+			Tmp:      filepath.Join(DefaultPath, "tmp"),
 			Cache:    "cache",
 			Limit:    1,
 			Addr:     "localhost:3306",

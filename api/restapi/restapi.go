@@ -45,7 +45,8 @@ func (r *restapi) AddWork(manager *api.Manager, work api.Work) error {
 	if e != nil {
 		return e
 	}
-	return decodeResponse(resp, e, struct{}{})
+	var v interface{}
+	return decodeResponse(resp, e, &v)
 }
 
 // GetNode ...
