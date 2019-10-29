@@ -12,8 +12,19 @@ import (
 )
 
 type rpcclient struct {
-	cfg  api.Config
-	conn *grpc.ClientConn
+	cfg     api.Config
+	conn    *grpc.ClientConn
+	manager *api.Manager
+}
+
+// Options ...
+type Options func(cli *rpcclient)
+
+// Manager ...
+func Manager(manager *api.Manager) Options {
+	return func(c *rpcclient) {
+		c.manager = manager
+	}
 }
 
 // NewClient ...

@@ -157,7 +157,6 @@ func (r *restapi) Start() error {
 func (r *restapi) getWorks() func(ctx *gin.Context) {
 	return func(ctx *gin.Context) {
 		works, e := r.GetWorks(r.manager)
-
 		formatterResponse(ctx, e, works)
 	}
 }

@@ -79,7 +79,7 @@ func NewService() *Service {
 
 	manager := api.NewManager(ctx)
 
-	rpcServer := rpcserver.NewRPCServer(cfg.API)
+	rpcServer := rpcserver.NewRPCServer(cfg.API, rpcserver.Manager(manager))
 	manager.SetServer(rpcServer)
 
 	rest := restapi.NewRestAPI(cfg.API, restapi.Manager(manager))

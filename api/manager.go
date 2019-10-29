@@ -63,8 +63,6 @@ func (m *Manager) Context() context.Context {
 
 // StartAll ...
 func (m *Manager) StartAll() {
-	m.mutex.Lock()
-	defer m.mutex.Unlock()
 	go func() {
 		e := m.server.Start()
 		if e != nil {
@@ -73,6 +71,7 @@ func (m *Manager) StartAll() {
 	}()
 
 	for name, cli := range m.clients {
+		log.Infow("starting client", "name", name)
 		go func(name string, client Client) {
 			e := cli.Start()
 			if e != nil {

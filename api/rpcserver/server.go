@@ -21,11 +21,14 @@ type server struct {
 // Options ...
 type Options func(sever *server)
 
-func init() {
-
-}
-
 var workHandles map[string]interface{}
+
+// Manager ...
+func Manager(manager *api.Manager) Options {
+	return func(s *server) {
+		s.manager = manager
+	}
+}
 
 // Work ...
 func (s *server) Work(ctx context.Context, req *pb.WorkRequest) (*pb.WorkReply, error) {
@@ -94,7 +97,7 @@ func (s *server) Start() error {
 	s.rpcServer = grpc.NewServer()
 	pb.RegisterServiceServer(s.rpcServer, &server{})
 	if err := s.rpcServer.Serve(lis); err != nil {
-		log.Panicw("failed to server", "error", err)
+		return fmt.Errorf("failed to server:%w", err)
 	}
 	return nil
 }
