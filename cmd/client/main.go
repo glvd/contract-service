@@ -51,7 +51,8 @@ func runApp() error {
 	}
 
 	app.Commands = []*cli.Command{
-		client.CmdClient(app),
+		client.CmdClientAdd(app),
+		client.CmdClientStatus(app),
 	}
 
 	sort.Sort(cli.FlagsByName(app.Flags))

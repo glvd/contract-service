@@ -15,9 +15,22 @@ import (
 
 var _manager *api.Manager
 
-// CmdClient ...
-func CmdClient(app *cli.App) *cli.Command {
-	flags := append(app.Flags)
+// CmdClientAdd ...
+func CmdClientAdd(app *cli.App) *cli.Command {
+	flags := append(app.Flags,
+		&cli.StringFlag{
+			Name:  "thumb",
+			Usage: "set the video thumb",
+		},
+		&cli.StringFlag{
+			Name:  "poster",
+			Usage: "set the video poster",
+		},
+		&cli.StringSliceFlag{
+			Name:  "sample",
+			Usage: "set the sample",
+		},
+	)
 	return &cli.Command{
 		Name:          "add",
 		Usage:         "add file ipfs",
@@ -32,7 +45,6 @@ func CmdClient(app *cli.App) *cli.Command {
 				log.Panic("config file was not found")
 			}
 			_manager = api.NewManager(context.Background())
-			//json := ctx.String("json")
 			cfg := service.DefaultConfig()
 			e := cfg.LoadJSON()
 			if e != nil {
@@ -40,38 +52,79 @@ func CmdClient(app *cli.App) *cli.Command {
 			}
 
 			rest := restapi.NewRestAPI(cfg.API, restapi.Manager(_manager))
-
-			//go func() {
-			//	e := rest.Start()
-			//	if e != nil {
-			//		log.Errorw("start rest client failed", "error", e)
-			//	}
-			//}()
 			_manager.RegisterClient(api.RestAPI, rest)
-			//rpcClient := rpcclient.NewClient(cfg.API)
-			//go func() {
-			//	e := rpcClient.Start()
-			//	if e != nil {
-			//		log.Errorw("start rpc client failed", "error", e)
-			//	}
-			//}()
-			//_manager.RegisterClient(api.RPCClient, rpcClient)
-
 			return nil
 		},
 		After: nil,
 		Action: func(ctx *cli.Context) error {
-			works, e := _manager.Client(api.RestAPI).GetWorks(_manager)
+			work := api.Work{
+				WorkStatus: 0,
+				VideoPath:  ctx.Args().Slice(),
+				PosterPath: ctx.String("poster"),
+				ThumbPath:  ctx.String("thumb"),
+				SamplePath: ctx.StringSlice("sample"),
+				VideoInfo:  ctx.String("json"),
+			}
+
+			e := _manager.Client(api.RestAPI).AddWork(_manager, work)
 			if e != nil {
 				return e
 			}
-			log.Infof("%+v", works)
+			log.Infof("work added")
 			return nil
 		},
 		Flags: flags,
 	}
 }
 
+// CmdClientStatus ...
+func CmdClientStatus(app *cli.App) *cli.Command {
+	flags := append(app.Flags)
+	return &cli.Command{
+		Name:          "status",
+		Usage:         "work status",
+		UsageText:     "",
+		Description:   "",
+		ArgsUsage:     "",
+		Category:      "",
+		ShellComplete: nil,
+		Before: func(ctx *cli.Context) error {
+			service.DefaultPath = ctx.String("config")
+			if firstRunCheck() {
+				log.Panic("config file was not found")
+			}
+			_manager = api.NewManager(context.Background())
+			cfg := service.DefaultConfig()
+			e := cfg.LoadJSON()
+			if e != nil {
+				log.Panicw("can't load json file", "error", e)
+			}
+
+			rest := restapi.NewRestAPI(cfg.API, restapi.Manager(_manager))
+			_manager.RegisterClient(api.RestAPI, rest)
+			return nil
+		},
+		After: nil,
+		Action: func(ctx *cli.Context) error {
+			//work := api.Work{
+			//	WorkStatus: 0,
+			//	VideoPath:  ctx.Args().Slice(),
+			//	PosterPath: ctx.String("poster"),
+			//	ThumbPath:  ctx.String("thumb"),
+			//	SamplePath: ctx.StringSlice("sample"),
+			//	VideoInfo:  ctx.String("json"),
+			//}
+
+			works, e := _manager.Client(api.RestAPI).GetWorks(_manager)
+			if e != nil {
+				return e
+			}
+			log.Infof("works result:%+v", works)
+			return nil
+		},
+		Flags: flags,
+	}
+}
 func firstRunCheck() bool {
 	if _, err := os.Stat(service.DefaultPath); err != nil {
 		if os.IsNotExist(err) {

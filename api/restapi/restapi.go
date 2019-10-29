@@ -1,6 +1,10 @@
 package restapi
 
 import (
+	"bytes"
+	"encoding/json"
+	"fmt"
+	"io/ioutil"
 	"net/http"
 	"strings"
 
@@ -33,7 +37,19 @@ type restapi struct {
 
 // AddWork ...
 func (r *restapi) AddWork(manager *api.Manager, work api.Work) error {
-	panic("implement me")
+	workBytes, e := json.Marshal(work)
+	if e != nil {
+		return e
+	}
+
+	resp, e := http.Post(r.URL("work"), "application/json", bytes.NewReader(workBytes))
+	if e != nil {
+		return e
+	}
+	if resp.StatusCode != 200 {
+		return fmt.Errorf("wrong response status:%d", resp.StatusCode)
+	}
+	return nil
 }
 
 // GetNode ...
@@ -43,7 +59,7 @@ func (r *restapi) GetNode(manager *api.Manager, id string) {
 
 // AddNode ...
 func (r *restapi) AddNode(manager *api.Manager, node api.Node) {
-	panic("implement me")
+	panic("")
 }
 
 // GetWork ...
@@ -178,7 +194,19 @@ func (r *restapi) getWorks() func(ctx *gin.Context) {
 
 func (r *restapi) addWork() func(ctx *gin.Context) {
 	return func(ctx *gin.Context) {
+		bytes, e := ioutil.ReadAll(ctx.Request.Body)
+		if e != nil {
+			formatterResponse(ctx, e, nil)
+			return
+		}
+		var work api.Work
+		if err := json.Unmarshal(bytes, &work); err != nil {
+			formatterResponse(ctx, err, nil)
+			return
+		}
 
+		err := r.manager.Client(api.RPCClient).AddWork(r.manager, work)
+		formatterResponse(ctx, err, nil)
 	}
 }
 
