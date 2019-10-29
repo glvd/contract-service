@@ -84,6 +84,13 @@ func (r *restapi) init() {
 
 	var restapiHandles = []Handle{
 		{
+			"GET",
+			"/ping",
+			func(ctx *gin.Context) {
+				ctx.JSON(200, gin.H{"MESSAGE": "success"})
+			},
+		},
+		{
 			Method:   "GET",
 			Path:     "/works",
 			Function: r.getWorks(),
