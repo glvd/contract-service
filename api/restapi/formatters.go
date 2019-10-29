@@ -19,10 +19,10 @@ func responseFailed(ctx *gin.Context, err error) {
 func responseSuccess(ctx *gin.Context, v interface{}) {
 	data, e := json.MarshalIndent(v, "", " ")
 	if e != nil {
-		ctx.JSON(200, gin.H{
-			"CODE":    200,
+		ctx.JSON(404, gin.H{
+			"CODE":    404,
 			"MESSAGE": "SUCCESS",
-			"DATA":    nil,
+			"DATA":    data,
 		})
 	}
 

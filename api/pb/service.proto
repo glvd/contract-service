@@ -39,7 +39,7 @@ enum MessageType {
 
 message Work {
     WorkStatus status = 1;
-    string work_id = 2;
+    string ID = 2;
     repeated string video_path = 3;
     string poster_path = 4;
     string thumb_path = 5;
@@ -50,7 +50,7 @@ message Work {
 message WorkRequest {
     MessageType msg = 1;
     WorkMode work_mode = 2;
-    string ID = 3;
+//    string ID = 3;
     Work work = 4;
 }
 

@@ -1,4 +1,5 @@
-//go:generate statik -f -src=./api/restapi
+////go:generate protoc --go_out=plugins=grpc:.  ./api/pb/*.proto
+////go:generate statik -f -src=./api/restapi
 package main
 
 import (

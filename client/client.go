@@ -124,7 +124,9 @@ func CmdClientStatus(app *cli.App) *cli.Command {
 			if e != nil {
 				return e
 			}
-			log.Infof("works result:%+v", works)
+			for _, work := range works {
+				log.Infow("work status", "id", work.ID)
+			}
 			return nil
 		},
 		Flags: flags,

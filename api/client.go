@@ -35,6 +35,7 @@ type Client interface {
 
 // Work ...
 type Work struct {
+	ID         string   `json:"id"`
 	WorkStatus int32    `json:"work_status"`
 	VideoPath  []string `json:"video_path"`
 	PosterPath string   `json:"poster_path"`
@@ -58,6 +59,7 @@ func RPCWorkToWork(work *pb.Work) *Work {
 		return &Work{}
 	}
 	return &Work{
+		ID:         work.GetWorkId(),
 		WorkStatus: (int32)(work.Status),
 		VideoPath:  work.GetVideoPath(),
 		PosterPath: work.GetPosterPath(),
