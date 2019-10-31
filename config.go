@@ -14,13 +14,15 @@ const ConfigName = "service.json"
 
 // ConversionConfig ...
 type ConversionConfig struct {
-	Tmp      string `json:"tmp"`
-	Cache    string `json:"cache"`
-	Limit    int    `json:"limit"`
-	Addr     string `json:"addr"`
-	Username string `json:"username"`
-	Password string `json:"password"`
-	NodeAddr string `json:"node_addr"`
+	Tmp         string `json:"tmp"`
+	Cache       string `json:"cache"`
+	Limit       int    `json:"limit"`
+	Mode        string `json:"mode"`
+	Addr        string `json:"addr"`
+	Username    string `json:"username"`
+	Password    string `json:"password"`
+	SingleAddr  string `json:"node_addr"`
+	ClusterAddr string `json:"cluster_addr"`
 }
 
 // Config ...
@@ -78,13 +80,15 @@ func DefaultConfig() *Config {
 			RPCPort:  "8085",
 		},
 		Conversion: ConversionConfig{
-			Tmp:      filepath.Join(DefaultPath, "tmp"),
-			Cache:    "cache",
-			Limit:    1,
-			Addr:     "localhost:3306",
-			Username: "root",
-			Password: "111111",
-			NodeAddr: "/ip4/127.0.0.1/tcp/5001",
+			Tmp:         filepath.Join(DefaultPath, "tmp"),
+			Cache:       "cache",
+			Limit:       1,
+			Mode:        "cluster",
+			Addr:        "localhost:3306",
+			Username:    "root",
+			Password:    "111111",
+			SingleAddr:  "/ip4/127.0.0.1/tcp/5001",
+			ClusterAddr: "/ip4/127.0.0.1/tcp/9094",
 		},
 	}
 }
