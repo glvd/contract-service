@@ -40,6 +40,17 @@ func NewClient(cfg api.Config) RPCClient {
 	}
 }
 
+// WrapError ...
+func WrapError(reply *pb.WorkReply, err error) error {
+	if err != nil {
+		return err
+	}
+	if reply.Error != "" {
+		return errors.New(reply.Error)
+	}
+	return nil
+}
+
 func rpcAddr(addr, port string) string {
 	if addr == "" {
 		addr = "127.0.0.1"
@@ -83,7 +94,15 @@ func (r *rpcclient) Stop() {
 
 // DeleteWork ...
 func (r *rpcclient) DeleteWork(manager *api.Manager, id string) error {
-	panic("implement me")
+	reply, e := client(r.conn).Work(manager.Context(), &pb.WorkRequest{
+		Msg:      pb.MessageType_Delete,
+		WorkMode: pb.WorkMode_LocalMode,
+		Work: &pb.Work{
+			ID: id,
+		},
+	})
+
+	return WrapError(reply, e)
 }
 
 // GetWork ...
@@ -127,13 +146,7 @@ func (r *rpcclient) AddWork(manager *api.Manager, work api.Work) error {
 		WorkMode: pb.WorkMode_LocalMode,
 		Work:     api.WorkToRPCWork(&work),
 	})
-	if e != nil {
-		return e
-	}
-	if reply.Error != "" {
-		return errors.New(reply.Error)
-	}
-	return nil
+	return WrapError(reply, e)
 }
 
 // GetNode ...

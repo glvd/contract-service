@@ -74,7 +74,17 @@ func (s *rpcserver) Work(ctx context.Context, req *pb.WorkRequest) (*pb.WorkRepl
 			Works: works,
 			Error: "",
 		}, nil
-
+	case pb.MessageType_Delete:
+		e := cli.DeleteWork(s.manager, req.Work.ID)
+		if e != nil {
+			return nil, e
+		}
+		return &pb.WorkReply{
+			Msg:   req.Msg,
+			Total: 0,
+			Works: []*pb.Work{req.Work},
+			Error: "",
+		}, nil
 	}
 
 	return &pb.WorkReply{}, nil
