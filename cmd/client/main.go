@@ -52,6 +52,7 @@ func runApp() error {
 
 	app.Commands = []*cli.Command{
 		client.CmdClientAdd(app),
+		client.CmdClientRemove(app),
 		client.CmdClientStatus(app),
 	}
 

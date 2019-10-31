@@ -77,7 +77,16 @@ func (r *restapi) GetWorks(manager *api.Manager) ([]*api.Work, error) {
 
 // DeleteWork ...
 func (r *restapi) DeleteWork(manager *api.Manager, id string) error {
-	panic("implement me")
+	req, e := http.NewRequest("DELETE", r.URL("work", id), nil)
+	if e != nil {
+		return e
+	}
+	resp, e := http.DefaultClient.Do(req)
+	if e != nil {
+		return e
+	}
+	var v interface{}
+	return decodeResponse(resp, e, &v)
 }
 
 // PostNode ...
@@ -96,8 +105,10 @@ func (r *restapi) GetVideos(manager *api.Manager) {
 }
 
 // URL ...
-func (r *restapi) URL(prefix string) string {
-	return strings.Join([]string{"http://" + r.cfg.Remote + ":" + r.cfg.RestPort, r.version, prefix}, "/")
+func (r *restapi) URL(prefix string, args ...args) string {
+	s := []string{"http://" + r.cfg.Remote + ":" + r.cfg.RestPort, r.version, prefix}
+	s = append(s, args...)
+	return strings.Join(s, "/")
 }
 
 // Stop ...
