@@ -53,7 +53,7 @@ func CmdClientAdd(app *cli.App) *cli.Command {
 				log.Panicw("can't load json file", "error", e)
 			}
 
-			rest := restapi.NewRestAPI(cfg.API, restapi.Manager(_manager))
+			rest := restapi.NewRestAPI(cfg.API, restapi.ClientMode(), restapi.Manager(_manager))
 			_manager.RegisterClient(api.RestAPI, rest)
 			return nil
 		},
@@ -118,7 +118,7 @@ func CmdClientRemove(app *cli.App) *cli.Command {
 				log.Panicw("can't load json file", "error", e)
 			}
 
-			rest := restapi.NewRestAPI(cfg.API, restapi.Manager(_manager))
+			rest := restapi.NewRestAPI(cfg.API, restapi.ClientMode(), restapi.Manager(_manager))
 			_manager.RegisterClient(api.RestAPI, rest)
 			return nil
 		},
@@ -163,7 +163,7 @@ func CmdClientStatus(app *cli.App) *cli.Command {
 				log.Panicw("can't load json file", "error", e)
 			}
 
-			rest := restapi.NewRestAPI(cfg.API, restapi.Manager(_manager))
+			rest := restapi.NewRestAPI(cfg.API, restapi.ClientMode(), restapi.Manager(_manager))
 			_manager.RegisterClient(api.RestAPI, rest)
 			return nil
 		},

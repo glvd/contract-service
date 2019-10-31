@@ -13,6 +13,12 @@ import (
 	"github.com/goextension/log"
 )
 
+// RestModeServer ...
+const RestModeServer = "server"
+
+// RestModeClient ...
+const RestModeClient = "client"
+
 // RestAPI ...
 type RestAPI interface {
 	api.Runnable
@@ -27,6 +33,7 @@ type Handle struct {
 }
 
 type restapi struct {
+	mode    string
 	version string
 	cfg     api.Config
 	eng     *gin.Engine
@@ -105,7 +112,7 @@ func (r *restapi) GetVideos(manager *api.Manager) {
 }
 
 // URL ...
-func (r *restapi) URL(prefix string, args ...args) string {
+func (r *restapi) URL(prefix string, args ...string) string {
 	s := []string{"http://" + r.cfg.Remote + ":" + r.cfg.RestPort, r.version, prefix}
 	s = append(s, args...)
 	return strings.Join(s, "/")
@@ -228,7 +235,9 @@ func (r *restapi) getWork() func(ctx *gin.Context) {
 func (r *restapi) deleteWork() func(ctx *gin.Context) {
 
 	return func(ctx *gin.Context) {
-
+		id := ctx.Param("id")
+		err := r.manager.Client(api.RPCClient).DeleteWork(r.manager, id)
+		formatterResponse(ctx, err, nil)
 	}
 }
 
@@ -270,16 +279,27 @@ func Manager(manager *api.Manager) Options {
 	}
 }
 
+// ClientMode ...
+func ClientMode() Options {
+	return func(restapi *restapi) {
+		restapi.mode = RestModeClient
+	}
+}
+
 // NewRestAPI ...
 func NewRestAPI(config api.Config, options ...Options) RestAPI {
 	rest := &restapi{
+		mode:    RestModeServer,
 		version: "v0",
 		cfg:     config,
-		eng:     gin.Default(),
 	}
 	for _, option := range options {
 		option(rest)
 	}
-	rest.init()
+
+	if rest.mode == RestModeServer {
+		rest.eng = gin.Default()
+		rest.init()
+	}
 	return rest
 }
