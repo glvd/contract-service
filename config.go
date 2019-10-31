@@ -83,7 +83,7 @@ func DefaultConfig() *Config {
 			Tmp:         filepath.Join(DefaultPath, "tmp"),
 			Cache:       "cache",
 			Limit:       1,
-			Mode:        "cluster",
+			Mode:        NodeModeCluster,
 			Addr:        "localhost:3306",
 			Username:    "root",
 			Password:    "111111",

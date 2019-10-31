@@ -13,8 +13,7 @@ require (
 	github.com/fjl/memsize v0.0.0-20190710130421-bcb5799ab5e5 // indirect
 	github.com/gin-gonic/gin v1.4.0
 	github.com/glvd/bot v0.0.0-20190920092952-d05a7195fb1f
-	github.com/glvd/cluster-api v0.0.0-20191030102933-aa5db0a840a0
-	github.com/glvd/conversion v0.1.1
+	github.com/glvd/conversion v0.1.3
 	github.com/glvd/seed v0.0.0-20190919090848-319aeb69d5f1
 	github.com/gocarina/gocsv v0.0.0-20190624090726-71ad6676df57
 	github.com/godcong/go-ipfs-restapi v0.0.3-0.20190422054229-f13eeaa39df0
@@ -27,7 +26,6 @@ require (
 	github.com/karalabe/hid v1.0.0 // indirect
 	github.com/mattn/go-isatty v0.0.9 // indirect
 	github.com/mattn/go-sqlite3 v1.11.0
-	github.com/multiformats/go-multiaddr v0.1.1
 	github.com/pborman/uuid v1.2.0 // indirect
 	github.com/rjeczalik/notify v0.9.2 // indirect
 	github.com/swaggo/swag v1.6.3 // indirect

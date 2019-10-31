@@ -7,6 +7,12 @@ import (
 	"github.com/glvd/conversion"
 )
 
+// NodeModeCluster ...
+const (
+	NodeModeCluster = "cluster"
+	NodeModelSingle = "single"
+)
+
 func initConversion(cfg ConversionConfig) (*conversion.Task, error) {
 	eng, err := conversion.InitMySQL(
 		conversion.LoginOption(cfg.Addr, cfg.Username, cfg.Password))
@@ -17,7 +23,7 @@ func initConversion(cfg ConversionConfig) (*conversion.Task, error) {
 	conversion.CachePath = filepath.Join(DefaultPath, cfg.Cache)
 	var node conversion.Node
 	switch cfg.Mode {
-	case "cluster":
+	case NodeModeCluster:
 		node = conversion.NewClusterNode(cfg.ClusterAddr)
 	default:
 		node = conversion.NewSingleNode(cfg.SingleAddr)
