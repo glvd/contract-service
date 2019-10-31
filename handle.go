@@ -55,7 +55,8 @@ func (s *serviceHandle) DeleteNode(manager *api.Manager) {
 
 // DeleteWork ...
 func (s *serviceHandle) DeleteWork(manager *api.Manager, id string) error {
-	panic("implement me")
+	s.task.StopWork(id)
+	return nil
 }
 
 // GetNode ...
