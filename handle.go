@@ -41,7 +41,7 @@ func (s *serviceHandle) AddWork(manager *api.Manager, work api.Work) error {
 	if e != nil {
 		return e
 	}
-	e = s.task.AddWorker(iwork)
+	e = s.task.AddWorker(iwork, true)
 	if e != nil {
 		return e
 	}
