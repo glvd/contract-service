@@ -44,6 +44,7 @@ type Contract struct {
 	processor []ProcessorFunc
 }
 
+// UpdateAppWithPath ...
 func (c *Contract) UpdateAppWithPath(code int64, version, path string) error {
 	object, e := c.shell.AddFile(path)
 	if e != nil {
@@ -168,6 +169,7 @@ func (c *Contract) GetLastVersionCode() (code *big.Int, e error) {
 	return
 }
 
+// GetLatest ...
 func (c *Contract) GetLatest() (code *big.Int, hash string, e error) {
 	err := c.ProcContract(func(v interface{}) (b bool, e error) {
 		data, b := v.(*Dhash)
@@ -186,6 +188,7 @@ func (c *Contract) GetLatest() (code *big.Int, hash string, e error) {
 	return
 }
 
+// GetCodeVersion ...
 func (c *Contract) GetCodeVersion(code *big.Int) (ver string, e error) {
 	err := c.ProcContract(func(v interface{}) (b bool, e error) {
 		data, b := v.(*Dhash)
@@ -297,6 +300,7 @@ func (c *Contract) CheckExist(ban string) (hash string, e error) {
 	return
 }
 
+// CheckInfo ...
 func (c *Contract) CheckInfo(ban string, hash1, sp1 string, te1 string, ts1 string) (hash string, e error) {
 	log.With("hash", hash1, "sharpness", sp1, "total episode", te1, "total season", ts1).Info("input")
 	e = c.ProcContract(func(v interface{}) (b bool, e error) {
@@ -328,6 +332,7 @@ func (c *Contract) CheckInfo(ban string, hash1, sp1 string, te1 string, ts1 stri
 	return
 }
 
+// AddReplaceNode ...
 func (c *Contract) AddReplaceNode(index int64, node ...string) (e error) {
 	return addReplaceNode(c, index, node...)
 }

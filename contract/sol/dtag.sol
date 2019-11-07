@@ -1,7 +1,7 @@
 pragma solidity ^0.5.0;
 pragma experimental ABIEncoderV2;
 import "./dmessage.sol";
-import "https://github.com/OpenZeppelin/openzeppelin-solidity/blob/master/contracts/ownership/Ownable.sol";
+// import "./Ownable.sol";
 
 contract DTag is Ownable{
     DMessage message;

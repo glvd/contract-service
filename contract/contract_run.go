@@ -249,6 +249,7 @@ func CmdContract(app *cli.App) *cli.Command {
 	}
 }
 
+// HotList ...
 type HotList struct {
 	EventName             string  `csv:"Event Name"`
 	AppName               string  `csv:"App Name"`
