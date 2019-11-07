@@ -54,6 +54,11 @@ func NewContract(opts ...Options) *Contract {
 	return c
 }
 
+// LoadMessage ...
+func LoadMessage(msg *dmessage.Dmessage) {
+
+}
+
 // Message ...
 func Message(addr string) Options {
 	return func(c *Contract) {
@@ -85,4 +90,31 @@ func Node(addr string) Options {
 		}
 		c.Register(ContractTag, newDnode)
 	}
+}
+
+func (c *Contract) message() (msg *dmessage.Dmessage) {
+	if v, b := c.contracts.Load(ContractMessage); b {
+		if msg, b = v.(*dmessage.Dmessage); b {
+			return
+		}
+	}
+	return nil
+}
+
+func (c *Contract) tag() (tag *dtag.Dtag) {
+	if v, b := c.contracts.Load(ContractTag); b {
+		if tag, b = v.(*dtag.Dtag); b {
+			return
+		}
+	}
+	return nil
+}
+
+func (c *Contract) node() (node *dnode.Dnode) {
+	if v, b := c.contracts.Load(ContractTag); b {
+		if node, b = v.(*dnode.Dnode); b {
+			return
+		}
+	}
+	return nil
 }
