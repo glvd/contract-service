@@ -1,4 +1,4 @@
-package contract
+package bak
 
 import (
 	"context"
@@ -19,6 +19,7 @@ func TestGetHostList(t *testing.T) {
 	t.Log(lists, e)
 }
 
+// TestVideoInfo ...
 func TestVideoInfo(t *testing.T) {
 	infos, e := os.Open("D:\\ipfstest\\accnode\\UTC--2019-08-20T02-58-22.119842600Z--945d35cd4a6549213e8d37feb5d708ec98906902")
 	if e != nil {
