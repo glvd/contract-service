@@ -45,7 +45,13 @@ func (c *Contract) Register(p Type, v interface{}) {
 
 // NewContract ...
 func NewContract(opts ...Options) *Contract {
-	return &Contract{}
+	c := &Contract{
+		contracts: &sync.Map{},
+	}
+	for _, op := range opts {
+		op(c)
+	}
+	return c
 }
 
 // Message ...
