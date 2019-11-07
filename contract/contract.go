@@ -1,14 +1,20 @@
 package contract
 
 import (
+	"context"
+	"crypto/ecdsa"
 	"sync"
 
 	"service/contract/dmessage"
 	"service/contract/dnode"
 	"service/contract/dtag"
 
+	"github.com/ethereum/go-ethereum/accounts/abi/bind"
 	"github.com/ethereum/go-ethereum/common"
+	"github.com/ethereum/go-ethereum/core/types"
+	"github.com/ethereum/go-ethereum/crypto"
 	"github.com/ethereum/go-ethereum/ethclient"
+	"github.com/goextension/log"
 )
 
 // Type ...
@@ -29,6 +35,7 @@ var contract *Contract
 type Contract struct {
 	contracts *sync.Map
 	conn      *ethclient.Client
+	key       string
 }
 
 // Options ...
@@ -57,6 +64,17 @@ func NewContract(opts ...Options) *Contract {
 // LoadMessage ...
 func LoadMessage(msg *dmessage.Dmessage) {
 
+}
+
+// ETHClient ...
+func ETHClient(addr string) Options {
+	return func(c *Contract) {
+		conn, err := ethclient.Dial(addr)
+		if err != nil {
+			panic(err)
+		}
+		c.conn = conn
+	}
 }
 
 // Message ...
@@ -92,6 +110,14 @@ func Node(addr string) Options {
 	}
 }
 
+func (c *Contract) privateKey() (key *ecdsa.PrivateKey) {
+	privateKey, err := crypto.HexToECDSA(c.key)
+	if err != nil {
+		return nil
+	}
+	return privateKey
+}
+
 func (c *Contract) message() (msg *dmessage.Dmessage) {
 	if v, b := c.contracts.Load(DMessage); b {
 		if msg, b = v.(*dmessage.Dmessage); b {
@@ -116,5 +142,35 @@ func (c *Contract) node() (node *dnode.Dnode) {
 			return
 		}
 	}
+	return nil
+}
+
+// TransactOpts ...
+type TransactOpts func(opts *bind.TransactOpts) *types.Transaction
+
+// Transact ...
+func (c *Contract) Transact(ctx context.Context, opt TransactOpts) error {
+	o := bind.NewKeyedTransactor(c.privateKey())
+	transaction := opt(o)
+	receipt, err := bind.WaitMined(ctx, c.conn, transaction)
+	if err != nil {
+		return err
+	}
+	log.Info("receipt is :%x", string(receipt.TxHash[:]))
+	return nil
+}
+
+// CallOpts ...
+type CallOpts func(opts *bind.CallOpts) *types.Transaction
+
+// Call ...
+func (c *Contract) Call(ctx context.Context, opt CallOpts) error {
+	o := &bind.CallOpts{Pending: true}
+	transaction := opt(o)
+	receipt, err := bind.WaitMined(ctx, c.conn, transaction)
+	if err != nil {
+		return err
+	}
+	log.Info("receipt is :%x", string(receipt.TxHash[:]))
 	return nil
 }
