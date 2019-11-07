@@ -14,13 +14,13 @@ import (
 // Type ...
 type Type int
 
-// ContractNone ...
+// None ...
 const (
-	ContractNone Type = iota
-	ContractWriteAble
-	ContractMessage
-	ContractNode
-	ContractTag
+	None Type = iota
+	WriteAble
+	DMessage
+	DNode
+	DTag
 )
 
 var contract *Contract
@@ -66,7 +66,7 @@ func Message(addr string) Options {
 		if e != nil {
 			panic(e)
 		}
-		c.Register(ContractMessage, newDmessage)
+		c.Register(DMessage, newDmessage)
 	}
 }
 
@@ -77,7 +77,7 @@ func Tag(addr string) Options {
 		if e != nil {
 			panic(e)
 		}
-		c.Register(ContractTag, newDtag)
+		c.Register(DTag, newDtag)
 	}
 }
 
@@ -88,12 +88,12 @@ func Node(addr string) Options {
 		if e != nil {
 			panic(e)
 		}
-		c.Register(ContractTag, newDnode)
+		c.Register(DTag, newDnode)
 	}
 }
 
 func (c *Contract) message() (msg *dmessage.Dmessage) {
-	if v, b := c.contracts.Load(ContractMessage); b {
+	if v, b := c.contracts.Load(DMessage); b {
 		if msg, b = v.(*dmessage.Dmessage); b {
 			return
 		}
@@ -102,7 +102,7 @@ func (c *Contract) message() (msg *dmessage.Dmessage) {
 }
 
 func (c *Contract) tag() (tag *dtag.Dtag) {
-	if v, b := c.contracts.Load(ContractTag); b {
+	if v, b := c.contracts.Load(DTag); b {
 		if tag, b = v.(*dtag.Dtag); b {
 			return
 		}
@@ -111,7 +111,7 @@ func (c *Contract) tag() (tag *dtag.Dtag) {
 }
 
 func (c *Contract) node() (node *dnode.Dnode) {
-	if v, b := c.contracts.Load(ContractTag); b {
+	if v, b := c.contracts.Load(DNode); b {
 		if node, b = v.(*dnode.Dnode); b {
 			return
 		}
