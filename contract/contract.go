@@ -3,7 +3,10 @@ package contract
 import (
 	"context"
 	"crypto/ecdsa"
+	"math/big"
+	"strings"
 	"sync"
+	"time"
 
 	"service/contract/dmessage"
 	"service/contract/dnode"
@@ -16,6 +19,9 @@ import (
 	"github.com/ethereum/go-ethereum/ethclient"
 	"github.com/goextension/log"
 )
+
+// TimeStampFormat ...
+const TimeStampFormat = "20060102"
 
 // Type ...
 type Type int
@@ -146,12 +152,15 @@ func (c *Contract) node() (node *dnode.Dnode) {
 }
 
 // TransactOpts ...
-type TransactOpts func(opts *bind.TransactOpts) *types.Transaction
+type TransactOpts func(opts *bind.TransactOpts) (*types.Transaction, error)
 
 // Transact ...
 func (c *Contract) Transact(ctx context.Context, opt TransactOpts) error {
 	o := bind.NewKeyedTransactor(c.privateKey())
-	transaction := opt(o)
+	transaction, e := opt(o)
+	if e != nil {
+		return e
+	}
 	receipt, err := bind.WaitMined(ctx, c.conn, transaction)
 	if err != nil {
 		return err
@@ -161,23 +170,80 @@ func (c *Contract) Transact(ctx context.Context, opt TransactOpts) error {
 }
 
 // CallOpts ...
-type CallOpts func(opts *bind.CallOpts) *types.Transaction
+type CallOpts func(opts *bind.CallOpts) error
 
 // Call ...
 func (c *Contract) Call(ctx context.Context, opt CallOpts) error {
 	o := &bind.CallOpts{Pending: true}
-	transaction := opt(o)
-	receipt, err := bind.WaitMined(ctx, c.conn, transaction)
-	if err != nil {
-		return err
-	}
-	log.Info("receipt is :%x", string(receipt.TxHash[:]))
-	return nil
+	return opt(o)
 }
 
 // AddNode ...
-func (c *Contract) AddNode(s string) error {
-	c.Transact(context.Background(), func(opts *bind.TransactOpts) *types.Transaction {
-		c.node()
+func (c *Contract) AddNode(copyOld bool, ss ...string) (e error) {
+	ctx := context.Background()
+	var last *big.Int
+	e = c.Call(ctx, func(opts *bind.CallOpts) (e error) {
+		last, e = c.node().GetLast(opts)
+		if e != nil {
+			return e
+		}
+		return nil
 	})
+	if e != nil {
+		return e
+	}
+
+	new := time.Now()
+	newTS := new.Format(TimeStampFormat)
+	old := time.Unix(last.Int64(), 0)
+	oldTS := old.Format(TimeStampFormat)
+	if strings.Compare(oldTS, newTS) != 0 {
+		if copyOld {
+			oldNodes, _, e := c.GetNodes(&old)
+			if e != nil {
+				return e
+			}
+			ss = append(ss, oldNodes...)
+		}
+
+		e = c.Transact(ctx, func(opts *bind.TransactOpts) (*types.Transaction, error) {
+			ts := big.NewInt(new.Unix())
+			return c.node().SetLast(opts, ts)
+		})
+		if e != nil {
+			return e
+		}
+	}
+	for _, s := range ss {
+		e = c.Transact(ctx, func(opts *bind.TransactOpts) (transaction *types.Transaction, e error) {
+			return c.node().Store(opts, s)
+		})
+		if e != nil {
+			return e
+		}
+	}
+	return nil
+}
+
+// GetNodes ...
+func (c *Contract) GetNodes(ts *time.Time) ([]string, *big.Int, error) {
+	ctx := context.Background()
+	var bi *big.Int
+	var ss []string
+	e := c.Call(ctx, func(opts *bind.CallOpts) (e error) {
+		if ts == nil {
+			ss, bi, e = c.node().GetLastNode(opts)
+		} else {
+			ss, bi, e = c.node().GetNode(opts, big.NewInt(ts.Unix()))
+		}
+		if e != nil {
+			return e
+		}
+		t = time.Unix(bi.Int64(), 0)
+		return nil
+	})
+	if e != nil {
+		return nil, nil, e
+	}
+	return ss, bi, nil
 }
