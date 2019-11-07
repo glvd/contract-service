@@ -174,3 +174,10 @@ func (c *Contract) Call(ctx context.Context, opt CallOpts) error {
 	log.Info("receipt is :%x", string(receipt.TxHash[:]))
 	return nil
 }
+
+// AddNode ...
+func (c *Contract) AddNode(s string) error {
+	c.Transact(context.Background(), func(opts *bind.TransactOpts) *types.Transaction {
+		c.node()
+	})
+}
