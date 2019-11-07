@@ -178,8 +178,8 @@ func (c *Contract) Call(ctx context.Context, opt CallOpts) error {
 	return opt(o)
 }
 
-// AddNode ...
-func (c *Contract) AddNode(copyOld bool, ss ...string) (e error) {
+// AddNodes ...
+func (c *Contract) AddNodes(copyOld bool, ts *time.Time, ss ...string) (e error) {
 	ctx := context.Background()
 	var last *big.Int
 	e = c.Call(ctx, func(opts *bind.CallOpts) (e error) {
@@ -193,8 +193,11 @@ func (c *Contract) AddNode(copyOld bool, ss ...string) (e error) {
 		return e
 	}
 
-	new := time.Now()
-	newTS := new.Format(TimeStampFormat)
+	n := time.Now()
+	if ts != nil {
+		n = *ts
+	}
+	newTS := n.Format(TimeStampFormat)
 	old := time.Unix(last.Int64(), 0)
 	oldTS := old.Format(TimeStampFormat)
 	if strings.Compare(oldTS, newTS) != 0 {
@@ -207,7 +210,7 @@ func (c *Contract) AddNode(copyOld bool, ss ...string) (e error) {
 		}
 
 		e = c.Transact(ctx, func(opts *bind.TransactOpts) (*types.Transaction, error) {
-			ts := big.NewInt(new.Unix())
+			ts := big.NewInt(n.Unix())
 			return c.node().SetLast(opts, ts)
 		})
 		if e != nil {

@@ -16,7 +16,7 @@ type serviceHandle struct {
 	cluster interface{}
 }
 
-// AddNode ...
+// AddNodes ...
 func (s *serviceHandle) AddNode(manager *api.Manager, node api.Node) {
 	panic("implement me")
 }

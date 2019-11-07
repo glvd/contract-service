@@ -105,7 +105,7 @@ func (d dummyClient) GetNode(manager *Manager, id string) {
 	panic("implement me")
 }
 
-// AddNode ...
+// AddNodes ...
 func (d dummyClient) AddNode(manager *Manager, node Node) {
 	panic("implement me")
 }

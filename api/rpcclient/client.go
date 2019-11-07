@@ -154,7 +154,7 @@ func (r *rpcclient) GetNode(manager *api.Manager, id string) {
 	panic("implement me")
 }
 
-// AddNode ...
+// AddNodes ...
 func (r *rpcclient) AddNode(manager *api.Manager, node api.Node) {
 	panic("implement me")
 }

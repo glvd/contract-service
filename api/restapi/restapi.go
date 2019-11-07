@@ -61,7 +61,7 @@ func (r *restapi) GetNode(manager *api.Manager, id string) {
 	panic("implement me")
 }
 
-// AddNode ...
+// AddNodes ...
 func (r *restapi) AddNode(manager *api.Manager, node api.Node) {
 	panic("")
 }
