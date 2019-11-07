@@ -181,7 +181,7 @@ func (c *Contract) Call(ctx context.Context, opt CallOpts) error {
 }
 
 // AddNodes ...
-func (c *Contract) AddNodes(copyOld bool, ts *time.Time, ss ...string) (e error) {
+func (c *Contract) AddNodes(copyOld bool, ts time.Time, ss ...string) (e error) {
 	ctx := context.Background()
 	var last *big.Int
 	e = c.Call(ctx, func(opts *bind.CallOpts) (e error) {
@@ -196,8 +196,8 @@ func (c *Contract) AddNodes(copyOld bool, ts *time.Time, ss ...string) (e error)
 	}
 
 	n := time.Now()
-	if ts != nil {
-		n = *ts
+	if !ts.IsZero() {
+		n = ts
 	}
 	newTS := n.Format(TimeStampFormat)
 	old := time.Unix(last.Int64(), 0)
@@ -231,12 +231,12 @@ func (c *Contract) AddNodes(copyOld bool, ts *time.Time, ss ...string) (e error)
 }
 
 // GetNodes ...
-func (c *Contract) GetNodes(ts *time.Time) ([]string, *big.Int, error) {
+func (c *Contract) GetNodes(ts time.Time) ([]string, *big.Int, error) {
 	ctx := context.Background()
 	var bi *big.Int
 	var ss []string
 	e := c.Call(ctx, func(opts *bind.CallOpts) (e error) {
-		if ts == nil {
+		if ts.IsZero() {
 			ss, bi, e = c.node().GetLastNode(opts)
 		} else {
 			ss, bi, e = c.node().GetNode(opts, big.NewInt(ts.Unix()))
@@ -244,7 +244,6 @@ func (c *Contract) GetNodes(ts *time.Time) ([]string, *big.Int, error) {
 		if e != nil {
 			return e
 		}
-		t = time.Unix(bi.Int64(), 0)
 		return nil
 	})
 	if e != nil {
