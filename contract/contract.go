@@ -67,9 +67,11 @@ func NewContract(opts ...Options) *Contract {
 	return c
 }
 
-// LoadMessage ...
-func LoadMessage(msg *dmessage.Dmessage) {
-
+// Key ...
+func Key(key string) Options {
+	return func(c *Contract) {
+		c.key = key
+	}
 }
 
 // ETHClient ...
