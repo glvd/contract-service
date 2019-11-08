@@ -23,9 +23,6 @@ import (
 // TimeStampFormat ...
 const TimeStampFormat = "20060102"
 
-// Type ...
-type Type int
-
 // None ...
 const (
 	None Type = iota
@@ -35,7 +32,8 @@ const (
 	DTag
 )
 
-var contract *Contract
+// Type ...
+type Type int
 
 // Contract ...
 type Contract struct {
@@ -46,6 +44,11 @@ type Contract struct {
 
 // Options ...
 type Options func(c *Contract)
+
+var contract *Contract
+
+// DefaultGatway ...
+var DefaultGatway = ""
 
 func init() {
 	contract = &Contract{}
