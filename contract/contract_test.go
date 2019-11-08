@@ -59,7 +59,7 @@ func init() {
 func TestContract_AddNodes(t *testing.T) {
 	c := NewContract(ETHClient(DefaultGatway), HexKey("2ed78769ad77af7fa01734e5f3302f03e7e40b94c4bdb1abaa5f54615b9ea0b1"), Node(DefaultNodeAddress))
 	tm := time.Now()
-	idx := tm.Second()
+	idx := tm.UnixNano()
 	key, e := ioutil.ReadFile("./test_key/rsa.crt")
 	if e != nil {
 		t.Error(e)
@@ -67,7 +67,7 @@ func TestContract_AddNodes(t *testing.T) {
 	_ = key
 	log.Info("sec", idx)
 
-	enc := dhcrypto.NewCipherEncoder(key, idx, tm)
+	enc := dhcrypto.NewCipherEncoder(key, int(idx), tm)
 	bytes, e := enc.Encode("/ip4/13.124.213.107/tcp/4001/ipfs/QmS9knxyQkdiFrGbzEb2FNqnq2yEzvBKx2pEGNBnXTWi7h")
 	if e != nil {
 		t.Error(e)
