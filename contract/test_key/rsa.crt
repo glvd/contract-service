@@ -1,17 +1,4 @@
-package contract
-
-import (
-	"dhcrypto"
-	"io/ioutil"
-	"testing"
-	"time"
-
-	"github.com/goextension/log"
-	"go.uber.org/zap"
-)
-
-// PublicKey ...
-var PublicKey = []byte(`-----BEGIN CERTIFICATE-----
+-----BEGIN CERTIFICATE-----
 MIIFBjCCAu4CCQDSOHS/Tm+8kjANBgkqhkiG9w0BAQsFADBFMQswCQYDVQQGEwJD
 TjETMBEGA1UECAwKU29tZS1TdGF0ZTEhMB8GA1UECgwYSW50ZXJuZXQgV2lkZ2l0
 cyBQdHkgTHRkMB4XDTE5MTEwNzA2MDA0N1oXDTIwMTEwNjA2MDA0N1owRTELMAkG
@@ -40,38 +27,3 @@ FZ3IZSpxwLxi2LUxqD4HCfke0CwXEiyL//Q+18ntvkDzdPB9jahY1A0iV/y9ZS5J
 OLhSWN0ney5s04NkpX/R2n3AfV+Uazioc0L5pfoAFuhGyf6zYdN9XPMrgXeOap6i
 Zw8J8Apa6dpcllxNY3Gna6y3byc8kclUvhRykxqf4u0xQ5TnTRgOe7AL
 -----END CERTIFICATE-----
-`)
-
-func init() {
-	logger, e := zap.NewProduction(
-		zap.AddCaller(),
-		zap.AddCallerSkip(1),
-	)
-	if e != nil {
-		panic(e)
-	}
-	log.Register(logger.Sugar())
-	DefaultNodeAddress = "0x69A137Eac79698ea318903fEb9152D8a2E7a6FEF"
-	DefaultGatway = "http://localhost:8545"
-}
-
-// TestContract_AddNodes ...
-func TestContract_AddNodes(t *testing.T) {
-	c := NewContract(ETHClient(DefaultGatway), HexKey("2ed78769ad77af7fa01734e5f3302f03e7e40b94c4bdb1abaa5f54615b9ea0b1"), Node(DefaultNodeAddress))
-	tm := time.Now()
-	idx := tm.Second()
-	key, e := ioutil.ReadFile("./test_key/rsa.crt")
-	if e != nil {
-		t.Error(e)
-	}
-	_ = key
-	enc := dhcrypto.NewCipherEncoder(PublicKey, idx, tm)
-	bytes, e := enc.Encode("/ip4/13.124.213.107/tcp/4001/ipfs/QmS9knxyQkdiFrGbzEb2FNqnq2yEzvBKx2pEGNBnXTWi7h")
-	if e != nil {
-		t.Error(e)
-	}
-	e = c.AddNodes(true, time.Now(), string(bytes))
-	if e != nil {
-		t.Error(e)
-	}
-}

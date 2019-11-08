@@ -39,7 +39,7 @@ type Type int
 type Contract struct {
 	contracts *sync.Map
 	conn      *ethclient.Client
-	key       string
+	key       *ecdsa.PrivateKey
 }
 
 // Options ...
@@ -49,6 +49,9 @@ var contract *Contract
 
 // DefaultGatway ...
 var DefaultGatway = ""
+
+// DefaultNodeAddress ...
+var DefaultNodeAddress = ""
 
 func init() {
 	contract = &Contract{}
@@ -70,10 +73,14 @@ func NewContract(opts ...Options) *Contract {
 	return c
 }
 
-// Key ...
-func Key(key string) Options {
+// HexKey ...
+func HexKey(key string) Options {
 	return func(c *Contract) {
-		c.key = key
+		privateKey, err := crypto.HexToECDSA(key)
+		if err != nil {
+			panic(err)
+		}
+		c.key = privateKey
 	}
 }
 
@@ -91,6 +98,9 @@ func ETHClient(addr string) Options {
 // Message ...
 func Message(addr string) Options {
 	return func(c *Contract) {
+		if c.conn == nil {
+			panic("null connect")
+		}
 		newDmessage, e := dmessage.NewDmessage(common.HexToAddress(addr), c.conn)
 		if e != nil {
 			panic(e)
@@ -102,6 +112,9 @@ func Message(addr string) Options {
 // Tag ...
 func Tag(addr string) Options {
 	return func(c *Contract) {
+		if c.conn == nil {
+			panic("null connect")
+		}
 		newDtag, e := dtag.NewDtag(common.HexToAddress(addr), c.conn)
 		if e != nil {
 			panic(e)
@@ -113,20 +126,15 @@ func Tag(addr string) Options {
 // Node ...
 func Node(addr string) Options {
 	return func(c *Contract) {
+		if c.conn == nil {
+			panic("null connect")
+		}
 		newDnode, e := dnode.NewDnode(common.HexToAddress(addr), c.conn)
 		if e != nil {
 			panic(e)
 		}
-		c.Register(DTag, newDnode)
+		c.Register(DNode, newDnode)
 	}
-}
-
-func (c *Contract) privateKey() (key *ecdsa.PrivateKey) {
-	privateKey, err := crypto.HexToECDSA(c.key)
-	if err != nil {
-		return nil
-	}
-	return privateKey
 }
 
 func (c *Contract) message() (msg *dmessage.Dmessage) {
@@ -161,7 +169,7 @@ type TransactOpts func(opts *bind.TransactOpts) (*types.Transaction, error)
 
 // Transact ...
 func (c *Contract) Transact(ctx context.Context, opt TransactOpts) error {
-	o := bind.NewKeyedTransactor(c.privateKey())
+	o := bind.NewKeyedTransactor(c.key)
 	transaction, e := opt(o)
 	if e != nil {
 		return e
@@ -170,7 +178,7 @@ func (c *Contract) Transact(ctx context.Context, opt TransactOpts) error {
 	if err != nil {
 		return err
 	}
-	log.Info("receipt is :%x", string(receipt.TxHash[:]))
+	log.Infof("receipt is :%x", receipt.TxHash[:])
 	return nil
 }
 
