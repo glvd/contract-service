@@ -204,7 +204,7 @@ func (c *Contract) AddNodes(copyOld bool, ts time.Time, ss ...string) (e error) 
 	oldTS := old.Format(TimeStampFormat)
 	if strings.Compare(oldTS, newTS) != 0 {
 		if copyOld {
-			oldNodes, _, e := c.GetNodes(&old)
+			oldNodes, _, e := c.GetNodes(old)
 			if e != nil {
 				return e
 			}
