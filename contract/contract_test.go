@@ -51,7 +51,7 @@ func init() {
 		panic(e)
 	}
 	log.Register(logger.Sugar())
-	DefaultNodeAddress = "0x69A137Eac79698ea318903fEb9152D8a2E7a6FEF"
+	DefaultNodeAddress = "0xA2A99890eA4Bf08E4C8875bbe39685679188A8A1"
 	DefaultGatway = "http://localhost:8545"
 }
 
@@ -65,13 +65,46 @@ func TestContract_AddNodes(t *testing.T) {
 		t.Error(e)
 	}
 	_ = key
-	enc := dhcrypto.NewCipherEncoder(PublicKey, idx, tm)
+	log.Info("sec", idx)
+
+	enc := dhcrypto.NewCipherEncoder(key, idx, tm)
 	bytes, e := enc.Encode("/ip4/13.124.213.107/tcp/4001/ipfs/QmS9knxyQkdiFrGbzEb2FNqnq2yEzvBKx2pEGNBnXTWi7h")
 	if e != nil {
 		t.Error(e)
 	}
+	t.Log("encoded:", string(bytes))
 	e = c.AddNodes(true, time.Now(), string(bytes))
 	if e != nil {
 		t.Error(e)
 	}
+}
+
+// TestContract_GetNodes ...
+func TestContract_GetNodes(t *testing.T) {
+	c := NewContract(ETHClient(DefaultGatway), HexKey("2ed78769ad77af7fa01734e5f3302f03e7e40b94c4bdb1abaa5f54615b9ea0b1"), Node(DefaultNodeAddress))
+	key, e := ioutil.ReadFile("./test_key/private.pem")
+	if e != nil {
+		t.Error(e)
+	}
+	_ = key
+
+	strings, i, e := c.GetNodes(time.Time{})
+	if e != nil {
+		t.Error(e)
+		return
+	}
+	t.Log("ts:", i.Int64())
+
+	tm := time.Unix(i.Int64(), 0)
+
+	dec := dhcrypto.NewCipherDecode(key, tm)
+	for _, s := range strings {
+		bytes, e := dec.Decode(s)
+		if e != nil {
+			t.Log(e)
+			continue
+		}
+		t.Log("decoded:", string(bytes))
+	}
+
 }

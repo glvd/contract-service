@@ -248,9 +248,14 @@ func (c *Contract) GetNodes(ts time.Time) ([]string, *big.Int, error) {
 	var ss []string
 	e := c.Call(ctx, func(opts *bind.CallOpts) (e error) {
 		if ts.IsZero() {
-			ss, bi, e = c.node().GetLastNode(opts)
+			bi, e = c.node().GetLast(opts)
+			if e != nil {
+				return e
+			}
+			ss, _, e = c.node().GetLastNode(opts)
 		} else {
-			ss, bi, e = c.node().GetNode(opts, big.NewInt(ts.Unix()))
+			bi = big.NewInt(ts.Unix())
+			ss, _, e = c.node().GetNode(opts, big.NewInt(ts.Unix()))
 		}
 		if e != nil {
 			return e
