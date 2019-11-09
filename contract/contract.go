@@ -4,6 +4,7 @@ import (
 	"context"
 	"crypto/ecdsa"
 	"dhcrypto"
+	"errors"
 	"math/big"
 	"strings"
 	"sync"
@@ -288,13 +289,13 @@ func (c *Contract) GetNodes(ts time.Time) ([]string, *big.Int, error) {
 }
 
 // AddVideo ...
-func (c *Contract) AddVideo(json string, version string) (e error) {
+func (c *Contract) AddVideo(no string, id string, json string, version string) (e error) {
 	e = c.Transact(context.Background(), func(opts *bind.TransactOpts) (transaction *types.Transaction, e error) {
-		//transaction, e = c.tag().(opts, "video", json, version)i
-		//if e != nil {
-		return nil, e
-		//}
-		//return transaction, nil
+		transaction, e = c.tag().AddTagMessage(opts, "video", no, id, json, version)
+		if e != nil {
+			return nil, e
+		}
+		return transaction, nil
 	})
 	if e != nil {
 		return e
@@ -303,6 +304,39 @@ func (c *Contract) AddVideo(json string, version string) (e error) {
 }
 
 // GetVideo ...
-func (c *Contract) GetVideo() {
+func (c *Contract) GetVideo(no string) (messages *dmessage.Struct0, err error) {
+	struct0s, size, err := c.GetVideos(no)
+	if err != nil {
+		return nil, err
+	}
+	if size <= 0 {
+		return nil, errors.New("data not found")
+	}
+	return &struct0s[0], nil
+}
 
+// GetVideos ...
+func (c *Contract) GetVideos(no string) (messages []dmessage.Struct0, size int64, err error) {
+	var msg struct {
+		Value []dmessage.Struct0
+		Size  *big.Int
+	}
+	e := c.Call(context.Background(), func(opts *bind.CallOpts) error {
+		ids, e := c.tag().GetTagIds(opts, "video", no)
+		if e != nil {
+			return e
+		}
+		if len(ids) == 0 {
+			return errors.New("data not found")
+		}
+		msg, e = c.message().GetIdsMessages(opts, ids)
+		if e != nil {
+			return e
+		}
+		return nil
+	})
+	if e != nil {
+		return nil, 0, e
+	}
+	return msg.Value, msg.Size.Int64(), nil
 }

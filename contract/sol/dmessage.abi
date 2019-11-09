@@ -286,6 +286,49 @@
 		"type": "function"
 	},
 	{
+		"constant": true,
+		"inputs": [
+			{
+				"internalType": "string[]",
+				"name": "ids",
+				"type": "string[]"
+			}
+		],
+		"name": "getIdsMessages",
+		"outputs": [
+			{
+				"components": [
+					{
+						"internalType": "string",
+						"name": "id",
+						"type": "string"
+					},
+					{
+						"internalType": "string",
+						"name": "content",
+						"type": "string"
+					},
+					{
+						"internalType": "string",
+						"name": "version",
+						"type": "string"
+					}
+				],
+				"internalType": "struct DMessage.Message[]",
+				"name": "_value",
+				"type": "tuple[]"
+			},
+			{
+				"internalType": "uint256",
+				"name": "_size",
+				"type": "uint256"
+			}
+		],
+		"payable": false,
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
 		"constant": false,
 		"inputs": [],
 		"name": "renounceOwnership",
@@ -430,6 +473,37 @@
 		],
 		"payable": false,
 		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
+		"constant": true,
+		"inputs": [
+			{
+				"internalType": "string",
+				"name": "id",
+				"type": "string"
+			}
+		],
+		"name": "getMessageValue",
+		"outputs": [
+			{
+				"internalType": "string",
+				"name": "",
+				"type": "string"
+			},
+			{
+				"internalType": "string",
+				"name": "",
+				"type": "string"
+			},
+			{
+				"internalType": "string",
+				"name": "",
+				"type": "string"
+			}
+		],
+		"payable": false,
+		"stateMutability": "view",
 		"type": "function"
 	},
 	{
