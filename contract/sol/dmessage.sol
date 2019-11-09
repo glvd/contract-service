@@ -124,7 +124,21 @@ contract DMessage is Writeable{
     //   require(mappingMessageFlags[id] == true, "Message: get message is not exist");
        return mappingMessages[id];
     }
-    
+
+     function getMessageValue(string memory id) public view returns (string memory, string memory, string memory) {
+    //   require(mappingMessageFlags[id] == true, "Message: get message is not exist");
+       return (mappingMessages[id].id,mappingMessages[id].content,mappingMessages[id].version);
+    } 
+
+    function getIdsMessages(string[] memory ids)public view returns(Message[] memory _value,uint _size){
+        _size = ids.length;
+        _value = new Message[](_size);
+        for (uint i = 0; i < _size; i++){
+            _value[i]= getMessage(ids[i]);
+        }
+        return (_value,_size);
+    }
+
     function getMessages(uint  start,uint limit)public view returns (Message[] memory _value,uint _size){
         // require(start < count, "Message: start length is bigger than length");
         if ((start + limit) >= count){

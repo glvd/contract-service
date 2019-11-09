@@ -72,12 +72,8 @@ contract DTag is Ownable{
         _addTagId(tag,sub,id);
     }
     
-    function getTagMessage(string memory tag, string memory sub) public view returns (DMessage.Message[] memory _value,uint _size) {
-        _size = mappingTags[tag].tags[sub].length;
-        _value = new DMessage.Message[](_size);
-        for (uint i = 0; i < _size; i++){
-            _value[i] = message.getMessage(mappingTags[tag].tags[sub][i]);
-        }
-        return (_value,_size);
-    }
+    
+    // function getTagMessages(string memory tag, string memory sub) public view returns (DMessage.Message[] memory _value,uint _size) {
+        // return message.getIdsMessages(mappingTags[tag].tags[sub]);
+    // }
 }
