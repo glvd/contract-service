@@ -294,6 +294,37 @@ func (c *Contract) GetNodes(ts time.Time) ([]string, *big.Int, error) {
 	return results, bi, nil
 }
 
+// OpenMessageAuthority ...
+func (c *Contract) OpenMessageAuthority() (e error) {
+	ctx := context.Background()
+	//isWriter := false
+	//e = c.Call(ctx, func(c *Contract, opts *bind.CallOpts) error {
+	//	isWriter, e = c.message().IsWriter(opts)
+	//	if e != nil {
+	//		return e
+	//	}
+	//	return nil
+	//})
+	//if e != nil {
+	//	return false, e
+	//}
+	//if isWriter {
+	//	log.Info("already is writers")
+	//	return true, nil
+	//}
+	e = c.Transact(ctx, func(c *Contract, opts *bind.TransactOpts) (transaction *types.Transaction, e error) {
+		trans, e := c.message().IncreasedWritership(opts, common.HexToAddress(DefaultTagAddress))
+		if e != nil {
+			return nil, e
+		}
+		return trans, nil
+	})
+	if e != nil {
+		return e
+	}
+	return nil
+}
+
 // AddVideo ...
 func (c *Contract) AddVideo(no string, id string, json string, version string) (e error) {
 	e = c.Transact(context.Background(), func(c *Contract, opts *bind.TransactOpts) (transaction *types.Transaction, e error) {
