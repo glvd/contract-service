@@ -51,13 +51,13 @@ func init() {
 		panic(e)
 	}
 	log.Register(logger.Sugar())
-	DefaultNodeAddress = "0xA2A99890eA4Bf08E4C8875bbe39685679188A8A1"
+	DefaultNodeAddress = "0x1bEE31E960E05ff8009E651033df6a851B7D0815"
 	DefaultGatway = "http://localhost:8545"
 }
 
 // TestContract_AddNodes ...
 func TestContract_AddNodes(t *testing.T) {
-	c := NewContract(ETHClient(DefaultGatway), HexKey("2ed78769ad77af7fa01734e5f3302f03e7e40b94c4bdb1abaa5f54615b9ea0b1"), Node(DefaultNodeAddress))
+	c := NewContract(ETHClient(DefaultGatway), HexKey("8fce5cf38a3c20d35a59c6a025cb0fd8a3c1201a27bbb778d1899dd2f4692ca4"), Node(DefaultNodeAddress))
 	tm := time.Now()
 	idx := tm.UnixNano()
 	key, e := ioutil.ReadFile("./test_key/rsa.crt")
@@ -99,6 +99,7 @@ func TestContract_GetNodes(t *testing.T) {
 
 	dec := dhcrypto.NewCipherDecode(key, tm)
 	for _, s := range strings {
+		t.Log("eth:", s)
 		bytes, e := dec.Decode(s)
 		if e != nil {
 			t.Log(e)
