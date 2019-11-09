@@ -116,11 +116,11 @@ func Tag(addr string) Options {
 		if c.conn == nil {
 			panic("null connect")
 		}
-		//newDtag, e := dtag.NewDtag(common.HexToAddress(addr), c.conn)
-		//if e != nil {
-		//	panic(e)
-		//}
-		//c.Register(DTag, newDtag)
+		newDtag, e := dtag.NewDtag(common.HexToAddress(addr), c.conn)
+		if e != nil {
+			panic(e)
+		}
+		c.Register(DTag, newDtag)
 	}
 }
 
