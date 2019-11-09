@@ -11,6 +11,7 @@ import (
 
 	"service/contract/dmessage"
 	"service/contract/dnode"
+	"service/contract/dtag"
 
 	"github.com/ethereum/go-ethereum/accounts/abi/bind"
 	"github.com/ethereum/go-ethereum/common"
@@ -146,14 +147,14 @@ func (c *Contract) message() (msg *dmessage.Dmessage) {
 	return nil
 }
 
-//func (c *Contract) tag() (tag *dtag.Dtag) {
-//	if v, b := c.contracts.Load(DTag); b {
-//		if tag, b = v.(*dtag.Dtag); b {
-//			return
-//		}
-//	}
-//	return nil
-//}
+func (c *Contract) tag() (tag *dtag.Dtag) {
+	if v, b := c.contracts.Load(DTag); b {
+		if tag, b = v.(*dtag.Dtag); b {
+			return
+		}
+	}
+	return nil
+}
 
 func (c *Contract) node() (node *dnode.Dnode) {
 	if v, b := c.contracts.Load(DNode); b {
