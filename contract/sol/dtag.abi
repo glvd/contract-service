@@ -1,67 +1,24 @@
 [
 	{
-		"constant": true,
-		"inputs": [],
-		"name": "getMsgLength",
-		"outputs": [
-			{
-				"internalType": "uint256",
-				"name": "",
-				"type": "uint256"
-			}
-		],
-		"payable": false,
-		"stateMutability": "view",
-		"type": "function"
-	},
-	{
-		"constant": true,
+		"constant": false,
 		"inputs": [
+			{
+				"internalType": "string",
+				"name": "tag",
+				"type": "string"
+			},
+			{
+				"internalType": "string",
+				"name": "sub",
+				"type": "string"
+			},
 			{
 				"internalType": "string",
 				"name": "id",
 				"type": "string"
 			}
 		],
-		"name": "getMessage",
-		"outputs": [
-			{
-				"components": [
-					{
-						"internalType": "string",
-						"name": "id",
-						"type": "string"
-					},
-					{
-						"internalType": "string",
-						"name": "content",
-						"type": "string"
-					},
-					{
-						"internalType": "string",
-						"name": "version",
-						"type": "string"
-					}
-				],
-				"internalType": "struct DMessage.Message",
-				"name": "",
-				"type": "tuple"
-			}
-		],
-		"payable": false,
-		"stateMutability": "view",
-		"type": "function"
-	},
-	{
-		"constant": false,
-		"inputs": [
-			{
-				"internalType": "address",
-				"name": "newWriter",
-				"type": "address"
-			}
-		],
-		"name": "increasedWritership",
+		"name": "addTagId",
 		"outputs": [],
 		"payable": false,
 		"stateMutability": "nonpayable",
@@ -71,33 +28,17 @@
 		"constant": true,
 		"inputs": [
 			{
-				"internalType": "string[]",
-				"name": "ids",
-				"type": "string[]"
-			}
-		],
-		"name": "checkAllMessage",
-		"outputs": [
-			{
-				"internalType": "bool",
-				"name": "",
-				"type": "bool"
-			}
-		],
-		"payable": false,
-		"stateMutability": "view",
-		"type": "function"
-	},
-	{
-		"constant": true,
-		"inputs": [
+				"internalType": "string",
+				"name": "tag",
+				"type": "string"
+			},
 			{
 				"internalType": "string",
-				"name": "id",
+				"name": "sub",
 				"type": "string"
 			}
 		],
-		"name": "checkMessage",
+		"name": "checkTag",
 		"outputs": [
 			{
 				"internalType": "bool",
@@ -114,34 +55,32 @@
 		"inputs": [
 			{
 				"internalType": "string",
+				"name": "tag",
+				"type": "string"
+			},
+			{
+				"internalType": "string",
+				"name": "sub",
+				"type": "string"
+			},
+			{
+				"internalType": "string",
 				"name": "id",
+				"type": "string"
+			},
+			{
+				"internalType": "string",
+				"name": "content",
+				"type": "string"
+			},
+			{
+				"internalType": "string",
+				"name": "version",
 				"type": "string"
 			}
 		],
-		"name": "delMessage",
+		"name": "addTagMessage",
 		"outputs": [
-			{
-				"components": [
-					{
-						"internalType": "string",
-						"name": "id",
-						"type": "string"
-					},
-					{
-						"internalType": "string",
-						"name": "content",
-						"type": "string"
-					},
-					{
-						"internalType": "string",
-						"name": "version",
-						"type": "string"
-					}
-				],
-				"internalType": "struct DMessage.Message",
-				"name": "",
-				"type": "tuple"
-			},
 			{
 				"internalType": "bool",
 				"name": "",
@@ -154,8 +93,34 @@
 	},
 	{
 		"constant": false,
+		"inputs": [
+			{
+				"internalType": "string",
+				"name": "tag",
+				"type": "string"
+			},
+			{
+				"internalType": "string",
+				"name": "sub",
+				"type": "string"
+			}
+		],
+		"name": "fixTagIds",
+		"outputs": [
+			{
+				"internalType": "uint256",
+				"name": "_size",
+				"type": "uint256"
+			}
+		],
+		"payable": false,
+		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
+		"constant": false,
 		"inputs": [],
-		"name": "renounceWritership",
+		"name": "renounceOwnership",
 		"outputs": [],
 		"payable": false,
 		"stateMutability": "nonpayable",
@@ -163,34 +128,19 @@
 	},
 	{
 		"constant": true,
-		"inputs": [],
-		"name": "writer",
-		"outputs": [
-			{
-				"internalType": "address",
-				"name": "",
-				"type": "address"
-			}
-		],
-		"payable": false,
-		"stateMutability": "view",
-		"type": "function"
-	},
-	{
-		"constant": true,
 		"inputs": [
 			{
-				"internalType": "uint256",
-				"name": "start",
-				"type": "uint256"
+				"internalType": "string",
+				"name": "tag",
+				"type": "string"
 			},
 			{
-				"internalType": "uint256",
-				"name": "limit",
-				"type": "uint256"
+				"internalType": "string",
+				"name": "sub",
+				"type": "string"
 			}
 		],
-		"name": "getMessages",
+		"name": "getTagMessage",
 		"outputs": [
 			{
 				"components": [
@@ -226,23 +176,19 @@
 	},
 	{
 		"constant": true,
-		"inputs": [],
-		"name": "isWriter",
-		"outputs": [
+		"inputs": [
 			{
-				"internalType": "bool",
-				"name": "",
-				"type": "bool"
+				"internalType": "string",
+				"name": "tag",
+				"type": "string"
+			},
+			{
+				"internalType": "string",
+				"name": "sub",
+				"type": "string"
 			}
 		],
-		"payable": false,
-		"stateMutability": "view",
-		"type": "function"
-	},
-	{
-		"constant": true,
-		"inputs": [],
-		"name": "getMsgIds",
+		"name": "getTagIds",
 		"outputs": [
 			{
 				"internalType": "string[]",
@@ -259,80 +205,24 @@
 		"inputs": [
 			{
 				"internalType": "string",
-				"name": "id",
+				"name": "tag",
 				"type": "string"
 			},
 			{
 				"internalType": "string",
-				"name": "content",
+				"name": "sub",
 				"type": "string"
 			},
-			{
-				"internalType": "string",
-				"name": "version",
-				"type": "string"
-			}
-		],
-		"name": "updateMessage",
-		"outputs": [
-			{
-				"internalType": "bool",
-				"name": "",
-				"type": "bool"
-			}
-		],
-		"payable": false,
-		"stateMutability": "nonpayable",
-		"type": "function"
-	},
-	{
-		"constant": false,
-		"inputs": [],
-		"name": "renounceOwnership",
-		"outputs": [],
-		"payable": false,
-		"stateMutability": "nonpayable",
-		"type": "function"
-	},
-	{
-		"constant": true,
-		"inputs": [
 			{
 				"internalType": "string[]",
 				"name": "ids",
 				"type": "string[]"
 			}
 		],
-		"name": "checkMessages",
-		"outputs": [
-			{
-				"internalType": "uint256",
-				"name": "",
-				"type": "uint256"
-			},
-			{
-				"internalType": "bool",
-				"name": "",
-				"type": "bool"
-			}
-		],
+		"name": "setTagIds",
+		"outputs": [],
 		"payable": false,
-		"stateMutability": "view",
-		"type": "function"
-	},
-	{
-		"constant": true,
-		"inputs": [],
-		"name": "writers",
-		"outputs": [
-			{
-				"internalType": "address[]",
-				"name": "_value",
-				"type": "address[]"
-			}
-		],
-		"payable": false,
-		"stateMutability": "view",
+		"stateMutability": "nonpayable",
 		"type": "function"
 	},
 	{
@@ -369,17 +259,27 @@
 		"constant": true,
 		"inputs": [
 			{
-				"internalType": "uint256",
-				"name": "_index",
-				"type": "uint256"
-			}
-		],
-		"name": "getMsgId",
-		"outputs": [
+				"internalType": "string",
+				"name": "tag",
+				"type": "string"
+			},
 			{
 				"internalType": "string",
-				"name": "_value",
+				"name": "sub",
 				"type": "string"
+			}
+		],
+		"name": "checkTagIds",
+		"outputs": [
+			{
+				"internalType": "uint256",
+				"name": "",
+				"type": "uint256"
+			},
+			{
+				"internalType": "bool",
+				"name": "",
+				"type": "bool"
 			}
 		],
 		"payable": false,
@@ -390,12 +290,22 @@
 		"constant": false,
 		"inputs": [
 			{
-				"internalType": "address",
-				"name": "oldWriter",
-				"type": "address"
+				"internalType": "string",
+				"name": "tag",
+				"type": "string"
+			},
+			{
+				"internalType": "string",
+				"name": "sub",
+				"type": "string"
+			},
+			{
+				"internalType": "string[]",
+				"name": "ids",
+				"type": "string[]"
 			}
 		],
-		"name": "decreaseWritership",
+		"name": "addTagIds",
 		"outputs": [],
 		"payable": false,
 		"stateMutability": "nonpayable",
@@ -406,28 +316,22 @@
 		"inputs": [
 			{
 				"internalType": "string",
-				"name": "id",
+				"name": "tag",
 				"type": "string"
 			},
 			{
 				"internalType": "string",
-				"name": "content",
+				"name": "sub",
 				"type": "string"
 			},
 			{
-				"internalType": "string",
-				"name": "version",
-				"type": "string"
+				"internalType": "string[]",
+				"name": "ids",
+				"type": "string[]"
 			}
 		],
-		"name": "addMessage",
-		"outputs": [
-			{
-				"internalType": "bool",
-				"name": "",
-				"type": "bool"
-			}
-		],
+		"name": "replaceTagIds",
+		"outputs": [],
 		"payable": false,
 		"stateMutability": "nonpayable",
 		"type": "function"
@@ -448,36 +352,16 @@
 		"type": "function"
 	},
 	{
-		"inputs": [],
+		"inputs": [
+			{
+				"internalType": "address",
+				"name": "msgAddr",
+				"type": "address"
+			}
+		],
 		"payable": false,
 		"stateMutability": "nonpayable",
 		"type": "constructor"
-	},
-	{
-		"anonymous": false,
-		"inputs": [
-			{
-				"indexed": true,
-				"internalType": "address",
-				"name": "newWriter",
-				"type": "address"
-			}
-		],
-		"name": "WritershipIncreased",
-		"type": "event"
-	},
-	{
-		"anonymous": false,
-		"inputs": [
-			{
-				"indexed": true,
-				"internalType": "address",
-				"name": "oldWriter",
-				"type": "address"
-			}
-		],
-		"name": "WritershipDecreased",
-		"type": "event"
 	},
 	{
 		"anonymous": false,

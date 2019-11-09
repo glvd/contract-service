@@ -1,6 +1,6 @@
 output:
  ```
-abigen --sol ./contract/sol/writeable.sol --pkg dwriteable --out .//contract/dwriteabl
+abigen --sol ./contract/sol/writeable.sol --pkg dwriteable --out ./contract/dwriteabl
 e/dwriteable.go
 ```
 

@@ -3,6 +3,7 @@ package contract
 import (
 	"context"
 	"crypto/ecdsa"
+	"dhcrypto"
 	"math/big"
 	"strings"
 	"sync"
@@ -10,7 +11,6 @@ import (
 
 	"service/contract/dmessage"
 	"service/contract/dnode"
-	"service/contract/dtag"
 
 	"github.com/ethereum/go-ethereum/accounts/abi/bind"
 	"github.com/ethereum/go-ethereum/common"
@@ -115,11 +115,11 @@ func Tag(addr string) Options {
 		if c.conn == nil {
 			panic("null connect")
 		}
-		newDtag, e := dtag.NewDtag(common.HexToAddress(addr), c.conn)
-		if e != nil {
-			panic(e)
-		}
-		c.Register(DTag, newDtag)
+		//newDtag, e := dtag.NewDtag(common.HexToAddress(addr), c.conn)
+		//if e != nil {
+		//	panic(e)
+		//}
+		//c.Register(DTag, newDtag)
 	}
 }
 
@@ -146,14 +146,14 @@ func (c *Contract) message() (msg *dmessage.Dmessage) {
 	return nil
 }
 
-func (c *Contract) tag() (tag *dtag.Dtag) {
-	if v, b := c.contracts.Load(DTag); b {
-		if tag, b = v.(*dtag.Dtag); b {
-			return
-		}
-	}
-	return nil
-}
+//func (c *Contract) tag() (tag *dtag.Dtag) {
+//	if v, b := c.contracts.Load(DTag); b {
+//		if tag, b = v.(*dtag.Dtag); b {
+//			return
+//		}
+//	}
+//	return nil
+//}
 
 func (c *Contract) node() (node *dnode.Dnode) {
 	if v, b := c.contracts.Load(DNode); b {
@@ -230,12 +230,19 @@ func (c *Contract) AddNodes(copyOld bool, ts time.Time, ss ...string) (e error) 
 			return e
 		}
 	}
+
+	enc := dhcrypto.NewCipherEncoder([]byte(PublicKey), int(n.UnixNano()), n)
 	for _, s := range ss {
 		e = c.Transact(ctx, func(opts *bind.TransactOpts) (transaction *types.Transaction, e error) {
-			return c.node().Store(opts, s)
+			encoded, e := enc.Encode(s)
+			if e != nil {
+				log.Errorw("encode error", "errors", e, "source", s)
+				return nil, e
+			}
+			return c.node().Store(opts, string(encoded))
 		})
 		if e != nil {
-			return e
+			log.Errorw("encode error", "errors", e, "source", s)
 		}
 	}
 	return nil
@@ -265,5 +272,36 @@ func (c *Contract) GetNodes(ts time.Time) ([]string, *big.Int, error) {
 	if e != nil {
 		return nil, nil, e
 	}
-	return ss, bi, nil
+	var results []string
+	dec := dhcrypto.NewCipherDecode([]byte(PrivateKey), time.Unix(bi.Int64(), 0))
+	for _, s := range ss {
+		bytes, e := dec.Decode(s)
+		if e != nil {
+			log.Errorw("decode errors", "error", e, "source", s)
+			continue
+		}
+		results = append(results, string(bytes))
+	}
+
+	return results, bi, nil
+}
+
+// AddVideo ...
+func (c *Contract) AddVideo(json string, version string) (e error) {
+	e = c.Transact(context.Background(), func(opts *bind.TransactOpts) (transaction *types.Transaction, e error) {
+		//transaction, e = c.tag().(opts, "video", json, version)i
+		//if e != nil {
+		return nil, e
+		//}
+		//return transaction, nil
+	})
+	if e != nil {
+		return e
+	}
+	return nil
+}
+
+// GetVideo ...
+func (c *Contract) GetVideo() {
+
 }
