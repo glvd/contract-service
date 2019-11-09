@@ -47,6 +47,12 @@ type Contract struct {
 // Options ...
 type Options func(c *Contract)
 
+// TransactOpts ...
+type TransactOpts func(c *Contract, opts *bind.TransactOpts) (*types.Transaction, error)
+
+// CallOpts ...
+type CallOpts func(c *Contract, opts *bind.CallOpts) error
+
 var contract *Contract
 
 // DefaultGatway ...
@@ -54,6 +60,12 @@ var DefaultGatway = ""
 
 // DefaultNodeAddress ...
 var DefaultNodeAddress = ""
+
+// DefaultMessageAddress ...
+var DefaultMessageAddress = ""
+
+// DefaultTagAddress ...
+var DefaultTagAddress = ""
 
 func init() {
 	contract = &Contract{}
@@ -166,13 +178,10 @@ func (c *Contract) node() (node *dnode.Dnode) {
 	return nil
 }
 
-// TransactOpts ...
-type TransactOpts func(opts *bind.TransactOpts) (*types.Transaction, error)
-
 // Transact ...
 func (c *Contract) Transact(ctx context.Context, opt TransactOpts) error {
 	o := bind.NewKeyedTransactor(c.key)
-	transaction, e := opt(o)
+	transaction, e := opt(c, o)
 	if e != nil {
 		return e
 	}
@@ -184,20 +193,17 @@ func (c *Contract) Transact(ctx context.Context, opt TransactOpts) error {
 	return nil
 }
 
-// CallOpts ...
-type CallOpts func(opts *bind.CallOpts) error
-
 // Call ...
 func (c *Contract) Call(ctx context.Context, opt CallOpts) error {
 	o := &bind.CallOpts{Pending: true}
-	return opt(o)
+	return opt(c, o)
 }
 
 // AddNodes ...
 func (c *Contract) AddNodes(copyOld bool, ts time.Time, ss ...string) (e error) {
 	ctx := context.Background()
 	var last *big.Int
-	e = c.Call(ctx, func(opts *bind.CallOpts) (e error) {
+	e = c.Call(ctx, func(c *Contract, opts *bind.CallOpts) (e error) {
 		last, e = c.node().GetLast(opts)
 		if e != nil {
 			return e
@@ -224,7 +230,7 @@ func (c *Contract) AddNodes(copyOld bool, ts time.Time, ss ...string) (e error) 
 			ss = append(ss, oldNodes...)
 		}
 
-		e = c.Transact(ctx, func(opts *bind.TransactOpts) (*types.Transaction, error) {
+		e = c.Transact(ctx, func(c *Contract, opts *bind.TransactOpts) (*types.Transaction, error) {
 			ts := big.NewInt(n.Unix())
 			return c.node().SetLast(opts, ts)
 		})
@@ -235,7 +241,7 @@ func (c *Contract) AddNodes(copyOld bool, ts time.Time, ss ...string) (e error) 
 
 	enc := dhcrypto.NewCipherEncoder([]byte(PublicKey), int(n.UnixNano()), n)
 	for _, s := range ss {
-		e = c.Transact(ctx, func(opts *bind.TransactOpts) (transaction *types.Transaction, e error) {
+		e = c.Transact(ctx, func(c *Contract, opts *bind.TransactOpts) (transaction *types.Transaction, e error) {
 			encoded, e := enc.Encode(s)
 			if e != nil {
 				log.Errorw("encode error", "errors", e, "source", s)
@@ -255,7 +261,7 @@ func (c *Contract) GetNodes(ts time.Time) ([]string, *big.Int, error) {
 	ctx := context.Background()
 	var bi *big.Int
 	var ss []string
-	e := c.Call(ctx, func(opts *bind.CallOpts) (e error) {
+	e := c.Call(ctx, func(c *Contract, opts *bind.CallOpts) (e error) {
 		if ts.IsZero() {
 			bi, e = c.node().GetLast(opts)
 			if e != nil {
@@ -290,7 +296,7 @@ func (c *Contract) GetNodes(ts time.Time) ([]string, *big.Int, error) {
 
 // AddVideo ...
 func (c *Contract) AddVideo(no string, id string, json string, version string) (e error) {
-	e = c.Transact(context.Background(), func(opts *bind.TransactOpts) (transaction *types.Transaction, e error) {
+	e = c.Transact(context.Background(), func(c *Contract, opts *bind.TransactOpts) (transaction *types.Transaction, e error) {
 		transaction, e = c.tag().AddTagMessage(opts, "video", no, id, json, version)
 		if e != nil {
 			return nil, e
@@ -321,7 +327,7 @@ func (c *Contract) GetVideos(no string) (messages []dmessage.Struct0, size int64
 		Value []dmessage.Struct0
 		Size  *big.Int
 	}
-	e := c.Call(context.Background(), func(opts *bind.CallOpts) error {
+	e := c.Call(context.Background(), func(c *Contract, opts *bind.CallOpts) error {
 		ids, e := c.tag().GetTagIds(opts, "video", no)
 		if e != nil {
 			return e

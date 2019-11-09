@@ -1,13 +1,14 @@
 package contract
 
 import (
-	"io/ioutil"
 	"testing"
 	"time"
 
 	"github.com/goextension/log"
 	"go.uber.org/zap"
 )
+
+var testContract *Contract
 
 func init() {
 	logger, e := zap.NewProduction(
@@ -20,29 +21,23 @@ func init() {
 	log.Register(logger.Sugar())
 	DefaultNodeAddress = "0x1bEE31E960E05ff8009E651033df6a851B7D0815"
 	DefaultGatway = "http://localhost:8545"
+	DefaultTagAddress = "0xE6D0182BDB02641674cb2466A2e5A87049Bd5E54"
+	DefaultMessageAddress = "0xbeED867a0B16E27C48A74bfee2728C115892eA8F"
+	testContract = NewContract(ETHClient(DefaultGatway),
+		HexKey("2ed78769ad77af7fa01734e5f3302f03e7e40b94c4bdb1abaa5f54615b9ea0b1"),
+		Node(DefaultNodeAddress),
+		Tag(DefaultTagAddress),
+		Message(DefaultMessageAddress))
+
 }
 
 // TestContract_AddNodes ...
 func TestContract_AddNodes(t *testing.T) {
-	c := NewContract(ETHClient(DefaultGatway), HexKey("8fce5cf38a3c20d35a59c6a025cb0fd8a3c1201a27bbb778d1899dd2f4692ca4"), Node(DefaultNodeAddress))
 	tm := time.Now()
-	//idx := tm.UnixNano()
-	//key, e := ioutil.ReadFile("./test_key/rsa.crt")
-	//if e != nil {
-	//	t.Error(e)
-	//}
-	//_ = key
-	//log.Info("sec", idx)
-	//
-	//enc := dhcrypto.NewCipherEncoder(key, int(idx), tm)
-	//bytes, e := enc.Encode("/ip4/13.124.213.107/tcp/4001/ipfs/QmS9knxyQkdiFrGbzEb2FNqnq2yEzvBKx2pEGNBnXTWi7h")
-	//if e != nil {
-	//	t.Error(e)
-	//}
 	source := "/ip4/13.124.213.107/tcp/4001/ipfs/QmS9knxyQkdiFrGbzEb2FNqnq2yEzvBKx2pEGNBnXTWi7r"
 
 	t.Log("source:", source)
-	e := c.AddNodes(true, tm, source)
+	e := testContract.AddNodes(true, tm, source)
 	if e != nil {
 		t.Error(e)
 	}
@@ -50,14 +45,8 @@ func TestContract_AddNodes(t *testing.T) {
 
 // TestContract_GetNodes ...
 func TestContract_GetNodes(t *testing.T) {
-	c := NewContract(ETHClient(DefaultGatway), HexKey("2ed78769ad77af7fa01734e5f3302f03e7e40b94c4bdb1abaa5f54615b9ea0b1"), Node(DefaultNodeAddress))
-	key, e := ioutil.ReadFile("./test_key/private.pem")
-	if e != nil {
-		t.Error(e)
-	}
-	_ = key
 
-	strings, i, e := c.GetNodes(time.Time{})
+	strings, i, e := testContract.GetNodes(time.Time{})
 	if e != nil {
 		t.Error(e)
 		return
@@ -77,5 +66,14 @@ func TestContract_GetNodes(t *testing.T) {
 	//	}
 	//	t.Log("decoded:", string(bytes))
 	//}
+
+}
+
+// TestContract_AddVideo ...
+func TestContract_AddVideo(t *testing.T) {
+	e := testContract.AddVideo("abp874", "randomid", "{}", "v0.0.1")
+	if e != nil {
+		t.Log(e)
+	}
 
 }
