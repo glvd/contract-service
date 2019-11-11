@@ -314,6 +314,32 @@ func (c *Contract) GetNodes(ts time.Time) ([]string, *big.Int, error) {
 	return results, bi, nil
 }
 
+// DeployNode ...
+func (c *Contract) DeployNode() (addr *common.Address, e error) {
+	ctx := context.Background()
+	e = c.Transact(ctx, func(c *Contract, opts *bind.TransactOpts) (transaction *types.Transaction, e error) {
+		address, tx, _, e := dnode.DeployDNode(opts, c.conn)
+		if e != nil {
+			return nil, e
+		}
+		addr = &address
+		addressAfterMined, err := bind.WaitDeployed(ctx, c.conn, tx)
+		if err != nil {
+			log.Errorf("failed to deploy contact when mining :%v", err)
+			return nil, err
+		}
+		if bytes.Compare(address.Bytes(), addressAfterMined.Bytes()) != 0 {
+			log.Errorf("mined address :%s,before mined address:%s", addressAfterMined, address)
+			return nil, errors.New("compare error")
+		}
+		return tx, nil
+	})
+	if e != nil {
+		return nil, e
+	}
+	return addr, nil
+}
+
 // DeployTag ...
 func (c *Contract) DeployTag(msgAddr *common.Address) (addr *common.Address, e error) {
 	ctx := context.Background()

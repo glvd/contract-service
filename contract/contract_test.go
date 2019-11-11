@@ -4,6 +4,7 @@ import (
 	"testing"
 	"time"
 
+	"github.com/ethereum/go-ethereum/common"
 	"github.com/goextension/log"
 	"go.uber.org/zap"
 )
@@ -96,6 +97,13 @@ func TestContract_AddVideo(t *testing.T) {
 
 // TestContract_DeployMessage ...
 func TestContract_DeployMessage(t *testing.T) {
-	e := testContract.DeployMessage()
-	t.Log(e)
+	addr, e := testContract.DeployMessage()
+	t.Log(addr, e)
+}
+
+// TestContract_DeployTag ...
+func TestContract_DeployTag(t *testing.T) {
+	msgAddr := common.HexToAddress(DefaultMessageAddress)
+	addr, e := testContract.DeployTag(&msgAddr)
+	t.Log(addr, e)
 }
