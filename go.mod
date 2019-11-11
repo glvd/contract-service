@@ -29,6 +29,8 @@ require (
 	github.com/pborman/uuid v1.2.0 // indirect
 	github.com/rjeczalik/notify v0.9.2 // indirect
 	github.com/swaggo/swag v1.6.3 // indirect
+	github.com/urfave/cli v1.22.1
+	github.com/urfave/cli/v2 v2.0.0-alpha.2
 	go.uber.org/zap v1.10.0
 	golang.org/x/net v0.0.0-20191027233614-53de4c7853b5 // indirect
 	golang.org/x/sys v0.0.0-20191027211539-f8518d3b3627 // indirect
