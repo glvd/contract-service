@@ -1,6 +1,9 @@
 package main
 
 import (
+	"path/filepath"
+
+	"github.com/glvd/conversion"
 	"github.com/urfave/cli/v2"
 )
 
@@ -12,24 +15,21 @@ func main() {
 	app.Name = applicationName
 	app.Flags = []cli.Flag{
 		&cli.StringFlag{
-			Name:        "config, c",
-			Aliases:     nil,
-			Usage:       "",
-			EnvVars:     nil,
-			FilePath:    "",
-			Required:    false,
-			Hidden:      false,
-			TakesFile:   false,
-			Value:       "",
-			DefaultText: "",
-			Destination: nil,
+			Name:  "config, c",
+			Usage: "load deploy config",
+			Value: filepath.Join(DefaultConfigPath, DefaultConfigPath),
+		},
+		&cli.StringFlag{
+			Name:  "",
+			Usage: "",
+			Value: "",
 		},
 	}
-	//Usage:   "service is a video manage tool use ipfs,eth,sqlite3 and so on.",
-	//Action: func(c *cli.Context) error {
-	//return nil
-	//},
-	//	Flags: flags,
-	//}
+	app.Before = before()
+}
 
+func before() cli.BeforeFunc {
+	return func(ctx *cli.Context) error {
+		LoadConfig()
+	}
 }

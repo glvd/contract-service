@@ -1,7 +1,17 @@
 package main
 
-type config struct {
-	Database string
+// DBConfig ...
+type DBConfig struct {
+	DBType   string
+	Schema   string
+	Username string
+	Password string
+	Address  string
+}
+
+// Config ...
+type Config struct {
+	DBConfig
 }
 
 // DefaultConfig ...
