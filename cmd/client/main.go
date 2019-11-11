@@ -9,8 +9,8 @@ import (
 
 	"github.com/goextension/log"
 	_ "github.com/mattn/go-sqlite3"
+	"github.com/urfave/cli/v2"
 	"go.uber.org/zap"
-	"gopkg.in/urfave/cli.v2"
 )
 
 func init() {

@@ -12,7 +12,7 @@ import (
 	"service/api/restapi"
 
 	"github.com/goextension/log"
-	"gopkg.in/urfave/cli.v2"
+	"github.com/urfave/cli/v2"
 )
 
 var _manager *api.Manager
@@ -34,13 +34,13 @@ func CmdClientAdd(app *cli.App) *cli.Command {
 		},
 	)
 	return &cli.Command{
-		Name:          "add",
-		Usage:         "add file ipfs",
-		UsageText:     "",
-		Description:   "",
-		ArgsUsage:     "",
-		Category:      "",
-		ShellComplete: nil,
+		Name:        "add",
+		Usage:       "add file ipfs",
+		UsageText:   "",
+		Description: "",
+		ArgsUsage:   "",
+		Category:    "",
+		//ShellComplete: nil,
 		Before: func(ctx *cli.Context) error {
 			service.DefaultPath = ctx.String("config")
 			if firstRunCheck() {
@@ -99,13 +99,13 @@ func CmdClientRemove(app *cli.App) *cli.Command {
 	//},
 
 	return &cli.Command{
-		Name:          "remove",
-		Usage:         "remove file from server",
-		UsageText:     "",
-		Description:   "",
-		ArgsUsage:     "",
-		Category:      "",
-		ShellComplete: nil,
+		Name:        "remove",
+		Usage:       "remove file from server",
+		UsageText:   "",
+		Description: "",
+		ArgsUsage:   "",
+		Category:    "",
+		//ShellComplete: nil,
 		Before: func(ctx *cli.Context) error {
 			service.DefaultPath = ctx.String("config")
 			if firstRunCheck() {
@@ -144,13 +144,13 @@ func CmdClientRemove(app *cli.App) *cli.Command {
 func CmdClientStatus(app *cli.App) *cli.Command {
 	flags := append(app.Flags)
 	return &cli.Command{
-		Name:          "status",
-		Usage:         "work status",
-		UsageText:     "",
-		Description:   "",
-		ArgsUsage:     "",
-		Category:      "",
-		ShellComplete: nil,
+		Name:        "status",
+		Usage:       "work status",
+		UsageText:   "",
+		Description: "",
+		ArgsUsage:   "",
+		Category:    "",
+		//ShellComplete: nil,
 		Before: func(ctx *cli.Context) error {
 			service.DefaultPath = ctx.String("config")
 			if firstRunCheck() {
