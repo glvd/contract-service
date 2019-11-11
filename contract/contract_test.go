@@ -107,3 +107,9 @@ func TestContract_DeployTag(t *testing.T) {
 	addr, e := testContract.DeployTag(&msgAddr)
 	t.Log(addr, e)
 }
+
+// TestContract_DeployNode ...
+func TestContract_DeployNode(t *testing.T) {
+	addr, e := testContract.DeployNode()
+	t.Log(addr, e)
+}

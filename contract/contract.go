@@ -149,7 +149,7 @@ func Tag(addr string) Options {
 		if c.conn == nil {
 			panic("null connect")
 		}
-		newDtag, e := dtag.NewDtag(common.HexToAddress(addr), c.conn)
+		newDtag, e := dtag.NewDTag(common.HexToAddress(addr), c.conn)
 		if e != nil {
 			panic(e)
 		}
@@ -163,7 +163,7 @@ func Node(addr string) Options {
 		if c.conn == nil {
 			panic("null connect")
 		}
-		newDnode, e := dnode.NewDnode(common.HexToAddress(addr), c.conn)
+		newDnode, e := dnode.NewDNode(common.HexToAddress(addr), c.conn)
 		if e != nil {
 			panic(e)
 		}
@@ -180,18 +180,18 @@ func (c *Contract) message() (msg *dmessage.DMessage) {
 	return nil
 }
 
-func (c *Contract) tag() (tag *dtag.Dtag) {
+func (c *Contract) tag() (tag *dtag.DTag) {
 	if v, b := c.contracts.Load(DTag); b {
-		if tag, b = v.(*dtag.Dtag); b {
+		if tag, b = v.(*dtag.DTag); b {
 			return
 		}
 	}
 	return nil
 }
 
-func (c *Contract) node() (node *dnode.Dnode) {
+func (c *Contract) node() (node *dnode.DNode) {
 	if v, b := c.contracts.Load(DNode); b {
-		if node, b = v.(*dnode.Dnode); b {
+		if node, b = v.(*dnode.DNode); b {
 			return
 		}
 	}
