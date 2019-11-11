@@ -1,6 +1,7 @@
 package contract
 
 import (
+	"fmt"
 	"testing"
 	"time"
 
@@ -20,10 +21,13 @@ func init() {
 		panic(e)
 	}
 	log.Register(logger.Sugar())
-	DefaultNodeAddress = "0x1bEE31E960E05ff8009E651033df6a851B7D0815"
 	DefaultGatway = "http://139.196.215.224:8545"
-	DefaultTagAddress = "0x8858038b42a788499efC1DCCFe34123f07288D6f"
-	DefaultMessageAddress = "0x2429F978deE1D931dcFC15C2A40a5986002745Bd"
+	DefaultMessageAddress = "0xafb92457cd1b13c9caeb01b35c195a7aaa8fe091"
+	DefaultTagAddress = "0XF41B12374DD24F10E4B29062F40CFB9D371ACA8A"
+	DefaultNodeAddress = "0x5a144fecd913688d0a755cee0275fd8f95a767a4"
+	//DefaultTagAddress = "0x8858038b42a788499efC1DCCFe34123f07288D6f"
+	//DefaultNodeAddress = "0x1bEE31E960E05ff8009E651033df6a851B7D0815"
+	//DefaultMessageAddress = "0x2429F978deE1D931dcFC15C2A40a5986002745Bd"
 
 	testContract = NewContract(ETHClient(DefaultGatway),
 		FileKey("945d35cd4a6549213e8d37feb5d708ec98906902", "123"),
@@ -98,18 +102,21 @@ func TestContract_AddVideo(t *testing.T) {
 // TestContract_DeployMessage ...
 func TestContract_DeployMessage(t *testing.T) {
 	addr, e := testContract.DeployMessage()
-	t.Log(addr, e)
+	t.Log(fmt.Sprintf("%x", addr), e)
 }
 
 // TestContract_DeployTag ...
 func TestContract_DeployTag(t *testing.T) {
+
+	fmt.Printf("%x", []int{244, 27, 18, 55, 77, 210, 79, 16, 228, 178, 144, 98, 244, 12, 251, 157, 55, 26, 202, 138})
+	//"0XF41B12374DD24F10E4B29062F40CFB9D371ACA8A"
 	msgAddr := common.HexToAddress(DefaultMessageAddress)
 	addr, e := testContract.DeployTag(&msgAddr)
-	t.Log(addr, e)
+	t.Log(fmt.Sprintf("%x", addr), e)
 }
 
 // TestContract_DeployNode ...
 func TestContract_DeployNode(t *testing.T) {
 	addr, e := testContract.DeployNode()
-	t.Log(addr, e)
+	t.Log(fmt.Sprintf("%x", addr), e)
 }

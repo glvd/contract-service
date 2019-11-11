@@ -321,6 +321,7 @@ func (c *Contract) DeployNode() (addr *common.Address, e error) {
 			return nil, e
 		}
 		addr = &address
+		fmt.Printf("Contract pending deploy: 0x%x\n", address)
 		addressAfterMined, err := bind.WaitDeployed(ctx, c.conn, tx)
 		if err != nil {
 			log.Errorf("failed to deploy contact when mining :%v", err)
@@ -350,6 +351,7 @@ func (c *Contract) DeployTag(msgAddr *common.Address) (addr *common.Address, e e
 			return nil, e
 		}
 		addr = &address
+		fmt.Printf("Contract pending deploy: 0x%x\n", address)
 		addressAfterMined, err := bind.WaitDeployed(ctx, c.conn, tx)
 		if err != nil {
 			log.Errorf("failed to deploy contact when mining :%v", err)
