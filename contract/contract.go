@@ -1,10 +1,13 @@
 package contract
 
 import (
+	"bytes"
 	"context"
 	"crypto/ecdsa"
 	"dhcrypto"
 	"errors"
+	"fmt"
+	"io/ioutil"
 	"math/big"
 	"strings"
 	"sync"
@@ -15,6 +18,7 @@ import (
 	"service/contract/dtag"
 
 	"github.com/ethereum/go-ethereum/accounts/abi/bind"
+	"github.com/ethereum/go-ethereum/accounts/keystore"
 	"github.com/ethereum/go-ethereum/common"
 	"github.com/ethereum/go-ethereum/core/types"
 	"github.com/ethereum/go-ethereum/crypto"
@@ -98,6 +102,22 @@ func HexKey(key string) Options {
 	}
 }
 
+// FileKey ...
+func FileKey(path string, pass string) Options {
+	return func(c *Contract) {
+		bytes, e := ioutil.ReadFile(path)
+		if e != nil {
+			panic(e)
+		}
+
+		privateKey, err := keystore.DecryptKey(bytes, pass)
+		if err != nil {
+			panic(e)
+		}
+		c.key = privateKey.PrivateKey
+	}
+}
+
 // ETHClient ...
 func ETHClient(addr string) Options {
 	return func(c *Contract) {
@@ -115,7 +135,7 @@ func Message(addr string) Options {
 		if c.conn == nil {
 			panic("null connect")
 		}
-		newDmessage, e := dmessage.NewDmessage(common.HexToAddress(addr), c.conn)
+		newDmessage, e := dmessage.NewContext(common.HexToAddress(addr), c.conn)
 		if e != nil {
 			panic(e)
 		}
@@ -151,9 +171,9 @@ func Node(addr string) Options {
 	}
 }
 
-func (c *Contract) message() (msg *dmessage.Dmessage) {
+func (c *Contract) message() (msg *dmessage.DMessage) {
 	if v, b := c.contracts.Load(DMessage); b {
-		if msg, b = v.(*dmessage.Dmessage); b {
+		if msg, b = v.(*dmessage.DMessage); b {
 			return
 		}
 	}
@@ -294,6 +314,65 @@ func (c *Contract) GetNodes(ts time.Time) ([]string, *big.Int, error) {
 	return results, bi, nil
 }
 
+// DeployTag ...
+func (c *Contract) DeployTag(msgAddr *common.Address) (addr *common.Address, e error) {
+	ctx := context.Background()
+	if msgAddr == nil {
+		return nil, errors.New("message address cant intput with null")
+	}
+	e = c.Transact(ctx, func(c *Contract, opts *bind.TransactOpts) (transaction *types.Transaction, e error) {
+		address, tx, _, e := dtag.DeployDTag(opts, c.conn, *msgAddr)
+		if e != nil {
+			return nil, e
+		}
+		addr = &address
+		addressAfterMined, err := bind.WaitDeployed(ctx, c.conn, tx)
+		if err != nil {
+			log.Errorf("failed to deploy contact when mining :%v", err)
+			return nil, err
+		}
+		if bytes.Compare(address.Bytes(), addressAfterMined.Bytes()) != 0 {
+			log.Errorf("mined address :%s,before mined address:%s", addressAfterMined, address)
+			return nil, errors.New("compare error")
+		}
+		return tx, nil
+	})
+	if e != nil {
+		return nil, e
+	}
+	return addr, nil
+}
+
+// DeployMessage ...
+func (c *Contract) DeployMessage() (addr *common.Address, e error) {
+	ctx := context.Background()
+	e = c.Transact(ctx, func(c *Contract, opts *bind.TransactOpts) (transaction *types.Transaction, e error) {
+		address, tx, _, e := dmessage.DeployDMessage(opts, c.conn)
+		if e != nil {
+			return nil, e
+		}
+		addr = &address
+		fmt.Printf("Contract pending deploy: 0x%x\n", address)
+		fmt.Printf("Transaction waiting to be mined: 0x%x\n\n", tx.Hash())
+		startTime := time.Now()
+		fmt.Printf("TX start @:%s", time.Now())
+		ctx := context.Background()
+		addressAfterMined, err := bind.WaitDeployed(ctx, c.conn, tx)
+		if err != nil {
+			log.Fatalf("failed to deploy contact when mining :%v", err)
+		}
+		fmt.Printf("tx mining take time:%s\n", time.Now().Sub(startTime))
+		if bytes.Compare(address.Bytes(), addressAfterMined.Bytes()) != 0 {
+			log.Fatalf("mined address :%s,before mined address:%s", addressAfterMined, address)
+		}
+		return tx, nil
+	})
+	if e != nil {
+		return nil, e
+	}
+	return addr, nil
+}
+
 // OpenMessageAuthority ...
 func (c *Contract) OpenMessageAuthority() (e error) {
 	ctx := context.Background()
@@ -328,6 +407,7 @@ func (c *Contract) OpenMessageAuthority() (e error) {
 // AddVideo ...
 func (c *Contract) AddVideo(no string, id string, json string, version string) (e error) {
 	e = c.Transact(context.Background(), func(c *Contract, opts *bind.TransactOpts) (transaction *types.Transaction, e error) {
+
 		transaction, e = c.tag().AddTagMessage(opts, "video", no, id, json, version)
 		if e != nil {
 			return nil, e

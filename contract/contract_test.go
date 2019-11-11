@@ -20,11 +20,13 @@ func init() {
 	}
 	log.Register(logger.Sugar())
 	DefaultNodeAddress = "0x1bEE31E960E05ff8009E651033df6a851B7D0815"
-	DefaultGatway = "http://localhost:8545"
+	DefaultGatway = "http://139.196.215.224:8545"
 	DefaultTagAddress = "0x8858038b42a788499efC1DCCFe34123f07288D6f"
 	DefaultMessageAddress = "0x2429F978deE1D931dcFC15C2A40a5986002745Bd"
+
 	testContract = NewContract(ETHClient(DefaultGatway),
-		HexKey("20841a230fc4ace1ff70f616aeba24af85648ba7914c9c03492d15be5082a827"),
+		FileKey("945d35cd4a6549213e8d37feb5d708ec98906902", "123"),
+		//HexKey("20841a230fc4ace1ff70f616aeba24af85648ba7914c9c03492d15be5082a827"),
 		Node(DefaultNodeAddress),
 		Tag(DefaultTagAddress),
 		Message(DefaultMessageAddress))
@@ -80,14 +82,20 @@ func TestContract_GetVideo(t *testing.T) {
 
 // TestContract_AddVideo ...
 func TestContract_AddVideo(t *testing.T) {
-	e := testContract.OpenMessageAuthority()
-	if e != nil {
-		t.Log(e)
-		return
-	}
+	//e := testContract.OpenMessageAuthority()
+	//if e != nil {
+	//	t.Log(e)
+	//	return
+	//}
 
-	e = testContract.AddVideo("abp874", "randomid", "{}", "v0.0.1")
+	e := testContract.AddVideo("abp874", "randomid", "{}", "v0.0.1")
 	if e != nil {
 		t.Log(e)
 	}
+}
+
+// TestContract_DeployMessage ...
+func TestContract_DeployMessage(t *testing.T) {
+	e := testContract.DeployMessage()
+	t.Log(e)
 }
