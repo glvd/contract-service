@@ -57,8 +57,6 @@ type TransactOpts func(c *Contract, opts *bind.TransactOpts) (*types.Transaction
 // CallOpts ...
 type CallOpts func(c *Contract, opts *bind.CallOpts) error
 
-var contract *Contract
-
 // DefaultGatway ...
 var DefaultGatway = ""
 
@@ -72,7 +70,7 @@ var DefaultMessageAddress = ""
 var DefaultTagAddress = ""
 
 func init() {
-	contract = &Contract{}
+
 }
 
 // Register ...
@@ -105,12 +103,12 @@ func HexKey(key string) Options {
 // FileKey ...
 func FileKey(path string, pass string) Options {
 	return func(c *Contract) {
-		bytes, e := ioutil.ReadFile(path)
+		bys, e := ioutil.ReadFile(path)
 		if e != nil {
 			panic(e)
 		}
 
-		privateKey, err := keystore.DecryptKey(bytes, pass)
+		privateKey, err := keystore.DecryptKey(bys, pass)
 		if err != nil {
 			panic(e)
 		}
@@ -303,12 +301,12 @@ func (c *Contract) GetNodes(ts time.Time) ([]string, *big.Int, error) {
 	var results []string
 	dec := dhcrypto.NewCipherDecode([]byte(PrivateKey), time.Unix(bi.Int64(), 0))
 	for _, s := range ss {
-		bytes, e := dec.Decode(s)
+		bys, e := dec.Decode(s)
 		if e != nil {
 			log.Errorw("decode errors", "error", e, "source", s)
 			continue
 		}
-		results = append(results, string(bytes))
+		results = append(results, string(bys))
 	}
 
 	return results, bi, nil
