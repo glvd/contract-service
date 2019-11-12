@@ -22,8 +22,8 @@ func init() {
 	}
 	log.Register(logger.Sugar())
 	DefaultGatway = "http://139.196.215.224:8545"
-	DefaultMessageAddress = "0XAFB92457CD1B13C9CAEB01B35C195A7AAA8FE091"
-	DefaultTagAddress = "0XF41B12374DD24F10E4B29062F40CFB9D371ACA8A"
+	DefaultMessageAddress = "0xdfbff0f931cf056b9eb5a8b58616024881215f01"
+	DefaultTagAddress = "0x431d6215052cd3f0cec1838289a3d99abc496f5e"
 	DefaultNodeAddress = "0X5A144FECD913688D0A755CEE0275FD8F95A767A4"
 	//DefaultTagAddress = "0x8858038b42a788499efC1DCCFe34123f07288D6f"
 	//DefaultNodeAddress = "0x1bEE31E960E05ff8009E651033df6a851B7D0815"
@@ -107,9 +107,6 @@ func TestContract_DeployMessage(t *testing.T) {
 
 // TestContract_DeployTag ...
 func TestContract_DeployTag(t *testing.T) {
-
-	fmt.Printf("%x", []int{244, 27, 18, 55, 77, 210, 79, 16, 228, 178, 144, 98, 244, 12, 251, 157, 55, 26, 202, 138})
-	//"0XF41B12374DD24F10E4B29062F40CFB9D371ACA8A"
 	msgAddr := common.HexToAddress(DefaultMessageAddress)
 	addr, e := testContract.DeployTag(&msgAddr)
 	t.Log(fmt.Sprintf("%x", addr), e)
