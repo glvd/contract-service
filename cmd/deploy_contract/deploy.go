@@ -22,7 +22,10 @@ var _contract *contract.Contract
 
 func init() {
 	log.Register(trait.NewZapSugar())
-
+	contract.DefaultGatway = "http://139.196.215.224:8545"
+	contract.DefaultMessageAddress = "0XAFB92457CD1B13C9CAEB01B35C195A7AAA8FE091"
+	contract.DefaultTagAddress = "0XF41B12374DD24F10E4B29062F40CFB9D371ACA8A"
+	contract.DefaultNodeAddress = "0X5A144FECD913688D0A755CEE0275FD8F95A767A4"
 	dir, e := os.Getwd()
 	if e != nil {
 		dir := os.Getenv("HOME")
@@ -82,7 +85,10 @@ func main() {
 	app.Before = before()
 
 	app.Action = action()
-
+	err := app.Run(os.Args)
+	if err != nil {
+		panic(err)
+	}
 }
 
 func before() cli.BeforeFunc {
