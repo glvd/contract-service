@@ -452,6 +452,7 @@ func (c *Contract) OpenMessageAuthority() (e error) {
 
 // AddVideo ...
 func (c *Contract) AddVideo(no string, id string, json string, version string) (e error) {
+	no = strings.ToUpper(no)
 	e = c.Transact(context.Background(), func(c *Contract, opts *bind.TransactOpts) (transaction *types.Transaction, e error) {
 
 		transaction, e = c.tag().AddTagMessage(opts, "video", no, id, json, version)
@@ -468,7 +469,8 @@ func (c *Contract) AddVideo(no string, id string, json string, version string) (
 
 // GetVideo ...
 func (c *Contract) GetVideo(no string) (messages *dmessage.Struct0, err error) {
-	struct0s, size, err := c.GetVideos(strings.ToUpper(no))
+	no = strings.ToUpper(no)
+	struct0s, size, err := c.GetVideos(no)
 	if err != nil {
 		return nil, err
 	}

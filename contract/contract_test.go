@@ -21,16 +21,16 @@ func init() {
 		panic(e)
 	}
 	log.Register(logger.Sugar())
-	//DefaultGatway = "http://139.196.215.224:8545"
-	//DefaultMessageAddress = "0xdfbff0f931cf056b9eb5a8b58616024881215f01"
-	//DefaultTagAddress = "0x431d6215052cd3f0cec1838289a3d99abc496f5e"
-	//DefaultNodeAddress = "0X5A144FECD913688D0A755CEE0275FD8F95A767A4"
+	DefaultGatway = "http://139.196.215.224:8545"
+	DefaultMessageAddress = "0xdfbff0f931cf056b9eb5a8b58616024881215f01"
+	DefaultTagAddress = "0x431d6215052cd3f0cec1838289a3d99abc496f5e"
+	DefaultNodeAddress = "0X5A144FECD913688D0A755CEE0275FD8F95A767A4"
 
 	//var DefaultGasLimit = "0xB71B00"
-	DefaultGatway = "http://localhost:8545"
-	DefaultNodeAddress = "0xe512a2a61814b8de98a52a0dfd7e13627e40014a"
-	DefaultMessageAddress = "0xcD05aAD053f605EE1A76B0B78cDfdfd32bBcfB7b"
-	DefaultTagAddress = "0x696687f41be961A521dD331A1609Edf7E4E7b2b5"
+	//DefaultGatway = "http://localhost:8545"
+	//DefaultNodeAddress = "0xe512a2a61814b8de98a52a0dfd7e13627e40014a"
+	//DefaultMessageAddress = "0xcD05aAD053f605EE1A76B0B78cDfdfd32bBcfB7b"
+	//DefaultTagAddress = "0x696687f41be961A521dD331A1609Edf7E4E7b2b5"
 
 	testContract = NewContract(ETHClient(DefaultGatway),
 		//FileKey("945d35cd4a6549213e8d37feb5d708ec98906902", "123"),
