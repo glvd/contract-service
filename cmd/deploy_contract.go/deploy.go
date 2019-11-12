@@ -43,10 +43,25 @@ func main() {
 		},
 	}
 	app.Before = before()
+
+	app.Action = action()
+
 }
 
 func before() cli.BeforeFunc {
 	return func(ctx *cli.Context) error {
-		LoadConfig(ctx.String("config"))
+		config, e := LoadConfig(ctx.String("config"))
+		if e != nil {
+			return e
+		}
+		_config = config
+
+		return nil
+	}
+}
+
+func action() cli.ActionFunc {
+	return func(ctx *cli.Context) error {
+
 	}
 }

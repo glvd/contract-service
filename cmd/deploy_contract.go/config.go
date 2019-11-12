@@ -1,5 +1,10 @@
 package main
 
+import (
+	"encoding/json"
+	"io/ioutil"
+)
+
 // DBConfig ...
 type DBConfig struct {
 	DBType   string
@@ -23,6 +28,8 @@ var DefaultConfigPath = "config"
 // ConfigPath ...
 var ConfigPath = ""
 
+var _config Config
+
 // DefaultConfig ...
 func DefaultConfig() Config {
 	return Config{
@@ -38,6 +45,17 @@ func DefaultConfig() Config {
 }
 
 // LoadConfig ...
-func LoadConfig(path string) {
+func LoadConfig(path string) error {
+	bys, e := ioutil.ReadFile(path)
+	if e != nil {
+		return e
+	}
+	var cfg Config
 
+	e = json.Unmarshal(bys, &cfg)
+	if e != nil {
+		return e
+	}
+	_config = cfg
+	return nil
 }
