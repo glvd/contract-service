@@ -457,7 +457,7 @@ func (c *Contract) AddVideo(no string, id string, json string, version string) (
 
 // GetVideo ...
 func (c *Contract) GetVideo(no string) (messages *dmessage.Struct0, err error) {
-	struct0s, size, err := c.GetVideos(no)
+	struct0s, size, err := c.GetVideos(strings.ToUpper(no))
 	if err != nil {
 		return nil, err
 	}
