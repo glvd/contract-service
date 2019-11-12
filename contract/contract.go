@@ -480,6 +480,7 @@ func (c *Contract) GetVideo(no string) (messages *dmessage.Struct0, err error) {
 
 // GetVideos ...
 func (c *Contract) GetVideos(no string) (messages []dmessage.Struct0, size int64, err error) {
+	no = strings.ToUpper(no)
 	var msg struct {
 		Value []dmessage.Struct0
 		Size  *big.Int
