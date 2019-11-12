@@ -35,7 +35,7 @@ func DefaultConfig() Config {
 	return Config{
 		DBConfig: DBConfig{
 			DBType:   "sqlite3",
-			Schema:   "deploy.db",
+			Schema:   "deploy",
 			Username: "",
 			Password: "",
 			Address:  ".",
@@ -48,12 +48,14 @@ func DefaultConfig() Config {
 func LoadConfig(path string) error {
 	bys, e := ioutil.ReadFile(path)
 	if e != nil {
+		_config = DefaultConfig()
 		return e
 	}
 	var cfg Config
 
 	e = json.Unmarshal(bys, &cfg)
 	if e != nil {
+		_config = DefaultConfig()
 		return e
 	}
 	_config = cfg

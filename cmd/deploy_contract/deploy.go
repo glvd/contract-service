@@ -9,6 +9,7 @@ import (
 	"service/contract"
 
 	"github.com/glvd/conversion"
+	"github.com/glvd/seed/model"
 	"github.com/godcong/go-trait"
 	"github.com/goextension/log"
 	"github.com/urfave/cli/v2"
@@ -95,12 +96,15 @@ func before() cli.BeforeFunc {
 	return func(ctx *cli.Context) error {
 		e := LoadConfig(ctx.String("config"))
 		if e != nil {
-			return e
+			log.Errorw("load config error", "error", e)
 		}
 		engine, e := MakeInstance(_config.DBConfig)
 		if e != nil {
 			return e
 		}
+		engine.ShowSQL()
+		engine.ShowExecTime()
+		conversion.RegisterDatabase(engine)
 		_db = engine
 		gateway := ctx.String("gateway")
 		keypath := ctx.String("keypath")
@@ -121,33 +125,46 @@ func before() cli.BeforeFunc {
 
 func action() cli.ActionFunc {
 	return func(ctx *cli.Context) error {
-		var v conversion.Video
-		e := conversion.FindAll(&v, func(rows *xorm.Rows) error {
+		var seedV model.Video
+		log.Info("process video")
+		csv := make(chan *model.Video)
+		go func(csv chan<- *model.Video) {
+			defer close(csv)
+			rows, e := _db.Rows(seedV)
+			if e != nil {
+				log.Errorw("found error", "error", e)
+				return
+			}
 
-			err := rows.Scan(&v)
+			for rows.Next() {
+				var v model.Video
+				err := rows.Scan(&v)
+				if err != nil {
+					log.Errorw("scan error", "error", err)
+					return
+				}
+
+				//skip
+				if v.M3U8Hash == "" {
+					continue
+				}
+				csv <- &v
+			}
+		}(csv)
+
+		for v := range csv {
+			cv := SeedVideoToConversionVideo(*v)
+			json, err := cv.MarshalJSONVersion()
 			if err != nil {
 				return err
 			}
-
-			//skip
-			if v.M3U8Hash == "" {
-				return nil
-			}
-
-			json, err := v.MarshalJSONVersion()
+			err = _contract.AddVideo(cv.BanNo, cv.ID(), json, cv.JSONVersion())
 			if err != nil {
 				return err
 			}
-			err = _contract.AddVideo(v.BanNo, v.ID(), json, v.JSONVersion())
-			if err != nil {
-				return err
-			}
-			log.Infow("contract update", "ban", v.BanNo, "id", v.ID())
-			return nil
-		}, 0)
-		if e != nil {
-			return e
+			log.Infow("contract update", "ban", cv.BanNo, "id", cv.ID())
 		}
+
 		return nil
 	}
 }
