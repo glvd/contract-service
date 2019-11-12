@@ -22,7 +22,7 @@ var _db *xorm.Engine
 var _contract *contract.Contract
 
 func init() {
-	log.Register(trait.NewZapSugar())
+	log.Register(trait.NewZapFileSugar("zap.log"))
 	contract.DefaultGatway = "http://139.196.215.224:8545"
 	contract.DefaultMessageAddress = "0xdfbff0f931cf056b9eb5a8b58616024881215f01"
 	contract.DefaultTagAddress = "0x431d6215052cd3f0cec1838289a3d99abc496f5e"
