@@ -72,7 +72,7 @@ var DefaultMessageAddress = ""
 var DefaultTagAddress = ""
 
 // DefaultGasLimit ...
-var DefaultGasLimit = "0x7a1200"
+var DefaultGasLimit = "0x7A1200"
 
 func init() {
 
@@ -139,7 +139,7 @@ func Message(addr string) Options {
 		if c.conn == nil {
 			panic("null connect")
 		}
-		newDmessage, e := dmessage.NewContext(common.HexToAddress(addr), c.conn)
+		newDmessage, e := dmessage.NewDMessage(common.HexToAddress(addr), c.conn)
 		if e != nil {
 			panic(e)
 		}
@@ -205,9 +205,13 @@ func (c *Contract) node() (node *dnode.DNode) {
 // Transact ...
 func (c *Contract) Transact(ctx context.Context, opt TransactOpts) error {
 	o := bind.NewKeyedTransactor(c.key)
-
+	log.Infow("gas", "limit", c.gasLimit.Uint64())
+	price, e := c.conn.SuggestGasPrice(ctx)
+	if e != nil {
+		return e
+	}
 	o.GasLimit = c.gasLimit.Uint64()
-
+	o.GasPrice = price.Mul(price, big.NewInt(2))
 	transaction, e := opt(c, o)
 	if e != nil {
 		return e
@@ -411,21 +415,28 @@ func (c *Contract) DeployMessage() (addr *common.Address, e error) {
 // OpenMessageAuthority ...
 func (c *Contract) OpenMessageAuthority() (e error) {
 	ctx := context.Background()
-	//isWriter := false
-	//e = c.Call(ctx, func(c *Contract, opts *bind.CallOpts) error {
-	//	isWriter, e = c.message().IsWriter(opts)
-	//	if e != nil {
-	//		return e
-	//	}
-	//	return nil
-	//})
-	//if e != nil {
-	//	return false, e
-	//}
-	//if isWriter {
-	//	log.Info("already is writers")
-	//	return true, nil
-	//}
+	isWriter := false
+	e = c.Call(ctx, func(c *Contract, opts *bind.CallOpts) error {
+		writerList, e := c.message().Writers(opts)
+		if e != nil {
+			return e
+		}
+		for _, wr := range writerList {
+			if wr.String() == DefaultTagAddress {
+				isWriter = true
+				return nil
+			}
+		}
+		return nil
+	})
+	if e != nil {
+		return e
+	}
+	log.Infow("iswriter", "is", isWriter)
+	if isWriter {
+		log.Info("already is writers")
+		return nil
+	}
 	e = c.Transact(ctx, func(c *Contract, opts *bind.TransactOpts) (transaction *types.Transaction, e error) {
 		trans, e := c.message().IncreasedWritership(opts, common.HexToAddress(DefaultTagAddress))
 		if e != nil {

@@ -21,17 +21,20 @@ func init() {
 		panic(e)
 	}
 	log.Register(logger.Sugar())
-	DefaultGatway = "http://139.196.215.224:8545"
-	DefaultMessageAddress = "0xdfbff0f931cf056b9eb5a8b58616024881215f01"
-	DefaultTagAddress = "0x431d6215052cd3f0cec1838289a3d99abc496f5e"
-	DefaultNodeAddress = "0X5A144FECD913688D0A755CEE0275FD8F95A767A4"
-	//DefaultTagAddress = "0x8858038b42a788499efC1DCCFe34123f07288D6f"
-	//DefaultNodeAddress = "0x1bEE31E960E05ff8009E651033df6a851B7D0815"
-	//DefaultMessageAddress = "0x2429F978deE1D931dcFC15C2A40a5986002745Bd"
+	//DefaultGatway = "http://139.196.215.224:8545"
+	//DefaultMessageAddress = "0xdfbff0f931cf056b9eb5a8b58616024881215f01"
+	//DefaultTagAddress = "0x431d6215052cd3f0cec1838289a3d99abc496f5e"
+	//DefaultNodeAddress = "0X5A144FECD913688D0A755CEE0275FD8F95A767A4"
+
+	//var DefaultGasLimit = "0xB71B00"
+	DefaultGatway = "http://localhost:8545"
+	DefaultNodeAddress = "0xe512a2a61814b8de98a52a0dfd7e13627e40014a"
+	DefaultMessageAddress = "0xcD05aAD053f605EE1A76B0B78cDfdfd32bBcfB7b"
+	DefaultTagAddress = "0x696687f41be961A521dD331A1609Edf7E4E7b2b5"
 
 	testContract = NewContract(ETHClient(DefaultGatway),
-		FileKey("945d35cd4a6549213e8d37feb5d708ec98906902", "123"),
-		//HexKey("20841a230fc4ace1ff70f616aeba24af85648ba7914c9c03492d15be5082a827"),
+		//FileKey("945d35cd4a6549213e8d37feb5d708ec98906902", "123"),
+		HexKey("9efef8ebc3c51e91fb7f9faf7dbd516cb320ade03108c1568c9cee01a39af311"),
 		Node(DefaultNodeAddress),
 		Tag(DefaultTagAddress),
 		Message(DefaultMessageAddress))
@@ -78,7 +81,7 @@ func TestContract_GetNodes(t *testing.T) {
 
 // TestContract_GetVideo ...
 func TestContract_GetVideo(t *testing.T) {
-	messages, err := testContract.GetVideo("abp-721")
+	messages, _, err := testContract.GetVideos("abp874")
 	if err != nil {
 		t.Log(err)
 	}
@@ -87,13 +90,13 @@ func TestContract_GetVideo(t *testing.T) {
 
 // TestContract_AddVideo ...
 func TestContract_AddVideo(t *testing.T) {
-	//e := testContract.OpenMessageAuthority()
-	//if e != nil {
-	//	t.Log(e)
-	//	return
-	//}
+	e := testContract.OpenMessageAuthority()
+	if e != nil {
+		t.Log(e)
+		return
+	}
 
-	e := testContract.AddVideo("abp874", "randomid", "{}", "v0.0.1")
+	e = testContract.AddVideo("abp874", "randomid", "{}", "v0.0.1")
 	if e != nil {
 		t.Log(e)
 	}
