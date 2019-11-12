@@ -14,13 +14,30 @@ type Config struct {
 	DBConfig
 }
 
-// DefaultConfig ...
-var DefaultConfig = "deploy.json"
+// DefaultConfigName ...
+var DefaultConfigName = "deploy.json"
 
 // DefaultConfigPath ...
 var DefaultConfigPath = "config"
 
+// ConfigPath ...
+var ConfigPath = ""
+
+// DefaultConfig ...
+func DefaultConfig() Config {
+	return Config{
+		DBConfig: DBConfig{
+			DBType:   "sqlite3",
+			Schema:   "deploy.db",
+			Username: "",
+			Password: "",
+			Address:  ".",
+		},
+	}
+
+}
+
 // LoadConfig ...
-func LoadConfig() {
+func LoadConfig(path string) {
 
 }

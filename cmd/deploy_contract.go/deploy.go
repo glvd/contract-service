@@ -1,13 +1,30 @@
 package main
 
 import (
+	"fmt"
+	"os"
+	"os/user"
 	"path/filepath"
 
-	"github.com/glvd/conversion"
 	"github.com/urfave/cli/v2"
 )
 
 const applicationName = "deploy"
+
+func init() {
+	dir, e := os.Getwd()
+	if e != nil {
+		dir := os.Getenv("HOME")
+		if dir == "" {
+			usr, err := user.Current()
+			if err != nil {
+				panic(fmt.Sprintf("cannot get current user: %s", err))
+			}
+			dir = usr.HomeDir
+		}
+	}
+	ConfigPath = filepath.Join(dir, DefaultConfigPath, DefaultConfigName)
+}
 
 func main() {
 	app := cli.NewApp()
@@ -17,7 +34,7 @@ func main() {
 		&cli.StringFlag{
 			Name:  "config, c",
 			Usage: "load deploy config",
-			Value: filepath.Join(DefaultConfigPath, DefaultConfigPath),
+			Value: ConfigPath,
 		},
 		&cli.StringFlag{
 			Name:  "",
@@ -30,6 +47,6 @@ func main() {
 
 func before() cli.BeforeFunc {
 	return func(ctx *cli.Context) error {
-		LoadConfig()
+		LoadConfig(ctx.String("config"))
 	}
 }
