@@ -6,12 +6,23 @@ import (
 	"os/user"
 	"path/filepath"
 
+	"service/contract"
+
+	"github.com/glvd/conversion"
+	"github.com/godcong/go-trait"
+	"github.com/goextension/log"
 	"github.com/urfave/cli/v2"
+	"github.com/xormsharp/xorm"
 )
 
 const applicationName = "deploy"
 
+var _db *xorm.Engine
+var _contract *contract.Contract
+
 func init() {
+	log.Register(trait.NewZapSugar())
+
 	dir, e := os.Getwd()
 	if e != nil {
 		dir := os.Getenv("HOME")
@@ -37,9 +48,35 @@ func main() {
 			Value: ConfigPath,
 		},
 		&cli.StringFlag{
-			Name:  "",
-			Usage: "",
-			Value: "",
+			Name:  "gateway",
+			Usage: "set the remote gate",
+			Value: contract.DefaultGatway,
+		},
+		&cli.StringFlag{
+			Name:  "keypath",
+			Usage: "set the key file path",
+			Value: "945d35cd4a6549213e8d37feb5d708ec98906902",
+		},
+		&cli.StringFlag{
+			Name:  "keypass",
+			Usage: "set the key file decode pass",
+			Value: "123",
+		},
+
+		&cli.StringFlag{
+			Name:  "tag",
+			Usage: "set the tag contract address",
+			Value: contract.DefaultTagAddress,
+		},
+		&cli.StringFlag{
+			Name:  "node",
+			Usage: "set the node contract address",
+			Value: contract.DefaultNodeAddress,
+		},
+		&cli.StringFlag{
+			Name:  "message",
+			Usage: "set the message contract address",
+			Value: contract.DefaultMessageAddress,
 		},
 	}
 	app.Before = before()
@@ -50,11 +87,27 @@ func main() {
 
 func before() cli.BeforeFunc {
 	return func(ctx *cli.Context) error {
-		config, e := LoadConfig(ctx.String("config"))
+		e := LoadConfig(ctx.String("config"))
 		if e != nil {
 			return e
 		}
-		_config = config
+		engine, e := MakeInstance(_config.DBConfig)
+		if e != nil {
+			return e
+		}
+		_db = engine
+		gateway := ctx.String("gateway")
+		keypath := ctx.String("keypath")
+		keypass := ctx.String("keypass")
+		dnode := ctx.String("node")
+		dtag := ctx.String("tag")
+		dmessage := ctx.String("dmessage")
+		_contract = contract.NewContract(contract.ETHClient(gateway),
+			contract.FileKey(keypath, keypass),
+			//HexKey("20841a230fc4ace1ff70f616aeba24af85648ba7914c9c03492d15be5082a827"),
+			contract.Node(dnode),
+			contract.Tag(dtag),
+			contract.Message(dmessage))
 
 		return nil
 	}
@@ -62,6 +115,33 @@ func before() cli.BeforeFunc {
 
 func action() cli.ActionFunc {
 	return func(ctx *cli.Context) error {
+		var v conversion.Video
+		e := conversion.FindAll(&v, func(rows *xorm.Rows) error {
 
+			err := rows.Scan(&v)
+			if err != nil {
+				return err
+			}
+
+			//skip
+			if v.M3U8Hash == "" {
+				return nil
+			}
+
+			json, err := v.MarshalJSONVersion()
+			if err != nil {
+				return err
+			}
+			err = _contract.AddVideo(v.BanNo, v.ID(), json, v.JSONVersion())
+			if err != nil {
+				return err
+			}
+			log.Infow("contract update", "ban", v.BanNo, "id", v.ID())
+			return nil
+		}, 0)
+		if e != nil {
+			return e
+		}
+		return nil
 	}
 }

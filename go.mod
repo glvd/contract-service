@@ -13,7 +13,7 @@ require (
 	github.com/fjl/memsize v0.0.0-20190710130421-bcb5799ab5e5 // indirect
 	github.com/gin-gonic/gin v1.4.0
 	github.com/glvd/bot v0.0.0-20190920092952-d05a7195fb1f
-	github.com/glvd/conversion v0.1.23
+	github.com/glvd/conversion v0.1.25
 	github.com/glvd/seed v0.0.0-20190919090848-319aeb69d5f1
 	github.com/gocarina/gocsv v0.0.0-20190624090726-71ad6676df57
 	github.com/godcong/go-ipfs-restapi v0.0.3-0.20190422054229-f13eeaa39df0
@@ -29,8 +29,8 @@ require (
 	github.com/pborman/uuid v1.2.0 // indirect
 	github.com/rjeczalik/notify v0.9.2 // indirect
 	github.com/swaggo/swag v1.6.3 // indirect
-	github.com/urfave/cli v1.22.1
 	github.com/urfave/cli/v2 v2.0.0-alpha.2
+	github.com/xormsharp/xorm v1.0.0
 	go.uber.org/zap v1.10.0
 	golang.org/x/net v0.0.0-20191027233614-53de4c7853b5 // indirect
 	golang.org/x/sys v0.0.0-20191027211539-f8518d3b3627 // indirect
