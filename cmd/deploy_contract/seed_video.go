@@ -8,7 +8,7 @@ import (
 // SeedVideoToConversionVideo ...
 func SeedVideoToConversionVideo(v model.Video) conversion.Video {
 	vd := conversion.Video{
-		BanNo:        v.Bangumi,
+		No:           v.Bangumi,
 		Intro:        v.Intro,
 		Alias:        v.Alias,
 		ThumbHash:    v.ThumbHash,

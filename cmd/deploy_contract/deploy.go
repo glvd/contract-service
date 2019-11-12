@@ -163,11 +163,11 @@ func action() cli.ActionFunc {
 			if err != nil {
 				return err
 			}
-			err = _contract.AddVideo(cv.BanNo, cv.ID(), json, cv.JSONVersion())
+			err = _contract.AddVideo(cv.No, cv.ID(), json, cv.JSONVersion())
 			if err != nil {
 				return err
 			}
-			log.Infow("contract update", "ban", cv.BanNo, "id", cv.ID())
+			log.Infow("contract update", "no", cv.No, "id", cv.ID())
 		}
 
 		return nil
