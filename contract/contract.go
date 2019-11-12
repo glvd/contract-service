@@ -20,6 +20,7 @@ import (
 	"github.com/ethereum/go-ethereum/accounts/abi/bind"
 	"github.com/ethereum/go-ethereum/accounts/keystore"
 	"github.com/ethereum/go-ethereum/common"
+	"github.com/ethereum/go-ethereum/common/hexutil"
 	"github.com/ethereum/go-ethereum/core/types"
 	"github.com/ethereum/go-ethereum/crypto"
 	"github.com/ethereum/go-ethereum/ethclient"
@@ -46,6 +47,7 @@ type Contract struct {
 	contracts *sync.Map
 	conn      *ethclient.Client
 	key       *ecdsa.PrivateKey
+	gasLimit  *big.Int
 }
 
 // Options ...
@@ -69,6 +71,9 @@ var DefaultMessageAddress = ""
 // DefaultTagAddress ...
 var DefaultTagAddress = ""
 
+// DefaultGasLimit ...
+var DefaultGasLimit = "0x7a1200"
+
 func init() {
 
 }
@@ -82,6 +87,7 @@ func (c *Contract) Register(p Type, v interface{}) {
 func NewContract(opts ...Options) *Contract {
 	c := &Contract{
 		contracts: &sync.Map{},
+		gasLimit:  hexutil.MustDecodeBig(DefaultGasLimit),
 	}
 	for _, op := range opts {
 		op(c)
@@ -199,6 +205,9 @@ func (c *Contract) node() (node *dnode.DNode) {
 // Transact ...
 func (c *Contract) Transact(ctx context.Context, opt TransactOpts) error {
 	o := bind.NewKeyedTransactor(c.key)
+
+	o.GasLimit = c.gasLimit.Uint64()
+
 	transaction, e := opt(c, o)
 	if e != nil {
 		return e
