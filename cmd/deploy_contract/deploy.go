@@ -23,15 +23,15 @@ var _contract *contract.Contract
 
 func init() {
 	log.Register(trait.NewZapSugar())
-	//contract.DefaultGatway = "http://139.196.215.224:8545"
-	//contract.DefaultMessageAddress = "0xdfbff0f931cf056b9eb5a8b58616024881215f01"
-	//contract.DefaultTagAddress = "0x431d6215052cd3f0cec1838289a3d99abc496f5e"
-	//contract.DefaultNodeAddress = "0X5A144FECD913688D0A755CEE0275FD8F95A767A4"
+	contract.DefaultGatway = "http://139.196.215.224:8545"
+	contract.DefaultMessageAddress = "0xdfbff0f931cf056b9eb5a8b58616024881215f01"
+	contract.DefaultTagAddress = "0x431d6215052cd3f0cec1838289a3d99abc496f5e"
+	contract.DefaultNodeAddress = "0X5A144FECD913688D0A755CEE0275FD8F95A767A4"
 
-	contract.DefaultGatway = "http://localhost:8545"
-	contract.DefaultNodeAddress = "0xe512a2a61814b8de98a52a0dfd7e13627e40014a"
-	contract.DefaultMessageAddress = "0xcD05aAD053f605EE1A76B0B78cDfdfd32bBcfB7b"
-	contract.DefaultTagAddress = "0x696687f41be961A521dD331A1609Edf7E4E7b2b5"
+	//contract.DefaultGatway = "http://localhost:8545"
+	//contract.DefaultNodeAddress = "0xe512a2a61814b8de98a52a0dfd7e13627e40014a"
+	//contract.DefaultMessageAddress = "0xcD05aAD053f605EE1A76B0B78cDfdfd32bBcfB7b"
+	//contract.DefaultTagAddress = "0x696687f41be961A521dD331A1609Edf7E4E7b2b5"
 	dir, e := os.Getwd()
 	if e != nil {
 		dir := os.Getenv("HOME")
@@ -112,14 +112,14 @@ func before() cli.BeforeFunc {
 		conversion.RegisterDatabase(engine)
 		_db = engine
 		gateway := ctx.String("gateway")
-		//keypath := ctx.String("keypath")
-		//keypass := ctx.String("keypass")
+		keypath := ctx.String("keypath")
+		keypass := ctx.String("keypass")
 		dnode := ctx.String("node")
 		dtag := ctx.String("tag")
 		dmessage := ctx.String("dmessage")
 		_contract = contract.NewContract(contract.ETHClient(gateway),
-			//contract.FileKey(keypath, keypass),
-			contract.HexKey("9efef8ebc3c51e91fb7f9faf7dbd516cb320ade03108c1568c9cee01a39af311"),
+			contract.FileKey(keypath, keypass),
+			//contract.HexKey("9efef8ebc3c51e91fb7f9faf7dbd516cb320ade03108c1568c9cee01a39af311"),
 			contract.Node(dnode),
 			contract.Tag(dtag),
 			contract.Message(dmessage))

@@ -33,8 +33,8 @@ func init() {
 	//DefaultTagAddress = "0x696687f41be961A521dD331A1609Edf7E4E7b2b5"
 
 	testContract = NewContract(ETHClient(DefaultGatway),
-		//FileKey("945d35cd4a6549213e8d37feb5d708ec98906902", "123"),
-		HexKey("9efef8ebc3c51e91fb7f9faf7dbd516cb320ade03108c1568c9cee01a39af311"),
+		FileKey("945d35cd4a6549213e8d37feb5d708ec98906902", "123"),
+		//HexKey("9efef8ebc3c51e91fb7f9faf7dbd516cb320ade03108c1568c9cee01a39af311"),
 		Node(DefaultNodeAddress),
 		Tag(DefaultTagAddress),
 		Message(DefaultMessageAddress))
@@ -81,7 +81,7 @@ func TestContract_GetNodes(t *testing.T) {
 
 // TestContract_GetVideo ...
 func TestContract_GetVideo(t *testing.T) {
-	messages, _, err := testContract.GetVideos("snis-576")
+	messages, _, err := testContract.GetVideos("abp-825")
 	if err != nil {
 		t.Log(err)
 	}
