@@ -173,28 +173,29 @@ func (_Context *ContextTransactorRaw) Transact(opts *bind.TransactOpts, method s
 }
 
 // DNodeABI is the input ABI used to generate the binding from.
-const DNodeABI = "[{\"anonymous\":false,\"inputs\":[{\"indexed\":true,\"internalType\":\"address\",\"name\":\"previousOwner\",\"type\":\"address\"},{\"indexed\":true,\"internalType\":\"address\",\"name\":\"newOwner\",\"type\":\"address\"}],\"name\":\"OwnershipTransferred\",\"type\":\"event\"},{\"constant\":true,\"inputs\":[],\"name\":\"getLast\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[],\"name\":\"getLastNode\",\"outputs\":[{\"internalType\":\"string[]\",\"name\":\"\",\"type\":\"string[]\"},{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[],\"name\":\"getLastVersion\",\"outputs\":[{\"internalType\":\"string\",\"name\":\"\",\"type\":\"string\"},{\"internalType\":\"string\",\"name\":\"\",\"type\":\"string\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"idx\",\"type\":\"uint256\"}],\"name\":\"getNode\",\"outputs\":[{\"internalType\":\"string[]\",\"name\":\"\",\"type\":\"string[]\"},{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"idx\",\"type\":\"uint256\"}],\"name\":\"getVersion\",\"outputs\":[{\"internalType\":\"string\",\"name\":\"\",\"type\":\"string\"},{\"internalType\":\"string\",\"name\":\"\",\"type\":\"string\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[],\"name\":\"isOwner\",\"outputs\":[{\"internalType\":\"bool\",\"name\":\"\",\"type\":\"bool\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[],\"name\":\"owner\",\"outputs\":[{\"internalType\":\"address\",\"name\":\"\",\"type\":\"address\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":false,\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"idx\",\"type\":\"uint256\"}],\"name\":\"remove\",\"outputs\":[],\"payable\":false,\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"constant\":false,\"inputs\":[],\"name\":\"renounceOwnership\",\"outputs\":[],\"payable\":false,\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"constant\":false,\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"idx\",\"type\":\"uint256\"}],\"name\":\"setLast\",\"outputs\":[],\"payable\":false,\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"constant\":false,\"inputs\":[{\"internalType\":\"string\",\"name\":\"ver\",\"type\":\"string\"},{\"internalType\":\"string\",\"name\":\"hash\",\"type\":\"string\"}],\"name\":\"setLastVersion\",\"outputs\":[],\"payable\":false,\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"constant\":false,\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"idx\",\"type\":\"uint256\"},{\"internalType\":\"string\",\"name\":\"ver\",\"type\":\"string\"},{\"internalType\":\"string\",\"name\":\"hash\",\"type\":\"string\"}],\"name\":\"setVersion\",\"outputs\":[],\"payable\":false,\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"constant\":false,\"inputs\":[{\"internalType\":\"string\",\"name\":\"swarm\",\"type\":\"string\"}],\"name\":\"store\",\"outputs\":[],\"payable\":false,\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"constant\":false,\"inputs\":[{\"internalType\":\"address\",\"name\":\"newOwner\",\"type\":\"address\"}],\"name\":\"transferOwnership\",\"outputs\":[],\"payable\":false,\"stateMutability\":\"nonpayable\",\"type\":\"function\"}]"
+const DNodeABI = "[{\"anonymous\":false,\"inputs\":[{\"indexed\":true,\"internalType\":\"address\",\"name\":\"previousOwner\",\"type\":\"address\"},{\"indexed\":true,\"internalType\":\"address\",\"name\":\"newOwner\",\"type\":\"address\"}],\"name\":\"OwnershipTransferred\",\"type\":\"event\"},{\"constant\":true,\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"cid\",\"type\":\"uint256\"}],\"name\":\"getDeviceVersion\",\"outputs\":[{\"internalType\":\"string\",\"name\":\"\",\"type\":\"string\"},{\"internalType\":\"string\",\"name\":\"\",\"type\":\"string\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"idx\",\"type\":\"uint256\"}],\"name\":\"getNode\",\"outputs\":[{\"internalType\":\"string[]\",\"name\":\"\",\"type\":\"string[]\"},{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[],\"name\":\"getNodeLast\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[],\"name\":\"getNodeLastData\",\"outputs\":[{\"internalType\":\"string[]\",\"name\":\"\",\"type\":\"string[]\"},{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"idx\",\"type\":\"uint256\"}],\"name\":\"getVersion\",\"outputs\":[{\"internalType\":\"string\",\"name\":\"\",\"type\":\"string\"},{\"internalType\":\"string\",\"name\":\"\",\"type\":\"string\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[],\"name\":\"isOwner\",\"outputs\":[{\"internalType\":\"bool\",\"name\":\"\",\"type\":\"bool\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[],\"name\":\"owner\",\"outputs\":[{\"internalType\":\"address\",\"name\":\"\",\"type\":\"address\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":false,\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"idx\",\"type\":\"uint256\"}],\"name\":\"removeNode\",\"outputs\":[],\"payable\":false,\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"constant\":false,\"inputs\":[],\"name\":\"renounceOwnership\",\"outputs\":[],\"payable\":false,\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"constant\":false,\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"idx\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"cid\",\"type\":\"uint256\"},{\"internalType\":\"string\",\"name\":\"ver\",\"type\":\"string\"},{\"internalType\":\"string\",\"name\":\"hash\",\"type\":\"string\"}],\"name\":\"replaceVersion\",\"outputs\":[],\"payable\":false,\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"constant\":false,\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"_cid\",\"type\":\"uint256\"},{\"internalType\":\"string\",\"name\":\"_ver\",\"type\":\"string\"},{\"internalType\":\"string\",\"name\":\"_hash\",\"type\":\"string\"}],\"name\":\"setDeviceVersion\",\"outputs\":[],\"payable\":false,\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"constant\":false,\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"idx\",\"type\":\"uint256\"}],\"name\":\"setNodeLast\",\"outputs\":[],\"payable\":false,\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"constant\":false,\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"cid\",\"type\":\"uint256\"},{\"internalType\":\"string\",\"name\":\"ver\",\"type\":\"string\"},{\"internalType\":\"string\",\"name\":\"hash\",\"type\":\"string\"}],\"name\":\"setVersion\",\"outputs\":[],\"payable\":false,\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"constant\":false,\"inputs\":[{\"internalType\":\"string\",\"name\":\"swarm\",\"type\":\"string\"}],\"name\":\"storeNode\",\"outputs\":[],\"payable\":false,\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"constant\":false,\"inputs\":[{\"internalType\":\"address\",\"name\":\"newOwner\",\"type\":\"address\"}],\"name\":\"transferOwnership\",\"outputs\":[],\"payable\":false,\"stateMutability\":\"nonpayable\",\"type\":\"function\"}]"
 
 // DNodeFuncSigs maps the 4-byte function signature to its string representation.
 var DNodeFuncSigs = map[string]string{
-	"4d622831": "getLast()",
-	"d1d72e3e": "getLastNode()",
-	"558614c7": "getLastVersion()",
+	"ed6c8d0b": "getDeviceVersion(uint256)",
 	"4f0f4aa9": "getNode(uint256)",
+	"812b5e12": "getNodeLast()",
+	"f428efb0": "getNodeLastData()",
 	"b88da759": "getVersion(uint256)",
 	"8f32d59b": "isOwner()",
 	"8da5cb5b": "owner()",
-	"4cc82215": "remove(uint256)",
+	"ffd740df": "removeNode(uint256)",
 	"715018a6": "renounceOwnership()",
-	"5c57bb89": "setLast(uint256)",
-	"e80d8c38": "setLastVersion(string,string)",
+	"342edfba": "replaceVersion(uint256,uint256,string,string)",
+	"011fc71a": "setDeviceVersion(uint256,string,string)",
+	"9c90028f": "setNodeLast(uint256)",
 	"69cf7c9a": "setVersion(uint256,string,string)",
-	"131a0680": "store(string)",
+	"0a73ba53": "storeNode(string)",
 	"f2fde38b": "transferOwnership(address)",
 }
 
 // DNodeBin is the compiled bytecode used for deploying new contracts.
-var DNodeBin = "0x608060405260006100176001600160e01b0361006616565b600080546001600160a01b0319166001600160a01b0383169081178255604051929350917f8be0079c531659141344cd1fd0a4f28419497f9722a3daafe3b4186f6b6457e0908290a35061006a565b3390565b610f9f806100796000396000f3fe608060405234801561001057600080fd5b50600436106100ea5760003560e01c8063715018a61161008c578063b88da75911610066578063b88da759146101c4578063d1d72e3e146101d7578063e80d8c38146101df578063f2fde38b146101f2576100ea565b8063715018a6146101925780638da5cb5b1461019a5780638f32d59b146101af576100ea565b80634f0f4aa9116100c85780634f0f4aa914610135578063558614c7146101565780635c57bb891461016c57806369cf7c9a1461017f576100ea565b8063131a0680146100ef5780634cc82215146101045780634d62283114610117575b600080fd5b6101026100fd366004610a67565b610205565b005b610102610112366004610b05565b610280565b61011f610349565b60405161012c9190610e6d565b60405180910390f35b610148610143366004610b05565b610350565b60405161012c929190610dca565b61015e61047a565b60405161012c929190610df8565b61010261017a366004610b05565b6104b5565b61010261018d366004610b23565b6104ff565b61010261059b565b6101a2610609565b60405161012c9190610dbc565b6101b7610618565b60405161012c9190610dea565b61015e6101d2366004610b05565b61063c565b61014861077a565b6101026101ed366004610a9c565b610789565b610102610200366004610a41565b61080f565b61020d610618565b6102325760405162461bcd60e51b815260040161022990610e3d565b60405180910390fd5b60025460009081526001602081815260408084209283015484529181529120825161025f928401906108c4565b50506002546000908152600160208190526040909120810180549091019055565b610288610618565b6102a45760405162461bcd60e51b815260040161022990610e3d565b6002546000908152600160208190526040909120015481106102d85760405162461bcd60e51b815260040161022990610e2d565b6002805460009081526001602081815260408084208084015460001980820187529190935281852087865291909420815492956103279591949293928316156101000290910190911604610942565b5050600254600090815260016020819052604090912001805460001901905550565b6002545b90565b6060600080600160008581526020019081526020016000206001015490506060816040519080825280602002602001820160405280156103a457816020015b606081526020019060019003908161038f5790505b50905060005b8281101561047057600086815260016020818152604080842085855282529283902080548451600294821615610100026000190190911693909304601f810183900483028401830190945283835291929083018282801561044c5780601f106104215761010080835404028352916020019161044c565b820191906000526020600020905b81548152906001019060200180831161042f57829003601f168201915b505050505082828151811061045d57fe5b60209081029190910101526001016103aa565b5092509050915091565b60608060006004541161049f5760405162461bcd60e51b815260040161022990610e4d565b6104ad60016004540361063c565b915091509091565b6104bd610618565b6104d95760405162461bcd60e51b815260040161022990610e3d565b60025481116104fa5760405162461bcd60e51b815260040161022990610e5d565b600255565b610507610618565b6105235760405162461bcd60e51b815260040161022990610e3d565b60045483106105445760405162461bcd60e51b815260040161022990610e4d565b604080518082018252828152602080820185905260008681526003825292909220815180519293919261057a92849201906108c4565b50602082810151805161059392600185019201906108c4565b505050505050565b6105a3610618565b6105bf5760405162461bcd60e51b815260040161022990610e3d565b600080546040516001600160a01b03909116907f8be0079c531659141344cd1fd0a4f28419497f9722a3daafe3b4186f6b6457e0908390a3600080546001600160a01b0319169055565b6000546001600160a01b031690565b600080546001600160a01b031661062d61083f565b6001600160a01b031614905090565b600081815260036020908152604091829020600180820180548551600293821615610100026000190190911692909204601f81018590048502830185019095528482526060948594919392918491908301828280156106dc5780601f106106b1576101008083540402835291602001916106dc565b820191906000526020600020905b8154815290600101906020018083116106bf57829003601f168201915b5050845460408051602060026001851615610100026000190190941693909304601f81018490048402820184019092528181529597508694509250840190508282801561076a5780601f1061073f5761010080835404028352916020019161076a565b820191906000526020600020905b81548152906001019060200180831161074d57829003601f168201915b5050505050905091509150915091565b606060006104ad600254610350565b610791610618565b6107ad5760405162461bcd60e51b815260040161022990610e3d565b60408051808201825282815260208082018590526004546000908152600382529290922081518051929391926107e692849201906108c4565b5060208281015180516107ff92600185019201906108c4565b5050600480546001019055505050565b610817610618565b6108335760405162461bcd60e51b815260040161022990610e3d565b61083c81610843565b50565b3390565b6001600160a01b0381166108695760405162461bcd60e51b815260040161022990610e1d565b600080546040516001600160a01b03808516939216917f8be0079c531659141344cd1fd0a4f28419497f9722a3daafe3b4186f6b6457e091a3600080546001600160a01b0319166001600160a01b0392909216919091179055565b828054600181600116156101000203166002900490600052602060002090601f016020900481019282601f1061090557805160ff1916838001178555610932565b82800160010185558215610932579182015b82811115610932578251825591602001919060010190610917565b5061093e9291506109b7565b5090565b828054600181600116156101000203166002900490600052602060002090601f016020900481019282601f1061097b5780548555610932565b8280016001018555821561093257600052602060002091601f016020900482015b8281111561093257825482559160010191906001019061099c565b61034d91905b8082111561093e57600081556001016109bd565b80356109dc81610f3f565b92915050565b600082601f8301126109f357600080fd5b8135610a06610a0182610ea2565b610e7b565b91508082526020830160208301858383011115610a2257600080fd5b610a2d838284610ef9565b50505092915050565b80356109dc81610f53565b600060208284031215610a5357600080fd5b6000610a5f84846109d1565b949350505050565b600060208284031215610a7957600080fd5b813567ffffffffffffffff811115610a9057600080fd5b610a5f848285016109e2565b60008060408385031215610aaf57600080fd5b823567ffffffffffffffff811115610ac657600080fd5b610ad2858286016109e2565b925050602083013567ffffffffffffffff811115610aef57600080fd5b610afb858286016109e2565b9150509250929050565b600060208284031215610b1757600080fd5b6000610a5f8484610a36565b600080600060608486031215610b3857600080fd5b6000610b448686610a36565b935050602084013567ffffffffffffffff811115610b6157600080fd5b610b6d868287016109e2565b925050604084013567ffffffffffffffff811115610b8a57600080fd5b610b96868287016109e2565b9150509250925092565b6000610bac8383610c39565b9392505050565b610bbc81610edd565b82525050565b6000610bcd82610ed0565b610bd78185610ed4565b935083602082028501610be985610eca565b8060005b85811015610c235784840389528151610c068582610ba0565b9450610c1183610eca565b60209a909a0199925050600101610bed565b5091979650505050505050565b610bbc81610ee8565b6000610c4482610ed0565b610c4e8185610ed4565b9350610c5e818560208601610f05565b610c6781610f35565b9093019392505050565b6000610c7e602683610ed4565b7f4f776e61626c653a206e6577206f776e657220697320746865207a65726f206181526564647265737360d01b602082015260400192915050565b6000610cc6601e83610ed4565b7f4e6f64653a2064656c657465206e6f6465206973206e6f742065786973740000815260200192915050565b6000610cff602083610ed4565b7f4f776e61626c653a2063616c6c6572206973206e6f7420746865206f776e6572815260200192915050565b6000610d38602383610ed4565b7f56657273696f6e3a20696e6465782076657273696f6e206973206e6f742065788152621a5cdd60ea1b602082015260400192915050565b6000610d7d602183610ed4565b7f4e6f64653a206c617374206e6f6465206973206e65776572207468616e206e6f8152607760f81b602082015260400192915050565b610bbc8161034d565b602081016109dc8284610bb3565b60408082528101610ddb8185610bc2565b9050610bac6020830184610db3565b602081016109dc8284610c30565b60408082528101610e098185610c39565b90508181036020830152610a5f8184610c39565b602080825281016109dc81610c71565b602080825281016109dc81610cb9565b602080825281016109dc81610cf2565b602080825281016109dc81610d2b565b602080825281016109dc81610d70565b602081016109dc8284610db3565b60405181810167ffffffffffffffff81118282101715610e9a57600080fd5b604052919050565b600067ffffffffffffffff821115610eb957600080fd5b506020601f91909101601f19160190565b60200190565b5190565b90815260200190565b60006109dc82610eed565b151590565b6001600160a01b031690565b82818337506000910152565b60005b83811015610f20578181015183820152602001610f08565b83811115610f2f576000848401525b50505050565b601f01601f191690565b610f4881610edd565b811461083c57600080fd5b610f488161034d56fea365627a7a7231582015269eec4fc665c2e295bb595e59cebad0b34ab4cf7d7e42676527b31a57243c6c6578706572696d656e74616cf564736f6c634300050c0040"
+var DNodeBin = "0x608060405260006100176001600160e01b0361006616565b600080546001600160a01b0319166001600160a01b0383169081178255604051929350917f8be0079c531659141344cd1fd0a4f28419497f9722a3daafe3b4186f6b6457e0908290a35061006a565b3390565b61104e806100796000396000f3fe608060405234801561001057600080fd5b50600436106100f55760003560e01c80638da5cb5b11610097578063ed6c8d0b11610066578063ed6c8d0b146101ed578063f2fde38b14610200578063f428efb014610213578063ffd740df1461021b576100f5565b80638da5cb5b1461018f5780638f32d59b146101a45780639c90028f146101b9578063b88da759146101cc576100f5565b80634f0f4aa9116100d35780634f0f4aa91461013557806369cf7c9a1461015f578063715018a614610172578063812b5e121461017a576100f5565b8063011fc71a146100fa5780630a73ba531461010f578063342edfba14610122575b600080fd5b61010d610108366004610b41565b61022e565b005b61010d61011d366004610aee565b61027d565b61010d610130366004610bbe565b6102f0565b610148610143366004610b23565b61037c565b604051610156929190610e79565b60405180910390f35b61010d61016d366004610b41565b61049d565b61010d610534565b6101826105a2565b6040516101569190610f1c565b6101976105a9565b6040516101569190610e6b565b6101ac6105b8565b6040516101569190610e99565b61010d6101c7366004610b23565b6105dc565b6101df6101da366004610b23565b610626565b604051610156929190610ea7565b6101df6101fb366004610b23565b610768565b61010d61020e366004610ac8565b6107b9565b6101486107e9565b61010d610229366004610b23565b610800565b6102366105b8565b61025b5760405162461bcd60e51b815260040161025290610eec565b60405180910390fd5b60055460008481526001602052604090205561027883838361049d565b505050565b6102856105b8565b6102a15760405162461bcd60e51b815260040161025290610eec565b600354600090815260026020908152604080832060018101548452825290912082516102cf9284019061094b565b50506003546000908152600260205260409020600190810180549091019055565b6102f86105b8565b6103145760405162461bcd60e51b815260040161025290610eec565b604080516060810182528481526020808201848152828401869052600088815260048352939093208251815592518051929392610357926001850192019061094b565b506040820151805161037391600284019160209091019061094b565b50505050505050565b600081815260026020908152604080832060010154815181815281840281019093019091526060929183908280156103c857816020015b60608152602001906001900390816103b35790505b50905060005b82811015610493576000868152600260208181526040808420858552825292839020805484516001821615610100026000190190911693909304601f810183900483028401830190945283835291929083018282801561046f5780601f106104445761010080835404028352916020019161046f565b820191906000526020600020905b81548152906001019060200180831161045257829003601f168201915b505050505082828151811061048057fe5b60209081029190910101526001016103ce565b5092509050915091565b6104a56105b8565b6104c15760405162461bcd60e51b815260040161025290610eec565b604080516060810182528481526020808201848152828401869052600554600090815260048352939093208251815592518051929392610507926001850192019061094b565b506040820151805161052391600284019160209091019061094b565b505060058054600101905550505050565b61053c6105b8565b6105585760405162461bcd60e51b815260040161025290610eec565b600080546040516001600160a01b03909116907f8be0079c531659141344cd1fd0a4f28419497f9722a3daafe3b4186f6b6457e0908390a3600080546001600160a01b0319169055565b6003545b90565b6000546001600160a01b031690565b600080546001600160a01b03166105cd6108c6565b6001600160a01b031614905090565b6105e46105b8565b6106005760405162461bcd60e51b815260040161025290610eec565b60035481116106215760405162461bcd60e51b815260040161025290610f0c565b600355565b600081815260046020908152604091829020600280820180548551600180831615610100026000190190921693909304601f8101869004860284018601909652858352606095869592949190910192918491908301828280156106ca5780601f1061069f576101008083540402835291602001916106ca565b820191906000526020600020905b8154815290600101906020018083116106ad57829003601f168201915b5050845460408051602060026001851615610100026000190190941693909304601f8101849004840282018401909252818152959750869450925084019050828280156107585780601f1061072d57610100808354040283529160200191610758565b820191906000526020600020905b81548152906001019060200180831161073b57829003601f168201915b5050505050905091509150915091565b60008181526001602052604090205460609081906107985760405162461bcd60e51b815260040161025290610efc565b6000838152600160205260409020546107b090610626565b91509150915091565b6107c16105b8565b6107dd5760405162461bcd60e51b815260040161025290610eec565b6107e6816108ca565b50565b606060006107f860035461037c565b915091509091565b6108086105b8565b6108245760405162461bcd60e51b815260040161025290610eec565b60035460009081526002602052604090206001015481106108575760405162461bcd60e51b815260040161025290610edc565b600354600090815260026020818152604080842060018082015460001980820188529290945282862087875292909520825493956108a59591949081161561010002909201909116046109c9565b50506003546000908152600260205260409020600101805460001901905550565b3390565b6001600160a01b0381166108f05760405162461bcd60e51b815260040161025290610ecc565b600080546040516001600160a01b03808516939216917f8be0079c531659141344cd1fd0a4f28419497f9722a3daafe3b4186f6b6457e091a3600080546001600160a01b0319166001600160a01b0392909216919091179055565b828054600181600116156101000203166002900490600052602060002090601f016020900481019282601f1061098c57805160ff19168380011785556109b9565b828001600101855582156109b9579182015b828111156109b957825182559160200191906001019061099e565b506109c5929150610a3e565b5090565b828054600181600116156101000203166002900490600052602060002090601f016020900481019282601f10610a0257805485556109b9565b828001600101855582156109b957600052602060002091601f016020900482015b828111156109b9578254825591600101919060010190610a23565b6105a691905b808211156109c55760008155600101610a44565b8035610a6381610fee565b92915050565b600082601f830112610a7a57600080fd5b8135610a8d610a8882610f51565b610f2a565b91508082526020830160208301858383011115610aa957600080fd5b610ab4838284610fa8565b50505092915050565b8035610a6381611002565b600060208284031215610ada57600080fd5b6000610ae68484610a58565b949350505050565b600060208284031215610b0057600080fd5b813567ffffffffffffffff811115610b1757600080fd5b610ae684828501610a69565b600060208284031215610b3557600080fd5b6000610ae68484610abd565b600080600060608486031215610b5657600080fd5b6000610b628686610abd565b935050602084013567ffffffffffffffff811115610b7f57600080fd5b610b8b86828701610a69565b925050604084013567ffffffffffffffff811115610ba857600080fd5b610bb486828701610a69565b9150509250925092565b60008060008060808587031215610bd457600080fd5b6000610be08787610abd565b9450506020610bf187828801610abd565b935050604085013567ffffffffffffffff811115610c0e57600080fd5b610c1a87828801610a69565b925050606085013567ffffffffffffffff811115610c3757600080fd5b610c4387828801610a69565b91505092959194509250565b6000610c5b8383610ce8565b9392505050565b610c6b81610f8c565b82525050565b6000610c7c82610f7f565b610c868185610f83565b935083602082028501610c9885610f79565b8060005b85811015610cd25784840389528151610cb58582610c4f565b9450610cc083610f79565b60209a909a0199925050600101610c9c565b5091979650505050505050565b610c6b81610f97565b6000610cf382610f7f565b610cfd8185610f83565b9350610d0d818560208601610fb4565b610d1681610fe4565b9093019392505050565b6000610d2d602683610f83565b7f4f776e61626c653a206e6577206f776e657220697320746865207a65726f206181526564647265737360d01b602082015260400192915050565b6000610d75601e83610f83565b7f4e6f64653a2064656c657465206e6f6465206973206e6f742065786973740000815260200192915050565b6000610dae602083610f83565b7f4f776e61626c653a2063616c6c6572206973206e6f7420746865206f776e6572815260200192915050565b6000610de7602383610f83565b7f56657273696f6e3a20696e6465782076657273696f6e206973206e6f742065788152621a5cdd60ea1b602082015260400192915050565b6000610e2c602183610f83565b7f4e6f64653a206c617374206e6f6465206973206e65776572207468616e206e6f8152607760f81b602082015260400192915050565b610c6b816105a6565b60208101610a638284610c62565b60408082528101610e8a8185610c71565b9050610c5b6020830184610e62565b60208101610a638284610cdf565b60408082528101610eb88185610ce8565b90508181036020830152610ae68184610ce8565b60208082528101610a6381610d20565b60208082528101610a6381610d68565b60208082528101610a6381610da1565b60208082528101610a6381610dda565b60208082528101610a6381610e1f565b60208101610a638284610e62565b60405181810167ffffffffffffffff81118282101715610f4957600080fd5b604052919050565b600067ffffffffffffffff821115610f6857600080fd5b506020601f91909101601f19160190565b60200190565b5190565b90815260200190565b6000610a6382610f9c565b151590565b6001600160a01b031690565b82818337506000910152565b60005b83811015610fcf578181015183820152602001610fb7565b83811115610fde576000848401525b50505050565b601f01601f191690565b610ff781610f8c565b81146107e657600080fd5b610ff7816105a656fea365627a7a72315820d58bb6142d5222feb24fdc0ea343d66f23d3719da13ea269f349e79fdb089aad6c6578706572696d656e74616cf564736f6c634300050c0040"
 
 // DeployDNode deploys a new Ethereum contract, binding an instance of DNode to it.
 func DeployDNode(auth *bind.TransactOpts, backend bind.ContractBackend) (common.Address, *types.Transaction, *DNode, error) {
@@ -352,66 +353,10 @@ func (_DNode *DNodeTransactorRaw) Transact(opts *bind.TransactOpts, method strin
 	return _DNode.Contract.contract.Transact(opts, method, params...)
 }
 
-// GetLast is a free data retrieval call binding the contract method 0x4d622831.
+// GetDeviceVersion is a free data retrieval call binding the contract method 0xed6c8d0b.
 //
-// Solidity: function getLast() constant returns(uint256)
-func (_DNode *DNodeCaller) GetLast(opts *bind.CallOpts) (*big.Int, error) {
-	var (
-		ret0 = new(*big.Int)
-	)
-	out := ret0
-	err := _DNode.contract.Call(opts, out, "getLast")
-	return *ret0, err
-}
-
-// GetLast is a free data retrieval call binding the contract method 0x4d622831.
-//
-// Solidity: function getLast() constant returns(uint256)
-func (_DNode *DNodeSession) GetLast() (*big.Int, error) {
-	return _DNode.Contract.GetLast(&_DNode.CallOpts)
-}
-
-// GetLast is a free data retrieval call binding the contract method 0x4d622831.
-//
-// Solidity: function getLast() constant returns(uint256)
-func (_DNode *DNodeCallerSession) GetLast() (*big.Int, error) {
-	return _DNode.Contract.GetLast(&_DNode.CallOpts)
-}
-
-// GetLastNode is a free data retrieval call binding the contract method 0xd1d72e3e.
-//
-// Solidity: function getLastNode() constant returns(string[], uint256)
-func (_DNode *DNodeCaller) GetLastNode(opts *bind.CallOpts) ([]string, *big.Int, error) {
-	var (
-		ret0 = new([]string)
-		ret1 = new(*big.Int)
-	)
-	out := &[]interface{}{
-		ret0,
-		ret1,
-	}
-	err := _DNode.contract.Call(opts, out, "getLastNode")
-	return *ret0, *ret1, err
-}
-
-// GetLastNode is a free data retrieval call binding the contract method 0xd1d72e3e.
-//
-// Solidity: function getLastNode() constant returns(string[], uint256)
-func (_DNode *DNodeSession) GetLastNode() ([]string, *big.Int, error) {
-	return _DNode.Contract.GetLastNode(&_DNode.CallOpts)
-}
-
-// GetLastNode is a free data retrieval call binding the contract method 0xd1d72e3e.
-//
-// Solidity: function getLastNode() constant returns(string[], uint256)
-func (_DNode *DNodeCallerSession) GetLastNode() ([]string, *big.Int, error) {
-	return _DNode.Contract.GetLastNode(&_DNode.CallOpts)
-}
-
-// GetLastVersion is a free data retrieval call binding the contract method 0x558614c7.
-//
-// Solidity: function getLastVersion() constant returns(string, string)
-func (_DNode *DNodeCaller) GetLastVersion(opts *bind.CallOpts) (string, string, error) {
+// Solidity: function getDeviceVersion(uint256 cid) constant returns(string, string)
+func (_DNode *DNodeCaller) GetDeviceVersion(opts *bind.CallOpts, cid *big.Int) (string, string, error) {
 	var (
 		ret0 = new(string)
 		ret1 = new(string)
@@ -420,22 +365,22 @@ func (_DNode *DNodeCaller) GetLastVersion(opts *bind.CallOpts) (string, string, 
 		ret0,
 		ret1,
 	}
-	err := _DNode.contract.Call(opts, out, "getLastVersion")
+	err := _DNode.contract.Call(opts, out, "getDeviceVersion", cid)
 	return *ret0, *ret1, err
 }
 
-// GetLastVersion is a free data retrieval call binding the contract method 0x558614c7.
+// GetDeviceVersion is a free data retrieval call binding the contract method 0xed6c8d0b.
 //
-// Solidity: function getLastVersion() constant returns(string, string)
-func (_DNode *DNodeSession) GetLastVersion() (string, string, error) {
-	return _DNode.Contract.GetLastVersion(&_DNode.CallOpts)
+// Solidity: function getDeviceVersion(uint256 cid) constant returns(string, string)
+func (_DNode *DNodeSession) GetDeviceVersion(cid *big.Int) (string, string, error) {
+	return _DNode.Contract.GetDeviceVersion(&_DNode.CallOpts, cid)
 }
 
-// GetLastVersion is a free data retrieval call binding the contract method 0x558614c7.
+// GetDeviceVersion is a free data retrieval call binding the contract method 0xed6c8d0b.
 //
-// Solidity: function getLastVersion() constant returns(string, string)
-func (_DNode *DNodeCallerSession) GetLastVersion() (string, string, error) {
-	return _DNode.Contract.GetLastVersion(&_DNode.CallOpts)
+// Solidity: function getDeviceVersion(uint256 cid) constant returns(string, string)
+func (_DNode *DNodeCallerSession) GetDeviceVersion(cid *big.Int) (string, string, error) {
+	return _DNode.Contract.GetDeviceVersion(&_DNode.CallOpts, cid)
 }
 
 // GetNode is a free data retrieval call binding the contract method 0x4f0f4aa9.
@@ -466,6 +411,62 @@ func (_DNode *DNodeSession) GetNode(idx *big.Int) ([]string, *big.Int, error) {
 // Solidity: function getNode(uint256 idx) constant returns(string[], uint256)
 func (_DNode *DNodeCallerSession) GetNode(idx *big.Int) ([]string, *big.Int, error) {
 	return _DNode.Contract.GetNode(&_DNode.CallOpts, idx)
+}
+
+// GetNodeLast is a free data retrieval call binding the contract method 0x812b5e12.
+//
+// Solidity: function getNodeLast() constant returns(uint256)
+func (_DNode *DNodeCaller) GetNodeLast(opts *bind.CallOpts) (*big.Int, error) {
+	var (
+		ret0 = new(*big.Int)
+	)
+	out := ret0
+	err := _DNode.contract.Call(opts, out, "getNodeLast")
+	return *ret0, err
+}
+
+// GetNodeLast is a free data retrieval call binding the contract method 0x812b5e12.
+//
+// Solidity: function getNodeLast() constant returns(uint256)
+func (_DNode *DNodeSession) GetNodeLast() (*big.Int, error) {
+	return _DNode.Contract.GetNodeLast(&_DNode.CallOpts)
+}
+
+// GetNodeLast is a free data retrieval call binding the contract method 0x812b5e12.
+//
+// Solidity: function getNodeLast() constant returns(uint256)
+func (_DNode *DNodeCallerSession) GetNodeLast() (*big.Int, error) {
+	return _DNode.Contract.GetNodeLast(&_DNode.CallOpts)
+}
+
+// GetNodeLastData is a free data retrieval call binding the contract method 0xf428efb0.
+//
+// Solidity: function getNodeLastData() constant returns(string[], uint256)
+func (_DNode *DNodeCaller) GetNodeLastData(opts *bind.CallOpts) ([]string, *big.Int, error) {
+	var (
+		ret0 = new([]string)
+		ret1 = new(*big.Int)
+	)
+	out := &[]interface{}{
+		ret0,
+		ret1,
+	}
+	err := _DNode.contract.Call(opts, out, "getNodeLastData")
+	return *ret0, *ret1, err
+}
+
+// GetNodeLastData is a free data retrieval call binding the contract method 0xf428efb0.
+//
+// Solidity: function getNodeLastData() constant returns(string[], uint256)
+func (_DNode *DNodeSession) GetNodeLastData() ([]string, *big.Int, error) {
+	return _DNode.Contract.GetNodeLastData(&_DNode.CallOpts)
+}
+
+// GetNodeLastData is a free data retrieval call binding the contract method 0xf428efb0.
+//
+// Solidity: function getNodeLastData() constant returns(string[], uint256)
+func (_DNode *DNodeCallerSession) GetNodeLastData() ([]string, *big.Int, error) {
+	return _DNode.Contract.GetNodeLastData(&_DNode.CallOpts)
 }
 
 // GetVersion is a free data retrieval call binding the contract method 0xb88da759.
@@ -550,25 +551,25 @@ func (_DNode *DNodeCallerSession) Owner() (common.Address, error) {
 	return _DNode.Contract.Owner(&_DNode.CallOpts)
 }
 
-// Remove is a paid mutator transaction binding the contract method 0x4cc82215.
+// RemoveNode is a paid mutator transaction binding the contract method 0xffd740df.
 //
-// Solidity: function remove(uint256 idx) returns()
-func (_DNode *DNodeTransactor) Remove(opts *bind.TransactOpts, idx *big.Int) (*types.Transaction, error) {
-	return _DNode.contract.Transact(opts, "remove", idx)
+// Solidity: function removeNode(uint256 idx) returns()
+func (_DNode *DNodeTransactor) RemoveNode(opts *bind.TransactOpts, idx *big.Int) (*types.Transaction, error) {
+	return _DNode.contract.Transact(opts, "removeNode", idx)
 }
 
-// Remove is a paid mutator transaction binding the contract method 0x4cc82215.
+// RemoveNode is a paid mutator transaction binding the contract method 0xffd740df.
 //
-// Solidity: function remove(uint256 idx) returns()
-func (_DNode *DNodeSession) Remove(idx *big.Int) (*types.Transaction, error) {
-	return _DNode.Contract.Remove(&_DNode.TransactOpts, idx)
+// Solidity: function removeNode(uint256 idx) returns()
+func (_DNode *DNodeSession) RemoveNode(idx *big.Int) (*types.Transaction, error) {
+	return _DNode.Contract.RemoveNode(&_DNode.TransactOpts, idx)
 }
 
-// Remove is a paid mutator transaction binding the contract method 0x4cc82215.
+// RemoveNode is a paid mutator transaction binding the contract method 0xffd740df.
 //
-// Solidity: function remove(uint256 idx) returns()
-func (_DNode *DNodeTransactorSession) Remove(idx *big.Int) (*types.Transaction, error) {
-	return _DNode.Contract.Remove(&_DNode.TransactOpts, idx)
+// Solidity: function removeNode(uint256 idx) returns()
+func (_DNode *DNodeTransactorSession) RemoveNode(idx *big.Int) (*types.Transaction, error) {
+	return _DNode.Contract.RemoveNode(&_DNode.TransactOpts, idx)
 }
 
 // RenounceOwnership is a paid mutator transaction binding the contract method 0x715018a6.
@@ -592,88 +593,109 @@ func (_DNode *DNodeTransactorSession) RenounceOwnership() (*types.Transaction, e
 	return _DNode.Contract.RenounceOwnership(&_DNode.TransactOpts)
 }
 
-// SetLast is a paid mutator transaction binding the contract method 0x5c57bb89.
+// ReplaceVersion is a paid mutator transaction binding the contract method 0x342edfba.
 //
-// Solidity: function setLast(uint256 idx) returns()
-func (_DNode *DNodeTransactor) SetLast(opts *bind.TransactOpts, idx *big.Int) (*types.Transaction, error) {
-	return _DNode.contract.Transact(opts, "setLast", idx)
+// Solidity: function replaceVersion(uint256 idx, uint256 cid, string ver, string hash) returns()
+func (_DNode *DNodeTransactor) ReplaceVersion(opts *bind.TransactOpts, idx *big.Int, cid *big.Int, ver string, hash string) (*types.Transaction, error) {
+	return _DNode.contract.Transact(opts, "replaceVersion", idx, cid, ver, hash)
 }
 
-// SetLast is a paid mutator transaction binding the contract method 0x5c57bb89.
+// ReplaceVersion is a paid mutator transaction binding the contract method 0x342edfba.
 //
-// Solidity: function setLast(uint256 idx) returns()
-func (_DNode *DNodeSession) SetLast(idx *big.Int) (*types.Transaction, error) {
-	return _DNode.Contract.SetLast(&_DNode.TransactOpts, idx)
+// Solidity: function replaceVersion(uint256 idx, uint256 cid, string ver, string hash) returns()
+func (_DNode *DNodeSession) ReplaceVersion(idx *big.Int, cid *big.Int, ver string, hash string) (*types.Transaction, error) {
+	return _DNode.Contract.ReplaceVersion(&_DNode.TransactOpts, idx, cid, ver, hash)
 }
 
-// SetLast is a paid mutator transaction binding the contract method 0x5c57bb89.
+// ReplaceVersion is a paid mutator transaction binding the contract method 0x342edfba.
 //
-// Solidity: function setLast(uint256 idx) returns()
-func (_DNode *DNodeTransactorSession) SetLast(idx *big.Int) (*types.Transaction, error) {
-	return _DNode.Contract.SetLast(&_DNode.TransactOpts, idx)
+// Solidity: function replaceVersion(uint256 idx, uint256 cid, string ver, string hash) returns()
+func (_DNode *DNodeTransactorSession) ReplaceVersion(idx *big.Int, cid *big.Int, ver string, hash string) (*types.Transaction, error) {
+	return _DNode.Contract.ReplaceVersion(&_DNode.TransactOpts, idx, cid, ver, hash)
 }
 
-// SetLastVersion is a paid mutator transaction binding the contract method 0xe80d8c38.
+// SetDeviceVersion is a paid mutator transaction binding the contract method 0x011fc71a.
 //
-// Solidity: function setLastVersion(string ver, string hash) returns()
-func (_DNode *DNodeTransactor) SetLastVersion(opts *bind.TransactOpts, ver string, hash string) (*types.Transaction, error) {
-	return _DNode.contract.Transact(opts, "setLastVersion", ver, hash)
+// Solidity: function setDeviceVersion(uint256 _cid, string _ver, string _hash) returns()
+func (_DNode *DNodeTransactor) SetDeviceVersion(opts *bind.TransactOpts, _cid *big.Int, _ver string, _hash string) (*types.Transaction, error) {
+	return _DNode.contract.Transact(opts, "setDeviceVersion", _cid, _ver, _hash)
 }
 
-// SetLastVersion is a paid mutator transaction binding the contract method 0xe80d8c38.
+// SetDeviceVersion is a paid mutator transaction binding the contract method 0x011fc71a.
 //
-// Solidity: function setLastVersion(string ver, string hash) returns()
-func (_DNode *DNodeSession) SetLastVersion(ver string, hash string) (*types.Transaction, error) {
-	return _DNode.Contract.SetLastVersion(&_DNode.TransactOpts, ver, hash)
+// Solidity: function setDeviceVersion(uint256 _cid, string _ver, string _hash) returns()
+func (_DNode *DNodeSession) SetDeviceVersion(_cid *big.Int, _ver string, _hash string) (*types.Transaction, error) {
+	return _DNode.Contract.SetDeviceVersion(&_DNode.TransactOpts, _cid, _ver, _hash)
 }
 
-// SetLastVersion is a paid mutator transaction binding the contract method 0xe80d8c38.
+// SetDeviceVersion is a paid mutator transaction binding the contract method 0x011fc71a.
 //
-// Solidity: function setLastVersion(string ver, string hash) returns()
-func (_DNode *DNodeTransactorSession) SetLastVersion(ver string, hash string) (*types.Transaction, error) {
-	return _DNode.Contract.SetLastVersion(&_DNode.TransactOpts, ver, hash)
+// Solidity: function setDeviceVersion(uint256 _cid, string _ver, string _hash) returns()
+func (_DNode *DNodeTransactorSession) SetDeviceVersion(_cid *big.Int, _ver string, _hash string) (*types.Transaction, error) {
+	return _DNode.Contract.SetDeviceVersion(&_DNode.TransactOpts, _cid, _ver, _hash)
+}
+
+// SetNodeLast is a paid mutator transaction binding the contract method 0x9c90028f.
+//
+// Solidity: function setNodeLast(uint256 idx) returns()
+func (_DNode *DNodeTransactor) SetNodeLast(opts *bind.TransactOpts, idx *big.Int) (*types.Transaction, error) {
+	return _DNode.contract.Transact(opts, "setNodeLast", idx)
+}
+
+// SetNodeLast is a paid mutator transaction binding the contract method 0x9c90028f.
+//
+// Solidity: function setNodeLast(uint256 idx) returns()
+func (_DNode *DNodeSession) SetNodeLast(idx *big.Int) (*types.Transaction, error) {
+	return _DNode.Contract.SetNodeLast(&_DNode.TransactOpts, idx)
+}
+
+// SetNodeLast is a paid mutator transaction binding the contract method 0x9c90028f.
+//
+// Solidity: function setNodeLast(uint256 idx) returns()
+func (_DNode *DNodeTransactorSession) SetNodeLast(idx *big.Int) (*types.Transaction, error) {
+	return _DNode.Contract.SetNodeLast(&_DNode.TransactOpts, idx)
 }
 
 // SetVersion is a paid mutator transaction binding the contract method 0x69cf7c9a.
 //
-// Solidity: function setVersion(uint256 idx, string ver, string hash) returns()
-func (_DNode *DNodeTransactor) SetVersion(opts *bind.TransactOpts, idx *big.Int, ver string, hash string) (*types.Transaction, error) {
-	return _DNode.contract.Transact(opts, "setVersion", idx, ver, hash)
+// Solidity: function setVersion(uint256 cid, string ver, string hash) returns()
+func (_DNode *DNodeTransactor) SetVersion(opts *bind.TransactOpts, cid *big.Int, ver string, hash string) (*types.Transaction, error) {
+	return _DNode.contract.Transact(opts, "setVersion", cid, ver, hash)
 }
 
 // SetVersion is a paid mutator transaction binding the contract method 0x69cf7c9a.
 //
-// Solidity: function setVersion(uint256 idx, string ver, string hash) returns()
-func (_DNode *DNodeSession) SetVersion(idx *big.Int, ver string, hash string) (*types.Transaction, error) {
-	return _DNode.Contract.SetVersion(&_DNode.TransactOpts, idx, ver, hash)
+// Solidity: function setVersion(uint256 cid, string ver, string hash) returns()
+func (_DNode *DNodeSession) SetVersion(cid *big.Int, ver string, hash string) (*types.Transaction, error) {
+	return _DNode.Contract.SetVersion(&_DNode.TransactOpts, cid, ver, hash)
 }
 
 // SetVersion is a paid mutator transaction binding the contract method 0x69cf7c9a.
 //
-// Solidity: function setVersion(uint256 idx, string ver, string hash) returns()
-func (_DNode *DNodeTransactorSession) SetVersion(idx *big.Int, ver string, hash string) (*types.Transaction, error) {
-	return _DNode.Contract.SetVersion(&_DNode.TransactOpts, idx, ver, hash)
+// Solidity: function setVersion(uint256 cid, string ver, string hash) returns()
+func (_DNode *DNodeTransactorSession) SetVersion(cid *big.Int, ver string, hash string) (*types.Transaction, error) {
+	return _DNode.Contract.SetVersion(&_DNode.TransactOpts, cid, ver, hash)
 }
 
-// Store is a paid mutator transaction binding the contract method 0x131a0680.
+// StoreNode is a paid mutator transaction binding the contract method 0x0a73ba53.
 //
-// Solidity: function store(string swarm) returns()
-func (_DNode *DNodeTransactor) Store(opts *bind.TransactOpts, swarm string) (*types.Transaction, error) {
-	return _DNode.contract.Transact(opts, "store", swarm)
+// Solidity: function storeNode(string swarm) returns()
+func (_DNode *DNodeTransactor) StoreNode(opts *bind.TransactOpts, swarm string) (*types.Transaction, error) {
+	return _DNode.contract.Transact(opts, "storeNode", swarm)
 }
 
-// Store is a paid mutator transaction binding the contract method 0x131a0680.
+// StoreNode is a paid mutator transaction binding the contract method 0x0a73ba53.
 //
-// Solidity: function store(string swarm) returns()
-func (_DNode *DNodeSession) Store(swarm string) (*types.Transaction, error) {
-	return _DNode.Contract.Store(&_DNode.TransactOpts, swarm)
+// Solidity: function storeNode(string swarm) returns()
+func (_DNode *DNodeSession) StoreNode(swarm string) (*types.Transaction, error) {
+	return _DNode.Contract.StoreNode(&_DNode.TransactOpts, swarm)
 }
 
-// Store is a paid mutator transaction binding the contract method 0x131a0680.
+// StoreNode is a paid mutator transaction binding the contract method 0x0a73ba53.
 //
-// Solidity: function store(string swarm) returns()
-func (_DNode *DNodeTransactorSession) Store(swarm string) (*types.Transaction, error) {
-	return _DNode.Contract.Store(&_DNode.TransactOpts, swarm)
+// Solidity: function storeNode(string swarm) returns()
+func (_DNode *DNodeTransactorSession) StoreNode(swarm string) (*types.Transaction, error) {
+	return _DNode.Contract.StoreNode(&_DNode.TransactOpts, swarm)
 }
 
 // TransferOwnership is a paid mutator transaction binding the contract method 0xf2fde38b.

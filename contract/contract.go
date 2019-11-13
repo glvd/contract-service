@@ -236,7 +236,7 @@ func (c *Contract) AddNodes(copyOld bool, ts time.Time, ss ...string) (e error) 
 	ctx := context.Background()
 	var last *big.Int
 	e = c.Call(ctx, func(c *Contract, opts *bind.CallOpts) (e error) {
-		last, e = c.node().GetLast(opts)
+		last, e = c.node().GetNodeLast(opts)
 		if e != nil {
 			return e
 		}
@@ -264,7 +264,7 @@ func (c *Contract) AddNodes(copyOld bool, ts time.Time, ss ...string) (e error) 
 
 		e = c.Transact(ctx, func(c *Contract, opts *bind.TransactOpts) (*types.Transaction, error) {
 			ts := big.NewInt(n.Unix())
-			return c.node().SetLast(opts, ts)
+			return c.node().SetNodeLast(opts, ts)
 		})
 		if e != nil {
 			return e
@@ -279,7 +279,7 @@ func (c *Contract) AddNodes(copyOld bool, ts time.Time, ss ...string) (e error) 
 				log.Errorw("encode error", "errors", e, "source", s)
 				return nil, e
 			}
-			return c.node().Store(opts, string(encoded))
+			return c.node().StoreNode(opts, string(encoded))
 		})
 		if e != nil {
 			log.Errorw("encode error", "errors", e, "source", s)
@@ -295,11 +295,11 @@ func (c *Contract) GetNodes(ts time.Time) ([]string, *big.Int, error) {
 	var ss []string
 	e := c.Call(ctx, func(c *Contract, opts *bind.CallOpts) (e error) {
 		if ts.IsZero() {
-			bi, e = c.node().GetLast(opts)
+			bi, e = c.node().GetNodeLast(opts)
 			if e != nil {
 				return e
 			}
-			ss, _, e = c.node().GetLastNode(opts)
+			ss, _, e = c.node().GetNodeLastData(opts)
 		} else {
 			bi = big.NewInt(ts.Unix())
 			ss, _, e = c.node().GetNode(opts, big.NewInt(ts.Unix()))
