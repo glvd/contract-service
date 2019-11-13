@@ -46,6 +46,10 @@ contract DNode is Ownable{
         mappingVersions[idx] = Version({cid:cid,version:ver,hash:hash});
     }
 
+    function truncateNode(uint idx) public onlyOwner{
+        mappingNodes[idx].count = 0;
+    }
+
     function removeNode(uint idx) public onlyOwner{
         require(idx < mappingNodes[last].count, "Node: delete node is not exist");
         uint limit = mappingNodes[last].count;

@@ -24,7 +24,7 @@ func init() {
 	DefaultGatway = "http://139.196.215.224:8545"
 	DefaultMessageAddress = "0xdfbff0f931cf056b9eb5a8b58616024881215f01"
 	DefaultTagAddress = "0x431d6215052cd3f0cec1838289a3d99abc496f5e"
-	DefaultNodeAddress = "0X5A144FECD913688D0A755CEE0275FD8F95A767A4"
+	DefaultNodeAddress = "0x39e427cf40f73d4e09e2addd224fab7bd2ddcefa"
 
 	//var DefaultGasLimit = "0xB71B00"
 	//DefaultGatway = "http://localhost:8545"
@@ -51,6 +51,11 @@ func TestContract_AddNodes(t *testing.T) {
 	if e != nil {
 		t.Error(e)
 	}
+}
+
+// TestContract_RemoveNodes ...
+func TestContract_RemoveNodes(t *testing.T) {
+
 }
 
 // TestContract_GetNodes ...

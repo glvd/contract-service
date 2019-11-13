@@ -231,6 +231,11 @@ func (c *Contract) Call(ctx context.Context, opt CallOpts) error {
 	return opt(c, o)
 }
 
+// RemoveNode ...
+func (c *Contract) RemoveNode(idx int) {
+
+}
+
 // AddNodes ...
 func (c *Contract) AddNodes(copyOld bool, ts time.Time, ss ...string) (e error) {
 	ctx := context.Background()
