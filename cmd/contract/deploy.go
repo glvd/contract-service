@@ -88,16 +88,16 @@ func main() {
 			Value: contract.DefaultMessageAddress,
 		},
 	}
-	app.Before = before()
+	app.Before = deployBefore()
 
-	app.Action = action()
+	app.Action = deployAction()
 	err := app.Run(os.Args)
 	if err != nil {
 		panic(err)
 	}
 }
 
-func before() cli.BeforeFunc {
+func deployBefore() cli.BeforeFunc {
 	return func(ctx *cli.Context) error {
 		e := LoadConfig(ctx.String("config"))
 		if e != nil {
@@ -128,7 +128,7 @@ func before() cli.BeforeFunc {
 	}
 }
 
-func action() cli.ActionFunc {
+func deployAction() cli.ActionFunc {
 	return func(ctx *cli.Context) error {
 		var seedV model.Video
 		log.Info("process video")
