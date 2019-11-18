@@ -4,7 +4,6 @@ import (
 	"bytes"
 	"context"
 	"crypto/ecdsa"
-	"dhcrypto"
 	"errors"
 	"fmt"
 	"io/ioutil"
@@ -16,6 +15,7 @@ import (
 	"service/contract/dmessage"
 	"service/contract/dnode"
 	"service/contract/dtag"
+	"service/dhcrypto"
 
 	"github.com/ethereum/go-ethereum/accounts/abi/bind"
 	"github.com/ethereum/go-ethereum/accounts/keystore"

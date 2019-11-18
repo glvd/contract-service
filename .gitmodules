@@ -1,0 +1,3 @@
+[submodule "dhcrypto"]
+	path = dhcrypto
+	url = http://bug.vlavr.com:33000/godcong/dhcrypto.git
