@@ -456,6 +456,41 @@ func (c *Contract) OpenMessageAuthority() (e error) {
 	return nil
 }
 
+// AddOrUpdateVideo ...
+func (c *Contract) AddOrUpdateVideo(no string, message VideoMessage) (e error) {
+	messages, e := c.GetVideo(no)
+	if e != nil {
+		return e
+	}
+	if messages.ID == no {
+		e = c.UpdateVideo(no, message)
+		if e != nil {
+			return e
+		}
+	}
+	e = c.AddVideo(no, message)
+	if e != nil {
+		return e
+	}
+	return nil
+}
+
+// UpdateVideo ...
+func (c *Contract) UpdateVideo(no string, message VideoMessage) (e error) {
+	no = strings.ToUpper(no)
+	e = c.Transact(context.Background(), func(c *Contract, opts *bind.TransactOpts) (transaction *types.Transaction, e error) {
+		transaction, e = c.message().UpdateMessage(opts, message.ID, MustJSON(message.Encode()))
+		if e != nil {
+			return nil, e
+		}
+		return transaction, nil
+	})
+	if e != nil {
+		return e
+	}
+	return nil
+}
+
 // AddVideo ...
 func (c *Contract) AddVideo(no string, message VideoMessage) (e error) {
 	no = strings.ToUpper(no)
