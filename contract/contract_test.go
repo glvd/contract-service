@@ -7,6 +7,7 @@ import (
 
 	"github.com/ethereum/go-ethereum/common"
 	"github.com/goextension/log"
+	"github.com/google/uuid"
 	"go.uber.org/zap"
 )
 
@@ -100,8 +101,12 @@ func TestContract_AddVideo(t *testing.T) {
 		t.Log(e)
 		return
 	}
-
-	e = testContract.AddVideo("abp874", "randomid", "{}", "v0.0.1")
+	m := VideoMessage{
+		ID:      uuid.New().String(),
+		Content: "{}",
+		Version: "v0.0.1",
+	}
+	e = testContract.AddVideo("abp874", m)
 	if e != nil {
 		t.Log(e)
 	}
