@@ -49,8 +49,12 @@ func DefaultDBConfig() DBConfig {
 }
 
 // LoadConfig ...
-func LoadConfig(path string) error {
-	_config.DBConfig = DefaultDBConfig()
+func LoadConfig(path string) (e error) {
+	defer func() {
+		if e != nil {
+			_config.DBConfig = DefaultDBConfig()
+		}
+	}()
 	bys, e := ioutil.ReadFile(path)
 	if e != nil {
 		return e
