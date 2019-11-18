@@ -127,7 +127,7 @@ func ETHClient(addr string) Options {
 	return func(c *Contract) {
 		conn, err := ethclient.Dial(addr)
 		if err != nil {
-			panic(err)
+			panic(fmt.Errorf("address:%s,error:%w", addr, err))
 		}
 		c.conn = conn
 	}
