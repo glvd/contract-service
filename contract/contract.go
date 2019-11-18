@@ -493,16 +493,9 @@ func (c *Contract) GetVideos(no string) (messages []VideoMessage, size int64, er
 		Size  *big.Int
 	}
 	e := c.Call(context.Background(), func(c *Contract, opts *bind.CallOpts) error {
-		ids, e := c.tag().GetTagIds(opts, "video", no)
-		if e != nil {
-			return e
-		}
-		if len(ids) == 0 {
-			return errors.New("data not found")
-		}
-		msg, e = c.message().GetIdsMessages(opts, ids)
-		if e != nil {
-			return e
+		msg, err = c.tag().GetTagMessage(opts, "video", no)
+		if err != nil {
+			return err
 		}
 		return nil
 	})

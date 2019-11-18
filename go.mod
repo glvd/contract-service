@@ -22,6 +22,7 @@ require (
 	github.com/goextension/tool v0.0.2
 	github.com/golang/protobuf v1.3.2
 	github.com/golang/snappy v0.0.1 // indirect
+	github.com/google/uuid v1.1.1
 	github.com/json-iterator/go v1.1.7
 	github.com/karalabe/hid v1.0.0 // indirect
 	github.com/mattn/go-isatty v0.0.9 // indirect

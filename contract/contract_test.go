@@ -23,8 +23,8 @@ func init() {
 	}
 	log.Register(logger.Sugar())
 	DefaultGatway = "http://139.196.215.224:8545"
-	DefaultMessageAddress = "0xdfbff0f931cf056b9eb5a8b58616024881215f01"
-	DefaultTagAddress = "0x431d6215052cd3f0cec1838289a3d99abc496f5e"
+	DefaultMessageAddress = "0x2bc8cdc205b187e90533e98bcda07bc375b99e5f"
+	DefaultTagAddress = "0xf85cbfd1234f7ba4c700223780b4e9b8aea47bee"
 	DefaultNodeAddress = "0x39e427cf40f73d4e09e2addd224fab7bd2ddcefa"
 
 	//var DefaultGasLimit = "0xB71B00"
@@ -87,7 +87,7 @@ func TestContract_GetNodes(t *testing.T) {
 
 // TestContract_GetVideo ...
 func TestContract_GetVideo(t *testing.T) {
-	messages, _, err := testContract.GetVideos("abp-825")
+	messages, _, err := testContract.GetVideos("abp874")
 	if err != nil {
 		t.Log(err)
 	}
