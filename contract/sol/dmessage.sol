@@ -77,58 +77,57 @@ contract DMessage is Writeable{
         return ids;
     }
 
-    function addMessage(string memory id, string memory message)public onlyWriter returns(bool) {
-        require(mappingMessageFlags[id] == false, "Message: add message is exist");
-        mappingMessages[id] = message;
-        mappingMessageFlags[id] = true;
-        addMsgId(id);
+    function addMessage(string memory _id, string memory _message)public onlyWriter returns(bool) {
+        require(mappingMessageFlags[_id] == false, "Message: add message is exist");
+        mappingMessages[_id] = _message;
+        mappingMessageFlags[_id] = true;
+        addMsgId(_id);
         return true;
     }
 
-    function updateMessage(string memory id, string memory message)public onlyWriter returns(bool) {
-       require(mappingMessageFlags[id] == true, "Message: update message is not exist");
-       mappingMessages[id] = message;
+    function updateMessage(string memory _id, string memory _message)public onlyWriter returns(bool) {
+       require(mappingMessageFlags[_id] == true, "Message: update message is not exist");
+       mappingMessages[_id] = _message;
        return true;
     }
 
-    function checkMessage(string memory id)public view returns(bool) {
-        return mappingMessageFlags[id];
+    function checkMessage(string memory _id)public view returns(bool) {
+        return mappingMessageFlags[_id];
     }
 
-    function checkAllMessage(string[] memory ids)public view returns(bool){
-         for (uint i = 0; i< ids.length;i++){
-            if (!checkMessage(ids[i])){
+    function checkAllMessage(string[] memory _ids)public view returns(bool){
+         for (uint i = 0; i< _ids.length;i++){
+            if (!checkMessage(_ids[i])){
                 return false;
             }
         }
         return true;
     }
 
-    function checkMessages(string[] memory ids)public view returns(uint,bool){
-        for (uint i = 0; i< ids.length;i++){
-            if (!checkMessage(ids[i])){
+    function checkMessages(string[] memory _ids)public view returns(uint,bool){
+        for (uint i = 0; i< _ids.length;i++){
+            if (!checkMessage(_ids[i])){
                 return (i,false);
             }
         }
         return (0,true);
     }
 
-    function getMessage(string memory id) public view returns (string memory) {
+    function getMessage(string memory _ids) public view returns (string memory) {
     //   require(mappingMessageFlags[id] == true, "Message: get message is not exist");
-       return mappingMessages[id];
+       return mappingMessages[_ids];
     }
 
-    function getIdsMessages(string[] memory ids)public view returns(string[] memory _value,uint _size){
-        _size = ids.length;
+    function getIdsMessages(string[] memory _ids)public view returns(string[] memory _value,uint _size){
+        _size = _ids.length;
         _value = new string[](_size);
         for (uint i = 0; i < _size; i++){
-            _value[i]= getMessage(ids[i]);
+            _value[i]= getMessage(_ids[i]);
         }
         return (_value,_size);
     }
 
     function getMessages(uint  start,uint limit)public view returns (string[] memory _value,uint _size){
-        // require(start < count, "Message: start length is bigger than length");
         if ((start + limit) >= count){
             limit = count - start;
         }
@@ -149,10 +148,10 @@ contract DMessage is Writeable{
         }
     }
 
-    function delMessage(string memory id)public onlyOwner returns(string memory,bool){
-        require(mappingMessageFlags[id] == true, "Message: delete message is not exist");
-        mappingMessageFlags[id]=false;
+    function delMessage(string memory _id)public onlyOwner returns(string memory,bool){
+        require(mappingMessageFlags[_id] == true, "Message: delete message is not exist");
+        mappingMessageFlags[_id]=false;
         recount();
-        return (mappingMessages[id],true);
+        return (mappingMessages[_id],true);
     }
 }

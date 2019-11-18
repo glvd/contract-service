@@ -72,7 +72,7 @@ contract DTag is Ownable{
         _addTagId(_tag,_sub,_id);
     }
     
-    function getTagMessage(string memory _tag, string memory _sub) public view returns (string[] memory _value,uint _size) {
+    function getTagMessages(string memory _tag, string memory _sub) public view returns (string[] memory _value,uint _size) {
         _size = mappingTags[_tag].tags[_sub].length;
         _value = new string[](_size);
         for (uint i = 0; i < _size; i++){
