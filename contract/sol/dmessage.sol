@@ -3,14 +3,9 @@ pragma experimental ABIEncoderV2;
 import "./writeable.sol";
 
 contract DMessage is Writeable{
-    struct Message {
-       string id;         //self id
-       string content;    //jsoncontent
-       string version;    //jsonversion
-    }
     
     mapping(string => bool) private mappingMessageFlags; //id => flag
-    mapping(string => Message) private mappingMessages;  //id=>message
+    mapping(string => string) private mappingMessages;  //id=>message
     mapping(uint256 => string) private mappingIds;
     uint256 private count;
     
@@ -82,19 +77,17 @@ contract DMessage is Writeable{
         return ids;
     }
 
-    function addMessage(string memory id, string memory content,string memory version)public onlyWriter returns(bool) {
+    function addMessage(string memory id, string memory message)public onlyWriter returns(bool) {
         require(mappingMessageFlags[id] == false, "Message: add message is exist");
-        Message memory newMessage = Message({id:id,content:content,version:version});
-        mappingMessages[id] = newMessage;
+        mappingMessages[id] = message;
         mappingMessageFlags[id] = true;
         addMsgId(id);
         return true;
     }
 
-    function updateMessage(string memory id, string memory content,string memory version)public onlyWriter returns(bool) {
+    function updateMessage(string memory id, string memory message)public onlyWriter returns(bool) {
        require(mappingMessageFlags[id] == true, "Message: update message is not exist");
-       Message memory newMessage = Message({id:id,content:content,version:version});
-       mappingMessages[id] = newMessage;
+       mappingMessages[id] = message;
        return true;
     }
 
@@ -120,31 +113,26 @@ contract DMessage is Writeable{
         return (0,true);
     }
 
-    function getMessage(string memory id) public view returns (Message memory) {
+    function getMessage(string memory id) public view returns (string memory) {
     //   require(mappingMessageFlags[id] == true, "Message: get message is not exist");
        return mappingMessages[id];
     }
 
-     function getMessageValue(string memory id) public view returns (string memory, string memory, string memory) {
-    //   require(mappingMessageFlags[id] == true, "Message: get message is not exist");
-       return (mappingMessages[id].id,mappingMessages[id].content,mappingMessages[id].version);
-    } 
-
-    function getIdsMessages(string[] memory ids)public view returns(Message[] memory _value,uint _size){
+    function getIdsMessages(string[] memory ids)public view returns(string[] memory _value,uint _size){
         _size = ids.length;
-        _value = new Message[](_size);
+        _value = new string[](_size);
         for (uint i = 0; i < _size; i++){
             _value[i]= getMessage(ids[i]);
         }
         return (_value,_size);
     }
 
-    function getMessages(uint  start,uint limit)public view returns (Message[] memory _value,uint _size){
+    function getMessages(uint  start,uint limit)public view returns (string[] memory _value,uint _size){
         // require(start < count, "Message: start length is bigger than length");
         if ((start + limit) >= count){
             limit = count - start;
         }
-        _value = new Message[](limit);
+        _value = new string[](limit);
 
         for (uint i = 0 ; i < limit ; i++){
             _value[i] = getMessage(getMsgId(start+i));
@@ -161,11 +149,10 @@ contract DMessage is Writeable{
         }
     }
 
-    function delMessage(string memory id)public onlyOwner returns(Message memory,bool){
+    function delMessage(string memory id)public onlyOwner returns(string memory,bool){
         require(mappingMessageFlags[id] == true, "Message: delete message is not exist");
         mappingMessageFlags[id]=false;
         recount();
         return (mappingMessages[id],true);
     }
-    
 }
