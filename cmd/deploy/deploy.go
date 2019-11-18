@@ -94,16 +94,16 @@ func main() {
 			Value:       contract.DefaultMessageAddress,
 		},
 	}
-	app.Before = deployBefore(_config)
+	app.Before = deployBefore()
 
-	app.Action = deployAction(_config)
+	app.Action = deployAction()
 	err := app.Run(os.Args)
 	if err != nil {
 		panic(err)
 	}
 }
 
-func deployBefore(config Config) cli.BeforeFunc {
+func deployBefore() cli.BeforeFunc {
 	return func(ctx *cli.Context) error {
 		e := LoadConfig(ctx.String("config"))
 		if e != nil {
@@ -119,18 +119,18 @@ func deployBefore(config Config) cli.BeforeFunc {
 		conversion.RegisterDatabase(engine)
 		_db = engine
 
-		_contract = contract.NewContract(contract.ETHClient(config.Gateway),
-			contract.FileKey(config.KeyPath, config.KeyPass),
+		_contract = contract.NewContract(contract.ETHClient(_config.Gateway),
+			contract.FileKey(_config.KeyPath, _config.KeyPass),
 			//contract.HexKey("9efef8ebc3c51e91fb7f9faf7dbd516cb320ade03108c1568c9cee01a39af311"),
-			contract.Node(config.DNode),
-			contract.Tag(config.DTag),
-			contract.Message(config.DMessage))
+			contract.Node(_config.DNode),
+			contract.Tag(_config.DTag),
+			contract.Message(_config.DMessage))
 
 		return nil
 	}
 }
 
-func deployAction(config Config) cli.ActionFunc {
+func deployAction() cli.ActionFunc {
 	return func(ctx *cli.Context) error {
 		var seedV model.Video
 		log.Info("process video")
