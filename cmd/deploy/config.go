@@ -55,12 +55,10 @@ func LoadConfig(path string) error {
 	if e != nil {
 		return e
 	}
-	var cfg Config
 
-	e = json.Unmarshal(bys, &cfg)
+	e = json.Unmarshal(bys, &_config.DBConfig)
 	if e != nil {
 		return e
 	}
-	_config = cfg
 	return nil
 }
