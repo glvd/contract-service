@@ -47,7 +47,6 @@ func init() {
 }
 
 func main() {
-	cfg := Config{}
 	app := cli.NewApp()
 	app.Version = "v0.0.1"
 	app.Name = applicationName
@@ -60,44 +59,44 @@ func main() {
 		&cli.StringFlag{
 			Name:        "gateway",
 			Usage:       "set the remote gate",
-			Destination: &cfg.Gateway,
+			Destination: &_config.Gateway,
 			Value:       contract.DefaultGatway,
 		},
 		&cli.StringFlag{
 			Name:        "keypath",
 			Usage:       "set the key file path",
-			Destination: &cfg.KeyPath,
+			Destination: &_config.KeyPath,
 			Value:       "945d35cd4a6549213e8d37feb5d708ec98906902",
 		},
 		&cli.StringFlag{
 			Name:        "keypass",
 			Usage:       "set the key file decode pass",
-			Destination: &cfg.KeyPass,
+			Destination: &_config.KeyPass,
 			Value:       "123",
 		},
 
 		&cli.StringFlag{
 			Name:        "tag",
 			Usage:       "set the tag contract address",
-			Destination: &cfg.DTag,
+			Destination: &_config.DTag,
 			Value:       contract.DefaultTagAddress,
 		},
 		&cli.StringFlag{
 			Name:        "node",
 			Usage:       "set the node contract address",
-			Destination: &cfg.DNode,
+			Destination: &_config.DNode,
 			Value:       contract.DefaultNodeAddress,
 		},
 		&cli.StringFlag{
 			Name:        "message",
 			Usage:       "set the message contract address",
-			Destination: &cfg.DMessage,
+			Destination: &_config.DMessage,
 			Value:       contract.DefaultMessageAddress,
 		},
 	}
-	app.Before = deployBefore(cfg)
+	app.Before = deployBefore(_config)
 
-	app.Action = deployAction(cfg)
+	app.Action = deployAction(_config)
 	err := app.Run(os.Args)
 	if err != nil {
 		panic(err)

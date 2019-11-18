@@ -36,32 +36,29 @@ var ConfigPath = ""
 
 var _config Config
 
-// DefaultConfig ...
-func DefaultConfig() Config {
-	return Config{
-		DBConfig: DBConfig{
-			DBType:   "sqlite3",
-			Schema:   "deploy",
-			Username: "",
-			Password: "",
-			Address:  ".",
-		},
+// DefaultDBConfig ...
+func DefaultDBConfig() DBConfig {
+	return DBConfig{
+		DBType:   "sqlite3",
+		Schema:   "deploy",
+		Username: "",
+		Password: "",
+		Address:  ".",
 	}
 
 }
 
 // LoadConfig ...
 func LoadConfig(path string) error {
+	_config.DBConfig = DefaultDBConfig()
 	bys, e := ioutil.ReadFile(path)
 	if e != nil {
-		_config = DefaultConfig()
 		return e
 	}
 	var cfg Config
 
 	e = json.Unmarshal(bys, &cfg)
 	if e != nil {
-		_config = DefaultConfig()
 		return e
 	}
 	_config = cfg
