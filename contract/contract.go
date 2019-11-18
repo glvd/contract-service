@@ -66,10 +66,10 @@ var DefaultGatway = ""
 var DefaultNodeAddress = ""
 
 // DefaultMessageAddress ...
-var DefaultMessageAddress = ""
+var DefaultMessageAddress = "0xce50de6720bb96a9ccbd36c46e963720ac2e9ff8"
 
 // DefaultTagAddress ...
-var DefaultTagAddress = ""
+var DefaultTagAddress = "0x408cbbb78c10f199a8371e26970be70138e87b20"
 
 // DefaultGasLimit ...
 var DefaultGasLimit = "0x7A1200"

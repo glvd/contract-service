@@ -23,8 +23,8 @@ func init() {
 	}
 	log.Register(logger.Sugar())
 	DefaultGatway = "http://139.196.215.224:8545"
-	DefaultMessageAddress = "0x2bc8cdc205b187e90533e98bcda07bc375b99e5f"
-	DefaultTagAddress = "0xf85cbfd1234f7ba4c700223780b4e9b8aea47bee"
+	//DefaultMessageAddress = "0x2bc8cdc205b187e90533e98bcda07bc375b99e5f"
+	//DefaultTagAddress = "0xf85cbfd1234f7ba4c700223780b4e9b8aea47bee"
 	DefaultNodeAddress = "0x39e427cf40f73d4e09e2addd224fab7bd2ddcefa"
 
 	//var DefaultGasLimit = "0xB71B00"
