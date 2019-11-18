@@ -17,6 +17,12 @@ type DBConfig struct {
 // Config ...
 type Config struct {
 	DBConfig
+	Gateway  string
+	KeyPass  string
+	KeyPath  string
+	DNode    string
+	DTag     string
+	DMessage string
 }
 
 // DefaultConfigName ...
