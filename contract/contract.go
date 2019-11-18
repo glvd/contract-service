@@ -457,11 +457,10 @@ func (c *Contract) OpenMessageAuthority() (e error) {
 }
 
 // AddVideo ...
-func (c *Contract) AddVideo(no string, id string, json string, version string) (e error) {
+func (c *Contract) AddVideo(no string, message VideoMessage) (e error) {
 	no = strings.ToUpper(no)
 	e = c.Transact(context.Background(), func(c *Contract, opts *bind.TransactOpts) (transaction *types.Transaction, e error) {
-
-		transaction, e = c.tag().AddTagMessage(opts, "video", no, id, json, version)
+		transaction, e = c.tag().AddTagMessage(opts, "video", no, message.ID, MustJSON(message.Encode()))
 		if e != nil {
 			return nil, e
 		}
@@ -474,23 +473,23 @@ func (c *Contract) AddVideo(no string, id string, json string, version string) (
 }
 
 // GetVideo ...
-func (c *Contract) GetVideo(no string) (messages *dmessage.Struct0, err error) {
+func (c *Contract) GetVideo(no string) (messages VideoMessage, err error) {
 	no = strings.ToUpper(no)
 	struct0s, size, err := c.GetVideos(no)
 	if err != nil {
-		return nil, err
+		return VideoMessage{}, err
 	}
 	if size <= 0 {
-		return nil, errors.New("data not found")
+		return VideoMessage{}, errors.New("data not found")
 	}
-	return &struct0s[0], nil
+	return struct0s[0], nil
 }
 
 // GetVideos ...
-func (c *Contract) GetVideos(no string) (messages []dmessage.Struct0, size int64, err error) {
+func (c *Contract) GetVideos(no string) (messages []VideoMessage, size int64, err error) {
 	no = strings.ToUpper(no)
 	var msg struct {
-		Value []dmessage.Struct0
+		Value []string
 		Size  *big.Int
 	}
 	e := c.Call(context.Background(), func(c *Contract, opts *bind.CallOpts) error {
@@ -510,5 +509,9 @@ func (c *Contract) GetVideos(no string) (messages []dmessage.Struct0, size int64
 	if e != nil {
 		return nil, 0, e
 	}
-	return msg.Value, msg.Size.Int64(), nil
+	m, err := DecodeMessages(msg.Value)
+	if err != nil {
+		return nil, 0, err
+	}
+	return m, msg.Size.Int64(), nil
 }
