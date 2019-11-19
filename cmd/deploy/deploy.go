@@ -5,6 +5,7 @@ import (
 	"os"
 	"os/user"
 	"path/filepath"
+	"time"
 
 	"service/contract"
 
@@ -178,6 +179,7 @@ func deployAction() cli.ActionFunc {
 				return err
 			}
 			log.Infow("contract update", "no", cv.No, "id", cv.ID())
+			time.Sleep(1 * time.Second)
 		}
 
 		return nil
