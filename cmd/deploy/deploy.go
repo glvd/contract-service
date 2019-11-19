@@ -125,7 +125,10 @@ func deployBefore() cli.BeforeFunc {
 			contract.Node(_config.DNode),
 			contract.Tag(_config.DTag),
 			contract.Message(_config.DMessage))
-
+		e = _contract.OpenMessageAuthority()
+		if e != nil {
+			return e
+		}
 		return nil
 	}
 }

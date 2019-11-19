@@ -87,7 +87,7 @@ func TestContract_GetNodes(t *testing.T) {
 
 // TestContract_GetVideo ...
 func TestContract_GetVideo(t *testing.T) {
-	messages, _, err := testContract.GetVideos("abp874")
+	messages, _, err := testContract.GetVideos("ABP-825")
 	if err != nil {
 		t.Log(err)
 	}
