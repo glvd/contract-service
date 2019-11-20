@@ -427,8 +427,9 @@ func (c *Contract) OpenMessageAuthority() (e error) {
 		if e != nil {
 			return e
 		}
+		log.Infow("writers", "list", writerList)
 		for _, wr := range writerList {
-			if wr.String() == DefaultTagAddress {
+			if strings.Compare(wr.String(), DefaultTagAddress) == 0 {
 				isWriter = true
 				return nil
 			}
