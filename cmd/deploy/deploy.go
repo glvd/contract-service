@@ -180,7 +180,7 @@ func deployAction() cli.ActionFunc {
 			}
 			err = _contract.AddOrUpdateVideo(cv.No, msg, false)
 			if err != nil {
-				return err
+				log.Errorw("contract failed", "no", cv.No, "id", cv.ID())
 			}
 			log.Infow("contract update", "no", cv.No, "id", cv.ID())
 		}
