@@ -459,7 +459,7 @@ func (c *Contract) AddOrUpdateVideo(no string, message VideoMessage, update bool
 				return e
 			}
 		}
-		return
+		return nil
 	}
 	e = c.AddVideo(no, message)
 	if e != nil {

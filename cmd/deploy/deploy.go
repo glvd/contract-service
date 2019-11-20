@@ -5,7 +5,6 @@ import (
 	"os"
 	"os/user"
 	"path/filepath"
-	"time"
 
 	"service/contract"
 
@@ -168,7 +167,6 @@ func deployAction() cli.ActionFunc {
 				log.Info("exit")
 				return nil
 			default:
-
 			}
 			cv := SeedVideoToConversionVideo(*v)
 			json, err := cv.MarshalJSONVersion()
@@ -185,7 +183,6 @@ func deployAction() cli.ActionFunc {
 				return err
 			}
 			log.Infow("contract update", "no", cv.No, "id", cv.ID())
-			time.Sleep(1 * time.Second)
 		}
 		return nil
 	}
