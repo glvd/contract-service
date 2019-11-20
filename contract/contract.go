@@ -457,13 +457,16 @@ func (c *Contract) OpenMessageAuthority() (e error) {
 }
 
 // AddOrUpdateVideo ...
-func (c *Contract) AddOrUpdateVideo(no string, message VideoMessage) (e error) {
+func (c *Contract) AddOrUpdateVideo(no string, message VideoMessage, update bool) (e error) {
 	messages, e := c.GetVideo(no)
 	if e == nil && messages.ID == no {
-		e = c.UpdateVideo(no, message)
-		if e != nil {
-			return e
+		if update {
+			e = c.UpdateVideo(no, message)
+			if e != nil {
+				return e
+			}
 		}
+		return
 	}
 	e = c.AddVideo(no, message)
 	if e != nil {
