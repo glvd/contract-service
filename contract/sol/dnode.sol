@@ -29,7 +29,7 @@ contract DNode is Ownable{
     }
 
     function setDeviceVersion(uint _cid,string memory _ver,string memory _hash)public onlyOwner{
-        mappingDevices[_cid]= totalVersion;
+        mappingDevices[_cid] = totalVersion;
         setVersion(_cid,_ver,_hash);
     }
 
@@ -56,7 +56,7 @@ contract DNode is Ownable{
         mappingNodes[last].swarms[idx] = mappingNodes[last].swarms[limit-1];
         mappingNodes[last].count--;
     }
-    
+
     function setNodeLast(uint idx) public onlyOwner{
         require(idx > last, "Node: last node is newer than now");
         last = idx;
