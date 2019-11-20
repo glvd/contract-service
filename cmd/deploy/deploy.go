@@ -96,7 +96,6 @@ func main() {
 		},
 	}
 	app.Before = deployBefore()
-
 	app.Action = deployAction()
 	err := app.Run(os.Args)
 	if err != nil {
@@ -164,6 +163,12 @@ func deployAction() cli.ActionFunc {
 		}(csv)
 
 		for v := range csv {
+			select {
+			case <-ctx.Context.Done():
+				log.Info("exit")
+			default:
+
+			}
 			cv := SeedVideoToConversionVideo(*v)
 			json, err := cv.MarshalJSONVersion()
 			if err != nil {
