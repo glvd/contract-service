@@ -22,7 +22,7 @@ func init() {
 		panic(e)
 	}
 	log.Register(logger.Sugar())
-	DefaultGatway = "http://127.0.0.1:8545"
+	//DefaultGatway = "http://127.0.0.1:8545"
 	//DefaultMessageAddress = "0x2bc8cdc205b187e90533e98bcda07bc375b99e5f"
 	//DefaultTagAddress = "0xf85cbfd1234f7ba4c700223780b4e9b8aea47bee"
 	//DefaultNodeAddress = "0x39e427cf40f73d4e09e2addd224fab7bd2ddcefa"
@@ -30,8 +30,8 @@ func init() {
 	//var DefaultGasLimit = "0xB71B00"
 	//DefaultGatway = "http://localhost:8545"
 	//DefaultNodeAddress = "0xe512a2a61814b8de98a52a0dfd7e13627e40014a"
-	DefaultMessageAddress = "0xb884d148051f92e5e3b30fe7fc2c90c28d3f03a5"
-	DefaultTagAddress = "0xdacd53b6476f2d6271d93f42eda736deafdd797f"
+	//DefaultMessageAddress = "0xb884d148051f92e5e3b30fe7fc2c90c28d3f03a5"
+	//DefaultTagAddress = "0xdacd53b6476f2d6271d93f42eda736deafdd797f"
 
 	testContract = NewContract(ETHClient(DefaultGatway),
 		//FileKey("945d35cd4a6549213e8d37feb5d708ec98906902", "123"),
@@ -87,7 +87,7 @@ func TestContract_GetNodes(t *testing.T) {
 
 // TestContract_GetVideo ...
 func TestContract_GetVideo(t *testing.T) {
-	messages, _, err := testContract.GetVideos("ABP-666")
+	messages, _, err := testContract.GetVideos("SDDE-376")
 	if err != nil {
 		t.Log(err)
 	}
