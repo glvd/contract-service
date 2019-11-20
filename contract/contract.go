@@ -438,7 +438,7 @@ func (c *Contract) OpenMessageAuthority() (e error) {
 	if e != nil {
 		return e
 	}
-	log.Infow("iswriter", "is", isWriter)
+	log.Infow("iswriter", "address", DefaultTagAddress, "is", isWriter)
 	if isWriter {
 		log.Info("already is writers")
 		return nil

@@ -174,7 +174,7 @@ func deployAction() cli.ActionFunc {
 				Content: json,
 				Version: cv.JSONVersion(),
 			}
-			err = _contract.AddOrUpdateVideo(cv.No, msg)
+			err = _contract.AddOrUpdateVideo(cv.No, msg, false)
 			if err != nil {
 				return err
 			}
