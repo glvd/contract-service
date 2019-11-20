@@ -452,14 +452,16 @@ func (c *Contract) OpenMessageAuthority() (e error) {
 
 // AddOrUpdateVideo ...
 func (c *Contract) AddOrUpdateVideo(no string, message VideoMessage, update bool) (e error) {
-	messages, e := c.GetVideo(no)
-	if e == nil && messages.ID == no {
+	msg, e := c.GetVideo(no)
+
+	if e == nil && CompareNoCap(msg.ID, message.ID) == 0 {
 		if update {
 			e = c.UpdateVideo(no, message)
 			if e != nil {
 				return e
 			}
 		}
+		log.Infow("exist", "update", update)
 		return nil
 	}
 	e = c.AddVideo(no, message)
