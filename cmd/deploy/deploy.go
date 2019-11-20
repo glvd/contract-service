@@ -166,6 +166,7 @@ func deployAction() cli.ActionFunc {
 			select {
 			case <-ctx.Context.Done():
 				log.Info("exit")
+				return nil
 			default:
 
 			}
