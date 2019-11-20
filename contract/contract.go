@@ -60,7 +60,8 @@ type TransactOpts func(c *Contract, opts *bind.TransactOpts) (*types.Transaction
 type CallOpts func(c *Contract, opts *bind.CallOpts) error
 
 // DefaultGatway ...
-var DefaultGatway = "http://139.196.215.224:8545"
+//var DefaultGatway = "http://139.196.215.224:8545"
+var DefaultGatway = "http://13.124.213.107:8545"
 
 // DefaultNodeAddress ...
 var DefaultNodeAddress = ""
