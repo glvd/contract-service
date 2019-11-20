@@ -181,7 +181,6 @@ func deployAction() cli.ActionFunc {
 			log.Infow("contract update", "no", cv.No, "id", cv.ID())
 			time.Sleep(1 * time.Second)
 		}
-
 		return nil
 	}
 }
