@@ -72,7 +72,7 @@ var DefaultMessageAddress = "0xce50de6720bb96a9ccbd36c46e963720ac2e9ff8"
 var DefaultTagAddress = "0x408cbbb78c10f199a8371e26970be70138e87b20"
 
 // DefaultGasLimit ...
-var DefaultGasLimit = "0x7A1200"
+var DefaultGasLimit = "0x08000000"
 
 func init() {
 
@@ -205,7 +205,7 @@ func (c *Contract) node() (node *dnode.DNode) {
 // Transact ...
 func (c *Contract) Transact(ctx context.Context, opt TransactOpts) error {
 	o := bind.NewKeyedTransactor(c.key)
-	//o.GasLimit = c.gasLimit.Uint64()
+	o.GasLimit = c.gasLimit.Uint64() * 2
 	transaction, e := opt(c, o)
 	if e != nil {
 		return e
