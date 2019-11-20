@@ -9,7 +9,7 @@ contract Writeable is Ownable {
     mapping(address => bool) private _writer;
     mapping(uint => address) private _writers;
     uint private count;
-    
+
     event WritershipIncreased(address indexed newWriter);
     event WritershipDecreased(address indexed oldWriter);
     constructor () internal {
@@ -33,11 +33,11 @@ contract Writeable is Ownable {
     function writers() public view returns (address[] memory _value){
         _value = new address[](count);
         for (uint i = 0;i<count;i++) {
-            _value[i]=_writers[i];
+            _value[i] = _writers[i];
         }
         return _value;
     }
-    
+
     function recount() private {
         for (uint i = 0 ; i < count ;i++){
             if (_writer[_writers[i]] == false){
@@ -72,15 +72,15 @@ contract Writeable is Ownable {
     function decreaseWritership(address oldWriter) public onlyOwner {
        _decreaseWritership(oldWriter);
     }
-    
+
     function _decreaseWritership(address oldWriter) internal {
         require(_writer[oldWriter] == true, "Writerable: old writer was not writer");
         require(oldWriter != address(0),"Writerable: new writer is the zero address");
-        _writer[oldWriter]=false;
+        _writer[oldWriter] = false;
         recount();
         emit WritershipDecreased(oldWriter);
     }
-    
+
     function increasedWritership(address newWriter) public onlyOwner {
         _increaseWritership(newWriter);
     }
@@ -88,8 +88,8 @@ contract Writeable is Ownable {
     function _increaseWritership(address newWriter) internal {
         require(newWriter != address(0),"Writerable: new writer is the zero address");
         require(_writer[newWriter] == false, "Writerable: new writer is exist");
-        _writer[newWriter]=true;
-        _writers[count]=newWriter;
+        _writer[newWriter] = true;
+        _writers[count] = newWriter;
         count++;
         emit WritershipIncreased(newWriter);
     }
