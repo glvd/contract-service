@@ -178,9 +178,13 @@ func deployAction() cli.ActionFunc {
 				Content: json,
 				Version: cv.JSONVersion(),
 			}
-			err = _contract.AddOrUpdateVideo(cv.No, msg, false)
-			if err != nil {
-				log.Errorw("contract failed", "no", cv.No, "id", cv.ID())
+			for retry := 0; retry < 3; retry++ {
+				err = _contract.AddOrUpdateVideo(cv.No, msg, false)
+				if err != nil {
+					log.Errorw("contract failed", "no", cv.No, "id", cv.ID(), "retry", retry)
+					continue
+				}
+				break
 			}
 			log.Infow("contract update", "no", cv.No, "id", cv.ID())
 		}
