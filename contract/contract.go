@@ -205,7 +205,7 @@ func (c *Contract) node() (node *dnode.DNode) {
 // Transact ...
 func (c *Contract) Transact(ctx context.Context, opt TransactOpts) error {
 	o := bind.NewKeyedTransactor(c.key)
-	o.GasLimit = c.gasLimit.Uint64()
+	//o.GasLimit = c.gasLimit.Uint64()
 	transaction, e := opt(c, o)
 	if e != nil {
 		return e
