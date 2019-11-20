@@ -3,16 +3,16 @@ pragma experimental ABIEncoderV2;
 import "./writeable.sol";
 
 contract DMessage is Writeable{
-    
+
     mapping(string => bool) private mappingMessageFlags; //id => flag
     mapping(string => string) private mappingMessages;  //id=>message
     mapping(uint256 => string) private mappingIds;
     uint256 private count;
-    
+
     constructor() public {
         count = 0;
     }
-    
+
     /*
      * @dev 添加一个值到数组
      * @param _value string, 要传入的数值
@@ -58,7 +58,7 @@ contract DMessage is Writeable{
      */
     function delMsgId(uint _index) private {
         if (_index >= count){
-          return;  
+            return;
         }
         mappingIds[_index] = mappingIds[count-1];
         // delete mappingIds[count-1];
@@ -71,7 +71,7 @@ contract DMessage is Writeable{
      */
     function getMsgIds() public view returns (string[] memory) {
         string[] memory ids = new string[](count);
-        for (uint256 i = 0; i< count; i++) {
+        for (uint256 i = 0; i < count; i++) {
             ids[i] = mappingIds[i];
         }
         return ids;
@@ -96,7 +96,7 @@ contract DMessage is Writeable{
     }
 
     function checkAllMessage(string[] memory _ids)public view returns(bool){
-         for (uint i = 0; i< _ids.length;i++){
+         for (uint i = 0; i < _ids.length; i++){
             if (!checkMessage(_ids[i])){
                 return false;
             }
@@ -105,7 +105,7 @@ contract DMessage is Writeable{
     }
 
     function checkMessages(string[] memory _ids)public view returns(uint,bool){
-        for (uint i = 0; i< _ids.length;i++){
+        for (uint i = 0; i < _ids.length; i++){
             if (!checkMessage(_ids[i])){
                 return (i,false);
             }
@@ -122,24 +122,25 @@ contract DMessage is Writeable{
         _size = _ids.length;
         _value = new string[](_size);
         for (uint i = 0; i < _size; i++){
-            _value[i]= getMessage(_ids[i]);
+            _value[i] = getMessage(_ids[i]);
         }
         return (_value,_size);
     }
 
-    function getMessages(uint  start,uint limit)public view returns (string[] memory _value,uint _size){
+    function getMessages(uint  start, uint limit)public view returns(string[] memory _value,uint _size){
+        _size = limit;
         if ((start + limit) >= count){
-            limit = count - start;
+            _size = count - start;
         }
-        _value = new string[](limit);
+        _value = new string[](_size);
 
-        for (uint i = 0 ; i < limit ; i++){
+        for (uint i = 0 ; i < _size ; i++){
             _value[i] = getMessage(getMsgId(start+i));
         }
-        
-        return (_value,limit);
+
+        return (_value,_size);
     }
-    
+
     function recount() private {
         for (uint i = 0 ; i < getMsgLength() ;i++){
             if (!checkMessage(getMsgId(i))){
@@ -150,7 +151,7 @@ contract DMessage is Writeable{
 
     function delMessage(string memory _id)public onlyOwner returns(string memory,bool){
         require(mappingMessageFlags[_id] == true, "Message: delete message is not exist");
-        mappingMessageFlags[_id]=false;
+        mappingMessageFlags[_id] = false;
         recount();
         return (mappingMessages[_id],true);
     }
