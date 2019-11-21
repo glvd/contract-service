@@ -14,6 +14,10 @@ sage.go
 ```
 
 ```
+java:
+abigen --sol ./contract/sol/dnode.sol --pkg com.dhash.dnode --lang java --out \
+./contract/dnode/dnode.java
+go:
 abigen --sol ./contract/sol/dnode.sol --pkg dnode --out ./contract/dnode/dnode.go
 ```
 
