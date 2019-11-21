@@ -64,7 +64,7 @@ type CallOpts func(c *Contract, opts *bind.CallOpts) error
 var DefaultGatway = "http://13.124.213.107:8545"
 
 // DefaultNodeAddress ...
-var DefaultNodeAddress = ""
+var DefaultNodeAddress = "0x54737e15b826bc72fda0acb7c6e713cf1a987a5d"
 
 // DefaultMessageAddress ...
 var DefaultMessageAddress = "0xce50de6720bb96a9ccbd36c46e963720ac2e9ff8"

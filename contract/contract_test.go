@@ -34,8 +34,8 @@ func init() {
 	//DefaultTagAddress = "0xdacd53b6476f2d6271d93f42eda736deafdd797f"
 
 	testContract = NewContract(ETHClient(DefaultGatway),
-		//FileKey("945d35cd4a6549213e8d37feb5d708ec98906902", "123"),
-		HexKey("87d3724ca3eb89db138fa415c9edfffba4ceb5c71a09c9c3d4cdb08e03e3ee68"),
+		FileKey("945d35cd4a6549213e8d37feb5d708ec98906902", "123"),
+		//HexKey("87d3724ca3eb89db138fa415c9edfffba4ceb5c71a09c9c3d4cdb08e03e3ee68"),
 		Node(DefaultNodeAddress),
 		Tag(DefaultTagAddress),
 		Message(DefaultMessageAddress))
