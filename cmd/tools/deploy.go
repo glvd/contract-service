@@ -16,7 +16,7 @@ import (
 	"github.com/xormsharp/xorm"
 )
 
-const applicationName = "deploy"
+const applicationName = "tools"
 
 var _db *xorm.Engine
 var _contract *contract.Contract
@@ -45,12 +45,8 @@ func init() {
 	}
 	ConfigPath = filepath.Join(dir, DefaultConfigPath, DefaultConfigName)
 }
-
-func main() {
-	app := cli.NewApp()
-	app.Version = "v0.0.1"
-	app.Name = applicationName
-	app.Flags = []cli.Flag{
+func deployFlags() []cli.Flag {
+	return []cli.Flag{
 		&cli.StringFlag{
 			Name:  "config, c",
 			Usage: "load deploy config",
@@ -93,12 +89,6 @@ func main() {
 			Destination: &_config.DMessage,
 			Value:       contract.DefaultMessageAddress,
 		},
-	}
-	app.Before = deployBefore()
-	app.Action = deployAction()
-	err := app.Run(os.Args)
-	if err != nil {
-		panic(err)
 	}
 }
 
