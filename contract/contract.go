@@ -503,6 +503,36 @@ func (c *Contract) AddVideo(no string, message VideoMessage) (e error) {
 	return nil
 }
 
+// AddHot ...
+func (c *Contract) AddHot(no ...string) (e error) {
+	var uno []string
+	for _, n := range no {
+		n = strings.ToUpper(n)
+		_, e := c.GetVideo(n)
+		if e != nil {
+			log.Errorw("error", "no", n, "error", e)
+			continue
+		}
+		uno = append(uno, n)
+	}
+
+	if len(uno) == 0 {
+		return errors.New("no not added")
+	}
+
+	e = c.Transact(context.Background(), func(c *Contract, opts *bind.TransactOpts) (transaction *types.Transaction, e error) {
+		transaction, e = c.tag().SetTagIds(opts, "hot", time.Now().Format(TimeStampFormat), uno)
+		if e != nil {
+			return nil, e
+		}
+		return transaction, nil
+	})
+	if e != nil {
+		return e
+	}
+	return nil
+}
+
 // GetVideo ...
 func (c *Contract) GetVideo(no string) (messages VideoMessage, err error) {
 	no = strings.ToUpper(no)

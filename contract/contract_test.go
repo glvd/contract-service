@@ -85,6 +85,36 @@ func TestContract_GetNodes(t *testing.T) {
 
 }
 
+// TestContract_AddHot ...
+func TestContract_AddHot(t *testing.T) {
+	e := testContract.AddHot(
+		"ABP-825",
+		"ABP-721",
+		"ABP-811",
+		"ABP-792",
+		"ABP-666",
+		"ABP-340",
+		"ABP-784",
+		"ABP-440",
+		"ABP-361",
+		"ABP-178",
+		"ABP-171",
+		"ABP-159",
+		"ABP-145",
+		"ABP-138",
+		"ABP-119",
+		"ABP-108",
+	)
+	if e != nil {
+		t.Fatal(e)
+	}
+}
+
+// TestContract_GetVideos ...
+func TestContract_GetVideos(t *testing.T) {
+
+}
+
 // TestContract_GetVideo ...
 func TestContract_GetVideo(t *testing.T) {
 	messages, _, err := testContract.GetVideos("012417-357")
