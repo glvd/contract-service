@@ -505,32 +505,12 @@ func (c *Contract) AddVideo(no string, message VideoMessage) (e error) {
 
 // AddHot ...
 func (c *Contract) AddHot(no ...string) (e error) {
-	var uno []string
-	for _, n := range no {
-		n = strings.ToUpper(n)
-		msg, e := c.GetVideo(n)
-		if e != nil {
-			log.Errorw("error", "no", n, "error", e)
-			continue
-		}
-		uno = append(uno, msg.ID)
-	}
+	return c.AddTagVideos("hot", time.Now().Format(TimeStampFormat), no...)
+}
 
-	if len(uno) == 0 {
-		return errors.New("no not added")
-	}
-
-	e = c.Transact(context.Background(), func(c *Contract, opts *bind.TransactOpts) (transaction *types.Transaction, e error) {
-		transaction, e = c.tag().SetTagIds(opts, "hot", time.Now().Format(TimeStampFormat), uno)
-		if e != nil {
-			return nil, e
-		}
-		return transaction, nil
-	})
-	if e != nil {
-		return e
-	}
-	return nil
+// AddEveryDay ...
+func (c *Contract) AddEveryDay(no ...string) (e error) {
+	return c.AddTagVideos("everyday", time.Now().Format(TimeStampFormat), no...)
 }
 
 // AddTagVideos ...

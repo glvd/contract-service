@@ -94,6 +94,11 @@ func TestContract_GetHotVideos(t *testing.T) {
 	log.Infow("videos", "v", v, "i", i)
 }
 
+// TestContract_AddTagVideos ...
+func TestContract_AddTagVideos(t *testing.T) {
+
+}
+
 // TestContract_AddHot ...
 func TestContract_AddHot(t *testing.T) {
 	e := testContract.AddHot(
