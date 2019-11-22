@@ -85,6 +85,15 @@ func TestContract_GetNodes(t *testing.T) {
 
 }
 
+// TestContract_GetHotVideos ...
+func TestContract_GetHotVideos(t *testing.T) {
+	v, i, e := testContract.GetTagVideos("hot", "20191122")
+	if e != nil {
+		t.Fatal(e)
+	}
+	log.Infow("videos", "v", v, "i", i)
+}
+
 // TestContract_AddHot ...
 func TestContract_AddHot(t *testing.T) {
 	e := testContract.AddHot(
@@ -117,7 +126,7 @@ func TestContract_GetVideos(t *testing.T) {
 
 // TestContract_GetVideo ...
 func TestContract_GetVideo(t *testing.T) {
-	messages, _, err := testContract.GetVideos("012417-357")
+	messages, _, err := testContract.GetVideos("20191122")
 	if err != nil {
 		t.Log(err)
 	}

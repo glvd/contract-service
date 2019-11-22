@@ -508,12 +508,12 @@ func (c *Contract) AddHot(no ...string) (e error) {
 	var uno []string
 	for _, n := range no {
 		n = strings.ToUpper(n)
-		_, e := c.GetVideo(n)
+		msg, e := c.GetVideo(n)
 		if e != nil {
 			log.Errorw("error", "no", n, "error", e)
 			continue
 		}
-		uno = append(uno, n)
+		uno = append(uno, msg.ID)
 	}
 
 	if len(uno) == 0 {
@@ -531,6 +531,63 @@ func (c *Contract) AddHot(no ...string) (e error) {
 		return e
 	}
 	return nil
+}
+
+// AddTagVideos ...
+func (c *Contract) AddTagVideos(tag string, date string, no ...string) (e error) {
+	var uno []string
+	for _, n := range no {
+		n = strings.ToUpper(n)
+		msg, e := c.GetVideo(n)
+		if e != nil {
+			log.Errorw("error", "no", n, "error", e)
+			continue
+		}
+		uno = append(uno, msg.ID)
+	}
+
+	if len(uno) == 0 {
+		return errors.New("no not added")
+	}
+
+	if date == "" {
+		date = time.Now().Format(TimeStampFormat)
+	}
+
+	e = c.Transact(context.Background(), func(c *Contract, opts *bind.TransactOpts) (transaction *types.Transaction, e error) {
+		transaction, e = c.tag().SetTagIds(opts, tag, date, uno)
+		if e != nil {
+			return nil, e
+		}
+		return transaction, nil
+	})
+	if e != nil {
+		return e
+	}
+	return nil
+}
+
+// GetTagVideos ...
+func (c *Contract) GetTagVideos(tag, date string) (v []VideoMessage, i int64, e error) {
+	var msg struct {
+		Value []string
+		Size  *big.Int
+	}
+	e = c.Call(context.Background(), func(c *Contract, opts *bind.CallOpts) error {
+		msg, e = c.tag().GetTagMessage(opts, tag, date)
+		if e != nil {
+			return e
+		}
+		return nil
+	})
+	if e != nil {
+		return nil, 0, e
+	}
+	m, err := DecodeMessages(msg.Value)
+	if err != nil {
+		return nil, 0, err
+	}
+	return m, msg.Size.Int64(), nil
 }
 
 // GetVideo ...
