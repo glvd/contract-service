@@ -26,7 +26,7 @@ func init() {
 	//contract.DefaultGatway = "http://139.196.215.224:8545"
 	//contract.DefaultMessageAddress = "0xdfbff0f931cf056b9eb5a8b58616024881215f01"
 	//contract.DefaultTagAddress = "0x431d6215052cd3f0cec1838289a3d99abc496f5e"
-	contract.DefaultNodeAddress = "0X5A144FECD913688D0A755CEE0275FD8F95A767A4"
+	//contract.DefaultNodeAddress = "0X5A144FECD913688D0A755CEE0275FD8F95A767A4"
 
 	//contract.DefaultGatway = "http://localhost:8545"
 	//contract.DefaultNodeAddress = "0xe512a2a61814b8de98a52a0dfd7e13627e40014a"
