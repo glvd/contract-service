@@ -156,6 +156,15 @@ func TestContract_AddVideo(t *testing.T) {
 	}
 }
 
+// TestContract_OpenMessageAuthority ...
+func TestContract_OpenMessageAuthority(t *testing.T) {
+	e := testContract.OpenMessageAuthority()
+	if e != nil {
+		t.Log(e)
+		return
+	}
+}
+
 // TestContract_AddOrUpdateVideo ...
 func TestContract_AddOrUpdateVideo(t *testing.T) {
 	e := testContract.OpenMessageAuthority()
