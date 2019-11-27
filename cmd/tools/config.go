@@ -83,7 +83,7 @@ func defaultAssign(source string, v ...string) string {
 
 func compareAssign(source string, v ...string) string {
 	for _, vv := range v {
-		if source != vv {
+		if source != vv && vv != "" {
 			return vv
 		}
 	}
