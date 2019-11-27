@@ -5,6 +5,7 @@ import (
 	"os"
 	"os/user"
 	"path/filepath"
+	"time"
 
 	"service/contract"
 
@@ -173,6 +174,7 @@ func deployAction() cli.ActionFunc {
 				err = _contract.AddOrUpdateVideo(cv.No, msg, false)
 				if err != nil {
 					log.Errorw("update failed", "error", err)
+					time.Sleep(5 * time.Second)
 					continue
 				}
 				break
