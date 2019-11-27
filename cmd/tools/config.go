@@ -35,6 +35,12 @@ type Config struct {
 // DefaultConfigName ...
 var DefaultConfigName = "config.json"
 
+// DefaultKeyPass ...
+var DefaultKeyPass = "123"
+
+// DefaultKeyPath ...
+var DefaultKeyPath = "945d35cd4a6549213e8d37feb5d708ec98906902"
+
 // ConfigPath ...
 var ConfigPath = ""
 
@@ -57,9 +63,13 @@ func initConfig() {
 	contract.DefaultMessageAddress = compareAssign(contract.DefaultMessageAddress, _init.Contract.DMessage, _config.Contract.DMessage)
 	contract.DefaultTagAddress = compareAssign(contract.DefaultTagAddress, _init.Contract.DTag, _config.Contract.DTag)
 	contract.DefaultNodeAddress = compareAssign(contract.DefaultNodeAddress, _init.Contract.DTag, _config.Contract.DNode)
-	_config.KeyPass = _init.KeyPass
-	_config.KeyPath = _init.KeyPath
-	_config.Gateway = _init.Gateway
+	contract.DefaultGatway = compareAssign(contract.DefaultGatway, _init.Gateway, _config.Gateway)
+	if _init.KeyPass != DefaultKeyPass {
+		_config.KeyPass = _init.KeyPass
+	}
+	if _init.KeyPath != DefaultKeyPath {
+		_config.KeyPath = _init.KeyPath
+	}
 }
 
 func defaultAssign(source string, v ...string) string {

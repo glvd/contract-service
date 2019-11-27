@@ -63,13 +63,13 @@ func deployFlags() []cli.Flag {
 			Name:        "keypath",
 			Usage:       "set the key file path",
 			Destination: &_init.KeyPath,
-			Value:       "945d35cd4a6549213e8d37feb5d708ec98906902",
+			Value:       DefaultKeyPath,
 		},
 		&cli.StringFlag{
 			Name:        "keypass",
 			Usage:       "set the key file decode pass",
 			Destination: &_init.KeyPass,
-			Value:       "123",
+			Value:       DefaultKeyPass,
 		},
 
 		&cli.StringFlag{
