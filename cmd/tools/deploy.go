@@ -56,38 +56,38 @@ func deployFlags() []cli.Flag {
 		&cli.StringFlag{
 			Name:        "gateway",
 			Usage:       "set the remote gate",
-			Destination: &_config.Gateway,
+			Destination: &_init.Gateway,
 			Value:       contract.DefaultGatway,
 		},
 		&cli.StringFlag{
 			Name:        "keypath",
 			Usage:       "set the key file path",
-			Destination: &_config.KeyPath,
+			Destination: &_init.KeyPath,
 			Value:       "945d35cd4a6549213e8d37feb5d708ec98906902",
 		},
 		&cli.StringFlag{
 			Name:        "keypass",
 			Usage:       "set the key file decode pass",
-			Destination: &_config.KeyPass,
+			Destination: &_init.KeyPass,
 			Value:       "123",
 		},
 
 		&cli.StringFlag{
 			Name:        "tag",
 			Usage:       "set the tag contract address",
-			Destination: &contract.DefaultTagAddress,
+			Destination: &_init.Contract.DTag,
 			Value:       contract.DefaultTagAddress,
 		},
 		&cli.StringFlag{
 			Name:        "node",
 			Usage:       "set the node contract address",
-			Destination: &contract.DefaultTagAddress,
+			Destination: &_init.Contract.DTag,
 			Value:       contract.DefaultNodeAddress,
 		},
 		&cli.StringFlag{
 			Name:        "message",
 			Usage:       "set the message contract address",
-			Destination: &contract.DefaultTagAddress,
+			Destination: &_init.Contract.DTag,
 			Value:       contract.DefaultMessageAddress,
 		},
 		&cli.BoolFlag{
@@ -140,13 +140,12 @@ func deployBefore() cli.BeforeFunc {
 			_config.Contract.DNode = fmt.Sprintf("0x%x", nodeAddr)
 			log.Infow("node deployed", "address", _config.Contract.DNode)
 
-			e = SaveConfig(cfgPath)
-			if e != nil {
-				return e
-			}
 		}
 		initConfig()
-
+		e = SaveConfig(cfgPath)
+		if e != nil {
+			return e
+		}
 		log.Infow("contract",
 			"message", contract.DefaultMessageAddress,
 			"tag", contract.DefaultTagAddress,

@@ -39,6 +39,7 @@ var DefaultConfigName = "config.json"
 var ConfigPath = ""
 
 var _config Config
+var _init Config
 
 // DefaultDBConfig ...
 func DefaultDBConfig() DBConfig {
@@ -53,9 +54,21 @@ func DefaultDBConfig() DBConfig {
 }
 
 func initConfig() {
-	contract.DefaultMessageAddress = compareAssign(contract.DefaultMessageAddress, _config.Contract.DMessage)
-	contract.DefaultTagAddress = compareAssign(contract.DefaultTagAddress, _config.Contract.DTag)
-	contract.DefaultNodeAddress = compareAssign(contract.DefaultNodeAddress, _config.Contract.DNode)
+	contract.DefaultMessageAddress = compareAssign(contract.DefaultMessageAddress, _init.Contract.DMessage, _config.Contract.DMessage)
+	contract.DefaultTagAddress = compareAssign(contract.DefaultTagAddress, _init.Contract.DTag, _config.Contract.DTag)
+	contract.DefaultNodeAddress = compareAssign(contract.DefaultNodeAddress, _init.Contract.DTag, _config.Contract.DNode)
+	_config.KeyPass = _init.KeyPass
+	_config.KeyPath = _init.KeyPath
+	_config.Gateway = _init.Gateway
+}
+
+func defaultAssign(source string, v ...string) string {
+	for _, vv := range v {
+		if source != vv {
+			return vv
+		}
+	}
+	return source
 }
 
 func compareAssign(source string, v ...string) string {
