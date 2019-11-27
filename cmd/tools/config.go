@@ -64,12 +64,8 @@ func initConfig() {
 	contract.DefaultTagAddress = compareAssign(contract.DefaultTagAddress, _init.Contract.DTag, _config.Contract.DTag)
 	contract.DefaultNodeAddress = compareAssign(contract.DefaultNodeAddress, _init.Contract.DNode, _config.Contract.DNode)
 	contract.DefaultGatway = compareAssign(contract.DefaultGatway, _init.Gateway, _config.Gateway)
-	if _init.KeyPass != DefaultKeyPass {
-		_config.KeyPass = _init.KeyPass
-	}
-	if _init.KeyPath != DefaultKeyPath {
-		_config.KeyPath = _init.KeyPath
-	}
+	DefaultKeyPass = compareAssign(DefaultKeyPass, _init.KeyPass, _config.KeyPass)
+	DefaultKeyPath = compareAssign(DefaultKeyPath, _init.KeyPath, _config.KeyPath)
 }
 
 func defaultAssign(source string, v ...string) string {
