@@ -28,6 +28,13 @@ type Config struct {
 	Database DBConfig
 	Contract ContractConfig
 	Gateway  string
+}
+
+// InitConfig ...
+type InitConfig struct {
+	Database DBConfig
+	Contract ContractConfig
+	Gateway  string
 	KeyPass  string
 	KeyPath  string
 }
@@ -45,7 +52,7 @@ var DefaultKeyPath = "945d35cd4a6549213e8d37feb5d708ec98906902"
 var ConfigPath = ""
 
 var _config Config
-var _init Config
+var _init InitConfig
 
 // DefaultDBConfig ...
 func DefaultDBConfig() DBConfig {
@@ -64,8 +71,8 @@ func initConfig() {
 	contract.DefaultTagAddress = compareAssign(contract.DefaultTagAddress, _init.Contract.DTag, _config.Contract.DTag)
 	contract.DefaultNodeAddress = compareAssign(contract.DefaultNodeAddress, _init.Contract.DNode, _config.Contract.DNode)
 	contract.DefaultGatway = compareAssign(contract.DefaultGatway, _init.Gateway, _config.Gateway)
-	DefaultKeyPass = compareAssign(DefaultKeyPass, _init.KeyPass, _config.KeyPass)
-	DefaultKeyPath = compareAssign(DefaultKeyPath, _init.KeyPath, _config.KeyPath)
+	DefaultKeyPass = compareAssign(DefaultKeyPass, _init.KeyPass)
+	DefaultKeyPath = compareAssign(DefaultKeyPath, _init.KeyPath)
 }
 
 func defaultAssign(source string, v ...string) string {
