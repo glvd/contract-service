@@ -90,12 +90,18 @@ func deployFlags() []cli.Flag {
 			Destination: &_config.DMessage,
 			Value:       contract.DefaultMessageAddress,
 		},
+		&cli.BoolFlag{
+			Name:  "init",
+			Usage: "init deploy contract address",
+			Value: false,
+		},
 	}
 }
 
 func deployBefore() cli.BeforeFunc {
 	return func(ctx *cli.Context) error {
-		e := LoadConfig(ctx.String("config"))
+		cfgPath := ctx.String("config")
+		e := LoadConfig(cfgPath)
 		if e != nil {
 			log.Errorw("load config error", "error", e)
 		}
@@ -109,16 +115,47 @@ func deployBefore() cli.BeforeFunc {
 		conversion.RegisterDatabase(engine)
 		_db = engine
 
+		if ctx.Bool("init") {
+			initC := contract.NewContract(
+				contract.ETHClient(_config.Gateway),
+				contract.FileKey(_config.KeyPath, _config.KeyPass),
+			)
+			msgAddr, e := initC.DeployMessage()
+			if e != nil {
+				return e
+			}
+			_config.DMessage = fmt.Sprintf("0x%x", msgAddr)
+			log.Infow("message deployed", "address", _config.DMessage)
+			tagAddr, e := initC.DeployTag(msgAddr)
+			if e != nil {
+				return e
+			}
+			_config.DTag = fmt.Sprintf("0x%x", tagAddr)
+			log.Infow("tag deployed", "address", _config.DTag)
+			nodeAddr, e := initC.DeployNode()
+			if e != nil {
+				return e
+			}
+			_config.DNode = fmt.Sprintf("0x%x", nodeAddr)
+			log.Infow("node deployed", "address", _config.DNode)
+			e = _contract.OpenMessageAuthority()
+			if e != nil {
+				return e
+			}
+			log.Infow("init author")
+			e = SaveConfig(cfgPath)
+			if e != nil {
+				return e
+			}
+		}
+		initConfig()
+
 		_contract = contract.NewContract(contract.ETHClient(_config.Gateway),
 			contract.FileKey(_config.KeyPath, _config.KeyPass),
 			//contract.HexKey("9efef8ebc3c51e91fb7f9faf7dbd516cb320ade03108c1568c9cee01a39af311"),
 			contract.Node(_config.DNode),
 			contract.Tag(_config.DTag),
 			contract.Message(_config.DMessage))
-		e = _contract.OpenMessageAuthority()
-		if e != nil {
-			return e
-		}
 		return nil
 	}
 }

@@ -3,6 +3,8 @@ package main
 import (
 	"encoding/json"
 	"io/ioutil"
+
+	"service/contract"
 )
 
 // DBConfig ...
@@ -24,6 +26,7 @@ type ContractConfig struct {
 // Config ...
 type Config struct {
 	DBConfig
+	ContractConfig
 	Gateway  string
 	KeyPass  string
 	KeyPath  string
@@ -52,6 +55,18 @@ func DefaultDBConfig() DBConfig {
 
 }
 
+func initConfig() {
+	if _config.DMessage != contract.DefaultMessageAddress {
+		contract.DefaultMessageAddress = _config.DMessage
+	}
+	if _config.DTag != contract.DefaultTagAddress {
+		contract.DefaultTagAddress = _config.DTag
+	}
+	if _config.DNode != contract.DefaultNodeAddress {
+		contract.DefaultNodeAddress = _config.DNode
+	}
+}
+
 // LoadConfig ...
 func LoadConfig(path string) (e error) {
 	defer func() {
@@ -70,4 +85,13 @@ func LoadConfig(path string) (e error) {
 	}
 	_config = cfg
 	return nil
+}
+
+// SaveConfig ...
+func SaveConfig(path string) (e error) {
+	bys, e := json.MarshalIndent(_config, "", " ")
+	if e != nil {
+		return e
+	}
+	return ioutil.WriteFile(path, bys, 0755)
 }
