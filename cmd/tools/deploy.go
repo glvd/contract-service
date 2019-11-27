@@ -75,19 +75,19 @@ func deployFlags() []cli.Flag {
 		&cli.StringFlag{
 			Name:        "tag",
 			Usage:       "set the tag contract address",
-			Destination: &_config.DTag,
+			Destination: &contract.DefaultTagAddress,
 			Value:       contract.DefaultTagAddress,
 		},
 		&cli.StringFlag{
 			Name:        "node",
 			Usage:       "set the node contract address",
-			Destination: &_config.DNode,
+			Destination: &contract.DefaultTagAddress,
 			Value:       contract.DefaultNodeAddress,
 		},
 		&cli.StringFlag{
 			Name:        "message",
 			Usage:       "set the message contract address",
-			Destination: &_config.DMessage,
+			Destination: &contract.DefaultTagAddress,
 			Value:       contract.DefaultMessageAddress,
 		},
 		&cli.BoolFlag{
@@ -125,20 +125,20 @@ func deployBefore() cli.BeforeFunc {
 			if e != nil {
 				return e
 			}
-			_config.DMessage = fmt.Sprintf("0x%x", msgAddr)
-			log.Infow("message deployed", "address", _config.DMessage)
+			_config.Contract.DMessage = fmt.Sprintf("0x%x", msgAddr)
+			log.Infow("message deployed", "address", _config.Contract.DMessage)
 			tagAddr, e := initC.DeployTag(msgAddr)
 			if e != nil {
 				return e
 			}
-			_config.DTag = fmt.Sprintf("0x%x", tagAddr)
-			log.Infow("tag deployed", "address", _config.DTag)
+			_config.Contract.DTag = fmt.Sprintf("0x%x", tagAddr)
+			log.Infow("tag deployed", "address", _config.Contract.DTag)
 			nodeAddr, e := initC.DeployNode()
 			if e != nil {
 				return e
 			}
-			_config.DNode = fmt.Sprintf("0x%x", nodeAddr)
-			log.Infow("node deployed", "address", _config.DNode)
+			_config.Contract.DNode = fmt.Sprintf("0x%x", nodeAddr)
+			log.Infow("node deployed", "address", _config.Contract.DNode)
 
 			e = SaveConfig(cfgPath)
 			if e != nil {
@@ -146,6 +146,12 @@ func deployBefore() cli.BeforeFunc {
 			}
 		}
 		initConfig()
+
+		log.Infow("contract",
+			"message", contract.DefaultMessageAddress,
+			"tag", contract.DefaultTagAddress,
+			"node", contract.DefaultNodeAddress,
+		)
 
 		_contract = contract.NewContract(
 			contract.ETHClient(_config.Gateway),

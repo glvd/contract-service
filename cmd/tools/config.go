@@ -30,9 +30,6 @@ type Config struct {
 	Gateway  string
 	KeyPass  string
 	KeyPath  string
-	DNode    string `json:"-"`
-	DTag     string `json:"-"`
-	DMessage string `json:"-"`
 }
 
 // DefaultConfigName ...
@@ -56,9 +53,9 @@ func DefaultDBConfig() DBConfig {
 }
 
 func initConfig() {
-	contract.DefaultMessageAddress = compareAssign(contract.DefaultMessageAddress, _config.DMessage, _config.Contract.DMessage)
-	contract.DefaultTagAddress = compareAssign(contract.DefaultTagAddress, _config.DTag, _config.Contract.DTag)
-	contract.DefaultNodeAddress = compareAssign(contract.DefaultNodeAddress, _config.DNode, _config.Contract.DNode)
+	contract.DefaultMessageAddress = compareAssign(contract.DefaultMessageAddress, _config.Contract.DMessage)
+	contract.DefaultTagAddress = compareAssign(contract.DefaultTagAddress, _config.Contract.DTag)
+	contract.DefaultNodeAddress = compareAssign(contract.DefaultNodeAddress, _config.Contract.DNode)
 }
 
 func compareAssign(source string, v ...string) string {
