@@ -106,7 +106,7 @@ func deployBefore() cli.BeforeFunc {
 			log.Errorw("load config error", "error", e)
 		}
 		log.Infow("config info", "info", _config)
-		engine, e := MakeInstance(_config.DBConfig)
+		engine, e := MakeInstance(_config.Database)
 		if e != nil {
 			return e
 		}

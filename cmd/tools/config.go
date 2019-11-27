@@ -25,8 +25,8 @@ type ContractConfig struct {
 
 // Config ...
 type Config struct {
-	DBConfig
-	ContractConfig
+	Database DBConfig
+	Contract ContractConfig
 	Gateway  string
 	KeyPass  string
 	KeyPath  string
@@ -71,7 +71,7 @@ func initConfig() {
 func LoadConfig(path string) (e error) {
 	defer func() {
 		if e != nil {
-			_config.DBConfig = DefaultDBConfig()
+			_config.Database = DefaultDBConfig()
 		}
 	}()
 	bys, e := ioutil.ReadFile(path)
