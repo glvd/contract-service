@@ -153,7 +153,7 @@ func deployBefore() cli.BeforeFunc {
 		)
 
 		_contract = contract.NewContract(
-			contract.ETHClient(_config.Gateway),
+			contract.ETHClient(contract.DefaultGatway),
 			contract.FileKey(_config.KeyPath, _config.KeyPass),
 			//contract.HexKey("9efef8ebc3c51e91fb7f9faf7dbd516cb320ade03108c1568c9cee01a39af311"),
 			contract.Node(contract.DefaultNodeAddress),
