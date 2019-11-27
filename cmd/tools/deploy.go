@@ -147,12 +147,14 @@ func deployBefore() cli.BeforeFunc {
 		}
 		initConfig()
 
-		_contract = contract.NewContract(contract.ETHClient(_config.Gateway),
+		_contract = contract.NewContract(
+			contract.ETHClient(_config.Gateway),
 			contract.FileKey(_config.KeyPath, _config.KeyPass),
 			//contract.HexKey("9efef8ebc3c51e91fb7f9faf7dbd516cb320ade03108c1568c9cee01a39af311"),
-			contract.Node(_config.DNode),
-			contract.Tag(_config.DTag),
-			contract.Message(_config.DMessage))
+			contract.Node(contract.DefaultNodeAddress),
+			contract.Tag(contract.DefaultTagAddress),
+			contract.Message(contract.DefaultMessageAddress),
+		)
 
 		e = _contract.OpenMessageAuthority()
 		if e != nil {
