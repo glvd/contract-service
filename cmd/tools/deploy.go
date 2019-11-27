@@ -139,11 +139,7 @@ func deployBefore() cli.BeforeFunc {
 			}
 			_config.DNode = fmt.Sprintf("0x%x", nodeAddr)
 			log.Infow("node deployed", "address", _config.DNode)
-			e = initC.OpenMessageAuthority()
-			if e != nil {
-				return e
-			}
-			log.Infow("init author")
+
 			e = SaveConfig(cfgPath)
 			if e != nil {
 				return e
@@ -157,6 +153,11 @@ func deployBefore() cli.BeforeFunc {
 			contract.Node(_config.DNode),
 			contract.Tag(_config.DTag),
 			contract.Message(_config.DMessage))
+
+		e = _contract.OpenMessageAuthority()
+		if e != nil {
+			return e
+		}
 		return nil
 	}
 }
