@@ -141,7 +141,7 @@ func deployBefore() cli.BeforeFunc {
 			log.Infow("node deployed", "address", _config.Contract.DNode)
 
 		}
-		initConfig()
+		initDefault()
 		e = SaveConfig(cfgPath)
 		if e != nil {
 			return e

@@ -66,13 +66,18 @@ func DefaultDBConfig() DBConfig {
 
 }
 
-func initConfig() {
+func initDefault() {
 	contract.DefaultMessageAddress = compareAssign(contract.DefaultMessageAddress, _init.Contract.DMessage, _config.Contract.DMessage)
 	contract.DefaultTagAddress = compareAssign(contract.DefaultTagAddress, _init.Contract.DTag, _config.Contract.DTag)
 	contract.DefaultNodeAddress = compareAssign(contract.DefaultNodeAddress, _init.Contract.DNode, _config.Contract.DNode)
 	contract.DefaultGatway = compareAssign(contract.DefaultGatway, _init.Gateway, _config.Gateway)
 	DefaultKeyPass = compareAssign(DefaultKeyPass, _init.KeyPass)
 	DefaultKeyPath = compareAssign(DefaultKeyPath, _init.KeyPath)
+
+	_config.Gateway = contract.DefaultGatway
+	_config.Contract.DMessage = contract.DefaultMessageAddress
+	_config.Contract.DTag = contract.DefaultTagAddress
+	_config.Contract.DNode = contract.DefaultNodeAddress
 }
 
 func defaultAssign(source string, v ...string) string {
