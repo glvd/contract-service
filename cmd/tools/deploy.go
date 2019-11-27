@@ -117,8 +117,8 @@ func deployBefore() cli.BeforeFunc {
 
 		if ctx.Bool("init") {
 			initC := contract.NewContract(
-				contract.ETHClient(_config.Gateway),
-				contract.FileKey(_config.KeyPath, _config.KeyPass),
+				contract.ETHClient(contract.DefaultGatway),
+				contract.FileKey(DefaultKeyPath, DefaultKeyPass),
 			)
 			defer initC.Close()
 			msgAddr, e := initC.DeployMessage()
