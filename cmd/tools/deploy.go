@@ -158,6 +158,7 @@ func deployBefore() cli.BeforeFunc {
 
 		e = _contract.OpenMessageAuthority()
 		if e != nil {
+			log.Errorw("authority error", "error", e)
 			return e
 		}
 		return nil
