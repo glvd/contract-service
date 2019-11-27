@@ -14,6 +14,13 @@ type DBConfig struct {
 	Address  string
 }
 
+// ContractConfig ...
+type ContractConfig struct {
+	DNode    string
+	DTag     string
+	DMessage string
+}
+
 // Config ...
 type Config struct {
 	DBConfig
@@ -26,10 +33,7 @@ type Config struct {
 }
 
 // DefaultConfigName ...
-var DefaultConfigName = "deploy.json"
-
-// DefaultConfigPath ...
-var DefaultConfigPath = "config"
+var DefaultConfigName = "config.json"
 
 // ConfigPath ...
 var ConfigPath = ""
@@ -59,10 +63,11 @@ func LoadConfig(path string) (e error) {
 	if e != nil {
 		return e
 	}
-
-	e = json.Unmarshal(bys, &_config.DBConfig)
+	var cfg Config
+	e = json.Unmarshal(bys, &cfg)
 	if e != nil {
 		return e
 	}
+	_config = cfg
 	return nil
 }

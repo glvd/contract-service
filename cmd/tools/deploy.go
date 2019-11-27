@@ -44,7 +44,7 @@ func init() {
 			dir = usr.HomeDir
 		}
 	}
-	ConfigPath = filepath.Join(dir, DefaultConfigPath, DefaultConfigName)
+	ConfigPath = filepath.Join(dir, DefaultConfigName)
 }
 func deployFlags() []cli.Flag {
 	return []cli.Flag{
