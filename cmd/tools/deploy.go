@@ -81,13 +81,13 @@ func deployFlags() []cli.Flag {
 		&cli.StringFlag{
 			Name:        "node",
 			Usage:       "set the node contract address",
-			Destination: &_init.Contract.DTag,
+			Destination: &_init.Contract.DNode,
 			Value:       contract.DefaultNodeAddress,
 		},
 		&cli.StringFlag{
 			Name:        "message",
 			Usage:       "set the message contract address",
-			Destination: &_init.Contract.DTag,
+			Destination: &_init.Contract.DMessage,
 			Value:       contract.DefaultMessageAddress,
 		},
 		&cli.BoolFlag{
