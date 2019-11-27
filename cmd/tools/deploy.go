@@ -120,6 +120,7 @@ func deployBefore() cli.BeforeFunc {
 				contract.ETHClient(_config.Gateway),
 				contract.FileKey(_config.KeyPath, _config.KeyPass),
 			)
+			defer initC.Close()
 			msgAddr, e := initC.DeployMessage()
 			if e != nil {
 				return e
@@ -138,7 +139,7 @@ func deployBefore() cli.BeforeFunc {
 			}
 			_config.DNode = fmt.Sprintf("0x%x", nodeAddr)
 			log.Infow("node deployed", "address", _config.DNode)
-			e = _contract.OpenMessageAuthority()
+			e = initC.OpenMessageAuthority()
 			if e != nil {
 				return e
 			}

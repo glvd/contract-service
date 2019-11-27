@@ -79,6 +79,13 @@ func init() {
 
 }
 
+// Close ...
+func (c *Contract) Close() {
+	if c.conn != nil {
+		c.conn.Close()
+	}
+}
+
 // Register ...
 func (c *Contract) Register(p Type, v interface{}) {
 	c.contracts.Store(p, v)
