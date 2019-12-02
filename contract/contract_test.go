@@ -46,18 +46,6 @@ func init() {
 
 }
 
-// TestContract_AddNodes ...
-func TestContract_AddNodes(t *testing.T) {
-	tm := time.Now()
-	source := "/ip4/13.124.213.107/tcp/4001/ipfs/QmS9knxyQkdiFrGbzEb2FNqnq2yEzvBKx2pEGNBnXTWi7r"
-
-	t.Log("source:", source)
-	e := testContract.AddNodes(true, tm, source)
-	if e != nil {
-		t.Error(e)
-	}
-}
-
 // TestContract_RemoveNodes ...
 func TestContract_RemoveNodes(t *testing.T) {
 
@@ -281,6 +269,50 @@ func TestContract_AddEveryDay(t *testing.T) {
 
 			if err := testContract.AddEveryDay(tt.args.no...); (err != nil) != tt.wantErr {
 				t.Errorf("AddEveryDay() error = %v, wantErr %v", err, tt.wantErr)
+			}
+		})
+	}
+}
+
+// TestContract_AddNodes1 ...
+func TestContract_AddNodes(t *testing.T) {
+	type fields struct {
+		contracts *sync.Map
+		conn      *ethclient.Client
+		key       *ecdsa.PrivateKey
+		gasLimit  *big.Int
+	}
+	type args struct {
+		copyOld bool
+		ts      time.Time
+		ss      []string
+	}
+	tests := []struct {
+		name    string
+		fields  fields
+		args    args
+		wantErr bool
+	}{
+		{
+			name:   "addnodes",
+			fields: fields{},
+			args: args{
+				copyOld: false,
+				ts:      time.Now(),
+				ss: []string{
+					"/ip4/47.101.169.94/tcp/14005/ipfs/QmQLowH9Jd1S3aTSL5QbKVAcaJtD7GHTr3GmyLjebvZ9Rq",
+					"/ip4/47.101.169.94/tcp/14001/ipfs/QmXNZRTd54Zvarf4sswVvUUnpb4gPQNAhFViozVgG8uwri",
+					"/ip4/47.101.169.94/tcp/14006/ipfs/QmaCidjpHqP2p71fTT6B1gGzeHxR5KFQxVRbpaGv9hGRoA",
+					"/ip4/13.124.213.107/tcp/14001/ipfs/Qme6QHB4HSCFgWVpuCHpjQVgzPWVf6ahkX9xhk8VV7BTdH",
+				},
+			},
+			wantErr: false,
+		},
+	}
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			if err := testContract.AddNodes(tt.args.copyOld, tt.args.ts, tt.args.ss...); (err != nil) != tt.wantErr {
+				t.Errorf("AddNodes() error = %v, wantErr %v", err, tt.wantErr)
 			}
 		})
 	}
