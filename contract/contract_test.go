@@ -1,7 +1,11 @@
 package contract
 
 import (
+	"crypto/ecdsa"
 	"fmt"
+	"github.com/ethereum/go-ethereum/ethclient"
+	"math/big"
+	"sync"
 	"testing"
 	"time"
 
@@ -99,31 +103,6 @@ func TestContract_AddTagVideos(t *testing.T) {
 
 }
 
-// TestContract_AddHot ...
-func TestContract_AddHot(t *testing.T) {
-	e := testContract.AddHot(
-		"ABP-825",
-		"ABP-721",
-		"ABP-811",
-		"ABP-792",
-		"ABP-666",
-		"ABP-340",
-		"ABP-784",
-		"ABP-440",
-		"ABP-361",
-		"ABP-178",
-		"ABP-171",
-		"ABP-159",
-		"ABP-145",
-		"ABP-138",
-		"ABP-119",
-		"ABP-108",
-	)
-	if e != nil {
-		t.Fatal(e)
-	}
-}
-
 // TestContract_GetVideos ...
 func TestContract_GetVideos(t *testing.T) {
 
@@ -200,4 +179,109 @@ func TestContract_DeployTag(t *testing.T) {
 func TestContract_DeployNode(t *testing.T) {
 	addr, e := testContract.DeployNode()
 	t.Log(fmt.Sprintf("%x", addr), e)
+}
+
+// TestContract_AddHot ...
+func TestContract_AddHot(t *testing.T) {
+	type fields struct {
+		contracts *sync.Map
+		conn      *ethclient.Client
+		key       *ecdsa.PrivateKey
+		gasLimit  *big.Int
+	}
+	type args struct {
+		no []string
+	}
+	tests := []struct {
+		name    string
+		fields  fields
+		args    args
+		wantErr bool
+	}{
+		{
+			name:   "addhost1",
+			fields: fields{},
+			args: args{
+				no: []string{
+					"ABP-825",
+					"ABP-721",
+					"ABP-811",
+					"ABP-792",
+					"ABP-666",
+					"ABP-340",
+					"ABP-784",
+					"ABP-440",
+					"ABP-361",
+					"ABP-178",
+					"ABP-171",
+					"ABP-159",
+					"ABP-145",
+					"ABP-138",
+					"ABP-119",
+					"ABP-108",
+				},
+			},
+			wantErr: false,
+		},
+	}
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			if err := testContract.AddHot(tt.args.no...); (err != nil) != tt.wantErr {
+				t.Errorf("AddHot() error = %v, wantErr %v", err, tt.wantErr)
+			}
+		})
+	}
+}
+
+// TestContract_AddEveryDay ...
+func TestContract_AddEveryDay(t *testing.T) {
+	type fields struct {
+		contracts *sync.Map
+		conn      *ethclient.Client
+		key       *ecdsa.PrivateKey
+		gasLimit  *big.Int
+	}
+	type args struct {
+		no []string
+	}
+	tests := []struct {
+		name    string
+		fields  fields
+		args    args
+		wantErr bool
+	}{
+		{
+			name:   "",
+			fields: fields{},
+			args: args{
+				no: []string{
+					"ABP-825",
+					"ABP-721",
+					"ABP-811",
+					"ABP-792",
+					"ABP-666",
+					"ABP-340",
+					"ABP-784",
+					"ABP-440",
+					"ABP-361",
+					"ABP-178",
+					"ABP-171",
+					"ABP-159",
+					"ABP-145",
+					"ABP-138",
+					"ABP-119",
+					"ABP-108",
+				},
+			},
+			wantErr: false,
+		},
+	}
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+
+			if err := testContract.AddEveryDay(tt.args.no...); (err != nil) != tt.wantErr {
+				t.Errorf("AddEveryDay() error = %v, wantErr %v", err, tt.wantErr)
+			}
+		})
+	}
 }

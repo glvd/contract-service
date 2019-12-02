@@ -64,13 +64,13 @@ type CallOpts func(c *Contract, opts *bind.CallOpts) error
 var DefaultGatway = "http://13.124.213.107:8545"
 
 // DefaultNodeAddress ...
-var DefaultNodeAddress = "0xd5e5eff9b275ab2d5482e3af6ea30b639e6ea6d2"
+var DefaultNodeAddress = "0x3c87dad9055b8075a8515d5c5a68d72d0d2c099e"
 
 // DefaultMessageAddress ...
-var DefaultMessageAddress = "0xfeef5f26a263e73ed8aebc5e7c419d1d93cee021"
+var DefaultMessageAddress = "0x4833267bde3aa043803a1fa8c3e071f708367da4"
 
 // DefaultTagAddress ...
-var DefaultTagAddress = "0xa4a8aaf8050db4f84cbb904e359ea6370140640c"
+var DefaultTagAddress = "0x8d64f6d57c7ee984cce09f89969f706216ac03d9"
 
 // DefaultGasLimit ...
 var DefaultGasLimit = "0x7A1200"
