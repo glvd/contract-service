@@ -122,11 +122,11 @@ func FileKey(path string, pass string) Options {
 			panic(e)
 		}
 
-		privateKey, err := keystore.DecryptKey(bys, pass)
+		keys, err := keystore.DecryptKey(bys, pass)
 		if err != nil {
 			panic(e)
 		}
-		c.key = privateKey.PrivateKey
+		c.key = keys.PrivateKey
 	}
 }
 
