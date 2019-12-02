@@ -251,7 +251,7 @@ func TestContract_AddEveryDay(t *testing.T) {
 		wantErr bool
 	}{
 		{
-			name:   "",
+			name:   "everyday1",
 			fields: fields{},
 			args: args{
 				no: []string{
