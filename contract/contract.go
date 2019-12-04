@@ -294,6 +294,18 @@ func (c *Contract) AddNodes(copyOld bool, ts time.Time, ss ...string) (e error) 
 	return nil
 }
 
+// SetVersion ...
+func (c *Contract) SetVersion(device int64, version string, hash string) (e error) {
+	ctx := context.Background()
+	e = c.Transact(ctx, func(c *Contract, opts *bind.TransactOpts) (transaction *types.Transaction, err error) {
+		return c.node().SetDeviceVersion(opts, big.NewInt(device), version, hash)
+	})
+	if e != nil {
+		return e
+	}
+	return nil
+}
+
 // GetNodes ...
 func (c *Contract) GetNodes(ts time.Time) ([]string, *big.Int, error) {
 	ctx := context.Background()
