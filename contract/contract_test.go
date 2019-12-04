@@ -5,6 +5,7 @@ import (
 	"fmt"
 	"github.com/ethereum/go-ethereum/ethclient"
 	"math/big"
+	"reflect"
 	"sync"
 	"testing"
 	"time"
@@ -313,6 +314,47 @@ func TestContract_AddNodes(t *testing.T) {
 		t.Run(tt.name, func(t *testing.T) {
 			if err := testContract.AddNodes(tt.args.copyOld, tt.args.ts, tt.args.ss...); (err != nil) != tt.wantErr {
 				t.Errorf("AddNodes() error = %v, wantErr %v", err, tt.wantErr)
+			}
+		})
+	}
+}
+
+// TestContract_GetTagVideos ...
+func TestContract_GetTagVideos(t *testing.T) {
+	type fields struct {
+		contracts *sync.Map
+		conn      *ethclient.Client
+		key       *ecdsa.PrivateKey
+		gasLimit  *big.Int
+	}
+	type args struct {
+		tag  string
+		date string
+	}
+	tests := []struct {
+		name    string
+		fields  fields
+		args    args
+		wantV   []VideoMessage
+		wantI   int64
+		wantErr bool
+	}{
+		{},
+	}
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			tm, _ := time.Parse(TimeStampFormat, "20191202")
+
+			gotV, gotI, err := testContract.GetTagVideos("everyday", tm.Format(TimeStampFormat))
+			if (err != nil) != tt.wantErr {
+				t.Errorf("GetTagVideos() error = %v, wantErr %v", err, tt.wantErr)
+				return
+			}
+			if !reflect.DeepEqual(gotV, tt.wantV) {
+				t.Errorf("GetTagVideos() gotV = %v, want %v", gotV, tt.wantV)
+			}
+			if gotI != tt.wantI {
+				t.Errorf("GetTagVideos() gotI = %v, want %v", gotI, tt.wantI)
 			}
 		})
 	}
