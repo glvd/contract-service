@@ -306,6 +306,22 @@ func (c *Contract) SetVersion(device int64, version string, hash string) (e erro
 	return nil
 }
 
+// GetVersion ...
+func (c *Contract) GetVersion(device int64) (version string, hash string, e error) {
+	ctx := context.Background()
+	e = c.Call(ctx, func(c *Contract, opts *bind.CallOpts) (e error) {
+		version, hash, e = c.node().GetDeviceVersion(opts, big.NewInt(device))
+		if e != nil {
+			return e
+		}
+		return nil
+	})
+	if e != nil {
+		return "", "", e
+	}
+	return
+}
+
 // GetNodes ...
 func (c *Contract) GetNodes(ts time.Time) ([]string, *big.Int, error) {
 	ctx := context.Background()

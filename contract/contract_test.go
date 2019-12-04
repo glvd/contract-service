@@ -359,3 +359,149 @@ func TestContract_GetTagVideos(t *testing.T) {
 		})
 	}
 }
+
+// TestContract_SetVersion ...
+func TestContract_SetVersion(t *testing.T) {
+	type fields struct {
+		contracts *sync.Map
+		conn      *ethclient.Client
+		key       *ecdsa.PrivateKey
+		gasLimit  *big.Int
+	}
+	type args struct {
+		device  int64
+		version string
+		hash    string
+	}
+	tests := []struct {
+		name    string
+		fields  fields
+		args    args
+		wantErr bool
+	}{
+		{
+			name:   "setversionandroid",
+			fields: fields{},
+			args: args{
+				device:  1,
+				version: "v0.1.5",
+				hash:    "android",
+			},
+			wantErr: false,
+		},
+		{
+			name:   "setversionios",
+			fields: fields{},
+			args: args{
+				device:  2,
+				version: "v0.1.5",
+				hash:    "ios",
+			},
+			wantErr: false,
+		},
+		{
+			name:   "setversionforerunner",
+			fields: fields{},
+			args: args{
+				device:  3,
+				version: "v0.1.5",
+				hash:    "forerunner",
+			},
+			wantErr: false,
+		},
+		{
+			name:   "setversiontv",
+			fields: fields{},
+			args: args{
+				device:  4,
+				version: "v0.1.5",
+				hash:    "tv",
+			},
+			wantErr: false,
+		},
+	}
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			if err := testContract.SetVersion(tt.args.device, tt.args.version, tt.args.hash); (err != nil) != tt.wantErr {
+				t.Errorf("SetVersion() error = %v, wantErr %v", err, tt.wantErr)
+			}
+		})
+	}
+}
+
+// TestContract_GetVersion ...
+func TestContract_GetVersion(t *testing.T) {
+	type fields struct {
+		contracts *sync.Map
+		conn      *ethclient.Client
+		key       *ecdsa.PrivateKey
+		gasLimit  *big.Int
+	}
+	type args struct {
+		device int64
+	}
+	tests := []struct {
+		name    string
+		fields  fields
+		args    args
+		wantV   string
+		wantS   string
+		wantErr bool
+	}{
+		{
+			name:   "getversionandroid",
+			fields: fields{},
+			args: args{
+				device: 1,
+			},
+			wantV:   "v0.1.5",
+			wantS:   "android",
+			wantErr: false,
+		},
+		{
+			name:   "getversionios",
+			fields: fields{},
+			args: args{
+				device: 2,
+			},
+			wantV:   "v0.1.5",
+			wantS:   "ios",
+			wantErr: false,
+		},
+		{
+			name:   "getversionforerunner",
+			fields: fields{},
+			args: args{
+				device: 3,
+			},
+			wantV:   "v0.1.5",
+			wantS:   "forerunner",
+			wantErr: false,
+		},
+		{
+			name:   "getversiontv",
+			fields: fields{},
+			args: args{
+				device: 4,
+			},
+			wantV:   "v0.1.5",
+			wantS:   "tv",
+			wantErr: false,
+		},
+	}
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			gotV, gotS, err := testContract.GetVersion(tt.args.device)
+			if (err != nil) != tt.wantErr {
+				t.Errorf("GetVersion() error = %v, wantErr %v", err, tt.wantErr)
+				return
+			}
+			if gotV != tt.wantV {
+				t.Errorf("GetVersion() gotV = %v, want %v", gotV, tt.wantV)
+			}
+			if gotS != tt.wantS {
+				t.Errorf("GetVersion() gotS = %v, want %v", gotS, tt.wantS)
+			}
+		})
+	}
+}
