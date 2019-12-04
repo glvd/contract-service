@@ -5,7 +5,6 @@ import (
 	"fmt"
 	"github.com/ethereum/go-ethereum/ethclient"
 	"math/big"
-	"reflect"
 	"sync"
 	"testing"
 	"time"
@@ -339,7 +338,14 @@ func TestContract_GetTagVideos(t *testing.T) {
 		wantI   int64
 		wantErr bool
 	}{
-		{},
+		{
+			name:    "",
+			fields:  fields{},
+			args:    args{},
+			wantV:   nil,
+			wantI:   16,
+			wantErr: false,
+		},
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
@@ -350,11 +356,12 @@ func TestContract_GetTagVideos(t *testing.T) {
 				t.Errorf("GetTagVideos() error = %v, wantErr %v", err, tt.wantErr)
 				return
 			}
-			if !reflect.DeepEqual(gotV, tt.wantV) {
-				t.Errorf("GetTagVideos() gotV = %v, want %v", gotV, tt.wantV)
-			}
+
 			if gotI != tt.wantI {
 				t.Errorf("GetTagVideos() gotI = %v, want %v", gotI, tt.wantI)
+			}
+			if gotV != nil {
+				t.Logf("GetTagVideos() gotV = %v", gotV)
 			}
 		})
 	}
