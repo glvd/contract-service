@@ -28,3 +28,11 @@ java:
 go:
  abigen --pkg dtag --out ./contract/dtag/dtag.go --abi ./contract/sol/dtag.abi
 ```
+
+```
+java:
+ abigen --sol ./contract/sol/dhashcoin.sol --pkg com.dhash.dhashcoin --lang java --out ./contract
+ /dtag/dhashcoin.java
+go:
+ abigen --pkg dhashcoin --out ./contract/dhashcoin/dhashcoin.go --abi ./contract/sol/dhashcoin.abi --sol ./contract/sol/dhashcoin.sol
+```
