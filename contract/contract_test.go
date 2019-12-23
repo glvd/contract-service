@@ -512,3 +512,33 @@ func TestContract_GetVersion(t *testing.T) {
 		})
 	}
 }
+
+// TestContract_DeployDHC ...
+func TestContract_DeployDHC(t *testing.T) {
+	type fields struct {
+		contracts *sync.Map
+		conn      *ethclient.Client
+		key       *ecdsa.PrivateKey
+		gasLimit  *big.Int
+	}
+	tests := []struct {
+		name     string
+		fields   fields
+		wantAddr *common.Address
+		wantErr  bool
+	}{
+		{},
+	}
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			gotAddr, err := testContract.DeployDHC()
+			if (err != nil) != tt.wantErr {
+				t.Errorf("DeployDHC() error = %v, wantErr %v", err, tt.wantErr)
+				return
+			}
+			if gotAddr != nil {
+				t.Logf("DeployDHC() gotAddr = %v", gotAddr)
+			}
+		})
+	}
+}

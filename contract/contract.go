@@ -8,6 +8,7 @@ import (
 	"fmt"
 	"io/ioutil"
 	"math/big"
+	"service/contract/dhashcoin"
 	"strings"
 	"sync"
 	"time"
@@ -37,6 +38,7 @@ const (
 	DMessage
 	DNode
 	DTag
+	DHC
 )
 
 // Type ...
@@ -71,6 +73,9 @@ var DefaultMessageAddress = "0x4833267bde3aa043803a1fa8c3e071f708367da4"
 
 // DefaultTagAddress ...
 var DefaultTagAddress = "0x8d64f6d57c7ee984cce09f89969f706216ac03d9"
+
+// DefaultDHCAddress ...
+var DefaultDHCAddress = "0x89b92612b9795f8bfed840df9a33a0a3d6745250"
 
 // DefaultGasLimit ...
 var DefaultGasLimit = "0x7A1200"
@@ -204,6 +209,14 @@ func (c *Contract) tag() (tag *dtag.DTag) {
 func (c *Contract) node() (node *dnode.DNode) {
 	if v, b := c.contracts.Load(DNode); b {
 		if node, b = v.(*dnode.DNode); b {
+			return
+		}
+	}
+	return nil
+}
+func (c *Contract) dhc() (node *dhashcoin.DHC) {
+	if v, b := c.contracts.Load(DHC); b {
+		if node, b = v.(*dhashcoin.DHC); b {
 			return
 		}
 	}
@@ -438,6 +451,33 @@ func (c *Contract) DeployMessage() (addr *common.Address, e error) {
 		fmt.Printf("tx mining take time:%s\n", time.Now().Sub(startTime))
 		if bytes.Compare(address.Bytes(), addressAfterMined.Bytes()) != 0 {
 			log.Fatalf("mined address :%s,before mined address:%s", addressAfterMined, address)
+		}
+		return tx, nil
+	})
+	if e != nil {
+		return nil, e
+	}
+	return addr, nil
+}
+
+// DeployDHC ...
+func (c *Contract) DeployDHC() (addr *common.Address, e error) {
+	ctx := context.Background()
+	e = c.Transact(ctx, func(c *Contract, opts *bind.TransactOpts) (transaction *types.Transaction, e error) {
+		address, tx, _, e := dhashcoin.DeployDHC(opts, c.conn)
+		if e != nil {
+			return nil, e
+		}
+		addr = &address
+		fmt.Printf("Contract pending deploy: 0x%x\n", address)
+		addressAfterMined, err := bind.WaitDeployed(ctx, c.conn, tx)
+		if err != nil {
+			log.Errorf("failed to deploy contact when mining :%v", err)
+			return nil, err
+		}
+		if bytes.Compare(address.Bytes(), addressAfterMined.Bytes()) != 0 {
+			log.Errorf("mined address :%s,before mined address:%s", addressAfterMined, address)
+			return nil, errors.New("compare error")
 		}
 		return tx, nil
 	})
