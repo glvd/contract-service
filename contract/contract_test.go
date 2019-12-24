@@ -42,8 +42,9 @@ func init() {
 		//HexKey("87d3724ca3eb89db138fa415c9edfffba4ceb5c71a09c9c3d4cdb08e03e3ee68"),
 		Node(DefaultNodeAddress),
 		Tag(DefaultTagAddress),
-		Message(DefaultMessageAddress))
-
+		Message(DefaultMessageAddress),
+		HashCoin(DefaultDHCAddress),
+	)
 }
 
 // TestContract_RemoveNodes ...
@@ -538,6 +539,44 @@ func TestContract_DeployDHC(t *testing.T) {
 			}
 			if gotAddr != nil {
 				t.Logf("DeployDHC() gotAddr = %v", gotAddr)
+			}
+		})
+	}
+}
+
+// TestContract_Mint ...
+func TestContract_Mint(t *testing.T) {
+	type fields struct {
+		contracts *sync.Map
+		conn      *ethclient.Client
+		key       *ecdsa.PrivateKey
+		gasLimit  *big.Int
+	}
+	type args struct {
+		addr common.Address
+		val  int64
+	}
+	tests := []struct {
+		name    string
+		fields  fields
+		args    args
+		wantErr bool
+	}{
+		{
+			name:   "",
+			fields: fields{},
+			args: args{
+				addr: common.HexToAddress("0x704f8fc861bebd9ca03d432d5e6e01d03e1de244"),
+				val:  1000,
+			},
+			wantErr: false,
+		},
+	}
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			c := testContract
+			if err := c.Mint(tt.args.addr, tt.args.val); (err != nil) != tt.wantErr {
+				t.Errorf("Mint() error = %v, wantErr %v", err, tt.wantErr)
 			}
 		})
 	}

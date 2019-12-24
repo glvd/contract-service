@@ -160,6 +160,20 @@ func Message(addr string) Options {
 	}
 }
 
+// HashCoin ...
+func HashCoin(addr string) Options {
+	return func(c *Contract) {
+		if c.conn == nil {
+			panic("null connect")
+		}
+		newDHC, e := dhashcoin.NewDHC(common.HexToAddress(addr), c.conn)
+		if e != nil {
+			panic(e)
+		}
+		c.Register(DHC, newDHC)
+	}
+}
+
 // Tag ...
 func Tag(addr string) Options {
 	return func(c *Contract) {
@@ -485,6 +499,15 @@ func (c *Contract) DeployDHC() (addr *common.Address, e error) {
 		return nil, e
 	}
 	return addr, nil
+}
+
+// Mint ...
+func (c *Contract) Mint(addr common.Address, val int64) (e error) {
+	ctx := context.Background()
+	e = c.Transact(ctx, func(c *Contract, opts *bind.TransactOpts) (transaction *types.Transaction, e error) {
+		return c.dhc().Mint(opts, addr, big.NewInt(val))
+	})
+	return
 }
 
 // OpenMessageAuthority ...
