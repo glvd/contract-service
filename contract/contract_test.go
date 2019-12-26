@@ -39,6 +39,7 @@ func init() {
 
 	testContract = NewContract(ETHClient(DefaultGatway),
 		FileKey("945d35cd4a6549213e8d37feb5d708ec98906902", "123"),
+		//HexKey("c31bdf043e61d951bba28c62f337899baeab8880337b196187968c269a056585"),
 		//HexKey("87d3724ca3eb89db138fa415c9edfffba4ceb5c71a09c9c3d4cdb08e03e3ee68"),
 		Node(DefaultNodeAddress),
 		Tag(DefaultTagAddress),
@@ -566,8 +567,8 @@ func TestContract_Mint(t *testing.T) {
 			name:   "",
 			fields: fields{},
 			args: args{
-				addr: common.HexToAddress("0x704f8fc861bebd9ca03d432d5e6e01d03e1de244"),
-				val:  1000,
+				addr: common.HexToAddress("0xbb84b28db94415a3c0fb2203efebe4b1d808f53c"),
+				val:  10000,
 			},
 			wantErr: false,
 		},
@@ -578,6 +579,86 @@ func TestContract_Mint(t *testing.T) {
 			if err := c.Mint(tt.args.addr, tt.args.val); (err != nil) != tt.wantErr {
 				t.Errorf("Mint() error = %v, wantErr %v", err, tt.wantErr)
 			}
+		})
+	}
+}
+
+// TestContract_Transfer ...
+func TestContract_Transfer(t *testing.T) {
+	type fields struct {
+		contracts *sync.Map
+		conn      *ethclient.Client
+		key       *ecdsa.PrivateKey
+		gasLimit  *big.Int
+	}
+	type args struct {
+		val int64
+	}
+	tests := []struct {
+		name    string
+		fields  fields
+		args    args
+		wantErr bool
+	}{
+		{
+			name:   "",
+			fields: fields{},
+			args: args{
+				val: 10,
+			},
+			wantErr: false,
+		},
+	}
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			c := testContract
+			if err := c.Transfer(tt.args.val); (err != nil) != tt.wantErr {
+				t.Errorf("Transfer() error = %v, wantErr %v", err, tt.wantErr)
+			}
+		})
+	}
+}
+
+// TestContract_GetBalance ...
+func TestContract_GetBalance(t *testing.T) {
+	type fields struct {
+		contracts *sync.Map
+		conn      *ethclient.Client
+		key       *ecdsa.PrivateKey
+		gasLimit  *big.Int
+	}
+	type args struct {
+		address common.Address
+	}
+	tests := []struct {
+		name    string
+		fields  fields
+		args    args
+		wantB   int64
+		wantErr bool
+	}{
+		{
+			name:   "",
+			fields: fields{},
+			args: args{
+				address: common.HexToAddress("0xbb84b28db94415a3c0fb2203efebe4b1d808f53c"),
+			},
+			wantB:   0,
+			wantErr: false,
+		},
+	}
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			c := testContract
+			gotB, err := c.GetBalance(tt.args.address)
+			if (err != nil) != tt.wantErr {
+				t.Errorf("GetBalance() error = %v, wantErr %v", err, tt.wantErr)
+				return
+			}
+			if gotB != tt.wantB {
+				t.Errorf("GetBalance() gotB = %v, want %v", gotB, tt.wantB)
+			}
+
 		})
 	}
 }

@@ -65,6 +65,9 @@ type CallOpts func(c *Contract, opts *bind.CallOpts) error
 //var DefaultGatway = "http://139.196.215.224:8545"
 var DefaultGatway = "http://13.124.213.107:8545"
 
+// DefaultTransferAddress ...
+var DefaultTransferAddress = "0x945d35cd4a6549213e8d37feb5d708ec98906902"
+
 // DefaultNodeAddress ...
 var DefaultNodeAddress = "0x3c87dad9055b8075a8515d5c5a68d72d0d2c099e"
 
@@ -703,4 +706,37 @@ func (c *Contract) GetVideos(no string) (messages []VideoMessage, size int64, er
 		return nil, 0, err
 	}
 	return m, msg.Size.Int64(), nil
+}
+
+// GetSymbol ...
+func (c *Contract) GetSymbol() (s string, e error) {
+	e = c.Call(context.Background(), func(c *Contract, opts *bind.CallOpts) error {
+		symbol, err := c.dhc().Symbol(opts)
+		if err != nil {
+			return err
+		}
+		s = symbol
+		return nil
+	})
+	return
+}
+
+// Transfer ...
+func (c *Contract) Transfer(val int64) (e error) {
+	return c.Transact(context.Background(), func(c *Contract, opts *bind.TransactOpts) (transaction *types.Transaction, err error) {
+		return c.dhc().Transfer(opts, common.HexToAddress(DefaultTransferAddress), big.NewInt(val))
+	})
+}
+
+// GetBalance ...
+func (c *Contract) GetBalance(address common.Address) (b int64, e error) {
+	e = c.Call(context.Background(), func(c *Contract, opts *bind.CallOpts) error {
+		of, err := c.dhc().BalanceOf(opts, address)
+		if err != nil {
+			return err
+		}
+		b = of.Int64()
+		return nil
+	})
+	return
 }
