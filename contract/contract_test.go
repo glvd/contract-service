@@ -771,7 +771,7 @@ func TestContract_TransferEthereum(t *testing.T) {
 			fields: fields{},
 			args: args{
 				to:  common.HexToAddress("0xbb84b28db94415a3c0fb2203efebe4b1d808f53c"),
-				val: 100,
+				val: 0,
 			},
 			wantErr: false,
 		},

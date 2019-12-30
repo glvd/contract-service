@@ -767,7 +767,7 @@ func (c *Contract) TransferEthereum(to common.Address, val int64) (e error) {
 	if err != nil {
 		return err
 	}
-
+	log.Infow("chainID", "id", chainID.Int64())
 	signedTx, err := types.SignTx(tx, types.NewEIP155Signer(chainID), c.key)
 	if err != nil {
 	}
