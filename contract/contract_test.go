@@ -38,8 +38,8 @@ func init() {
 	//DefaultTagAddress = "0xdacd53b6476f2d6271d93f42eda736deafdd797f"
 
 	testContract = NewContract(ETHClient(DefaultGatway),
-		FileKey("945d35cd4a6549213e8d37feb5d708ec98906902", "123"),
-		//HexKey("c31bdf043e61d951bba28c62f337899baeab8880337b196187968c269a056585"),
+		//FileKey("945d35cd4a6549213e8d37feb5d708ec98906902", "123"),
+		HexKey("ffedf6fe27fc7c4e994d56e407778b1a6aebafc8e63c394aebad413f719fc257"),
 		//HexKey("87d3724ca3eb89db138fa415c9edfffba4ceb5c71a09c9c3d4cdb08e03e3ee68"),
 		Node(DefaultNodeAddress),
 		Tag(DefaultTagAddress),
@@ -568,7 +568,7 @@ func TestContract_Mint(t *testing.T) {
 			fields: fields{},
 			args: args{
 				addr: common.HexToAddress("0xbb84b28db94415a3c0fb2203efebe4b1d808f53c"),
-				val:  10000,
+				val:  10000000,
 			},
 			wantErr: false,
 		},
@@ -604,15 +604,16 @@ func TestContract_Transfer(t *testing.T) {
 			name:   "",
 			fields: fields{},
 			args: args{
-				val: 10,
+				val: 100000,
 			},
 			wantErr: false,
 		},
 	}
+	//DefaultTransferAddress = "0xbb84b28db94415a3c0fb2203efebe4b1d808f53c"
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
 			c := testContract
-			if err := c.Transfer(tt.args.val); (err != nil) != tt.wantErr {
+			if err := c.Transfer(common.HexToAddress("0x945d35cd4a6549213e8d37feb5d708ec98906902"), tt.args.val); (err != nil) != tt.wantErr {
 				t.Errorf("Transfer() error = %v, wantErr %v", err, tt.wantErr)
 			}
 		})
@@ -655,10 +656,132 @@ func TestContract_GetBalance(t *testing.T) {
 				t.Errorf("GetBalance() error = %v, wantErr %v", err, tt.wantErr)
 				return
 			}
+
 			if gotB != tt.wantB {
 				t.Errorf("GetBalance() gotB = %v, want %v", gotB, tt.wantB)
 			}
 
+		})
+	}
+}
+
+// TestContract_TransferFrom ...
+func TestContract_TransferFrom(t *testing.T) {
+	type fields struct {
+		contracts *sync.Map
+		conn      *ethclient.Client
+		key       *ecdsa.PrivateKey
+		gasLimit  *big.Int
+	}
+	type args struct {
+		from common.Address
+		to   common.Address
+		val  int64
+	}
+	tests := []struct {
+		name    string
+		fields  fields
+		args    args
+		wantErr bool
+	}{
+		{
+			name:   "",
+			fields: fields{},
+			args: args{
+				from: common.HexToAddress("0xbb84b28db94415a3c0fb2203efebe4b1d808f53c"),
+				to:   common.HexToAddress("0x945d35cd4a6549213e8d37feb5d708ec98906902"),
+				val:  1000,
+			},
+			wantErr: false,
+		},
+	}
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			c := testContract
+			if err := c.TransferFrom(tt.args.from, tt.args.to, tt.args.val); (err != nil) != tt.wantErr {
+				t.Errorf("TransferFrom() error = %v, wantErr %v", err, tt.wantErr)
+			}
+		})
+	}
+}
+
+// TestContract_Ethereum ...
+func TestContract_Ethereum(t *testing.T) {
+	type fields struct {
+		contracts *sync.Map
+		conn      *ethclient.Client
+		key       *ecdsa.PrivateKey
+		gasLimit  *big.Int
+	}
+	type args struct {
+		address common.Address
+	}
+	tests := []struct {
+		name    string
+		fields  fields
+		args    args
+		want    int64
+		wantErr bool
+	}{
+		{
+			name:   "",
+			fields: fields{},
+			args: args{
+				address: common.HexToAddress("0xbb84b28db94415a3c0fb2203efebe4b1d808f53c"),
+			},
+			want:    0,
+			wantErr: false,
+		},
+	}
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			c := testContract
+			got, err := c.Ethereum(tt.args.address)
+			if (err != nil) != tt.wantErr {
+				t.Errorf("Ethereum() error = %v, wantErr %v", err, tt.wantErr)
+				return
+			}
+			if got != tt.want {
+				t.Errorf("Ethereum() got = %v, want %v", got, tt.want)
+			}
+		})
+	}
+}
+
+// TestContract_TransferEthereum ...
+func TestContract_TransferEthereum(t *testing.T) {
+	type fields struct {
+		contracts *sync.Map
+		conn      *ethclient.Client
+		key       *ecdsa.PrivateKey
+		gasLimit  *big.Int
+	}
+	type args struct {
+		to  common.Address
+		val int64
+	}
+	tests := []struct {
+		name    string
+		fields  fields
+		args    args
+		wantErr bool
+	}{
+		{
+			name:   "",
+			fields: fields{},
+			args: args{
+				to:  common.HexToAddress("0xbb84b28db94415a3c0fb2203efebe4b1d808f53c"),
+				val: 100,
+			},
+			wantErr: false,
+		},
+	}
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			c := testContract
+			if err := c.TransferEthereum(tt.args.to, tt.args.val); (err != nil) != tt.wantErr {
+				t.Errorf("TransferEthereum() error = %v, wantErr %v", err, tt.wantErr)
+			}
 		})
 	}
 }

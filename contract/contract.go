@@ -28,6 +28,9 @@ import (
 	"github.com/goextension/log"
 )
 
+// EthAbs18 ...
+const EthAbs18 = 1000000000000000000
+
 // TimeStampFormat ...
 const TimeStampFormat = "20060102"
 
@@ -722,10 +725,60 @@ func (c *Contract) GetSymbol() (s string, e error) {
 }
 
 // Transfer ...
-func (c *Contract) Transfer(val int64) (e error) {
+func (c *Contract) Transfer(to common.Address, val int64) (e error) {
 	return c.Transact(context.Background(), func(c *Contract, opts *bind.TransactOpts) (transaction *types.Transaction, err error) {
-		return c.dhc().Transfer(opts, common.HexToAddress(DefaultTransferAddress), big.NewInt(val))
+		return c.dhc().Transfer(opts, to, big.NewInt(val))
 	})
+}
+
+// TransferFrom ...
+func (c *Contract) TransferFrom(from, to common.Address, val int64) (e error) {
+	return c.Transact(context.Background(), func(c *Contract, opts *bind.TransactOpts) (transaction *types.Transaction, err error) {
+		return c.dhc().TransferFrom(opts, from, to, big.NewInt(val))
+	})
+}
+
+// Ethereum ...
+func (c *Contract) Ethereum(address common.Address) (i int64, e error) {
+	at, err := c.conn.BalanceAt(context.Background(), address, nil)
+	if err != nil {
+		return 0, err
+	}
+	return at.Int64(), nil
+}
+
+// TransferEthereum ...
+func (c *Contract) TransferEthereum(to common.Address, val int64) (e error) {
+	fromAddress := crypto.PubkeyToAddress(c.key.PublicKey)
+	nonce, err := c.conn.NonceAt(context.Background(), fromAddress, nil)
+	if err != nil {
+		return err
+	}
+
+	value := big.NewInt(val * EthAbs18) // in wei (1 eth)
+	gasLimit := c.gasLimit.Uint64()
+	gasPrice, err := c.conn.SuggestGasPrice(context.Background())
+	if err != nil {
+		return err
+	}
+
+	tx := types.NewTransaction(nonce, to, value, gasLimit, gasPrice, nil)
+	chainID, err := c.conn.NetworkID(context.Background())
+	if err != nil {
+		return err
+	}
+
+	signedTx, err := types.SignTx(tx, types.NewEIP155Signer(chainID), c.key)
+	if err != nil {
+	}
+
+	err = c.conn.SendTransaction(context.Background(), signedTx)
+	if err != nil {
+		return err
+	}
+
+	fmt.Printf("tx sent: %s", signedTx.Hash().Hex())
+	return nil
 }
 
 // GetBalance ...
