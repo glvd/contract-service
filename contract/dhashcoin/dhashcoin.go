@@ -172,143 +172,142 @@ func (_Context *ContextTransactorRaw) Transact(opts *bind.TransactOpts, method s
 	return _Context.Contract.contract.Transact(opts, method, params...)
 }
 
-// DHCABI is the input ABI used to generate the binding from.
-const DHCABI = "[{\"inputs\":[],\"payable\":false,\"stateMutability\":\"nonpayable\",\"type\":\"constructor\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":true,\"internalType\":\"address\",\"name\":\"owner\",\"type\":\"address\"},{\"indexed\":true,\"internalType\":\"address\",\"name\":\"spender\",\"type\":\"address\"},{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"value\",\"type\":\"uint256\"}],\"name\":\"Approval\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":true,\"internalType\":\"address\",\"name\":\"account\",\"type\":\"address\"}],\"name\":\"MinterAdded\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":true,\"internalType\":\"address\",\"name\":\"account\",\"type\":\"address\"}],\"name\":\"MinterRemoved\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":true,\"internalType\":\"address\",\"name\":\"from\",\"type\":\"address\"},{\"indexed\":true,\"internalType\":\"address\",\"name\":\"to\",\"type\":\"address\"},{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"value\",\"type\":\"uint256\"}],\"name\":\"Transfer\",\"type\":\"event\"},{\"constant\":false,\"inputs\":[{\"internalType\":\"address\",\"name\":\"account\",\"type\":\"address\"}],\"name\":\"addMinter\",\"outputs\":[],\"payable\":false,\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[{\"internalType\":\"address\",\"name\":\"owner\",\"type\":\"address\"},{\"internalType\":\"address\",\"name\":\"spender\",\"type\":\"address\"}],\"name\":\"allowance\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":false,\"inputs\":[{\"internalType\":\"address\",\"name\":\"spender\",\"type\":\"address\"},{\"internalType\":\"uint256\",\"name\":\"amount\",\"type\":\"uint256\"}],\"name\":\"approve\",\"outputs\":[{\"internalType\":\"bool\",\"name\":\"\",\"type\":\"bool\"}],\"payable\":false,\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[{\"internalType\":\"address\",\"name\":\"account\",\"type\":\"address\"}],\"name\":\"balanceOf\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[],\"name\":\"decimals\",\"outputs\":[{\"internalType\":\"uint8\",\"name\":\"\",\"type\":\"uint8\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":false,\"inputs\":[{\"internalType\":\"address\",\"name\":\"spender\",\"type\":\"address\"},{\"internalType\":\"uint256\",\"name\":\"subtractedValue\",\"type\":\"uint256\"}],\"name\":\"decreaseAllowance\",\"outputs\":[{\"internalType\":\"bool\",\"name\":\"\",\"type\":\"bool\"}],\"payable\":false,\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"constant\":false,\"inputs\":[{\"internalType\":\"address\",\"name\":\"spender\",\"type\":\"address\"},{\"internalType\":\"uint256\",\"name\":\"addedValue\",\"type\":\"uint256\"}],\"name\":\"increaseAllowance\",\"outputs\":[{\"internalType\":\"bool\",\"name\":\"\",\"type\":\"bool\"}],\"payable\":false,\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[{\"internalType\":\"address\",\"name\":\"account\",\"type\":\"address\"}],\"name\":\"isMinter\",\"outputs\":[{\"internalType\":\"bool\",\"name\":\"\",\"type\":\"bool\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":false,\"inputs\":[{\"internalType\":\"address\",\"name\":\"account\",\"type\":\"address\"},{\"internalType\":\"uint256\",\"name\":\"amount\",\"type\":\"uint256\"}],\"name\":\"mint\",\"outputs\":[{\"internalType\":\"bool\",\"name\":\"\",\"type\":\"bool\"}],\"payable\":false,\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[],\"name\":\"name\",\"outputs\":[{\"internalType\":\"string\",\"name\":\"\",\"type\":\"string\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":false,\"inputs\":[],\"name\":\"renounceMinter\",\"outputs\":[],\"payable\":false,\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[],\"name\":\"symbol\",\"outputs\":[{\"internalType\":\"string\",\"name\":\"\",\"type\":\"string\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[],\"name\":\"totalSupply\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":false,\"inputs\":[{\"internalType\":\"address\",\"name\":\"recipient\",\"type\":\"address\"},{\"internalType\":\"uint256\",\"name\":\"amount\",\"type\":\"uint256\"}],\"name\":\"transfer\",\"outputs\":[{\"internalType\":\"bool\",\"name\":\"\",\"type\":\"bool\"}],\"payable\":false,\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"constant\":false,\"inputs\":[{\"internalType\":\"address\",\"name\":\"sender\",\"type\":\"address\"},{\"internalType\":\"address\",\"name\":\"recipient\",\"type\":\"address\"},{\"internalType\":\"uint256\",\"name\":\"amount\",\"type\":\"uint256\"}],\"name\":\"transferFrom\",\"outputs\":[{\"internalType\":\"bool\",\"name\":\"\",\"type\":\"bool\"}],\"payable\":false,\"stateMutability\":\"nonpayable\",\"type\":\"function\"}]"
+// ContractABI is the input ABI used to generate the binding from.
+const ContractABI = "[{\"inputs\":[{\"internalType\":\"string\",\"name\":\"name\",\"type\":\"string\"},{\"internalType\":\"string\",\"name\":\"symbol\",\"type\":\"string\"},{\"internalType\":\"uint8\",\"name\":\"decimals\",\"type\":\"uint8\"}],\"payable\":false,\"stateMutability\":\"nonpayable\",\"type\":\"constructor\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":true,\"internalType\":\"address\",\"name\":\"owner\",\"type\":\"address\"},{\"indexed\":true,\"internalType\":\"address\",\"name\":\"spender\",\"type\":\"address\"},{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"value\",\"type\":\"uint256\"}],\"name\":\"Approval\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":true,\"internalType\":\"address\",\"name\":\"previousOwner\",\"type\":\"address\"},{\"indexed\":true,\"internalType\":\"address\",\"name\":\"newOwner\",\"type\":\"address\"}],\"name\":\"OwnershipTransferred\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":false,\"internalType\":\"address\",\"name\":\"recipient\",\"type\":\"address\"}],\"name\":\"PrimaryTransferred\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":true,\"internalType\":\"address\",\"name\":\"from\",\"type\":\"address\"},{\"indexed\":true,\"internalType\":\"address\",\"name\":\"to\",\"type\":\"address\"},{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"value\",\"type\":\"uint256\"}],\"name\":\"Transfer\",\"type\":\"event\"},{\"constant\":true,\"inputs\":[{\"internalType\":\"address\",\"name\":\"account\",\"type\":\"address\"}],\"name\":\"balanceOf\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":false,\"inputs\":[{\"internalType\":\"address\",\"name\":\"account\",\"type\":\"address\"},{\"internalType\":\"uint256\",\"name\":\"amount\",\"type\":\"uint256\"}],\"name\":\"burn\",\"outputs\":[],\"payable\":false,\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[],\"name\":\"decimals\",\"outputs\":[{\"internalType\":\"uint8\",\"name\":\"\",\"type\":\"uint8\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[],\"name\":\"isOwner\",\"outputs\":[{\"internalType\":\"bool\",\"name\":\"\",\"type\":\"bool\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":false,\"inputs\":[{\"internalType\":\"address\",\"name\":\"account\",\"type\":\"address\"},{\"internalType\":\"uint256\",\"name\":\"amount\",\"type\":\"uint256\"}],\"name\":\"mint\",\"outputs\":[],\"payable\":false,\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[],\"name\":\"name\",\"outputs\":[{\"internalType\":\"string\",\"name\":\"\",\"type\":\"string\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[],\"name\":\"owner\",\"outputs\":[{\"internalType\":\"address\",\"name\":\"\",\"type\":\"address\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[],\"name\":\"primary\",\"outputs\":[{\"internalType\":\"address\",\"name\":\"\",\"type\":\"address\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":false,\"inputs\":[],\"name\":\"renounceOwnership\",\"outputs\":[],\"payable\":false,\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[],\"name\":\"symbol\",\"outputs\":[{\"internalType\":\"string\",\"name\":\"\",\"type\":\"string\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[],\"name\":\"totalSupply\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":false,\"inputs\":[{\"internalType\":\"address\",\"name\":\"sender\",\"type\":\"address\"},{\"internalType\":\"uint256\",\"name\":\"amount\",\"type\":\"uint256\"}],\"name\":\"transfer\",\"outputs\":[{\"internalType\":\"bool\",\"name\":\"\",\"type\":\"bool\"}],\"payable\":false,\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"constant\":false,\"inputs\":[{\"internalType\":\"address\",\"name\":\"newOwner\",\"type\":\"address\"}],\"name\":\"transferOwnership\",\"outputs\":[],\"payable\":false,\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"constant\":false,\"inputs\":[{\"internalType\":\"address\",\"name\":\"recipient\",\"type\":\"address\"}],\"name\":\"transferPrimary\",\"outputs\":[],\"payable\":false,\"stateMutability\":\"nonpayable\",\"type\":\"function\"}]"
 
-// DHCFuncSigs maps the 4-byte function signature to its string representation.
-var DHCFuncSigs = map[string]string{
-	"983b2d56": "addMinter(address)",
-	"dd62ed3e": "allowance(address,address)",
-	"095ea7b3": "approve(address,uint256)",
+// ContractFuncSigs maps the 4-byte function signature to its string representation.
+var ContractFuncSigs = map[string]string{
 	"70a08231": "balanceOf(address)",
+	"9dc29fac": "burn(address,uint256)",
 	"313ce567": "decimals()",
-	"a457c2d7": "decreaseAllowance(address,uint256)",
-	"39509351": "increaseAllowance(address,uint256)",
-	"aa271e1a": "isMinter(address)",
+	"8f32d59b": "isOwner()",
 	"40c10f19": "mint(address,uint256)",
 	"06fdde03": "name()",
-	"98650275": "renounceMinter()",
+	"8da5cb5b": "owner()",
+	"c6dbdf61": "primary()",
+	"715018a6": "renounceOwnership()",
 	"95d89b41": "symbol()",
 	"18160ddd": "totalSupply()",
 	"a9059cbb": "transfer(address,uint256)",
-	"23b872dd": "transferFrom(address,address,uint256)",
+	"f2fde38b": "transferOwnership(address)",
+	"2348238c": "transferPrimary(address)",
 }
 
-// DHCBin is the compiled bytecode used for deploying new contracts.
-var DHCBin = "0x60806040523480156200001157600080fd5b506040518060400160405280600981526020017f4448617368436f696e00000000000000000000000000000000000000000000008152506040518060400160405280600381526020017f44484300000000000000000000000000000000000000000000000000000000008152506002620000a362000094620000ec60201b60201c565b6001600160e01b03620000f116565b8251620000b89060049060208601906200026d565b508151620000ce9060059060208501906200026d565b506006805460ff191660ff92909216919091179055506200030f9050565b335b90565b6200010c8160036200014360201b62000c521790919060201c565b6040516001600160a01b038216907f6ae172837ea30b801fbfcdd4108aa1d5bf8ff775444fd70256b44e6bf3dfc3f690600090a250565b6200015882826001600160e01b03620001ea16565b15620001c557604080517f08c379a000000000000000000000000000000000000000000000000000000000815260206004820152601f60248201527f526f6c65733a206163636f756e7420616c72656164792068617320726f6c6500604482015290519081900360640190fd5b6001600160a01b0316600090815260209190915260409020805460ff19166001179055565b60006001600160a01b0382166200024d576040517f08c379a0000000000000000000000000000000000000000000000000000000008152600401808060200182810382526022815260200180620012026022913960400191505060405180910390fd5b506001600160a01b03166000908152602091909152604090205460ff1690565b828054600181600116156101000203166002900490600052602060002090601f016020900481019282601f10620002b057805160ff1916838001178555620002e0565b82800160010185558215620002e0579182015b82811115620002e0578251825591602001919060010190620002c3565b50620002ee929150620002f2565b5090565b620000ee91905b80821115620002ee5760008155600101620002f9565b610ee3806200031f6000396000f3fe608060405234801561001057600080fd5b50600436106100f55760003560e01c806370a0823111610097578063a457c2d711610066578063a457c2d7146102db578063a9059cbb14610307578063aa271e1a14610333578063dd62ed3e14610359576100f5565b806370a082311461027d57806395d89b41146102a3578063983b2d56146102ab57806398650275146102d3576100f5565b806323b872dd116100d357806323b872dd146101d1578063313ce56714610207578063395093511461022557806340c10f1914610251576100f5565b806306fdde03146100fa578063095ea7b31461017757806318160ddd146101b7575b600080fd5b610102610387565b6040805160208082528351818301528351919283929083019185019080838360005b8381101561013c578181015183820152602001610124565b50505050905090810190601f1680156101695780820380516001836020036101000a031916815260200191505b509250505060405180910390f35b6101a36004803603604081101561018d57600080fd5b506001600160a01b03813516906020013561041d565b604080519115158252519081900360200190f35b6101bf61043a565b60408051918252519081900360200190f35b6101a3600480360360608110156101e757600080fd5b506001600160a01b03813581169160208101359091169060400135610440565b61020f6104cd565b6040805160ff9092168252519081900360200190f35b6101a36004803603604081101561023b57600080fd5b506001600160a01b0381351690602001356104d6565b6101a36004803603604081101561026757600080fd5b506001600160a01b03813516906020013561052a565b6101bf6004803603602081101561029357600080fd5b50356001600160a01b0316610581565b61010261059c565b6102d1600480360360208110156102c157600080fd5b50356001600160a01b03166105fd565b005b6102d161064f565b6101a3600480360360408110156102f157600080fd5b506001600160a01b038135169060200135610661565b6101a36004803603604081101561031d57600080fd5b506001600160a01b0381351690602001356106cf565b6101a36004803603602081101561034957600080fd5b50356001600160a01b03166106e3565b6101bf6004803603604081101561036f57600080fd5b506001600160a01b03813581169160200135166106fc565b60048054604080516020601f60026000196101006001881615020190951694909404938401819004810282018101909252828152606093909290918301828280156104135780601f106103e857610100808354040283529160200191610413565b820191906000526020600020905b8154815290600101906020018083116103f657829003601f168201915b5050505050905090565b600061043161042a610727565b848461072b565b50600192915050565b60025490565b600061044d848484610817565b6104c384610459610727565b6104be85604051806060016040528060288152602001610df7602891396001600160a01b038a16600090815260016020526040812090610497610727565b6001600160a01b03168152602081019190915260400160002054919063ffffffff61097316565b61072b565b5060019392505050565b60065460ff1690565b60006104316104e3610727565b846104be85600160006104f4610727565b6001600160a01b03908116825260208083019390935260409182016000908120918c16815292529020549063ffffffff610a0a16565b600061053c610537610727565b6106e3565b6105775760405162461bcd60e51b8152600401808060200182810382526030815260200180610da66030913960400191505060405180910390fd5b6104318383610a6b565b6001600160a01b031660009081526020819052604090205490565b60058054604080516020601f60026000196101006001881615020190951694909404938401819004810282018101909252828152606093909290918301828280156104135780601f106103e857610100808354040283529160200191610413565b610608610537610727565b6106435760405162461bcd60e51b8152600401808060200182810382526030815260200180610da66030913960400191505060405180910390fd5b61064c81610b5b565b50565b61065f61065a610727565b610ba3565b565b600061043161066e610727565b846104be85604051806060016040528060258152602001610e8a6025913960016000610698610727565b6001600160a01b03908116825260208083019390935260409182016000908120918d1681529252902054919063ffffffff61097316565b60006104316106dc610727565b8484610817565b60006106f660038363ffffffff610beb16565b92915050565b6001600160a01b03918216600090815260016020908152604080832093909416825291909152205490565b3390565b6001600160a01b0383166107705760405162461bcd60e51b8152600401808060200182810382526024815260200180610e666024913960400191505060405180910390fd5b6001600160a01b0382166107b55760405162461bcd60e51b8152600401808060200182810382526022815260200180610d5e6022913960400191505060405180910390fd5b6001600160a01b03808416600081815260016020908152604080832094871680845294825291829020859055815185815291517f8c5be1e5ebec7d5bd14f71427d1e84f3dd0314c0f7b2291e5b200ac8c7c3b9259281900390910190a3505050565b6001600160a01b03831661085c5760405162461bcd60e51b8152600401808060200182810382526025815260200180610e416025913960400191505060405180910390fd5b6001600160a01b0382166108a15760405162461bcd60e51b8152600401808060200182810382526023815260200180610d3b6023913960400191505060405180910390fd5b6108e481604051806060016040528060268152602001610d80602691396001600160a01b038616600090815260208190526040902054919063ffffffff61097316565b6001600160a01b038085166000908152602081905260408082209390935590841681522054610919908263ffffffff610a0a16565b6001600160a01b038084166000818152602081815260409182902094909455805185815290519193928716927fddf252ad1be2c89b69c2b068fc378daa952ba7f163c4a11628f55a4df523b3ef92918290030190a3505050565b60008184841115610a025760405162461bcd60e51b81526004018080602001828103825283818151815260200191508051906020019080838360005b838110156109c75781810151838201526020016109af565b50505050905090810190601f1680156109f45780820380516001836020036101000a031916815260200191505b509250505060405180910390fd5b505050900390565b600082820183811015610a64576040805162461bcd60e51b815260206004820152601b60248201527f536166654d6174683a206164646974696f6e206f766572666c6f770000000000604482015290519081900360640190fd5b9392505050565b6001600160a01b038216610ac6576040805162461bcd60e51b815260206004820152601f60248201527f45524332303a206d696e7420746f20746865207a65726f206164647265737300604482015290519081900360640190fd5b600254610ad9908263ffffffff610a0a16565b6002556001600160a01b038216600090815260208190526040902054610b05908263ffffffff610a0a16565b6001600160a01b0383166000818152602081815260408083209490945583518581529351929391927fddf252ad1be2c89b69c2b068fc378daa952ba7f163c4a11628f55a4df523b3ef9281900390910190a35050565b610b6c60038263ffffffff610c5216565b6040516001600160a01b038216907f6ae172837ea30b801fbfcdd4108aa1d5bf8ff775444fd70256b44e6bf3dfc3f690600090a250565b610bb460038263ffffffff610cd316565b6040516001600160a01b038216907fe94479a9f7e1952cc78f2d6baab678adc1b772d936c6583def489e524cb6669290600090a250565b60006001600160a01b038216610c325760405162461bcd60e51b8152600401808060200182810382526022815260200180610e1f6022913960400191505060405180910390fd5b506001600160a01b03166000908152602091909152604090205460ff1690565b610c5c8282610beb565b15610cae576040805162461bcd60e51b815260206004820152601f60248201527f526f6c65733a206163636f756e7420616c72656164792068617320726f6c6500604482015290519081900360640190fd5b6001600160a01b0316600090815260209190915260409020805460ff19166001179055565b610cdd8282610beb565b610d185760405162461bcd60e51b8152600401808060200182810382526021815260200180610dd66021913960400191505060405180910390fd5b6001600160a01b0316600090815260209190915260409020805460ff1916905556fe45524332303a207472616e7366657220746f20746865207a65726f206164647265737345524332303a20617070726f766520746f20746865207a65726f206164647265737345524332303a207472616e7366657220616d6f756e7420657863656564732062616c616e63654d696e746572526f6c653a2063616c6c657220646f6573206e6f74206861766520746865204d696e74657220726f6c65526f6c65733a206163636f756e7420646f6573206e6f74206861766520726f6c6545524332303a207472616e7366657220616d6f756e74206578636565647320616c6c6f77616e6365526f6c65733a206163636f756e7420697320746865207a65726f206164647265737345524332303a207472616e736665722066726f6d20746865207a65726f206164647265737345524332303a20617070726f76652066726f6d20746865207a65726f206164647265737345524332303a2064656372656173656420616c6c6f77616e63652062656c6f77207a65726fa265627a7a72315820286348b8434e7374bf8e0d527a90f5ceadfbf8644d2af089a6434ca53a2bc09964736f6c634300050c0032526f6c65733a206163636f756e7420697320746865207a65726f2061646472657373"
+// ContractBin is the compiled bytecode used for deploying new contracts.
+var ContractBin = "0x60806040523480156200001157600080fd5b506040516200114b3803806200114b833981810160405260608110156200003757600080fd5b81019080805160405193929190846401000000008211156200005857600080fd5b9083019060208201858111156200006e57600080fd5b82516401000000008111828201881017156200008957600080fd5b82525081516020918201929091019080838360005b83811015620000b85781810151838201526020016200009e565b50505050905090810190601f168015620000e65780820380516001836020036101000a031916815260200191505b50604052602001805160405193929190846401000000008211156200010a57600080fd5b9083019060208201858111156200012057600080fd5b82516401000000008111828201881017156200013b57600080fd5b82525081516020918201929091019080838360005b838110156200016a57818101518382015260200162000150565b50505050905090810190601f168015620001985780820380516001836020036101000a031916815260200191505b50604052602001519150620001b790506001600160e01b03620002b316565b600080546001600160a01b0319166001600160a01b03928316178082556040519216917f8be0079c531659141344cd1fd0a4f28419497f9722a3daafe3b4186f6b6457e0908290a36000620002146001600160e01b03620002b316565b600180546001600160a01b0383166001600160a01b0319909116811790915560408051918252519192507f4101e71e974f68df5e9730cc223280b41654676bbb052cdcc735c3337e64d2d9919081900360200190a15082516200027f906002906020860190620002b8565b50815162000295906003906020850190620002b8565b506004805460ff191660ff92909216919091179055506200035a9050565b335b90565b828054600181600116156101000203166002900490600052602060002090601f016020900481019282601f10620002fb57805160ff19168380011785556200032b565b828001600101855582156200032b579182015b828111156200032b5782518255916020019190600101906200030e565b50620003399291506200033d565b5090565b620002b591905b8082111562000339576000815560010162000344565b610de1806200036a6000396000f3fe608060405234801561001057600080fd5b50600436106100ea5760003560e01c80638da5cb5b1161008c5780639dc29fac116100665780639dc29fac1461026e578063a9059cbb1461029a578063c6dbdf61146102c6578063f2fde38b146102ce576100ea565b80638da5cb5b146102265780638f32d59b1461024a57806395d89b4114610266576100ea565b8063313ce567116100c8578063313ce567146101ae57806340c10f19146101cc57806370a08231146101f8578063715018a61461021e576100ea565b806306fdde03146100ef57806318160ddd1461016c5780632348238c14610186575b600080fd5b6100f76102f4565b6040805160208082528351818301528351919283929083019185019080838360005b83811015610131578181015183820152602001610119565b50505050905090810190601f16801561015e5780820380516001836020036101000a031916815260200191505b509250505060405180910390f35b610174610387565b60408051918252519081900360200190f35b6101ac6004803603602081101561019c57600080fd5b50356001600160a01b031661038d565b005b6101b661046d565b6040805160ff9092168252519081900360200190f35b6101ac600480360360408110156101e257600080fd5b506001600160a01b038135169060200135610476565b6101746004803603602081101561020e57600080fd5b50356001600160a01b03166104cb565b6101ac6104e6565b61022e610577565b604080516001600160a01b039092168252519081900360200190f35b610252610586565b604080519115158252519081900360200190f35b6100f76105aa565b6101ac6004803603604081101561028457600080fd5b506001600160a01b03813516906020013561060b565b610252600480360360408110156102b057600080fd5b506001600160a01b03813516906020013561065c565b61022e6106d3565b6101ac600480360360208110156102e457600080fd5b50356001600160a01b03166106e2565b60028054604080516020601f600019610100600187161502019094168590049384018190048102820181019092528281526060939092909183018282801561037d5780601f106103525761010080835404028352916020019161037d565b820191906000526020600020905b81548152906001019060200180831161036057829003601f168201915b5050505050905090565b60055490565b610395610586565b6103d4576040805162461bcd60e51b81526020600482018190526024820152600080516020610cf1833981519152604482015290519081900360640190fd5b6001600160a01b0381166104195760405162461bcd60e51b815260040180806020018281038252602a815260200180610d11602a913960400191505060405180910390fd5b600180546001600160a01b0383166001600160a01b0319909116811790915560408051918252517f4101e71e974f68df5e9730cc223280b41654676bbb052cdcc735c3337e64d2d99181900360200190a150565b60045460ff1690565b61047e610586565b6104bd576040805162461bcd60e51b81526020600482018190526024820152600080516020610cf1833981519152604482015290519081900360640190fd5b6104c78282610735565b5050565b6001600160a01b031660009081526006602052604090205490565b6104ee610586565b61052d576040805162461bcd60e51b81526020600482018190526024820152600080516020610cf1833981519152604482015290519081900360640190fd5b600080546040516001600160a01b03909116907f8be0079c531659141344cd1fd0a4f28419497f9722a3daafe3b4186f6b6457e0908390a3600080546001600160a01b0319169055565b6000546001600160a01b031690565b600080546001600160a01b031661059b610827565b6001600160a01b031614905090565b60038054604080516020601f600260001961010060018816150201909516949094049384018190048102820181019092528281526060939092909183018282801561037d5780601f106103525761010080835404028352916020019161037d565b610613610586565b610652576040805162461bcd60e51b81526020600482018190526024820152600080516020610cf1833981519152604482015290519081900360640190fd5b6104c7828261082b565b6001546000906001600160a01b0316610673610827565b6001600160a01b0316146106b85760405162461bcd60e51b815260040180806020018281038252602c815260200180610d81602c913960400191505060405180910390fd5b6106ca836106c4610577565b84610927565b50600192915050565b6001546001600160a01b031690565b6106ea610586565b610729576040805162461bcd60e51b81526020600482018190526024820152600080516020610cf1833981519152604482015290519081900360640190fd5b61073281610a85565b50565b6001600160a01b038216610790576040805162461bcd60e51b815260206004820152601f60248201527f45524332303a206d696e7420746f20746865207a65726f206164647265737300604482015290519081900360640190fd5b6005546107a3908263ffffffff610b2516565b6005556001600160a01b0382166000908152600660205260409020546107cf908263ffffffff610b2516565b6001600160a01b03831660008181526006602090815260408083209490945583518581529351929391927fddf252ad1be2c89b69c2b068fc378daa952ba7f163c4a11628f55a4df523b3ef9281900390910190a35050565b3390565b6001600160a01b0382166108705760405162461bcd60e51b8152600401808060200182810382526021815260200180610d3b6021913960400191505060405180910390fd5b6108b381604051806060016040528060228152602001610c83602291396001600160a01b038516600090815260066020526040902054919063ffffffff610b8616565b6001600160a01b0383166000908152600660205260409020556005546108df908263ffffffff610c1d16565b6005556040805182815290516000916001600160a01b038516917fddf252ad1be2c89b69c2b068fc378daa952ba7f163c4a11628f55a4df523b3ef9181900360200190a35050565b6001600160a01b03831661096c5760405162461bcd60e51b8152600401808060200182810382526025815260200180610d5c6025913960400191505060405180910390fd5b6001600160a01b0382166109b15760405162461bcd60e51b8152600401808060200182810382526023815260200180610c606023913960400191505060405180910390fd5b6109f481604051806060016040528060268152602001610ccb602691396001600160a01b038616600090815260066020526040902054919063ffffffff610b8616565b6001600160a01b038085166000908152600660205260408082209390935590841681522054610a29908263ffffffff610b2516565b6001600160a01b0380841660008181526006602090815260409182902094909455805185815290519193928716927fddf252ad1be2c89b69c2b068fc378daa952ba7f163c4a11628f55a4df523b3ef92918290030190a3505050565b6001600160a01b038116610aca5760405162461bcd60e51b8152600401808060200182810382526026815260200180610ca56026913960400191505060405180910390fd5b600080546040516001600160a01b03808516939216917f8be0079c531659141344cd1fd0a4f28419497f9722a3daafe3b4186f6b6457e091a3600080546001600160a01b0319166001600160a01b0392909216919091179055565b600082820183811015610b7f576040805162461bcd60e51b815260206004820152601b60248201527f536166654d6174683a206164646974696f6e206f766572666c6f770000000000604482015290519081900360640190fd5b9392505050565b60008184841115610c155760405162461bcd60e51b81526004018080602001828103825283818151815260200191508051906020019080838360005b83811015610bda578181015183820152602001610bc2565b50505050905090810190601f168015610c075780820380516001836020036101000a031916815260200191505b509250505060405180910390fd5b505050900390565b6000610b7f83836040518060400160405280601e81526020017f536166654d6174683a207375627472616374696f6e206f766572666c6f770000815250610b8656fe45524332303a207472616e7366657220746f20746865207a65726f206164647265737345524332303a206275726e20616d6f756e7420657863656564732062616c616e63654f776e61626c653a206e6577206f776e657220697320746865207a65726f206164647265737345524332303a207472616e7366657220616d6f756e7420657863656564732062616c616e63654f776e61626c653a2063616c6c6572206973206e6f7420746865206f776e65725365636f6e646172793a206e6577207072696d61727920697320746865207a65726f206164647265737345524332303a206275726e2066726f6d20746865207a65726f206164647265737345524332303a207472616e736665722066726f6d20746865207a65726f20616464726573735365636f6e646172793a2063616c6c6572206973206e6f7420746865207072696d617279206163636f756e74a265627a7a72315820549a1a026c40dca7e3002c82afbd02f3d75070baf3927b4961d3dfee983db89464736f6c634300050c0032"
 
-// DeployDHC deploys a new Ethereum contract, binding an instance of DHC to it.
-func DeployDHC(auth *bind.TransactOpts, backend bind.ContractBackend) (common.Address, *types.Transaction, *DHC, error) {
-	parsed, err := abi.JSON(strings.NewReader(DHCABI))
+// DeployContract deploys a new Ethereum contract, binding an instance of Contract to it.
+func DeployContract(auth *bind.TransactOpts, backend bind.ContractBackend, name string, symbol string, decimals uint8) (common.Address, *types.Transaction, *Contract, error) {
+	parsed, err := abi.JSON(strings.NewReader(ContractABI))
 	if err != nil {
 		return common.Address{}, nil, nil, err
 	}
 
-	address, tx, contract, err := bind.DeployContract(auth, parsed, common.FromHex(DHCBin), backend)
+	address, tx, contract, err := bind.DeployContract(auth, parsed, common.FromHex(ContractBin), backend, name, symbol, decimals)
 	if err != nil {
 		return common.Address{}, nil, nil, err
 	}
-	return address, tx, &DHC{DHCCaller: DHCCaller{contract: contract}, DHCTransactor: DHCTransactor{contract: contract}, DHCFilterer: DHCFilterer{contract: contract}}, nil
+	return address, tx, &Contract{ContractCaller: ContractCaller{contract: contract}, ContractTransactor: ContractTransactor{contract: contract}, ContractFilterer: ContractFilterer{contract: contract}}, nil
 }
 
-// DHC is an auto generated Go binding around an Ethereum contract.
-type DHC struct {
-	DHCCaller     // Read-only binding to the contract
-	DHCTransactor // Write-only binding to the contract
-	DHCFilterer   // Log filterer for contract events
+// Contract is an auto generated Go binding around an Ethereum contract.
+type Contract struct {
+	ContractCaller     // Read-only binding to the contract
+	ContractTransactor // Write-only binding to the contract
+	ContractFilterer   // Log filterer for contract events
 }
 
-// DHCCaller is an auto generated read-only Go binding around an Ethereum contract.
-type DHCCaller struct {
+// ContractCaller is an auto generated read-only Go binding around an Ethereum contract.
+type ContractCaller struct {
 	contract *bind.BoundContract // Generic contract wrapper for the low level calls
 }
 
-// DHCTransactor is an auto generated write-only Go binding around an Ethereum contract.
-type DHCTransactor struct {
+// ContractTransactor is an auto generated write-only Go binding around an Ethereum contract.
+type ContractTransactor struct {
 	contract *bind.BoundContract // Generic contract wrapper for the low level calls
 }
 
-// DHCFilterer is an auto generated log filtering Go binding around an Ethereum contract events.
-type DHCFilterer struct {
+// ContractFilterer is an auto generated log filtering Go binding around an Ethereum contract events.
+type ContractFilterer struct {
 	contract *bind.BoundContract // Generic contract wrapper for the low level calls
 }
 
-// DHCSession is an auto generated Go binding around an Ethereum contract,
+// ContractSession is an auto generated Go binding around an Ethereum contract,
 // with pre-set call and transact options.
-type DHCSession struct {
-	Contract     *DHC              // Generic contract binding to set the session for
+type ContractSession struct {
+	Contract     *Contract         // Generic contract binding to set the session for
 	CallOpts     bind.CallOpts     // Call options to use throughout this session
 	TransactOpts bind.TransactOpts // Transaction auth options to use throughout this session
 }
 
-// DHCCallerSession is an auto generated read-only Go binding around an Ethereum contract,
+// ContractCallerSession is an auto generated read-only Go binding around an Ethereum contract,
 // with pre-set call options.
-type DHCCallerSession struct {
-	Contract *DHCCaller    // Generic contract caller binding to set the session for
-	CallOpts bind.CallOpts // Call options to use throughout this session
+type ContractCallerSession struct {
+	Contract *ContractCaller // Generic contract caller binding to set the session for
+	CallOpts bind.CallOpts   // Call options to use throughout this session
 }
 
-// DHCTransactorSession is an auto generated write-only Go binding around an Ethereum contract,
+// ContractTransactorSession is an auto generated write-only Go binding around an Ethereum contract,
 // with pre-set transact options.
-type DHCTransactorSession struct {
-	Contract     *DHCTransactor    // Generic contract transactor binding to set the session for
-	TransactOpts bind.TransactOpts // Transaction auth options to use throughout this session
+type ContractTransactorSession struct {
+	Contract     *ContractTransactor // Generic contract transactor binding to set the session for
+	TransactOpts bind.TransactOpts   // Transaction auth options to use throughout this session
 }
 
-// DHCRaw is an auto generated low-level Go binding around an Ethereum contract.
-type DHCRaw struct {
-	Contract *DHC // Generic contract binding to access the raw methods on
+// ContractRaw is an auto generated low-level Go binding around an Ethereum contract.
+type ContractRaw struct {
+	Contract *Contract // Generic contract binding to access the raw methods on
 }
 
-// DHCCallerRaw is an auto generated low-level read-only Go binding around an Ethereum contract.
-type DHCCallerRaw struct {
-	Contract *DHCCaller // Generic read-only contract binding to access the raw methods on
+// ContractCallerRaw is an auto generated low-level read-only Go binding around an Ethereum contract.
+type ContractCallerRaw struct {
+	Contract *ContractCaller // Generic read-only contract binding to access the raw methods on
 }
 
-// DHCTransactorRaw is an auto generated low-level write-only Go binding around an Ethereum contract.
-type DHCTransactorRaw struct {
-	Contract *DHCTransactor // Generic write-only contract binding to access the raw methods on
+// ContractTransactorRaw is an auto generated low-level write-only Go binding around an Ethereum contract.
+type ContractTransactorRaw struct {
+	Contract *ContractTransactor // Generic write-only contract binding to access the raw methods on
 }
 
-// NewDHC creates a new instance of DHC, bound to a specific deployed contract.
-func NewDHC(address common.Address, backend bind.ContractBackend) (*DHC, error) {
-	contract, err := bindDHC(address, backend, backend, backend)
+// NewContract creates a new instance of Contract, bound to a specific deployed contract.
+func NewContract(address common.Address, backend bind.ContractBackend) (*Contract, error) {
+	contract, err := bindContract(address, backend, backend, backend)
 	if err != nil {
 		return nil, err
 	}
-	return &DHC{DHCCaller: DHCCaller{contract: contract}, DHCTransactor: DHCTransactor{contract: contract}, DHCFilterer: DHCFilterer{contract: contract}}, nil
+	return &Contract{ContractCaller: ContractCaller{contract: contract}, ContractTransactor: ContractTransactor{contract: contract}, ContractFilterer: ContractFilterer{contract: contract}}, nil
 }
 
-// NewDHCCaller creates a new read-only instance of DHC, bound to a specific deployed contract.
-func NewDHCCaller(address common.Address, caller bind.ContractCaller) (*DHCCaller, error) {
-	contract, err := bindDHC(address, caller, nil, nil)
+// NewContractCaller creates a new read-only instance of Contract, bound to a specific deployed contract.
+func NewContractCaller(address common.Address, caller bind.ContractCaller) (*ContractCaller, error) {
+	contract, err := bindContract(address, caller, nil, nil)
 	if err != nil {
 		return nil, err
 	}
-	return &DHCCaller{contract: contract}, nil
+	return &ContractCaller{contract: contract}, nil
 }
 
-// NewDHCTransactor creates a new write-only instance of DHC, bound to a specific deployed contract.
-func NewDHCTransactor(address common.Address, transactor bind.ContractTransactor) (*DHCTransactor, error) {
-	contract, err := bindDHC(address, nil, transactor, nil)
+// NewContractTransactor creates a new write-only instance of Contract, bound to a specific deployed contract.
+func NewContractTransactor(address common.Address, transactor bind.ContractTransactor) (*ContractTransactor, error) {
+	contract, err := bindContract(address, nil, transactor, nil)
 	if err != nil {
 		return nil, err
 	}
-	return &DHCTransactor{contract: contract}, nil
+	return &ContractTransactor{contract: contract}, nil
 }
 
-// NewDHCFilterer creates a new log filterer instance of DHC, bound to a specific deployed contract.
-func NewDHCFilterer(address common.Address, filterer bind.ContractFilterer) (*DHCFilterer, error) {
-	contract, err := bindDHC(address, nil, nil, filterer)
+// NewContractFilterer creates a new log filterer instance of Contract, bound to a specific deployed contract.
+func NewContractFilterer(address common.Address, filterer bind.ContractFilterer) (*ContractFilterer, error) {
+	contract, err := bindContract(address, nil, nil, filterer)
 	if err != nil {
 		return nil, err
 	}
-	return &DHCFilterer{contract: contract}, nil
+	return &ContractFilterer{contract: contract}, nil
 }
 
-// bindDHC binds a generic wrapper to an already deployed contract.
-func bindDHC(address common.Address, caller bind.ContractCaller, transactor bind.ContractTransactor, filterer bind.ContractFilterer) (*bind.BoundContract, error) {
-	parsed, err := abi.JSON(strings.NewReader(DHCABI))
+// bindContract binds a generic wrapper to an already deployed contract.
+func bindContract(address common.Address, caller bind.ContractCaller, transactor bind.ContractTransactor, filterer bind.ContractFilterer) (*bind.BoundContract, error) {
+	parsed, err := abi.JSON(strings.NewReader(ContractABI))
 	if err != nil {
 		return nil, err
 	}
@@ -319,393 +318,377 @@ func bindDHC(address common.Address, caller bind.ContractCaller, transactor bind
 // sets the output to result. The result type might be a single field for simple
 // returns, a slice of interfaces for anonymous returns and a struct for named
 // returns.
-func (_DHC *DHCRaw) Call(opts *bind.CallOpts, result interface{}, method string, params ...interface{}) error {
-	return _DHC.Contract.DHCCaller.contract.Call(opts, result, method, params...)
+func (_Contract *ContractRaw) Call(opts *bind.CallOpts, result interface{}, method string, params ...interface{}) error {
+	return _Contract.Contract.ContractCaller.contract.Call(opts, result, method, params...)
 }
 
 // Transfer initiates a plain transaction to move funds to the contract, calling
 // its default method if one is available.
-func (_DHC *DHCRaw) Transfer(opts *bind.TransactOpts) (*types.Transaction, error) {
-	return _DHC.Contract.DHCTransactor.contract.Transfer(opts)
+func (_Contract *ContractRaw) Transfer(opts *bind.TransactOpts) (*types.Transaction, error) {
+	return _Contract.Contract.ContractTransactor.contract.Transfer(opts)
 }
 
 // Transact invokes the (paid) contract method with params as input values.
-func (_DHC *DHCRaw) Transact(opts *bind.TransactOpts, method string, params ...interface{}) (*types.Transaction, error) {
-	return _DHC.Contract.DHCTransactor.contract.Transact(opts, method, params...)
+func (_Contract *ContractRaw) Transact(opts *bind.TransactOpts, method string, params ...interface{}) (*types.Transaction, error) {
+	return _Contract.Contract.ContractTransactor.contract.Transact(opts, method, params...)
 }
 
 // Call invokes the (constant) contract method with params as input values and
 // sets the output to result. The result type might be a single field for simple
 // returns, a slice of interfaces for anonymous returns and a struct for named
 // returns.
-func (_DHC *DHCCallerRaw) Call(opts *bind.CallOpts, result interface{}, method string, params ...interface{}) error {
-	return _DHC.Contract.contract.Call(opts, result, method, params...)
+func (_Contract *ContractCallerRaw) Call(opts *bind.CallOpts, result interface{}, method string, params ...interface{}) error {
+	return _Contract.Contract.contract.Call(opts, result, method, params...)
 }
 
 // Transfer initiates a plain transaction to move funds to the contract, calling
 // its default method if one is available.
-func (_DHC *DHCTransactorRaw) Transfer(opts *bind.TransactOpts) (*types.Transaction, error) {
-	return _DHC.Contract.contract.Transfer(opts)
+func (_Contract *ContractTransactorRaw) Transfer(opts *bind.TransactOpts) (*types.Transaction, error) {
+	return _Contract.Contract.contract.Transfer(opts)
 }
 
 // Transact invokes the (paid) contract method with params as input values.
-func (_DHC *DHCTransactorRaw) Transact(opts *bind.TransactOpts, method string, params ...interface{}) (*types.Transaction, error) {
-	return _DHC.Contract.contract.Transact(opts, method, params...)
-}
-
-// Allowance is a free data retrieval call binding the contract method 0xdd62ed3e.
-//
-// Solidity: function allowance(address owner, address spender) constant returns(uint256)
-func (_DHC *DHCCaller) Allowance(opts *bind.CallOpts, owner common.Address, spender common.Address) (*big.Int, error) {
-	var (
-		ret0 = new(*big.Int)
-	)
-	out := ret0
-	err := _DHC.contract.Call(opts, out, "allowance", owner, spender)
-	return *ret0, err
-}
-
-// Allowance is a free data retrieval call binding the contract method 0xdd62ed3e.
-//
-// Solidity: function allowance(address owner, address spender) constant returns(uint256)
-func (_DHC *DHCSession) Allowance(owner common.Address, spender common.Address) (*big.Int, error) {
-	return _DHC.Contract.Allowance(&_DHC.CallOpts, owner, spender)
-}
-
-// Allowance is a free data retrieval call binding the contract method 0xdd62ed3e.
-//
-// Solidity: function allowance(address owner, address spender) constant returns(uint256)
-func (_DHC *DHCCallerSession) Allowance(owner common.Address, spender common.Address) (*big.Int, error) {
-	return _DHC.Contract.Allowance(&_DHC.CallOpts, owner, spender)
+func (_Contract *ContractTransactorRaw) Transact(opts *bind.TransactOpts, method string, params ...interface{}) (*types.Transaction, error) {
+	return _Contract.Contract.contract.Transact(opts, method, params...)
 }
 
 // BalanceOf is a free data retrieval call binding the contract method 0x70a08231.
 //
 // Solidity: function balanceOf(address account) constant returns(uint256)
-func (_DHC *DHCCaller) BalanceOf(opts *bind.CallOpts, account common.Address) (*big.Int, error) {
+func (_Contract *ContractCaller) BalanceOf(opts *bind.CallOpts, account common.Address) (*big.Int, error) {
 	var (
 		ret0 = new(*big.Int)
 	)
 	out := ret0
-	err := _DHC.contract.Call(opts, out, "balanceOf", account)
+	err := _Contract.contract.Call(opts, out, "balanceOf", account)
 	return *ret0, err
 }
 
 // BalanceOf is a free data retrieval call binding the contract method 0x70a08231.
 //
 // Solidity: function balanceOf(address account) constant returns(uint256)
-func (_DHC *DHCSession) BalanceOf(account common.Address) (*big.Int, error) {
-	return _DHC.Contract.BalanceOf(&_DHC.CallOpts, account)
+func (_Contract *ContractSession) BalanceOf(account common.Address) (*big.Int, error) {
+	return _Contract.Contract.BalanceOf(&_Contract.CallOpts, account)
 }
 
 // BalanceOf is a free data retrieval call binding the contract method 0x70a08231.
 //
 // Solidity: function balanceOf(address account) constant returns(uint256)
-func (_DHC *DHCCallerSession) BalanceOf(account common.Address) (*big.Int, error) {
-	return _DHC.Contract.BalanceOf(&_DHC.CallOpts, account)
+func (_Contract *ContractCallerSession) BalanceOf(account common.Address) (*big.Int, error) {
+	return _Contract.Contract.BalanceOf(&_Contract.CallOpts, account)
 }
 
 // Decimals is a free data retrieval call binding the contract method 0x313ce567.
 //
 // Solidity: function decimals() constant returns(uint8)
-func (_DHC *DHCCaller) Decimals(opts *bind.CallOpts) (uint8, error) {
+func (_Contract *ContractCaller) Decimals(opts *bind.CallOpts) (uint8, error) {
 	var (
 		ret0 = new(uint8)
 	)
 	out := ret0
-	err := _DHC.contract.Call(opts, out, "decimals")
+	err := _Contract.contract.Call(opts, out, "decimals")
 	return *ret0, err
 }
 
 // Decimals is a free data retrieval call binding the contract method 0x313ce567.
 //
 // Solidity: function decimals() constant returns(uint8)
-func (_DHC *DHCSession) Decimals() (uint8, error) {
-	return _DHC.Contract.Decimals(&_DHC.CallOpts)
+func (_Contract *ContractSession) Decimals() (uint8, error) {
+	return _Contract.Contract.Decimals(&_Contract.CallOpts)
 }
 
 // Decimals is a free data retrieval call binding the contract method 0x313ce567.
 //
 // Solidity: function decimals() constant returns(uint8)
-func (_DHC *DHCCallerSession) Decimals() (uint8, error) {
-	return _DHC.Contract.Decimals(&_DHC.CallOpts)
+func (_Contract *ContractCallerSession) Decimals() (uint8, error) {
+	return _Contract.Contract.Decimals(&_Contract.CallOpts)
 }
 
-// IsMinter is a free data retrieval call binding the contract method 0xaa271e1a.
+// IsOwner is a free data retrieval call binding the contract method 0x8f32d59b.
 //
-// Solidity: function isMinter(address account) constant returns(bool)
-func (_DHC *DHCCaller) IsMinter(opts *bind.CallOpts, account common.Address) (bool, error) {
+// Solidity: function isOwner() constant returns(bool)
+func (_Contract *ContractCaller) IsOwner(opts *bind.CallOpts) (bool, error) {
 	var (
 		ret0 = new(bool)
 	)
 	out := ret0
-	err := _DHC.contract.Call(opts, out, "isMinter", account)
+	err := _Contract.contract.Call(opts, out, "isOwner")
 	return *ret0, err
 }
 
-// IsMinter is a free data retrieval call binding the contract method 0xaa271e1a.
+// IsOwner is a free data retrieval call binding the contract method 0x8f32d59b.
 //
-// Solidity: function isMinter(address account) constant returns(bool)
-func (_DHC *DHCSession) IsMinter(account common.Address) (bool, error) {
-	return _DHC.Contract.IsMinter(&_DHC.CallOpts, account)
+// Solidity: function isOwner() constant returns(bool)
+func (_Contract *ContractSession) IsOwner() (bool, error) {
+	return _Contract.Contract.IsOwner(&_Contract.CallOpts)
 }
 
-// IsMinter is a free data retrieval call binding the contract method 0xaa271e1a.
+// IsOwner is a free data retrieval call binding the contract method 0x8f32d59b.
 //
-// Solidity: function isMinter(address account) constant returns(bool)
-func (_DHC *DHCCallerSession) IsMinter(account common.Address) (bool, error) {
-	return _DHC.Contract.IsMinter(&_DHC.CallOpts, account)
+// Solidity: function isOwner() constant returns(bool)
+func (_Contract *ContractCallerSession) IsOwner() (bool, error) {
+	return _Contract.Contract.IsOwner(&_Contract.CallOpts)
 }
 
 // Name is a free data retrieval call binding the contract method 0x06fdde03.
 //
 // Solidity: function name() constant returns(string)
-func (_DHC *DHCCaller) Name(opts *bind.CallOpts) (string, error) {
+func (_Contract *ContractCaller) Name(opts *bind.CallOpts) (string, error) {
 	var (
 		ret0 = new(string)
 	)
 	out := ret0
-	err := _DHC.contract.Call(opts, out, "name")
+	err := _Contract.contract.Call(opts, out, "name")
 	return *ret0, err
 }
 
 // Name is a free data retrieval call binding the contract method 0x06fdde03.
 //
 // Solidity: function name() constant returns(string)
-func (_DHC *DHCSession) Name() (string, error) {
-	return _DHC.Contract.Name(&_DHC.CallOpts)
+func (_Contract *ContractSession) Name() (string, error) {
+	return _Contract.Contract.Name(&_Contract.CallOpts)
 }
 
 // Name is a free data retrieval call binding the contract method 0x06fdde03.
 //
 // Solidity: function name() constant returns(string)
-func (_DHC *DHCCallerSession) Name() (string, error) {
-	return _DHC.Contract.Name(&_DHC.CallOpts)
+func (_Contract *ContractCallerSession) Name() (string, error) {
+	return _Contract.Contract.Name(&_Contract.CallOpts)
+}
+
+// Owner is a free data retrieval call binding the contract method 0x8da5cb5b.
+//
+// Solidity: function owner() constant returns(address)
+func (_Contract *ContractCaller) Owner(opts *bind.CallOpts) (common.Address, error) {
+	var (
+		ret0 = new(common.Address)
+	)
+	out := ret0
+	err := _Contract.contract.Call(opts, out, "owner")
+	return *ret0, err
+}
+
+// Owner is a free data retrieval call binding the contract method 0x8da5cb5b.
+//
+// Solidity: function owner() constant returns(address)
+func (_Contract *ContractSession) Owner() (common.Address, error) {
+	return _Contract.Contract.Owner(&_Contract.CallOpts)
+}
+
+// Owner is a free data retrieval call binding the contract method 0x8da5cb5b.
+//
+// Solidity: function owner() constant returns(address)
+func (_Contract *ContractCallerSession) Owner() (common.Address, error) {
+	return _Contract.Contract.Owner(&_Contract.CallOpts)
+}
+
+// Primary is a free data retrieval call binding the contract method 0xc6dbdf61.
+//
+// Solidity: function primary() constant returns(address)
+func (_Contract *ContractCaller) Primary(opts *bind.CallOpts) (common.Address, error) {
+	var (
+		ret0 = new(common.Address)
+	)
+	out := ret0
+	err := _Contract.contract.Call(opts, out, "primary")
+	return *ret0, err
+}
+
+// Primary is a free data retrieval call binding the contract method 0xc6dbdf61.
+//
+// Solidity: function primary() constant returns(address)
+func (_Contract *ContractSession) Primary() (common.Address, error) {
+	return _Contract.Contract.Primary(&_Contract.CallOpts)
+}
+
+// Primary is a free data retrieval call binding the contract method 0xc6dbdf61.
+//
+// Solidity: function primary() constant returns(address)
+func (_Contract *ContractCallerSession) Primary() (common.Address, error) {
+	return _Contract.Contract.Primary(&_Contract.CallOpts)
 }
 
 // Symbol is a free data retrieval call binding the contract method 0x95d89b41.
 //
 // Solidity: function symbol() constant returns(string)
-func (_DHC *DHCCaller) Symbol(opts *bind.CallOpts) (string, error) {
+func (_Contract *ContractCaller) Symbol(opts *bind.CallOpts) (string, error) {
 	var (
 		ret0 = new(string)
 	)
 	out := ret0
-	err := _DHC.contract.Call(opts, out, "symbol")
+	err := _Contract.contract.Call(opts, out, "symbol")
 	return *ret0, err
 }
 
 // Symbol is a free data retrieval call binding the contract method 0x95d89b41.
 //
 // Solidity: function symbol() constant returns(string)
-func (_DHC *DHCSession) Symbol() (string, error) {
-	return _DHC.Contract.Symbol(&_DHC.CallOpts)
+func (_Contract *ContractSession) Symbol() (string, error) {
+	return _Contract.Contract.Symbol(&_Contract.CallOpts)
 }
 
 // Symbol is a free data retrieval call binding the contract method 0x95d89b41.
 //
 // Solidity: function symbol() constant returns(string)
-func (_DHC *DHCCallerSession) Symbol() (string, error) {
-	return _DHC.Contract.Symbol(&_DHC.CallOpts)
+func (_Contract *ContractCallerSession) Symbol() (string, error) {
+	return _Contract.Contract.Symbol(&_Contract.CallOpts)
 }
 
 // TotalSupply is a free data retrieval call binding the contract method 0x18160ddd.
 //
 // Solidity: function totalSupply() constant returns(uint256)
-func (_DHC *DHCCaller) TotalSupply(opts *bind.CallOpts) (*big.Int, error) {
+func (_Contract *ContractCaller) TotalSupply(opts *bind.CallOpts) (*big.Int, error) {
 	var (
 		ret0 = new(*big.Int)
 	)
 	out := ret0
-	err := _DHC.contract.Call(opts, out, "totalSupply")
+	err := _Contract.contract.Call(opts, out, "totalSupply")
 	return *ret0, err
 }
 
 // TotalSupply is a free data retrieval call binding the contract method 0x18160ddd.
 //
 // Solidity: function totalSupply() constant returns(uint256)
-func (_DHC *DHCSession) TotalSupply() (*big.Int, error) {
-	return _DHC.Contract.TotalSupply(&_DHC.CallOpts)
+func (_Contract *ContractSession) TotalSupply() (*big.Int, error) {
+	return _Contract.Contract.TotalSupply(&_Contract.CallOpts)
 }
 
 // TotalSupply is a free data retrieval call binding the contract method 0x18160ddd.
 //
 // Solidity: function totalSupply() constant returns(uint256)
-func (_DHC *DHCCallerSession) TotalSupply() (*big.Int, error) {
-	return _DHC.Contract.TotalSupply(&_DHC.CallOpts)
+func (_Contract *ContractCallerSession) TotalSupply() (*big.Int, error) {
+	return _Contract.Contract.TotalSupply(&_Contract.CallOpts)
 }
 
-// AddMinter is a paid mutator transaction binding the contract method 0x983b2d56.
+// Burn is a paid mutator transaction binding the contract method 0x9dc29fac.
 //
-// Solidity: function addMinter(address account) returns()
-func (_DHC *DHCTransactor) AddMinter(opts *bind.TransactOpts, account common.Address) (*types.Transaction, error) {
-	return _DHC.contract.Transact(opts, "addMinter", account)
+// Solidity: function burn(address account, uint256 amount) returns()
+func (_Contract *ContractTransactor) Burn(opts *bind.TransactOpts, account common.Address, amount *big.Int) (*types.Transaction, error) {
+	return _Contract.contract.Transact(opts, "burn", account, amount)
 }
 
-// AddMinter is a paid mutator transaction binding the contract method 0x983b2d56.
+// Burn is a paid mutator transaction binding the contract method 0x9dc29fac.
 //
-// Solidity: function addMinter(address account) returns()
-func (_DHC *DHCSession) AddMinter(account common.Address) (*types.Transaction, error) {
-	return _DHC.Contract.AddMinter(&_DHC.TransactOpts, account)
+// Solidity: function burn(address account, uint256 amount) returns()
+func (_Contract *ContractSession) Burn(account common.Address, amount *big.Int) (*types.Transaction, error) {
+	return _Contract.Contract.Burn(&_Contract.TransactOpts, account, amount)
 }
 
-// AddMinter is a paid mutator transaction binding the contract method 0x983b2d56.
+// Burn is a paid mutator transaction binding the contract method 0x9dc29fac.
 //
-// Solidity: function addMinter(address account) returns()
-func (_DHC *DHCTransactorSession) AddMinter(account common.Address) (*types.Transaction, error) {
-	return _DHC.Contract.AddMinter(&_DHC.TransactOpts, account)
-}
-
-// Approve is a paid mutator transaction binding the contract method 0x095ea7b3.
-//
-// Solidity: function approve(address spender, uint256 amount) returns(bool)
-func (_DHC *DHCTransactor) Approve(opts *bind.TransactOpts, spender common.Address, amount *big.Int) (*types.Transaction, error) {
-	return _DHC.contract.Transact(opts, "approve", spender, amount)
-}
-
-// Approve is a paid mutator transaction binding the contract method 0x095ea7b3.
-//
-// Solidity: function approve(address spender, uint256 amount) returns(bool)
-func (_DHC *DHCSession) Approve(spender common.Address, amount *big.Int) (*types.Transaction, error) {
-	return _DHC.Contract.Approve(&_DHC.TransactOpts, spender, amount)
-}
-
-// Approve is a paid mutator transaction binding the contract method 0x095ea7b3.
-//
-// Solidity: function approve(address spender, uint256 amount) returns(bool)
-func (_DHC *DHCTransactorSession) Approve(spender common.Address, amount *big.Int) (*types.Transaction, error) {
-	return _DHC.Contract.Approve(&_DHC.TransactOpts, spender, amount)
-}
-
-// DecreaseAllowance is a paid mutator transaction binding the contract method 0xa457c2d7.
-//
-// Solidity: function decreaseAllowance(address spender, uint256 subtractedValue) returns(bool)
-func (_DHC *DHCTransactor) DecreaseAllowance(opts *bind.TransactOpts, spender common.Address, subtractedValue *big.Int) (*types.Transaction, error) {
-	return _DHC.contract.Transact(opts, "decreaseAllowance", spender, subtractedValue)
-}
-
-// DecreaseAllowance is a paid mutator transaction binding the contract method 0xa457c2d7.
-//
-// Solidity: function decreaseAllowance(address spender, uint256 subtractedValue) returns(bool)
-func (_DHC *DHCSession) DecreaseAllowance(spender common.Address, subtractedValue *big.Int) (*types.Transaction, error) {
-	return _DHC.Contract.DecreaseAllowance(&_DHC.TransactOpts, spender, subtractedValue)
-}
-
-// DecreaseAllowance is a paid mutator transaction binding the contract method 0xa457c2d7.
-//
-// Solidity: function decreaseAllowance(address spender, uint256 subtractedValue) returns(bool)
-func (_DHC *DHCTransactorSession) DecreaseAllowance(spender common.Address, subtractedValue *big.Int) (*types.Transaction, error) {
-	return _DHC.Contract.DecreaseAllowance(&_DHC.TransactOpts, spender, subtractedValue)
-}
-
-// IncreaseAllowance is a paid mutator transaction binding the contract method 0x39509351.
-//
-// Solidity: function increaseAllowance(address spender, uint256 addedValue) returns(bool)
-func (_DHC *DHCTransactor) IncreaseAllowance(opts *bind.TransactOpts, spender common.Address, addedValue *big.Int) (*types.Transaction, error) {
-	return _DHC.contract.Transact(opts, "increaseAllowance", spender, addedValue)
-}
-
-// IncreaseAllowance is a paid mutator transaction binding the contract method 0x39509351.
-//
-// Solidity: function increaseAllowance(address spender, uint256 addedValue) returns(bool)
-func (_DHC *DHCSession) IncreaseAllowance(spender common.Address, addedValue *big.Int) (*types.Transaction, error) {
-	return _DHC.Contract.IncreaseAllowance(&_DHC.TransactOpts, spender, addedValue)
-}
-
-// IncreaseAllowance is a paid mutator transaction binding the contract method 0x39509351.
-//
-// Solidity: function increaseAllowance(address spender, uint256 addedValue) returns(bool)
-func (_DHC *DHCTransactorSession) IncreaseAllowance(spender common.Address, addedValue *big.Int) (*types.Transaction, error) {
-	return _DHC.Contract.IncreaseAllowance(&_DHC.TransactOpts, spender, addedValue)
+// Solidity: function burn(address account, uint256 amount) returns()
+func (_Contract *ContractTransactorSession) Burn(account common.Address, amount *big.Int) (*types.Transaction, error) {
+	return _Contract.Contract.Burn(&_Contract.TransactOpts, account, amount)
 }
 
 // Mint is a paid mutator transaction binding the contract method 0x40c10f19.
 //
-// Solidity: function mint(address account, uint256 amount) returns(bool)
-func (_DHC *DHCTransactor) Mint(opts *bind.TransactOpts, account common.Address, amount *big.Int) (*types.Transaction, error) {
-	return _DHC.contract.Transact(opts, "mint", account, amount)
+// Solidity: function mint(address account, uint256 amount) returns()
+func (_Contract *ContractTransactor) Mint(opts *bind.TransactOpts, account common.Address, amount *big.Int) (*types.Transaction, error) {
+	return _Contract.contract.Transact(opts, "mint", account, amount)
 }
 
 // Mint is a paid mutator transaction binding the contract method 0x40c10f19.
 //
-// Solidity: function mint(address account, uint256 amount) returns(bool)
-func (_DHC *DHCSession) Mint(account common.Address, amount *big.Int) (*types.Transaction, error) {
-	return _DHC.Contract.Mint(&_DHC.TransactOpts, account, amount)
+// Solidity: function mint(address account, uint256 amount) returns()
+func (_Contract *ContractSession) Mint(account common.Address, amount *big.Int) (*types.Transaction, error) {
+	return _Contract.Contract.Mint(&_Contract.TransactOpts, account, amount)
 }
 
 // Mint is a paid mutator transaction binding the contract method 0x40c10f19.
 //
-// Solidity: function mint(address account, uint256 amount) returns(bool)
-func (_DHC *DHCTransactorSession) Mint(account common.Address, amount *big.Int) (*types.Transaction, error) {
-	return _DHC.Contract.Mint(&_DHC.TransactOpts, account, amount)
+// Solidity: function mint(address account, uint256 amount) returns()
+func (_Contract *ContractTransactorSession) Mint(account common.Address, amount *big.Int) (*types.Transaction, error) {
+	return _Contract.Contract.Mint(&_Contract.TransactOpts, account, amount)
 }
 
-// RenounceMinter is a paid mutator transaction binding the contract method 0x98650275.
+// RenounceOwnership is a paid mutator transaction binding the contract method 0x715018a6.
 //
-// Solidity: function renounceMinter() returns()
-func (_DHC *DHCTransactor) RenounceMinter(opts *bind.TransactOpts) (*types.Transaction, error) {
-	return _DHC.contract.Transact(opts, "renounceMinter")
+// Solidity: function renounceOwnership() returns()
+func (_Contract *ContractTransactor) RenounceOwnership(opts *bind.TransactOpts) (*types.Transaction, error) {
+	return _Contract.contract.Transact(opts, "renounceOwnership")
 }
 
-// RenounceMinter is a paid mutator transaction binding the contract method 0x98650275.
+// RenounceOwnership is a paid mutator transaction binding the contract method 0x715018a6.
 //
-// Solidity: function renounceMinter() returns()
-func (_DHC *DHCSession) RenounceMinter() (*types.Transaction, error) {
-	return _DHC.Contract.RenounceMinter(&_DHC.TransactOpts)
+// Solidity: function renounceOwnership() returns()
+func (_Contract *ContractSession) RenounceOwnership() (*types.Transaction, error) {
+	return _Contract.Contract.RenounceOwnership(&_Contract.TransactOpts)
 }
 
-// RenounceMinter is a paid mutator transaction binding the contract method 0x98650275.
+// RenounceOwnership is a paid mutator transaction binding the contract method 0x715018a6.
 //
-// Solidity: function renounceMinter() returns()
-func (_DHC *DHCTransactorSession) RenounceMinter() (*types.Transaction, error) {
-	return _DHC.Contract.RenounceMinter(&_DHC.TransactOpts)
+// Solidity: function renounceOwnership() returns()
+func (_Contract *ContractTransactorSession) RenounceOwnership() (*types.Transaction, error) {
+	return _Contract.Contract.RenounceOwnership(&_Contract.TransactOpts)
 }
 
 // Transfer is a paid mutator transaction binding the contract method 0xa9059cbb.
 //
-// Solidity: function transfer(address recipient, uint256 amount) returns(bool)
-func (_DHC *DHCTransactor) Transfer(opts *bind.TransactOpts, recipient common.Address, amount *big.Int) (*types.Transaction, error) {
-	return _DHC.contract.Transact(opts, "transfer", recipient, amount)
+// Solidity: function transfer(address sender, uint256 amount) returns(bool)
+func (_Contract *ContractTransactor) Transfer(opts *bind.TransactOpts, sender common.Address, amount *big.Int) (*types.Transaction, error) {
+	return _Contract.contract.Transact(opts, "transfer", sender, amount)
 }
 
 // Transfer is a paid mutator transaction binding the contract method 0xa9059cbb.
 //
-// Solidity: function transfer(address recipient, uint256 amount) returns(bool)
-func (_DHC *DHCSession) Transfer(recipient common.Address, amount *big.Int) (*types.Transaction, error) {
-	return _DHC.Contract.Transfer(&_DHC.TransactOpts, recipient, amount)
+// Solidity: function transfer(address sender, uint256 amount) returns(bool)
+func (_Contract *ContractSession) Transfer(sender common.Address, amount *big.Int) (*types.Transaction, error) {
+	return _Contract.Contract.Transfer(&_Contract.TransactOpts, sender, amount)
 }
 
 // Transfer is a paid mutator transaction binding the contract method 0xa9059cbb.
 //
-// Solidity: function transfer(address recipient, uint256 amount) returns(bool)
-func (_DHC *DHCTransactorSession) Transfer(recipient common.Address, amount *big.Int) (*types.Transaction, error) {
-	return _DHC.Contract.Transfer(&_DHC.TransactOpts, recipient, amount)
+// Solidity: function transfer(address sender, uint256 amount) returns(bool)
+func (_Contract *ContractTransactorSession) Transfer(sender common.Address, amount *big.Int) (*types.Transaction, error) {
+	return _Contract.Contract.Transfer(&_Contract.TransactOpts, sender, amount)
 }
 
-// TransferFrom is a paid mutator transaction binding the contract method 0x23b872dd.
+// TransferOwnership is a paid mutator transaction binding the contract method 0xf2fde38b.
 //
-// Solidity: function transferFrom(address sender, address recipient, uint256 amount) returns(bool)
-func (_DHC *DHCTransactor) TransferFrom(opts *bind.TransactOpts, sender common.Address, recipient common.Address, amount *big.Int) (*types.Transaction, error) {
-	return _DHC.contract.Transact(opts, "transferFrom", sender, recipient, amount)
+// Solidity: function transferOwnership(address newOwner) returns()
+func (_Contract *ContractTransactor) TransferOwnership(opts *bind.TransactOpts, newOwner common.Address) (*types.Transaction, error) {
+	return _Contract.contract.Transact(opts, "transferOwnership", newOwner)
 }
 
-// TransferFrom is a paid mutator transaction binding the contract method 0x23b872dd.
+// TransferOwnership is a paid mutator transaction binding the contract method 0xf2fde38b.
 //
-// Solidity: function transferFrom(address sender, address recipient, uint256 amount) returns(bool)
-func (_DHC *DHCSession) TransferFrom(sender common.Address, recipient common.Address, amount *big.Int) (*types.Transaction, error) {
-	return _DHC.Contract.TransferFrom(&_DHC.TransactOpts, sender, recipient, amount)
+// Solidity: function transferOwnership(address newOwner) returns()
+func (_Contract *ContractSession) TransferOwnership(newOwner common.Address) (*types.Transaction, error) {
+	return _Contract.Contract.TransferOwnership(&_Contract.TransactOpts, newOwner)
 }
 
-// TransferFrom is a paid mutator transaction binding the contract method 0x23b872dd.
+// TransferOwnership is a paid mutator transaction binding the contract method 0xf2fde38b.
 //
-// Solidity: function transferFrom(address sender, address recipient, uint256 amount) returns(bool)
-func (_DHC *DHCTransactorSession) TransferFrom(sender common.Address, recipient common.Address, amount *big.Int) (*types.Transaction, error) {
-	return _DHC.Contract.TransferFrom(&_DHC.TransactOpts, sender, recipient, amount)
+// Solidity: function transferOwnership(address newOwner) returns()
+func (_Contract *ContractTransactorSession) TransferOwnership(newOwner common.Address) (*types.Transaction, error) {
+	return _Contract.Contract.TransferOwnership(&_Contract.TransactOpts, newOwner)
 }
 
-// DHCApprovalIterator is returned from FilterApproval and is used to iterate over the raw logs and unpacked data for Approval events raised by the DHC contract.
-type DHCApprovalIterator struct {
-	Event *DHCApproval // Event containing the contract specifics and raw log
+// TransferPrimary is a paid mutator transaction binding the contract method 0x2348238c.
+//
+// Solidity: function transferPrimary(address recipient) returns()
+func (_Contract *ContractTransactor) TransferPrimary(opts *bind.TransactOpts, recipient common.Address) (*types.Transaction, error) {
+	return _Contract.contract.Transact(opts, "transferPrimary", recipient)
+}
+
+// TransferPrimary is a paid mutator transaction binding the contract method 0x2348238c.
+//
+// Solidity: function transferPrimary(address recipient) returns()
+func (_Contract *ContractSession) TransferPrimary(recipient common.Address) (*types.Transaction, error) {
+	return _Contract.Contract.TransferPrimary(&_Contract.TransactOpts, recipient)
+}
+
+// TransferPrimary is a paid mutator transaction binding the contract method 0x2348238c.
+//
+// Solidity: function transferPrimary(address recipient) returns()
+func (_Contract *ContractTransactorSession) TransferPrimary(recipient common.Address) (*types.Transaction, error) {
+	return _Contract.Contract.TransferPrimary(&_Contract.TransactOpts, recipient)
+}
+
+// ContractApprovalIterator is returned from FilterApproval and is used to iterate over the raw logs and unpacked data for Approval events raised by the Contract contract.
+type ContractApprovalIterator struct {
+	Event *ContractApproval // Event containing the contract specifics and raw log
 
 	contract *bind.BoundContract // Generic contract to use for unpacking event data
 	event    string              // Event name to use for unpacking event data
@@ -719,7 +702,7 @@ type DHCApprovalIterator struct {
 // Next advances the iterator to the subsequent event, returning whether there
 // are any more events found. In case of a retrieval or parsing error, false is
 // returned and Error() can be queried for the exact failure.
-func (it *DHCApprovalIterator) Next() bool {
+func (it *ContractApprovalIterator) Next() bool {
 	// If the iterator failed, stop iterating
 	if it.fail != nil {
 		return false
@@ -728,7 +711,7 @@ func (it *DHCApprovalIterator) Next() bool {
 	if it.done {
 		select {
 		case log := <-it.logs:
-			it.Event = new(DHCApproval)
+			it.Event = new(ContractApproval)
 			if err := it.contract.UnpackLog(it.Event, it.event, log); err != nil {
 				it.fail = err
 				return false
@@ -743,7 +726,7 @@ func (it *DHCApprovalIterator) Next() bool {
 	// Iterator still in progress, wait for either a data or an error event
 	select {
 	case log := <-it.logs:
-		it.Event = new(DHCApproval)
+		it.Event = new(ContractApproval)
 		if err := it.contract.UnpackLog(it.Event, it.event, log); err != nil {
 			it.fail = err
 			return false
@@ -759,19 +742,19 @@ func (it *DHCApprovalIterator) Next() bool {
 }
 
 // Error returns any retrieval or parsing error occurred during filtering.
-func (it *DHCApprovalIterator) Error() error {
+func (it *ContractApprovalIterator) Error() error {
 	return it.fail
 }
 
 // Close terminates the iteration process, releasing any pending underlying
 // resources.
-func (it *DHCApprovalIterator) Close() error {
+func (it *ContractApprovalIterator) Close() error {
 	it.sub.Unsubscribe()
 	return nil
 }
 
-// DHCApproval represents a Approval event raised by the DHC contract.
-type DHCApproval struct {
+// ContractApproval represents a Approval event raised by the Contract contract.
+type ContractApproval struct {
 	Owner   common.Address
 	Spender common.Address
 	Value   *big.Int
@@ -781,7 +764,7 @@ type DHCApproval struct {
 // FilterApproval is a free log retrieval operation binding the contract event 0x8c5be1e5ebec7d5bd14f71427d1e84f3dd0314c0f7b2291e5b200ac8c7c3b925.
 //
 // Solidity: event Approval(address indexed owner, address indexed spender, uint256 value)
-func (_DHC *DHCFilterer) FilterApproval(opts *bind.FilterOpts, owner []common.Address, spender []common.Address) (*DHCApprovalIterator, error) {
+func (_Contract *ContractFilterer) FilterApproval(opts *bind.FilterOpts, owner []common.Address, spender []common.Address) (*ContractApprovalIterator, error) {
 
 	var ownerRule []interface{}
 	for _, ownerItem := range owner {
@@ -792,17 +775,17 @@ func (_DHC *DHCFilterer) FilterApproval(opts *bind.FilterOpts, owner []common.Ad
 		spenderRule = append(spenderRule, spenderItem)
 	}
 
-	logs, sub, err := _DHC.contract.FilterLogs(opts, "Approval", ownerRule, spenderRule)
+	logs, sub, err := _Contract.contract.FilterLogs(opts, "Approval", ownerRule, spenderRule)
 	if err != nil {
 		return nil, err
 	}
-	return &DHCApprovalIterator{contract: _DHC.contract, event: "Approval", logs: logs, sub: sub}, nil
+	return &ContractApprovalIterator{contract: _Contract.contract, event: "Approval", logs: logs, sub: sub}, nil
 }
 
 // WatchApproval is a free log subscription operation binding the contract event 0x8c5be1e5ebec7d5bd14f71427d1e84f3dd0314c0f7b2291e5b200ac8c7c3b925.
 //
 // Solidity: event Approval(address indexed owner, address indexed spender, uint256 value)
-func (_DHC *DHCFilterer) WatchApproval(opts *bind.WatchOpts, sink chan<- *DHCApproval, owner []common.Address, spender []common.Address) (event.Subscription, error) {
+func (_Contract *ContractFilterer) WatchApproval(opts *bind.WatchOpts, sink chan<- *ContractApproval, owner []common.Address, spender []common.Address) (event.Subscription, error) {
 
 	var ownerRule []interface{}
 	for _, ownerItem := range owner {
@@ -813,7 +796,7 @@ func (_DHC *DHCFilterer) WatchApproval(opts *bind.WatchOpts, sink chan<- *DHCApp
 		spenderRule = append(spenderRule, spenderItem)
 	}
 
-	logs, sub, err := _DHC.contract.WatchLogs(opts, "Approval", ownerRule, spenderRule)
+	logs, sub, err := _Contract.contract.WatchLogs(opts, "Approval", ownerRule, spenderRule)
 	if err != nil {
 		return nil, err
 	}
@@ -823,8 +806,8 @@ func (_DHC *DHCFilterer) WatchApproval(opts *bind.WatchOpts, sink chan<- *DHCApp
 			select {
 			case log := <-logs:
 				// New log arrived, parse the event and forward to the user
-				event := new(DHCApproval)
-				if err := _DHC.contract.UnpackLog(event, "Approval", log); err != nil {
+				event := new(ContractApproval)
+				if err := _Contract.contract.UnpackLog(event, "Approval", log); err != nil {
 					return err
 				}
 				event.Raw = log
@@ -848,17 +831,17 @@ func (_DHC *DHCFilterer) WatchApproval(opts *bind.WatchOpts, sink chan<- *DHCApp
 // ParseApproval is a log parse operation binding the contract event 0x8c5be1e5ebec7d5bd14f71427d1e84f3dd0314c0f7b2291e5b200ac8c7c3b925.
 //
 // Solidity: event Approval(address indexed owner, address indexed spender, uint256 value)
-func (_DHC *DHCFilterer) ParseApproval(log types.Log) (*DHCApproval, error) {
-	event := new(DHCApproval)
-	if err := _DHC.contract.UnpackLog(event, "Approval", log); err != nil {
+func (_Contract *ContractFilterer) ParseApproval(log types.Log) (*ContractApproval, error) {
+	event := new(ContractApproval)
+	if err := _Contract.contract.UnpackLog(event, "Approval", log); err != nil {
 		return nil, err
 	}
 	return event, nil
 }
 
-// DHCMinterAddedIterator is returned from FilterMinterAdded and is used to iterate over the raw logs and unpacked data for MinterAdded events raised by the DHC contract.
-type DHCMinterAddedIterator struct {
-	Event *DHCMinterAdded // Event containing the contract specifics and raw log
+// ContractOwnershipTransferredIterator is returned from FilterOwnershipTransferred and is used to iterate over the raw logs and unpacked data for OwnershipTransferred events raised by the Contract contract.
+type ContractOwnershipTransferredIterator struct {
+	Event *ContractOwnershipTransferred // Event containing the contract specifics and raw log
 
 	contract *bind.BoundContract // Generic contract to use for unpacking event data
 	event    string              // Event name to use for unpacking event data
@@ -872,7 +855,7 @@ type DHCMinterAddedIterator struct {
 // Next advances the iterator to the subsequent event, returning whether there
 // are any more events found. In case of a retrieval or parsing error, false is
 // returned and Error() can be queried for the exact failure.
-func (it *DHCMinterAddedIterator) Next() bool {
+func (it *ContractOwnershipTransferredIterator) Next() bool {
 	// If the iterator failed, stop iterating
 	if it.fail != nil {
 		return false
@@ -881,7 +864,7 @@ func (it *DHCMinterAddedIterator) Next() bool {
 	if it.done {
 		select {
 		case log := <-it.logs:
-			it.Event = new(DHCMinterAdded)
+			it.Event = new(ContractOwnershipTransferred)
 			if err := it.contract.UnpackLog(it.Event, it.event, log); err != nil {
 				it.fail = err
 				return false
@@ -896,7 +879,7 @@ func (it *DHCMinterAddedIterator) Next() bool {
 	// Iterator still in progress, wait for either a data or an error event
 	select {
 	case log := <-it.logs:
-		it.Event = new(DHCMinterAdded)
+		it.Event = new(ContractOwnershipTransferred)
 		if err := it.contract.UnpackLog(it.Event, it.event, log); err != nil {
 			it.fail = err
 			return false
@@ -912,51 +895,60 @@ func (it *DHCMinterAddedIterator) Next() bool {
 }
 
 // Error returns any retrieval or parsing error occurred during filtering.
-func (it *DHCMinterAddedIterator) Error() error {
+func (it *ContractOwnershipTransferredIterator) Error() error {
 	return it.fail
 }
 
 // Close terminates the iteration process, releasing any pending underlying
 // resources.
-func (it *DHCMinterAddedIterator) Close() error {
+func (it *ContractOwnershipTransferredIterator) Close() error {
 	it.sub.Unsubscribe()
 	return nil
 }
 
-// DHCMinterAdded represents a MinterAdded event raised by the DHC contract.
-type DHCMinterAdded struct {
-	Account common.Address
-	Raw     types.Log // Blockchain specific contextual infos
+// ContractOwnershipTransferred represents a OwnershipTransferred event raised by the Contract contract.
+type ContractOwnershipTransferred struct {
+	PreviousOwner common.Address
+	NewOwner      common.Address
+	Raw           types.Log // Blockchain specific contextual infos
 }
 
-// FilterMinterAdded is a free log retrieval operation binding the contract event 0x6ae172837ea30b801fbfcdd4108aa1d5bf8ff775444fd70256b44e6bf3dfc3f6.
+// FilterOwnershipTransferred is a free log retrieval operation binding the contract event 0x8be0079c531659141344cd1fd0a4f28419497f9722a3daafe3b4186f6b6457e0.
 //
-// Solidity: event MinterAdded(address indexed account)
-func (_DHC *DHCFilterer) FilterMinterAdded(opts *bind.FilterOpts, account []common.Address) (*DHCMinterAddedIterator, error) {
+// Solidity: event OwnershipTransferred(address indexed previousOwner, address indexed newOwner)
+func (_Contract *ContractFilterer) FilterOwnershipTransferred(opts *bind.FilterOpts, previousOwner []common.Address, newOwner []common.Address) (*ContractOwnershipTransferredIterator, error) {
 
-	var accountRule []interface{}
-	for _, accountItem := range account {
-		accountRule = append(accountRule, accountItem)
+	var previousOwnerRule []interface{}
+	for _, previousOwnerItem := range previousOwner {
+		previousOwnerRule = append(previousOwnerRule, previousOwnerItem)
+	}
+	var newOwnerRule []interface{}
+	for _, newOwnerItem := range newOwner {
+		newOwnerRule = append(newOwnerRule, newOwnerItem)
 	}
 
-	logs, sub, err := _DHC.contract.FilterLogs(opts, "MinterAdded", accountRule)
+	logs, sub, err := _Contract.contract.FilterLogs(opts, "OwnershipTransferred", previousOwnerRule, newOwnerRule)
 	if err != nil {
 		return nil, err
 	}
-	return &DHCMinterAddedIterator{contract: _DHC.contract, event: "MinterAdded", logs: logs, sub: sub}, nil
+	return &ContractOwnershipTransferredIterator{contract: _Contract.contract, event: "OwnershipTransferred", logs: logs, sub: sub}, nil
 }
 
-// WatchMinterAdded is a free log subscription operation binding the contract event 0x6ae172837ea30b801fbfcdd4108aa1d5bf8ff775444fd70256b44e6bf3dfc3f6.
+// WatchOwnershipTransferred is a free log subscription operation binding the contract event 0x8be0079c531659141344cd1fd0a4f28419497f9722a3daafe3b4186f6b6457e0.
 //
-// Solidity: event MinterAdded(address indexed account)
-func (_DHC *DHCFilterer) WatchMinterAdded(opts *bind.WatchOpts, sink chan<- *DHCMinterAdded, account []common.Address) (event.Subscription, error) {
+// Solidity: event OwnershipTransferred(address indexed previousOwner, address indexed newOwner)
+func (_Contract *ContractFilterer) WatchOwnershipTransferred(opts *bind.WatchOpts, sink chan<- *ContractOwnershipTransferred, previousOwner []common.Address, newOwner []common.Address) (event.Subscription, error) {
 
-	var accountRule []interface{}
-	for _, accountItem := range account {
-		accountRule = append(accountRule, accountItem)
+	var previousOwnerRule []interface{}
+	for _, previousOwnerItem := range previousOwner {
+		previousOwnerRule = append(previousOwnerRule, previousOwnerItem)
+	}
+	var newOwnerRule []interface{}
+	for _, newOwnerItem := range newOwner {
+		newOwnerRule = append(newOwnerRule, newOwnerItem)
 	}
 
-	logs, sub, err := _DHC.contract.WatchLogs(opts, "MinterAdded", accountRule)
+	logs, sub, err := _Contract.contract.WatchLogs(opts, "OwnershipTransferred", previousOwnerRule, newOwnerRule)
 	if err != nil {
 		return nil, err
 	}
@@ -966,8 +958,8 @@ func (_DHC *DHCFilterer) WatchMinterAdded(opts *bind.WatchOpts, sink chan<- *DHC
 			select {
 			case log := <-logs:
 				// New log arrived, parse the event and forward to the user
-				event := new(DHCMinterAdded)
-				if err := _DHC.contract.UnpackLog(event, "MinterAdded", log); err != nil {
+				event := new(ContractOwnershipTransferred)
+				if err := _Contract.contract.UnpackLog(event, "OwnershipTransferred", log); err != nil {
 					return err
 				}
 				event.Raw = log
@@ -988,20 +980,20 @@ func (_DHC *DHCFilterer) WatchMinterAdded(opts *bind.WatchOpts, sink chan<- *DHC
 	}), nil
 }
 
-// ParseMinterAdded is a log parse operation binding the contract event 0x6ae172837ea30b801fbfcdd4108aa1d5bf8ff775444fd70256b44e6bf3dfc3f6.
+// ParseOwnershipTransferred is a log parse operation binding the contract event 0x8be0079c531659141344cd1fd0a4f28419497f9722a3daafe3b4186f6b6457e0.
 //
-// Solidity: event MinterAdded(address indexed account)
-func (_DHC *DHCFilterer) ParseMinterAdded(log types.Log) (*DHCMinterAdded, error) {
-	event := new(DHCMinterAdded)
-	if err := _DHC.contract.UnpackLog(event, "MinterAdded", log); err != nil {
+// Solidity: event OwnershipTransferred(address indexed previousOwner, address indexed newOwner)
+func (_Contract *ContractFilterer) ParseOwnershipTransferred(log types.Log) (*ContractOwnershipTransferred, error) {
+	event := new(ContractOwnershipTransferred)
+	if err := _Contract.contract.UnpackLog(event, "OwnershipTransferred", log); err != nil {
 		return nil, err
 	}
 	return event, nil
 }
 
-// DHCMinterRemovedIterator is returned from FilterMinterRemoved and is used to iterate over the raw logs and unpacked data for MinterRemoved events raised by the DHC contract.
-type DHCMinterRemovedIterator struct {
-	Event *DHCMinterRemoved // Event containing the contract specifics and raw log
+// ContractPrimaryTransferredIterator is returned from FilterPrimaryTransferred and is used to iterate over the raw logs and unpacked data for PrimaryTransferred events raised by the Contract contract.
+type ContractPrimaryTransferredIterator struct {
+	Event *ContractPrimaryTransferred // Event containing the contract specifics and raw log
 
 	contract *bind.BoundContract // Generic contract to use for unpacking event data
 	event    string              // Event name to use for unpacking event data
@@ -1015,7 +1007,7 @@ type DHCMinterRemovedIterator struct {
 // Next advances the iterator to the subsequent event, returning whether there
 // are any more events found. In case of a retrieval or parsing error, false is
 // returned and Error() can be queried for the exact failure.
-func (it *DHCMinterRemovedIterator) Next() bool {
+func (it *ContractPrimaryTransferredIterator) Next() bool {
 	// If the iterator failed, stop iterating
 	if it.fail != nil {
 		return false
@@ -1024,7 +1016,7 @@ func (it *DHCMinterRemovedIterator) Next() bool {
 	if it.done {
 		select {
 		case log := <-it.logs:
-			it.Event = new(DHCMinterRemoved)
+			it.Event = new(ContractPrimaryTransferred)
 			if err := it.contract.UnpackLog(it.Event, it.event, log); err != nil {
 				it.fail = err
 				return false
@@ -1039,7 +1031,7 @@ func (it *DHCMinterRemovedIterator) Next() bool {
 	// Iterator still in progress, wait for either a data or an error event
 	select {
 	case log := <-it.logs:
-		it.Event = new(DHCMinterRemoved)
+		it.Event = new(ContractPrimaryTransferred)
 		if err := it.contract.UnpackLog(it.Event, it.event, log); err != nil {
 			it.fail = err
 			return false
@@ -1055,51 +1047,41 @@ func (it *DHCMinterRemovedIterator) Next() bool {
 }
 
 // Error returns any retrieval or parsing error occurred during filtering.
-func (it *DHCMinterRemovedIterator) Error() error {
+func (it *ContractPrimaryTransferredIterator) Error() error {
 	return it.fail
 }
 
 // Close terminates the iteration process, releasing any pending underlying
 // resources.
-func (it *DHCMinterRemovedIterator) Close() error {
+func (it *ContractPrimaryTransferredIterator) Close() error {
 	it.sub.Unsubscribe()
 	return nil
 }
 
-// DHCMinterRemoved represents a MinterRemoved event raised by the DHC contract.
-type DHCMinterRemoved struct {
-	Account common.Address
-	Raw     types.Log // Blockchain specific contextual infos
+// ContractPrimaryTransferred represents a PrimaryTransferred event raised by the Contract contract.
+type ContractPrimaryTransferred struct {
+	Recipient common.Address
+	Raw       types.Log // Blockchain specific contextual infos
 }
 
-// FilterMinterRemoved is a free log retrieval operation binding the contract event 0xe94479a9f7e1952cc78f2d6baab678adc1b772d936c6583def489e524cb66692.
+// FilterPrimaryTransferred is a free log retrieval operation binding the contract event 0x4101e71e974f68df5e9730cc223280b41654676bbb052cdcc735c3337e64d2d9.
 //
-// Solidity: event MinterRemoved(address indexed account)
-func (_DHC *DHCFilterer) FilterMinterRemoved(opts *bind.FilterOpts, account []common.Address) (*DHCMinterRemovedIterator, error) {
+// Solidity: event PrimaryTransferred(address recipient)
+func (_Contract *ContractFilterer) FilterPrimaryTransferred(opts *bind.FilterOpts) (*ContractPrimaryTransferredIterator, error) {
 
-	var accountRule []interface{}
-	for _, accountItem := range account {
-		accountRule = append(accountRule, accountItem)
-	}
-
-	logs, sub, err := _DHC.contract.FilterLogs(opts, "MinterRemoved", accountRule)
+	logs, sub, err := _Contract.contract.FilterLogs(opts, "PrimaryTransferred")
 	if err != nil {
 		return nil, err
 	}
-	return &DHCMinterRemovedIterator{contract: _DHC.contract, event: "MinterRemoved", logs: logs, sub: sub}, nil
+	return &ContractPrimaryTransferredIterator{contract: _Contract.contract, event: "PrimaryTransferred", logs: logs, sub: sub}, nil
 }
 
-// WatchMinterRemoved is a free log subscription operation binding the contract event 0xe94479a9f7e1952cc78f2d6baab678adc1b772d936c6583def489e524cb66692.
+// WatchPrimaryTransferred is a free log subscription operation binding the contract event 0x4101e71e974f68df5e9730cc223280b41654676bbb052cdcc735c3337e64d2d9.
 //
-// Solidity: event MinterRemoved(address indexed account)
-func (_DHC *DHCFilterer) WatchMinterRemoved(opts *bind.WatchOpts, sink chan<- *DHCMinterRemoved, account []common.Address) (event.Subscription, error) {
+// Solidity: event PrimaryTransferred(address recipient)
+func (_Contract *ContractFilterer) WatchPrimaryTransferred(opts *bind.WatchOpts, sink chan<- *ContractPrimaryTransferred) (event.Subscription, error) {
 
-	var accountRule []interface{}
-	for _, accountItem := range account {
-		accountRule = append(accountRule, accountItem)
-	}
-
-	logs, sub, err := _DHC.contract.WatchLogs(opts, "MinterRemoved", accountRule)
+	logs, sub, err := _Contract.contract.WatchLogs(opts, "PrimaryTransferred")
 	if err != nil {
 		return nil, err
 	}
@@ -1109,8 +1091,8 @@ func (_DHC *DHCFilterer) WatchMinterRemoved(opts *bind.WatchOpts, sink chan<- *D
 			select {
 			case log := <-logs:
 				// New log arrived, parse the event and forward to the user
-				event := new(DHCMinterRemoved)
-				if err := _DHC.contract.UnpackLog(event, "MinterRemoved", log); err != nil {
+				event := new(ContractPrimaryTransferred)
+				if err := _Contract.contract.UnpackLog(event, "PrimaryTransferred", log); err != nil {
 					return err
 				}
 				event.Raw = log
@@ -1131,20 +1113,20 @@ func (_DHC *DHCFilterer) WatchMinterRemoved(opts *bind.WatchOpts, sink chan<- *D
 	}), nil
 }
 
-// ParseMinterRemoved is a log parse operation binding the contract event 0xe94479a9f7e1952cc78f2d6baab678adc1b772d936c6583def489e524cb66692.
+// ParsePrimaryTransferred is a log parse operation binding the contract event 0x4101e71e974f68df5e9730cc223280b41654676bbb052cdcc735c3337e64d2d9.
 //
-// Solidity: event MinterRemoved(address indexed account)
-func (_DHC *DHCFilterer) ParseMinterRemoved(log types.Log) (*DHCMinterRemoved, error) {
-	event := new(DHCMinterRemoved)
-	if err := _DHC.contract.UnpackLog(event, "MinterRemoved", log); err != nil {
+// Solidity: event PrimaryTransferred(address recipient)
+func (_Contract *ContractFilterer) ParsePrimaryTransferred(log types.Log) (*ContractPrimaryTransferred, error) {
+	event := new(ContractPrimaryTransferred)
+	if err := _Contract.contract.UnpackLog(event, "PrimaryTransferred", log); err != nil {
 		return nil, err
 	}
 	return event, nil
 }
 
-// DHCTransferIterator is returned from FilterTransfer and is used to iterate over the raw logs and unpacked data for Transfer events raised by the DHC contract.
-type DHCTransferIterator struct {
-	Event *DHCTransfer // Event containing the contract specifics and raw log
+// ContractTransferIterator is returned from FilterTransfer and is used to iterate over the raw logs and unpacked data for Transfer events raised by the Contract contract.
+type ContractTransferIterator struct {
+	Event *ContractTransfer // Event containing the contract specifics and raw log
 
 	contract *bind.BoundContract // Generic contract to use for unpacking event data
 	event    string              // Event name to use for unpacking event data
@@ -1158,7 +1140,7 @@ type DHCTransferIterator struct {
 // Next advances the iterator to the subsequent event, returning whether there
 // are any more events found. In case of a retrieval or parsing error, false is
 // returned and Error() can be queried for the exact failure.
-func (it *DHCTransferIterator) Next() bool {
+func (it *ContractTransferIterator) Next() bool {
 	// If the iterator failed, stop iterating
 	if it.fail != nil {
 		return false
@@ -1167,7 +1149,7 @@ func (it *DHCTransferIterator) Next() bool {
 	if it.done {
 		select {
 		case log := <-it.logs:
-			it.Event = new(DHCTransfer)
+			it.Event = new(ContractTransfer)
 			if err := it.contract.UnpackLog(it.Event, it.event, log); err != nil {
 				it.fail = err
 				return false
@@ -1182,7 +1164,7 @@ func (it *DHCTransferIterator) Next() bool {
 	// Iterator still in progress, wait for either a data or an error event
 	select {
 	case log := <-it.logs:
-		it.Event = new(DHCTransfer)
+		it.Event = new(ContractTransfer)
 		if err := it.contract.UnpackLog(it.Event, it.event, log); err != nil {
 			it.fail = err
 			return false
@@ -1198,19 +1180,19 @@ func (it *DHCTransferIterator) Next() bool {
 }
 
 // Error returns any retrieval or parsing error occurred during filtering.
-func (it *DHCTransferIterator) Error() error {
+func (it *ContractTransferIterator) Error() error {
 	return it.fail
 }
 
 // Close terminates the iteration process, releasing any pending underlying
 // resources.
-func (it *DHCTransferIterator) Close() error {
+func (it *ContractTransferIterator) Close() error {
 	it.sub.Unsubscribe()
 	return nil
 }
 
-// DHCTransfer represents a Transfer event raised by the DHC contract.
-type DHCTransfer struct {
+// ContractTransfer represents a Transfer event raised by the Contract contract.
+type ContractTransfer struct {
 	From  common.Address
 	To    common.Address
 	Value *big.Int
@@ -1220,7 +1202,7 @@ type DHCTransfer struct {
 // FilterTransfer is a free log retrieval operation binding the contract event 0xddf252ad1be2c89b69c2b068fc378daa952ba7f163c4a11628f55a4df523b3ef.
 //
 // Solidity: event Transfer(address indexed from, address indexed to, uint256 value)
-func (_DHC *DHCFilterer) FilterTransfer(opts *bind.FilterOpts, from []common.Address, to []common.Address) (*DHCTransferIterator, error) {
+func (_Contract *ContractFilterer) FilterTransfer(opts *bind.FilterOpts, from []common.Address, to []common.Address) (*ContractTransferIterator, error) {
 
 	var fromRule []interface{}
 	for _, fromItem := range from {
@@ -1231,17 +1213,17 @@ func (_DHC *DHCFilterer) FilterTransfer(opts *bind.FilterOpts, from []common.Add
 		toRule = append(toRule, toItem)
 	}
 
-	logs, sub, err := _DHC.contract.FilterLogs(opts, "Transfer", fromRule, toRule)
+	logs, sub, err := _Contract.contract.FilterLogs(opts, "Transfer", fromRule, toRule)
 	if err != nil {
 		return nil, err
 	}
-	return &DHCTransferIterator{contract: _DHC.contract, event: "Transfer", logs: logs, sub: sub}, nil
+	return &ContractTransferIterator{contract: _Contract.contract, event: "Transfer", logs: logs, sub: sub}, nil
 }
 
 // WatchTransfer is a free log subscription operation binding the contract event 0xddf252ad1be2c89b69c2b068fc378daa952ba7f163c4a11628f55a4df523b3ef.
 //
 // Solidity: event Transfer(address indexed from, address indexed to, uint256 value)
-func (_DHC *DHCFilterer) WatchTransfer(opts *bind.WatchOpts, sink chan<- *DHCTransfer, from []common.Address, to []common.Address) (event.Subscription, error) {
+func (_Contract *ContractFilterer) WatchTransfer(opts *bind.WatchOpts, sink chan<- *ContractTransfer, from []common.Address, to []common.Address) (event.Subscription, error) {
 
 	var fromRule []interface{}
 	for _, fromItem := range from {
@@ -1252,7 +1234,7 @@ func (_DHC *DHCFilterer) WatchTransfer(opts *bind.WatchOpts, sink chan<- *DHCTra
 		toRule = append(toRule, toItem)
 	}
 
-	logs, sub, err := _DHC.contract.WatchLogs(opts, "Transfer", fromRule, toRule)
+	logs, sub, err := _Contract.contract.WatchLogs(opts, "Transfer", fromRule, toRule)
 	if err != nil {
 		return nil, err
 	}
@@ -1262,8 +1244,8 @@ func (_DHC *DHCFilterer) WatchTransfer(opts *bind.WatchOpts, sink chan<- *DHCTra
 			select {
 			case log := <-logs:
 				// New log arrived, parse the event and forward to the user
-				event := new(DHCTransfer)
-				if err := _DHC.contract.UnpackLog(event, "Transfer", log); err != nil {
+				event := new(ContractTransfer)
+				if err := _Contract.contract.UnpackLog(event, "Transfer", log); err != nil {
 					return err
 				}
 				event.Raw = log
@@ -1287,144 +1269,123 @@ func (_DHC *DHCFilterer) WatchTransfer(opts *bind.WatchOpts, sink chan<- *DHCTra
 // ParseTransfer is a log parse operation binding the contract event 0xddf252ad1be2c89b69c2b068fc378daa952ba7f163c4a11628f55a4df523b3ef.
 //
 // Solidity: event Transfer(address indexed from, address indexed to, uint256 value)
-func (_DHC *DHCFilterer) ParseTransfer(log types.Log) (*DHCTransfer, error) {
-	event := new(DHCTransfer)
-	if err := _DHC.contract.UnpackLog(event, "Transfer", log); err != nil {
+func (_Contract *ContractFilterer) ParseTransfer(log types.Log) (*ContractTransfer, error) {
+	event := new(ContractTransfer)
+	if err := _Contract.contract.UnpackLog(event, "Transfer", log); err != nil {
 		return nil, err
 	}
 	return event, nil
 }
 
-// ERC20ABI is the input ABI used to generate the binding from.
-const ERC20ABI = "[{\"anonymous\":false,\"inputs\":[{\"indexed\":true,\"internalType\":\"address\",\"name\":\"owner\",\"type\":\"address\"},{\"indexed\":true,\"internalType\":\"address\",\"name\":\"spender\",\"type\":\"address\"},{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"value\",\"type\":\"uint256\"}],\"name\":\"Approval\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":true,\"internalType\":\"address\",\"name\":\"from\",\"type\":\"address\"},{\"indexed\":true,\"internalType\":\"address\",\"name\":\"to\",\"type\":\"address\"},{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"value\",\"type\":\"uint256\"}],\"name\":\"Transfer\",\"type\":\"event\"},{\"constant\":true,\"inputs\":[{\"internalType\":\"address\",\"name\":\"owner\",\"type\":\"address\"},{\"internalType\":\"address\",\"name\":\"spender\",\"type\":\"address\"}],\"name\":\"allowance\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":false,\"inputs\":[{\"internalType\":\"address\",\"name\":\"spender\",\"type\":\"address\"},{\"internalType\":\"uint256\",\"name\":\"amount\",\"type\":\"uint256\"}],\"name\":\"approve\",\"outputs\":[{\"internalType\":\"bool\",\"name\":\"\",\"type\":\"bool\"}],\"payable\":false,\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[{\"internalType\":\"address\",\"name\":\"account\",\"type\":\"address\"}],\"name\":\"balanceOf\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":false,\"inputs\":[{\"internalType\":\"address\",\"name\":\"spender\",\"type\":\"address\"},{\"internalType\":\"uint256\",\"name\":\"subtractedValue\",\"type\":\"uint256\"}],\"name\":\"decreaseAllowance\",\"outputs\":[{\"internalType\":\"bool\",\"name\":\"\",\"type\":\"bool\"}],\"payable\":false,\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"constant\":false,\"inputs\":[{\"internalType\":\"address\",\"name\":\"spender\",\"type\":\"address\"},{\"internalType\":\"uint256\",\"name\":\"addedValue\",\"type\":\"uint256\"}],\"name\":\"increaseAllowance\",\"outputs\":[{\"internalType\":\"bool\",\"name\":\"\",\"type\":\"bool\"}],\"payable\":false,\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[],\"name\":\"totalSupply\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":false,\"inputs\":[{\"internalType\":\"address\",\"name\":\"recipient\",\"type\":\"address\"},{\"internalType\":\"uint256\",\"name\":\"amount\",\"type\":\"uint256\"}],\"name\":\"transfer\",\"outputs\":[{\"internalType\":\"bool\",\"name\":\"\",\"type\":\"bool\"}],\"payable\":false,\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"constant\":false,\"inputs\":[{\"internalType\":\"address\",\"name\":\"sender\",\"type\":\"address\"},{\"internalType\":\"address\",\"name\":\"recipient\",\"type\":\"address\"},{\"internalType\":\"uint256\",\"name\":\"amount\",\"type\":\"uint256\"}],\"name\":\"transferFrom\",\"outputs\":[{\"internalType\":\"bool\",\"name\":\"\",\"type\":\"bool\"}],\"payable\":false,\"stateMutability\":\"nonpayable\",\"type\":\"function\"}]"
+// OwnableABI is the input ABI used to generate the binding from.
+const OwnableABI = "[{\"inputs\":[],\"payable\":false,\"stateMutability\":\"nonpayable\",\"type\":\"constructor\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":true,\"internalType\":\"address\",\"name\":\"previousOwner\",\"type\":\"address\"},{\"indexed\":true,\"internalType\":\"address\",\"name\":\"newOwner\",\"type\":\"address\"}],\"name\":\"OwnershipTransferred\",\"type\":\"event\"},{\"constant\":true,\"inputs\":[],\"name\":\"isOwner\",\"outputs\":[{\"internalType\":\"bool\",\"name\":\"\",\"type\":\"bool\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[],\"name\":\"owner\",\"outputs\":[{\"internalType\":\"address\",\"name\":\"\",\"type\":\"address\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":false,\"inputs\":[],\"name\":\"renounceOwnership\",\"outputs\":[],\"payable\":false,\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"constant\":false,\"inputs\":[{\"internalType\":\"address\",\"name\":\"newOwner\",\"type\":\"address\"}],\"name\":\"transferOwnership\",\"outputs\":[],\"payable\":false,\"stateMutability\":\"nonpayable\",\"type\":\"function\"}]"
 
-// ERC20FuncSigs maps the 4-byte function signature to its string representation.
-var ERC20FuncSigs = map[string]string{
-	"dd62ed3e": "allowance(address,address)",
-	"095ea7b3": "approve(address,uint256)",
-	"70a08231": "balanceOf(address)",
-	"a457c2d7": "decreaseAllowance(address,uint256)",
-	"39509351": "increaseAllowance(address,uint256)",
-	"18160ddd": "totalSupply()",
-	"a9059cbb": "transfer(address,uint256)",
-	"23b872dd": "transferFrom(address,address,uint256)",
+// OwnableFuncSigs maps the 4-byte function signature to its string representation.
+var OwnableFuncSigs = map[string]string{
+	"8f32d59b": "isOwner()",
+	"8da5cb5b": "owner()",
+	"715018a6": "renounceOwnership()",
+	"f2fde38b": "transferOwnership(address)",
 }
 
-// ERC20Bin is the compiled bytecode used for deploying new contracts.
-var ERC20Bin = "0x608060405261083b806100136000396000f3fe608060405234801561001057600080fd5b50600436106100885760003560e01c806370a082311161005b57806370a0823114610149578063a457c2d71461016f578063a9059cbb1461019b578063dd62ed3e146101c757610088565b8063095ea7b31461008d57806318160ddd146100cd57806323b872dd146100e7578063395093511461011d575b600080fd5b6100b9600480360360408110156100a357600080fd5b506001600160a01b0381351690602001356101f5565b604080519115158252519081900360200190f35b6100d5610212565b60408051918252519081900360200190f35b6100b9600480360360608110156100fd57600080fd5b506001600160a01b03813581169160208101359091169060400135610218565b6100b96004803603604081101561013357600080fd5b506001600160a01b0381351690602001356102a5565b6100d56004803603602081101561015f57600080fd5b50356001600160a01b03166102f9565b6100b96004803603604081101561018557600080fd5b506001600160a01b038135169060200135610314565b6100b9600480360360408110156101b157600080fd5b506001600160a01b038135169060200135610382565b6100d5600480360360408110156101dd57600080fd5b506001600160a01b0381358116916020013516610396565b60006102096102026103c1565b84846103c5565b50600192915050565b60025490565b60006102258484846104b1565b61029b846102316103c1565b61029685604051806060016040528060288152602001610771602891396001600160a01b038a1660009081526001602052604081209061026f6103c1565b6001600160a01b03168152602081019190915260400160002054919063ffffffff61060d16565b6103c5565b5060019392505050565b60006102096102b26103c1565b8461029685600160006102c36103c1565b6001600160a01b03908116825260208083019390935260409182016000908120918c16815292529020549063ffffffff6106a416565b6001600160a01b031660009081526020819052604090205490565b60006102096103216103c1565b84610296856040518060600160405280602581526020016107e2602591396001600061034b6103c1565b6001600160a01b03908116825260208083019390935260409182016000908120918d1681529252902054919063ffffffff61060d16565b600061020961038f6103c1565b84846104b1565b6001600160a01b03918216600090815260016020908152604080832093909416825291909152205490565b3390565b6001600160a01b03831661040a5760405162461bcd60e51b81526004018080602001828103825260248152602001806107be6024913960400191505060405180910390fd5b6001600160a01b03821661044f5760405162461bcd60e51b81526004018080602001828103825260228152602001806107296022913960400191505060405180910390fd5b6001600160a01b03808416600081815260016020908152604080832094871680845294825291829020859055815185815291517f8c5be1e5ebec7d5bd14f71427d1e84f3dd0314c0f7b2291e5b200ac8c7c3b9259281900390910190a3505050565b6001600160a01b0383166104f65760405162461bcd60e51b81526004018080602001828103825260258152602001806107996025913960400191505060405180910390fd5b6001600160a01b03821661053b5760405162461bcd60e51b81526004018080602001828103825260238152602001806107066023913960400191505060405180910390fd5b61057e8160405180606001604052806026815260200161074b602691396001600160a01b038616600090815260208190526040902054919063ffffffff61060d16565b6001600160a01b0380851660009081526020819052604080822093909355908416815220546105b3908263ffffffff6106a416565b6001600160a01b038084166000818152602081815260409182902094909455805185815290519193928716927fddf252ad1be2c89b69c2b068fc378daa952ba7f163c4a11628f55a4df523b3ef92918290030190a3505050565b6000818484111561069c5760405162461bcd60e51b81526004018080602001828103825283818151815260200191508051906020019080838360005b83811015610661578181015183820152602001610649565b50505050905090810190601f16801561068e5780820380516001836020036101000a031916815260200191505b509250505060405180910390fd5b505050900390565b6000828201838110156106fe576040805162461bcd60e51b815260206004820152601b60248201527f536166654d6174683a206164646974696f6e206f766572666c6f770000000000604482015290519081900360640190fd5b939250505056fe45524332303a207472616e7366657220746f20746865207a65726f206164647265737345524332303a20617070726f766520746f20746865207a65726f206164647265737345524332303a207472616e7366657220616d6f756e7420657863656564732062616c616e636545524332303a207472616e7366657220616d6f756e74206578636565647320616c6c6f77616e636545524332303a207472616e736665722066726f6d20746865207a65726f206164647265737345524332303a20617070726f76652066726f6d20746865207a65726f206164647265737345524332303a2064656372656173656420616c6c6f77616e63652062656c6f77207a65726fa265627a7a7231582034a3b49eb7ccecd7661b34ce4482ee0625069c5e2a8bcd5fe45222fc72f188d364736f6c634300050c0032"
-
-// DeployERC20 deploys a new Ethereum contract, binding an instance of ERC20 to it.
-func DeployERC20(auth *bind.TransactOpts, backend bind.ContractBackend) (common.Address, *types.Transaction, *ERC20, error) {
-	parsed, err := abi.JSON(strings.NewReader(ERC20ABI))
-	if err != nil {
-		return common.Address{}, nil, nil, err
-	}
-
-	address, tx, contract, err := bind.DeployContract(auth, parsed, common.FromHex(ERC20Bin), backend)
-	if err != nil {
-		return common.Address{}, nil, nil, err
-	}
-	return address, tx, &ERC20{ERC20Caller: ERC20Caller{contract: contract}, ERC20Transactor: ERC20Transactor{contract: contract}, ERC20Filterer: ERC20Filterer{contract: contract}}, nil
+// Ownable is an auto generated Go binding around an Ethereum contract.
+type Ownable struct {
+	OwnableCaller     // Read-only binding to the contract
+	OwnableTransactor // Write-only binding to the contract
+	OwnableFilterer   // Log filterer for contract events
 }
 
-// ERC20 is an auto generated Go binding around an Ethereum contract.
-type ERC20 struct {
-	ERC20Caller     // Read-only binding to the contract
-	ERC20Transactor // Write-only binding to the contract
-	ERC20Filterer   // Log filterer for contract events
-}
-
-// ERC20Caller is an auto generated read-only Go binding around an Ethereum contract.
-type ERC20Caller struct {
+// OwnableCaller is an auto generated read-only Go binding around an Ethereum contract.
+type OwnableCaller struct {
 	contract *bind.BoundContract // Generic contract wrapper for the low level calls
 }
 
-// ERC20Transactor is an auto generated write-only Go binding around an Ethereum contract.
-type ERC20Transactor struct {
+// OwnableTransactor is an auto generated write-only Go binding around an Ethereum contract.
+type OwnableTransactor struct {
 	contract *bind.BoundContract // Generic contract wrapper for the low level calls
 }
 
-// ERC20Filterer is an auto generated log filtering Go binding around an Ethereum contract events.
-type ERC20Filterer struct {
+// OwnableFilterer is an auto generated log filtering Go binding around an Ethereum contract events.
+type OwnableFilterer struct {
 	contract *bind.BoundContract // Generic contract wrapper for the low level calls
 }
 
-// ERC20Session is an auto generated Go binding around an Ethereum contract,
+// OwnableSession is an auto generated Go binding around an Ethereum contract,
 // with pre-set call and transact options.
-type ERC20Session struct {
-	Contract     *ERC20            // Generic contract binding to set the session for
+type OwnableSession struct {
+	Contract     *Ownable          // Generic contract binding to set the session for
 	CallOpts     bind.CallOpts     // Call options to use throughout this session
 	TransactOpts bind.TransactOpts // Transaction auth options to use throughout this session
 }
 
-// ERC20CallerSession is an auto generated read-only Go binding around an Ethereum contract,
+// OwnableCallerSession is an auto generated read-only Go binding around an Ethereum contract,
 // with pre-set call options.
-type ERC20CallerSession struct {
-	Contract *ERC20Caller  // Generic contract caller binding to set the session for
-	CallOpts bind.CallOpts // Call options to use throughout this session
+type OwnableCallerSession struct {
+	Contract *OwnableCaller // Generic contract caller binding to set the session for
+	CallOpts bind.CallOpts  // Call options to use throughout this session
 }
 
-// ERC20TransactorSession is an auto generated write-only Go binding around an Ethereum contract,
+// OwnableTransactorSession is an auto generated write-only Go binding around an Ethereum contract,
 // with pre-set transact options.
-type ERC20TransactorSession struct {
-	Contract     *ERC20Transactor  // Generic contract transactor binding to set the session for
-	TransactOpts bind.TransactOpts // Transaction auth options to use throughout this session
+type OwnableTransactorSession struct {
+	Contract     *OwnableTransactor // Generic contract transactor binding to set the session for
+	TransactOpts bind.TransactOpts  // Transaction auth options to use throughout this session
 }
 
-// ERC20Raw is an auto generated low-level Go binding around an Ethereum contract.
-type ERC20Raw struct {
-	Contract *ERC20 // Generic contract binding to access the raw methods on
+// OwnableRaw is an auto generated low-level Go binding around an Ethereum contract.
+type OwnableRaw struct {
+	Contract *Ownable // Generic contract binding to access the raw methods on
 }
 
-// ERC20CallerRaw is an auto generated low-level read-only Go binding around an Ethereum contract.
-type ERC20CallerRaw struct {
-	Contract *ERC20Caller // Generic read-only contract binding to access the raw methods on
+// OwnableCallerRaw is an auto generated low-level read-only Go binding around an Ethereum contract.
+type OwnableCallerRaw struct {
+	Contract *OwnableCaller // Generic read-only contract binding to access the raw methods on
 }
 
-// ERC20TransactorRaw is an auto generated low-level write-only Go binding around an Ethereum contract.
-type ERC20TransactorRaw struct {
-	Contract *ERC20Transactor // Generic write-only contract binding to access the raw methods on
+// OwnableTransactorRaw is an auto generated low-level write-only Go binding around an Ethereum contract.
+type OwnableTransactorRaw struct {
+	Contract *OwnableTransactor // Generic write-only contract binding to access the raw methods on
 }
 
-// NewERC20 creates a new instance of ERC20, bound to a specific deployed contract.
-func NewERC20(address common.Address, backend bind.ContractBackend) (*ERC20, error) {
-	contract, err := bindERC20(address, backend, backend, backend)
+// NewOwnable creates a new instance of Ownable, bound to a specific deployed contract.
+func NewOwnable(address common.Address, backend bind.ContractBackend) (*Ownable, error) {
+	contract, err := bindOwnable(address, backend, backend, backend)
 	if err != nil {
 		return nil, err
 	}
-	return &ERC20{ERC20Caller: ERC20Caller{contract: contract}, ERC20Transactor: ERC20Transactor{contract: contract}, ERC20Filterer: ERC20Filterer{contract: contract}}, nil
+	return &Ownable{OwnableCaller: OwnableCaller{contract: contract}, OwnableTransactor: OwnableTransactor{contract: contract}, OwnableFilterer: OwnableFilterer{contract: contract}}, nil
 }
 
-// NewERC20Caller creates a new read-only instance of ERC20, bound to a specific deployed contract.
-func NewERC20Caller(address common.Address, caller bind.ContractCaller) (*ERC20Caller, error) {
-	contract, err := bindERC20(address, caller, nil, nil)
+// NewOwnableCaller creates a new read-only instance of Ownable, bound to a specific deployed contract.
+func NewOwnableCaller(address common.Address, caller bind.ContractCaller) (*OwnableCaller, error) {
+	contract, err := bindOwnable(address, caller, nil, nil)
 	if err != nil {
 		return nil, err
 	}
-	return &ERC20Caller{contract: contract}, nil
+	return &OwnableCaller{contract: contract}, nil
 }
 
-// NewERC20Transactor creates a new write-only instance of ERC20, bound to a specific deployed contract.
-func NewERC20Transactor(address common.Address, transactor bind.ContractTransactor) (*ERC20Transactor, error) {
-	contract, err := bindERC20(address, nil, transactor, nil)
+// NewOwnableTransactor creates a new write-only instance of Ownable, bound to a specific deployed contract.
+func NewOwnableTransactor(address common.Address, transactor bind.ContractTransactor) (*OwnableTransactor, error) {
+	contract, err := bindOwnable(address, nil, transactor, nil)
 	if err != nil {
 		return nil, err
 	}
-	return &ERC20Transactor{contract: contract}, nil
+	return &OwnableTransactor{contract: contract}, nil
 }
 
-// NewERC20Filterer creates a new log filterer instance of ERC20, bound to a specific deployed contract.
-func NewERC20Filterer(address common.Address, filterer bind.ContractFilterer) (*ERC20Filterer, error) {
-	contract, err := bindERC20(address, nil, nil, filterer)
+// NewOwnableFilterer creates a new log filterer instance of Ownable, bound to a specific deployed contract.
+func NewOwnableFilterer(address common.Address, filterer bind.ContractFilterer) (*OwnableFilterer, error) {
+	contract, err := bindOwnable(address, nil, nil, filterer)
 	if err != nil {
 		return nil, err
 	}
-	return &ERC20Filterer{contract: contract}, nil
+	return &OwnableFilterer{contract: contract}, nil
 }
 
-// bindERC20 binds a generic wrapper to an already deployed contract.
-func bindERC20(address common.Address, caller bind.ContractCaller, transactor bind.ContractTransactor, filterer bind.ContractFilterer) (*bind.BoundContract, error) {
-	parsed, err := abi.JSON(strings.NewReader(ERC20ABI))
+// bindOwnable binds a generic wrapper to an already deployed contract.
+func bindOwnable(address common.Address, caller bind.ContractCaller, transactor bind.ContractTransactor, filterer bind.ContractFilterer) (*bind.BoundContract, error) {
+	parsed, err := abi.JSON(strings.NewReader(OwnableABI))
 	if err != nil {
 		return nil, err
 	}
@@ -1435,1665 +1396,137 @@ func bindERC20(address common.Address, caller bind.ContractCaller, transactor bi
 // sets the output to result. The result type might be a single field for simple
 // returns, a slice of interfaces for anonymous returns and a struct for named
 // returns.
-func (_ERC20 *ERC20Raw) Call(opts *bind.CallOpts, result interface{}, method string, params ...interface{}) error {
-	return _ERC20.Contract.ERC20Caller.contract.Call(opts, result, method, params...)
+func (_Ownable *OwnableRaw) Call(opts *bind.CallOpts, result interface{}, method string, params ...interface{}) error {
+	return _Ownable.Contract.OwnableCaller.contract.Call(opts, result, method, params...)
 }
 
 // Transfer initiates a plain transaction to move funds to the contract, calling
 // its default method if one is available.
-func (_ERC20 *ERC20Raw) Transfer(opts *bind.TransactOpts) (*types.Transaction, error) {
-	return _ERC20.Contract.ERC20Transactor.contract.Transfer(opts)
+func (_Ownable *OwnableRaw) Transfer(opts *bind.TransactOpts) (*types.Transaction, error) {
+	return _Ownable.Contract.OwnableTransactor.contract.Transfer(opts)
 }
 
 // Transact invokes the (paid) contract method with params as input values.
-func (_ERC20 *ERC20Raw) Transact(opts *bind.TransactOpts, method string, params ...interface{}) (*types.Transaction, error) {
-	return _ERC20.Contract.ERC20Transactor.contract.Transact(opts, method, params...)
+func (_Ownable *OwnableRaw) Transact(opts *bind.TransactOpts, method string, params ...interface{}) (*types.Transaction, error) {
+	return _Ownable.Contract.OwnableTransactor.contract.Transact(opts, method, params...)
 }
 
 // Call invokes the (constant) contract method with params as input values and
 // sets the output to result. The result type might be a single field for simple
 // returns, a slice of interfaces for anonymous returns and a struct for named
 // returns.
-func (_ERC20 *ERC20CallerRaw) Call(opts *bind.CallOpts, result interface{}, method string, params ...interface{}) error {
-	return _ERC20.Contract.contract.Call(opts, result, method, params...)
+func (_Ownable *OwnableCallerRaw) Call(opts *bind.CallOpts, result interface{}, method string, params ...interface{}) error {
+	return _Ownable.Contract.contract.Call(opts, result, method, params...)
 }
 
 // Transfer initiates a plain transaction to move funds to the contract, calling
 // its default method if one is available.
-func (_ERC20 *ERC20TransactorRaw) Transfer(opts *bind.TransactOpts) (*types.Transaction, error) {
-	return _ERC20.Contract.contract.Transfer(opts)
+func (_Ownable *OwnableTransactorRaw) Transfer(opts *bind.TransactOpts) (*types.Transaction, error) {
+	return _Ownable.Contract.contract.Transfer(opts)
 }
 
 // Transact invokes the (paid) contract method with params as input values.
-func (_ERC20 *ERC20TransactorRaw) Transact(opts *bind.TransactOpts, method string, params ...interface{}) (*types.Transaction, error) {
-	return _ERC20.Contract.contract.Transact(opts, method, params...)
+func (_Ownable *OwnableTransactorRaw) Transact(opts *bind.TransactOpts, method string, params ...interface{}) (*types.Transaction, error) {
+	return _Ownable.Contract.contract.Transact(opts, method, params...)
 }
 
-// Allowance is a free data retrieval call binding the contract method 0xdd62ed3e.
+// IsOwner is a free data retrieval call binding the contract method 0x8f32d59b.
 //
-// Solidity: function allowance(address owner, address spender) constant returns(uint256)
-func (_ERC20 *ERC20Caller) Allowance(opts *bind.CallOpts, owner common.Address, spender common.Address) (*big.Int, error) {
-	var (
-		ret0 = new(*big.Int)
-	)
-	out := ret0
-	err := _ERC20.contract.Call(opts, out, "allowance", owner, spender)
-	return *ret0, err
-}
-
-// Allowance is a free data retrieval call binding the contract method 0xdd62ed3e.
-//
-// Solidity: function allowance(address owner, address spender) constant returns(uint256)
-func (_ERC20 *ERC20Session) Allowance(owner common.Address, spender common.Address) (*big.Int, error) {
-	return _ERC20.Contract.Allowance(&_ERC20.CallOpts, owner, spender)
-}
-
-// Allowance is a free data retrieval call binding the contract method 0xdd62ed3e.
-//
-// Solidity: function allowance(address owner, address spender) constant returns(uint256)
-func (_ERC20 *ERC20CallerSession) Allowance(owner common.Address, spender common.Address) (*big.Int, error) {
-	return _ERC20.Contract.Allowance(&_ERC20.CallOpts, owner, spender)
-}
-
-// BalanceOf is a free data retrieval call binding the contract method 0x70a08231.
-//
-// Solidity: function balanceOf(address account) constant returns(uint256)
-func (_ERC20 *ERC20Caller) BalanceOf(opts *bind.CallOpts, account common.Address) (*big.Int, error) {
-	var (
-		ret0 = new(*big.Int)
-	)
-	out := ret0
-	err := _ERC20.contract.Call(opts, out, "balanceOf", account)
-	return *ret0, err
-}
-
-// BalanceOf is a free data retrieval call binding the contract method 0x70a08231.
-//
-// Solidity: function balanceOf(address account) constant returns(uint256)
-func (_ERC20 *ERC20Session) BalanceOf(account common.Address) (*big.Int, error) {
-	return _ERC20.Contract.BalanceOf(&_ERC20.CallOpts, account)
-}
-
-// BalanceOf is a free data retrieval call binding the contract method 0x70a08231.
-//
-// Solidity: function balanceOf(address account) constant returns(uint256)
-func (_ERC20 *ERC20CallerSession) BalanceOf(account common.Address) (*big.Int, error) {
-	return _ERC20.Contract.BalanceOf(&_ERC20.CallOpts, account)
-}
-
-// TotalSupply is a free data retrieval call binding the contract method 0x18160ddd.
-//
-// Solidity: function totalSupply() constant returns(uint256)
-func (_ERC20 *ERC20Caller) TotalSupply(opts *bind.CallOpts) (*big.Int, error) {
-	var (
-		ret0 = new(*big.Int)
-	)
-	out := ret0
-	err := _ERC20.contract.Call(opts, out, "totalSupply")
-	return *ret0, err
-}
-
-// TotalSupply is a free data retrieval call binding the contract method 0x18160ddd.
-//
-// Solidity: function totalSupply() constant returns(uint256)
-func (_ERC20 *ERC20Session) TotalSupply() (*big.Int, error) {
-	return _ERC20.Contract.TotalSupply(&_ERC20.CallOpts)
-}
-
-// TotalSupply is a free data retrieval call binding the contract method 0x18160ddd.
-//
-// Solidity: function totalSupply() constant returns(uint256)
-func (_ERC20 *ERC20CallerSession) TotalSupply() (*big.Int, error) {
-	return _ERC20.Contract.TotalSupply(&_ERC20.CallOpts)
-}
-
-// Approve is a paid mutator transaction binding the contract method 0x095ea7b3.
-//
-// Solidity: function approve(address spender, uint256 amount) returns(bool)
-func (_ERC20 *ERC20Transactor) Approve(opts *bind.TransactOpts, spender common.Address, amount *big.Int) (*types.Transaction, error) {
-	return _ERC20.contract.Transact(opts, "approve", spender, amount)
-}
-
-// Approve is a paid mutator transaction binding the contract method 0x095ea7b3.
-//
-// Solidity: function approve(address spender, uint256 amount) returns(bool)
-func (_ERC20 *ERC20Session) Approve(spender common.Address, amount *big.Int) (*types.Transaction, error) {
-	return _ERC20.Contract.Approve(&_ERC20.TransactOpts, spender, amount)
-}
-
-// Approve is a paid mutator transaction binding the contract method 0x095ea7b3.
-//
-// Solidity: function approve(address spender, uint256 amount) returns(bool)
-func (_ERC20 *ERC20TransactorSession) Approve(spender common.Address, amount *big.Int) (*types.Transaction, error) {
-	return _ERC20.Contract.Approve(&_ERC20.TransactOpts, spender, amount)
-}
-
-// DecreaseAllowance is a paid mutator transaction binding the contract method 0xa457c2d7.
-//
-// Solidity: function decreaseAllowance(address spender, uint256 subtractedValue) returns(bool)
-func (_ERC20 *ERC20Transactor) DecreaseAllowance(opts *bind.TransactOpts, spender common.Address, subtractedValue *big.Int) (*types.Transaction, error) {
-	return _ERC20.contract.Transact(opts, "decreaseAllowance", spender, subtractedValue)
-}
-
-// DecreaseAllowance is a paid mutator transaction binding the contract method 0xa457c2d7.
-//
-// Solidity: function decreaseAllowance(address spender, uint256 subtractedValue) returns(bool)
-func (_ERC20 *ERC20Session) DecreaseAllowance(spender common.Address, subtractedValue *big.Int) (*types.Transaction, error) {
-	return _ERC20.Contract.DecreaseAllowance(&_ERC20.TransactOpts, spender, subtractedValue)
-}
-
-// DecreaseAllowance is a paid mutator transaction binding the contract method 0xa457c2d7.
-//
-// Solidity: function decreaseAllowance(address spender, uint256 subtractedValue) returns(bool)
-func (_ERC20 *ERC20TransactorSession) DecreaseAllowance(spender common.Address, subtractedValue *big.Int) (*types.Transaction, error) {
-	return _ERC20.Contract.DecreaseAllowance(&_ERC20.TransactOpts, spender, subtractedValue)
-}
-
-// IncreaseAllowance is a paid mutator transaction binding the contract method 0x39509351.
-//
-// Solidity: function increaseAllowance(address spender, uint256 addedValue) returns(bool)
-func (_ERC20 *ERC20Transactor) IncreaseAllowance(opts *bind.TransactOpts, spender common.Address, addedValue *big.Int) (*types.Transaction, error) {
-	return _ERC20.contract.Transact(opts, "increaseAllowance", spender, addedValue)
-}
-
-// IncreaseAllowance is a paid mutator transaction binding the contract method 0x39509351.
-//
-// Solidity: function increaseAllowance(address spender, uint256 addedValue) returns(bool)
-func (_ERC20 *ERC20Session) IncreaseAllowance(spender common.Address, addedValue *big.Int) (*types.Transaction, error) {
-	return _ERC20.Contract.IncreaseAllowance(&_ERC20.TransactOpts, spender, addedValue)
-}
-
-// IncreaseAllowance is a paid mutator transaction binding the contract method 0x39509351.
-//
-// Solidity: function increaseAllowance(address spender, uint256 addedValue) returns(bool)
-func (_ERC20 *ERC20TransactorSession) IncreaseAllowance(spender common.Address, addedValue *big.Int) (*types.Transaction, error) {
-	return _ERC20.Contract.IncreaseAllowance(&_ERC20.TransactOpts, spender, addedValue)
-}
-
-// Transfer is a paid mutator transaction binding the contract method 0xa9059cbb.
-//
-// Solidity: function transfer(address recipient, uint256 amount) returns(bool)
-func (_ERC20 *ERC20Transactor) Transfer(opts *bind.TransactOpts, recipient common.Address, amount *big.Int) (*types.Transaction, error) {
-	return _ERC20.contract.Transact(opts, "transfer", recipient, amount)
-}
-
-// Transfer is a paid mutator transaction binding the contract method 0xa9059cbb.
-//
-// Solidity: function transfer(address recipient, uint256 amount) returns(bool)
-func (_ERC20 *ERC20Session) Transfer(recipient common.Address, amount *big.Int) (*types.Transaction, error) {
-	return _ERC20.Contract.Transfer(&_ERC20.TransactOpts, recipient, amount)
-}
-
-// Transfer is a paid mutator transaction binding the contract method 0xa9059cbb.
-//
-// Solidity: function transfer(address recipient, uint256 amount) returns(bool)
-func (_ERC20 *ERC20TransactorSession) Transfer(recipient common.Address, amount *big.Int) (*types.Transaction, error) {
-	return _ERC20.Contract.Transfer(&_ERC20.TransactOpts, recipient, amount)
-}
-
-// TransferFrom is a paid mutator transaction binding the contract method 0x23b872dd.
-//
-// Solidity: function transferFrom(address sender, address recipient, uint256 amount) returns(bool)
-func (_ERC20 *ERC20Transactor) TransferFrom(opts *bind.TransactOpts, sender common.Address, recipient common.Address, amount *big.Int) (*types.Transaction, error) {
-	return _ERC20.contract.Transact(opts, "transferFrom", sender, recipient, amount)
-}
-
-// TransferFrom is a paid mutator transaction binding the contract method 0x23b872dd.
-//
-// Solidity: function transferFrom(address sender, address recipient, uint256 amount) returns(bool)
-func (_ERC20 *ERC20Session) TransferFrom(sender common.Address, recipient common.Address, amount *big.Int) (*types.Transaction, error) {
-	return _ERC20.Contract.TransferFrom(&_ERC20.TransactOpts, sender, recipient, amount)
-}
-
-// TransferFrom is a paid mutator transaction binding the contract method 0x23b872dd.
-//
-// Solidity: function transferFrom(address sender, address recipient, uint256 amount) returns(bool)
-func (_ERC20 *ERC20TransactorSession) TransferFrom(sender common.Address, recipient common.Address, amount *big.Int) (*types.Transaction, error) {
-	return _ERC20.Contract.TransferFrom(&_ERC20.TransactOpts, sender, recipient, amount)
-}
-
-// ERC20ApprovalIterator is returned from FilterApproval and is used to iterate over the raw logs and unpacked data for Approval events raised by the ERC20 contract.
-type ERC20ApprovalIterator struct {
-	Event *ERC20Approval // Event containing the contract specifics and raw log
-
-	contract *bind.BoundContract // Generic contract to use for unpacking event data
-	event    string              // Event name to use for unpacking event data
-
-	logs chan types.Log        // Log channel receiving the found contract events
-	sub  ethereum.Subscription // Subscription for errors, completion and termination
-	done bool                  // Whether the subscription completed delivering logs
-	fail error                 // Occurred error to stop iteration
-}
-
-// Next advances the iterator to the subsequent event, returning whether there
-// are any more events found. In case of a retrieval or parsing error, false is
-// returned and Error() can be queried for the exact failure.
-func (it *ERC20ApprovalIterator) Next() bool {
-	// If the iterator failed, stop iterating
-	if it.fail != nil {
-		return false
-	}
-	// If the iterator completed, deliver directly whatever's available
-	if it.done {
-		select {
-		case log := <-it.logs:
-			it.Event = new(ERC20Approval)
-			if err := it.contract.UnpackLog(it.Event, it.event, log); err != nil {
-				it.fail = err
-				return false
-			}
-			it.Event.Raw = log
-			return true
-
-		default:
-			return false
-		}
-	}
-	// Iterator still in progress, wait for either a data or an error event
-	select {
-	case log := <-it.logs:
-		it.Event = new(ERC20Approval)
-		if err := it.contract.UnpackLog(it.Event, it.event, log); err != nil {
-			it.fail = err
-			return false
-		}
-		it.Event.Raw = log
-		return true
-
-	case err := <-it.sub.Err():
-		it.done = true
-		it.fail = err
-		return it.Next()
-	}
-}
-
-// Error returns any retrieval or parsing error occurred during filtering.
-func (it *ERC20ApprovalIterator) Error() error {
-	return it.fail
-}
-
-// Close terminates the iteration process, releasing any pending underlying
-// resources.
-func (it *ERC20ApprovalIterator) Close() error {
-	it.sub.Unsubscribe()
-	return nil
-}
-
-// ERC20Approval represents a Approval event raised by the ERC20 contract.
-type ERC20Approval struct {
-	Owner   common.Address
-	Spender common.Address
-	Value   *big.Int
-	Raw     types.Log // Blockchain specific contextual infos
-}
-
-// FilterApproval is a free log retrieval operation binding the contract event 0x8c5be1e5ebec7d5bd14f71427d1e84f3dd0314c0f7b2291e5b200ac8c7c3b925.
-//
-// Solidity: event Approval(address indexed owner, address indexed spender, uint256 value)
-func (_ERC20 *ERC20Filterer) FilterApproval(opts *bind.FilterOpts, owner []common.Address, spender []common.Address) (*ERC20ApprovalIterator, error) {
-
-	var ownerRule []interface{}
-	for _, ownerItem := range owner {
-		ownerRule = append(ownerRule, ownerItem)
-	}
-	var spenderRule []interface{}
-	for _, spenderItem := range spender {
-		spenderRule = append(spenderRule, spenderItem)
-	}
-
-	logs, sub, err := _ERC20.contract.FilterLogs(opts, "Approval", ownerRule, spenderRule)
-	if err != nil {
-		return nil, err
-	}
-	return &ERC20ApprovalIterator{contract: _ERC20.contract, event: "Approval", logs: logs, sub: sub}, nil
-}
-
-// WatchApproval is a free log subscription operation binding the contract event 0x8c5be1e5ebec7d5bd14f71427d1e84f3dd0314c0f7b2291e5b200ac8c7c3b925.
-//
-// Solidity: event Approval(address indexed owner, address indexed spender, uint256 value)
-func (_ERC20 *ERC20Filterer) WatchApproval(opts *bind.WatchOpts, sink chan<- *ERC20Approval, owner []common.Address, spender []common.Address) (event.Subscription, error) {
-
-	var ownerRule []interface{}
-	for _, ownerItem := range owner {
-		ownerRule = append(ownerRule, ownerItem)
-	}
-	var spenderRule []interface{}
-	for _, spenderItem := range spender {
-		spenderRule = append(spenderRule, spenderItem)
-	}
-
-	logs, sub, err := _ERC20.contract.WatchLogs(opts, "Approval", ownerRule, spenderRule)
-	if err != nil {
-		return nil, err
-	}
-	return event.NewSubscription(func(quit <-chan struct{}) error {
-		defer sub.Unsubscribe()
-		for {
-			select {
-			case log := <-logs:
-				// New log arrived, parse the event and forward to the user
-				event := new(ERC20Approval)
-				if err := _ERC20.contract.UnpackLog(event, "Approval", log); err != nil {
-					return err
-				}
-				event.Raw = log
-
-				select {
-				case sink <- event:
-				case err := <-sub.Err():
-					return err
-				case <-quit:
-					return nil
-				}
-			case err := <-sub.Err():
-				return err
-			case <-quit:
-				return nil
-			}
-		}
-	}), nil
-}
-
-// ParseApproval is a log parse operation binding the contract event 0x8c5be1e5ebec7d5bd14f71427d1e84f3dd0314c0f7b2291e5b200ac8c7c3b925.
-//
-// Solidity: event Approval(address indexed owner, address indexed spender, uint256 value)
-func (_ERC20 *ERC20Filterer) ParseApproval(log types.Log) (*ERC20Approval, error) {
-	event := new(ERC20Approval)
-	if err := _ERC20.contract.UnpackLog(event, "Approval", log); err != nil {
-		return nil, err
-	}
-	return event, nil
-}
-
-// ERC20TransferIterator is returned from FilterTransfer and is used to iterate over the raw logs and unpacked data for Transfer events raised by the ERC20 contract.
-type ERC20TransferIterator struct {
-	Event *ERC20Transfer // Event containing the contract specifics and raw log
-
-	contract *bind.BoundContract // Generic contract to use for unpacking event data
-	event    string              // Event name to use for unpacking event data
-
-	logs chan types.Log        // Log channel receiving the found contract events
-	sub  ethereum.Subscription // Subscription for errors, completion and termination
-	done bool                  // Whether the subscription completed delivering logs
-	fail error                 // Occurred error to stop iteration
-}
-
-// Next advances the iterator to the subsequent event, returning whether there
-// are any more events found. In case of a retrieval or parsing error, false is
-// returned and Error() can be queried for the exact failure.
-func (it *ERC20TransferIterator) Next() bool {
-	// If the iterator failed, stop iterating
-	if it.fail != nil {
-		return false
-	}
-	// If the iterator completed, deliver directly whatever's available
-	if it.done {
-		select {
-		case log := <-it.logs:
-			it.Event = new(ERC20Transfer)
-			if err := it.contract.UnpackLog(it.Event, it.event, log); err != nil {
-				it.fail = err
-				return false
-			}
-			it.Event.Raw = log
-			return true
-
-		default:
-			return false
-		}
-	}
-	// Iterator still in progress, wait for either a data or an error event
-	select {
-	case log := <-it.logs:
-		it.Event = new(ERC20Transfer)
-		if err := it.contract.UnpackLog(it.Event, it.event, log); err != nil {
-			it.fail = err
-			return false
-		}
-		it.Event.Raw = log
-		return true
-
-	case err := <-it.sub.Err():
-		it.done = true
-		it.fail = err
-		return it.Next()
-	}
-}
-
-// Error returns any retrieval or parsing error occurred during filtering.
-func (it *ERC20TransferIterator) Error() error {
-	return it.fail
-}
-
-// Close terminates the iteration process, releasing any pending underlying
-// resources.
-func (it *ERC20TransferIterator) Close() error {
-	it.sub.Unsubscribe()
-	return nil
-}
-
-// ERC20Transfer represents a Transfer event raised by the ERC20 contract.
-type ERC20Transfer struct {
-	From  common.Address
-	To    common.Address
-	Value *big.Int
-	Raw   types.Log // Blockchain specific contextual infos
-}
-
-// FilterTransfer is a free log retrieval operation binding the contract event 0xddf252ad1be2c89b69c2b068fc378daa952ba7f163c4a11628f55a4df523b3ef.
-//
-// Solidity: event Transfer(address indexed from, address indexed to, uint256 value)
-func (_ERC20 *ERC20Filterer) FilterTransfer(opts *bind.FilterOpts, from []common.Address, to []common.Address) (*ERC20TransferIterator, error) {
-
-	var fromRule []interface{}
-	for _, fromItem := range from {
-		fromRule = append(fromRule, fromItem)
-	}
-	var toRule []interface{}
-	for _, toItem := range to {
-		toRule = append(toRule, toItem)
-	}
-
-	logs, sub, err := _ERC20.contract.FilterLogs(opts, "Transfer", fromRule, toRule)
-	if err != nil {
-		return nil, err
-	}
-	return &ERC20TransferIterator{contract: _ERC20.contract, event: "Transfer", logs: logs, sub: sub}, nil
-}
-
-// WatchTransfer is a free log subscription operation binding the contract event 0xddf252ad1be2c89b69c2b068fc378daa952ba7f163c4a11628f55a4df523b3ef.
-//
-// Solidity: event Transfer(address indexed from, address indexed to, uint256 value)
-func (_ERC20 *ERC20Filterer) WatchTransfer(opts *bind.WatchOpts, sink chan<- *ERC20Transfer, from []common.Address, to []common.Address) (event.Subscription, error) {
-
-	var fromRule []interface{}
-	for _, fromItem := range from {
-		fromRule = append(fromRule, fromItem)
-	}
-	var toRule []interface{}
-	for _, toItem := range to {
-		toRule = append(toRule, toItem)
-	}
-
-	logs, sub, err := _ERC20.contract.WatchLogs(opts, "Transfer", fromRule, toRule)
-	if err != nil {
-		return nil, err
-	}
-	return event.NewSubscription(func(quit <-chan struct{}) error {
-		defer sub.Unsubscribe()
-		for {
-			select {
-			case log := <-logs:
-				// New log arrived, parse the event and forward to the user
-				event := new(ERC20Transfer)
-				if err := _ERC20.contract.UnpackLog(event, "Transfer", log); err != nil {
-					return err
-				}
-				event.Raw = log
-
-				select {
-				case sink <- event:
-				case err := <-sub.Err():
-					return err
-				case <-quit:
-					return nil
-				}
-			case err := <-sub.Err():
-				return err
-			case <-quit:
-				return nil
-			}
-		}
-	}), nil
-}
-
-// ParseTransfer is a log parse operation binding the contract event 0xddf252ad1be2c89b69c2b068fc378daa952ba7f163c4a11628f55a4df523b3ef.
-//
-// Solidity: event Transfer(address indexed from, address indexed to, uint256 value)
-func (_ERC20 *ERC20Filterer) ParseTransfer(log types.Log) (*ERC20Transfer, error) {
-	event := new(ERC20Transfer)
-	if err := _ERC20.contract.UnpackLog(event, "Transfer", log); err != nil {
-		return nil, err
-	}
-	return event, nil
-}
-
-// ERC20DetailedABI is the input ABI used to generate the binding from.
-const ERC20DetailedABI = "[{\"inputs\":[{\"internalType\":\"string\",\"name\":\"name\",\"type\":\"string\"},{\"internalType\":\"string\",\"name\":\"symbol\",\"type\":\"string\"},{\"internalType\":\"uint8\",\"name\":\"decimals\",\"type\":\"uint8\"}],\"payable\":false,\"stateMutability\":\"nonpayable\",\"type\":\"constructor\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":true,\"internalType\":\"address\",\"name\":\"owner\",\"type\":\"address\"},{\"indexed\":true,\"internalType\":\"address\",\"name\":\"spender\",\"type\":\"address\"},{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"value\",\"type\":\"uint256\"}],\"name\":\"Approval\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":true,\"internalType\":\"address\",\"name\":\"from\",\"type\":\"address\"},{\"indexed\":true,\"internalType\":\"address\",\"name\":\"to\",\"type\":\"address\"},{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"value\",\"type\":\"uint256\"}],\"name\":\"Transfer\",\"type\":\"event\"},{\"constant\":true,\"inputs\":[{\"internalType\":\"address\",\"name\":\"owner\",\"type\":\"address\"},{\"internalType\":\"address\",\"name\":\"spender\",\"type\":\"address\"}],\"name\":\"allowance\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":false,\"inputs\":[{\"internalType\":\"address\",\"name\":\"spender\",\"type\":\"address\"},{\"internalType\":\"uint256\",\"name\":\"amount\",\"type\":\"uint256\"}],\"name\":\"approve\",\"outputs\":[{\"internalType\":\"bool\",\"name\":\"\",\"type\":\"bool\"}],\"payable\":false,\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[{\"internalType\":\"address\",\"name\":\"account\",\"type\":\"address\"}],\"name\":\"balanceOf\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[],\"name\":\"decimals\",\"outputs\":[{\"internalType\":\"uint8\",\"name\":\"\",\"type\":\"uint8\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[],\"name\":\"name\",\"outputs\":[{\"internalType\":\"string\",\"name\":\"\",\"type\":\"string\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[],\"name\":\"symbol\",\"outputs\":[{\"internalType\":\"string\",\"name\":\"\",\"type\":\"string\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[],\"name\":\"totalSupply\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":false,\"inputs\":[{\"internalType\":\"address\",\"name\":\"recipient\",\"type\":\"address\"},{\"internalType\":\"uint256\",\"name\":\"amount\",\"type\":\"uint256\"}],\"name\":\"transfer\",\"outputs\":[{\"internalType\":\"bool\",\"name\":\"\",\"type\":\"bool\"}],\"payable\":false,\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"constant\":false,\"inputs\":[{\"internalType\":\"address\",\"name\":\"sender\",\"type\":\"address\"},{\"internalType\":\"address\",\"name\":\"recipient\",\"type\":\"address\"},{\"internalType\":\"uint256\",\"name\":\"amount\",\"type\":\"uint256\"}],\"name\":\"transferFrom\",\"outputs\":[{\"internalType\":\"bool\",\"name\":\"\",\"type\":\"bool\"}],\"payable\":false,\"stateMutability\":\"nonpayable\",\"type\":\"function\"}]"
-
-// ERC20DetailedFuncSigs maps the 4-byte function signature to its string representation.
-var ERC20DetailedFuncSigs = map[string]string{
-	"dd62ed3e": "allowance(address,address)",
-	"095ea7b3": "approve(address,uint256)",
-	"70a08231": "balanceOf(address)",
-	"313ce567": "decimals()",
-	"06fdde03": "name()",
-	"95d89b41": "symbol()",
-	"18160ddd": "totalSupply()",
-	"a9059cbb": "transfer(address,uint256)",
-	"23b872dd": "transferFrom(address,address,uint256)",
-}
-
-// ERC20Detailed is an auto generated Go binding around an Ethereum contract.
-type ERC20Detailed struct {
-	ERC20DetailedCaller     // Read-only binding to the contract
-	ERC20DetailedTransactor // Write-only binding to the contract
-	ERC20DetailedFilterer   // Log filterer for contract events
-}
-
-// ERC20DetailedCaller is an auto generated read-only Go binding around an Ethereum contract.
-type ERC20DetailedCaller struct {
-	contract *bind.BoundContract // Generic contract wrapper for the low level calls
-}
-
-// ERC20DetailedTransactor is an auto generated write-only Go binding around an Ethereum contract.
-type ERC20DetailedTransactor struct {
-	contract *bind.BoundContract // Generic contract wrapper for the low level calls
-}
-
-// ERC20DetailedFilterer is an auto generated log filtering Go binding around an Ethereum contract events.
-type ERC20DetailedFilterer struct {
-	contract *bind.BoundContract // Generic contract wrapper for the low level calls
-}
-
-// ERC20DetailedSession is an auto generated Go binding around an Ethereum contract,
-// with pre-set call and transact options.
-type ERC20DetailedSession struct {
-	Contract     *ERC20Detailed    // Generic contract binding to set the session for
-	CallOpts     bind.CallOpts     // Call options to use throughout this session
-	TransactOpts bind.TransactOpts // Transaction auth options to use throughout this session
-}
-
-// ERC20DetailedCallerSession is an auto generated read-only Go binding around an Ethereum contract,
-// with pre-set call options.
-type ERC20DetailedCallerSession struct {
-	Contract *ERC20DetailedCaller // Generic contract caller binding to set the session for
-	CallOpts bind.CallOpts        // Call options to use throughout this session
-}
-
-// ERC20DetailedTransactorSession is an auto generated write-only Go binding around an Ethereum contract,
-// with pre-set transact options.
-type ERC20DetailedTransactorSession struct {
-	Contract     *ERC20DetailedTransactor // Generic contract transactor binding to set the session for
-	TransactOpts bind.TransactOpts        // Transaction auth options to use throughout this session
-}
-
-// ERC20DetailedRaw is an auto generated low-level Go binding around an Ethereum contract.
-type ERC20DetailedRaw struct {
-	Contract *ERC20Detailed // Generic contract binding to access the raw methods on
-}
-
-// ERC20DetailedCallerRaw is an auto generated low-level read-only Go binding around an Ethereum contract.
-type ERC20DetailedCallerRaw struct {
-	Contract *ERC20DetailedCaller // Generic read-only contract binding to access the raw methods on
-}
-
-// ERC20DetailedTransactorRaw is an auto generated low-level write-only Go binding around an Ethereum contract.
-type ERC20DetailedTransactorRaw struct {
-	Contract *ERC20DetailedTransactor // Generic write-only contract binding to access the raw methods on
-}
-
-// NewERC20Detailed creates a new instance of ERC20Detailed, bound to a specific deployed contract.
-func NewERC20Detailed(address common.Address, backend bind.ContractBackend) (*ERC20Detailed, error) {
-	contract, err := bindERC20Detailed(address, backend, backend, backend)
-	if err != nil {
-		return nil, err
-	}
-	return &ERC20Detailed{ERC20DetailedCaller: ERC20DetailedCaller{contract: contract}, ERC20DetailedTransactor: ERC20DetailedTransactor{contract: contract}, ERC20DetailedFilterer: ERC20DetailedFilterer{contract: contract}}, nil
-}
-
-// NewERC20DetailedCaller creates a new read-only instance of ERC20Detailed, bound to a specific deployed contract.
-func NewERC20DetailedCaller(address common.Address, caller bind.ContractCaller) (*ERC20DetailedCaller, error) {
-	contract, err := bindERC20Detailed(address, caller, nil, nil)
-	if err != nil {
-		return nil, err
-	}
-	return &ERC20DetailedCaller{contract: contract}, nil
-}
-
-// NewERC20DetailedTransactor creates a new write-only instance of ERC20Detailed, bound to a specific deployed contract.
-func NewERC20DetailedTransactor(address common.Address, transactor bind.ContractTransactor) (*ERC20DetailedTransactor, error) {
-	contract, err := bindERC20Detailed(address, nil, transactor, nil)
-	if err != nil {
-		return nil, err
-	}
-	return &ERC20DetailedTransactor{contract: contract}, nil
-}
-
-// NewERC20DetailedFilterer creates a new log filterer instance of ERC20Detailed, bound to a specific deployed contract.
-func NewERC20DetailedFilterer(address common.Address, filterer bind.ContractFilterer) (*ERC20DetailedFilterer, error) {
-	contract, err := bindERC20Detailed(address, nil, nil, filterer)
-	if err != nil {
-		return nil, err
-	}
-	return &ERC20DetailedFilterer{contract: contract}, nil
-}
-
-// bindERC20Detailed binds a generic wrapper to an already deployed contract.
-func bindERC20Detailed(address common.Address, caller bind.ContractCaller, transactor bind.ContractTransactor, filterer bind.ContractFilterer) (*bind.BoundContract, error) {
-	parsed, err := abi.JSON(strings.NewReader(ERC20DetailedABI))
-	if err != nil {
-		return nil, err
-	}
-	return bind.NewBoundContract(address, parsed, caller, transactor, filterer), nil
-}
-
-// Call invokes the (constant) contract method with params as input values and
-// sets the output to result. The result type might be a single field for simple
-// returns, a slice of interfaces for anonymous returns and a struct for named
-// returns.
-func (_ERC20Detailed *ERC20DetailedRaw) Call(opts *bind.CallOpts, result interface{}, method string, params ...interface{}) error {
-	return _ERC20Detailed.Contract.ERC20DetailedCaller.contract.Call(opts, result, method, params...)
-}
-
-// Transfer initiates a plain transaction to move funds to the contract, calling
-// its default method if one is available.
-func (_ERC20Detailed *ERC20DetailedRaw) Transfer(opts *bind.TransactOpts) (*types.Transaction, error) {
-	return _ERC20Detailed.Contract.ERC20DetailedTransactor.contract.Transfer(opts)
-}
-
-// Transact invokes the (paid) contract method with params as input values.
-func (_ERC20Detailed *ERC20DetailedRaw) Transact(opts *bind.TransactOpts, method string, params ...interface{}) (*types.Transaction, error) {
-	return _ERC20Detailed.Contract.ERC20DetailedTransactor.contract.Transact(opts, method, params...)
-}
-
-// Call invokes the (constant) contract method with params as input values and
-// sets the output to result. The result type might be a single field for simple
-// returns, a slice of interfaces for anonymous returns and a struct for named
-// returns.
-func (_ERC20Detailed *ERC20DetailedCallerRaw) Call(opts *bind.CallOpts, result interface{}, method string, params ...interface{}) error {
-	return _ERC20Detailed.Contract.contract.Call(opts, result, method, params...)
-}
-
-// Transfer initiates a plain transaction to move funds to the contract, calling
-// its default method if one is available.
-func (_ERC20Detailed *ERC20DetailedTransactorRaw) Transfer(opts *bind.TransactOpts) (*types.Transaction, error) {
-	return _ERC20Detailed.Contract.contract.Transfer(opts)
-}
-
-// Transact invokes the (paid) contract method with params as input values.
-func (_ERC20Detailed *ERC20DetailedTransactorRaw) Transact(opts *bind.TransactOpts, method string, params ...interface{}) (*types.Transaction, error) {
-	return _ERC20Detailed.Contract.contract.Transact(opts, method, params...)
-}
-
-// Allowance is a free data retrieval call binding the contract method 0xdd62ed3e.
-//
-// Solidity: function allowance(address owner, address spender) constant returns(uint256)
-func (_ERC20Detailed *ERC20DetailedCaller) Allowance(opts *bind.CallOpts, owner common.Address, spender common.Address) (*big.Int, error) {
-	var (
-		ret0 = new(*big.Int)
-	)
-	out := ret0
-	err := _ERC20Detailed.contract.Call(opts, out, "allowance", owner, spender)
-	return *ret0, err
-}
-
-// Allowance is a free data retrieval call binding the contract method 0xdd62ed3e.
-//
-// Solidity: function allowance(address owner, address spender) constant returns(uint256)
-func (_ERC20Detailed *ERC20DetailedSession) Allowance(owner common.Address, spender common.Address) (*big.Int, error) {
-	return _ERC20Detailed.Contract.Allowance(&_ERC20Detailed.CallOpts, owner, spender)
-}
-
-// Allowance is a free data retrieval call binding the contract method 0xdd62ed3e.
-//
-// Solidity: function allowance(address owner, address spender) constant returns(uint256)
-func (_ERC20Detailed *ERC20DetailedCallerSession) Allowance(owner common.Address, spender common.Address) (*big.Int, error) {
-	return _ERC20Detailed.Contract.Allowance(&_ERC20Detailed.CallOpts, owner, spender)
-}
-
-// BalanceOf is a free data retrieval call binding the contract method 0x70a08231.
-//
-// Solidity: function balanceOf(address account) constant returns(uint256)
-func (_ERC20Detailed *ERC20DetailedCaller) BalanceOf(opts *bind.CallOpts, account common.Address) (*big.Int, error) {
-	var (
-		ret0 = new(*big.Int)
-	)
-	out := ret0
-	err := _ERC20Detailed.contract.Call(opts, out, "balanceOf", account)
-	return *ret0, err
-}
-
-// BalanceOf is a free data retrieval call binding the contract method 0x70a08231.
-//
-// Solidity: function balanceOf(address account) constant returns(uint256)
-func (_ERC20Detailed *ERC20DetailedSession) BalanceOf(account common.Address) (*big.Int, error) {
-	return _ERC20Detailed.Contract.BalanceOf(&_ERC20Detailed.CallOpts, account)
-}
-
-// BalanceOf is a free data retrieval call binding the contract method 0x70a08231.
-//
-// Solidity: function balanceOf(address account) constant returns(uint256)
-func (_ERC20Detailed *ERC20DetailedCallerSession) BalanceOf(account common.Address) (*big.Int, error) {
-	return _ERC20Detailed.Contract.BalanceOf(&_ERC20Detailed.CallOpts, account)
-}
-
-// Decimals is a free data retrieval call binding the contract method 0x313ce567.
-//
-// Solidity: function decimals() constant returns(uint8)
-func (_ERC20Detailed *ERC20DetailedCaller) Decimals(opts *bind.CallOpts) (uint8, error) {
-	var (
-		ret0 = new(uint8)
-	)
-	out := ret0
-	err := _ERC20Detailed.contract.Call(opts, out, "decimals")
-	return *ret0, err
-}
-
-// Decimals is a free data retrieval call binding the contract method 0x313ce567.
-//
-// Solidity: function decimals() constant returns(uint8)
-func (_ERC20Detailed *ERC20DetailedSession) Decimals() (uint8, error) {
-	return _ERC20Detailed.Contract.Decimals(&_ERC20Detailed.CallOpts)
-}
-
-// Decimals is a free data retrieval call binding the contract method 0x313ce567.
-//
-// Solidity: function decimals() constant returns(uint8)
-func (_ERC20Detailed *ERC20DetailedCallerSession) Decimals() (uint8, error) {
-	return _ERC20Detailed.Contract.Decimals(&_ERC20Detailed.CallOpts)
-}
-
-// Name is a free data retrieval call binding the contract method 0x06fdde03.
-//
-// Solidity: function name() constant returns(string)
-func (_ERC20Detailed *ERC20DetailedCaller) Name(opts *bind.CallOpts) (string, error) {
-	var (
-		ret0 = new(string)
-	)
-	out := ret0
-	err := _ERC20Detailed.contract.Call(opts, out, "name")
-	return *ret0, err
-}
-
-// Name is a free data retrieval call binding the contract method 0x06fdde03.
-//
-// Solidity: function name() constant returns(string)
-func (_ERC20Detailed *ERC20DetailedSession) Name() (string, error) {
-	return _ERC20Detailed.Contract.Name(&_ERC20Detailed.CallOpts)
-}
-
-// Name is a free data retrieval call binding the contract method 0x06fdde03.
-//
-// Solidity: function name() constant returns(string)
-func (_ERC20Detailed *ERC20DetailedCallerSession) Name() (string, error) {
-	return _ERC20Detailed.Contract.Name(&_ERC20Detailed.CallOpts)
-}
-
-// Symbol is a free data retrieval call binding the contract method 0x95d89b41.
-//
-// Solidity: function symbol() constant returns(string)
-func (_ERC20Detailed *ERC20DetailedCaller) Symbol(opts *bind.CallOpts) (string, error) {
-	var (
-		ret0 = new(string)
-	)
-	out := ret0
-	err := _ERC20Detailed.contract.Call(opts, out, "symbol")
-	return *ret0, err
-}
-
-// Symbol is a free data retrieval call binding the contract method 0x95d89b41.
-//
-// Solidity: function symbol() constant returns(string)
-func (_ERC20Detailed *ERC20DetailedSession) Symbol() (string, error) {
-	return _ERC20Detailed.Contract.Symbol(&_ERC20Detailed.CallOpts)
-}
-
-// Symbol is a free data retrieval call binding the contract method 0x95d89b41.
-//
-// Solidity: function symbol() constant returns(string)
-func (_ERC20Detailed *ERC20DetailedCallerSession) Symbol() (string, error) {
-	return _ERC20Detailed.Contract.Symbol(&_ERC20Detailed.CallOpts)
-}
-
-// TotalSupply is a free data retrieval call binding the contract method 0x18160ddd.
-//
-// Solidity: function totalSupply() constant returns(uint256)
-func (_ERC20Detailed *ERC20DetailedCaller) TotalSupply(opts *bind.CallOpts) (*big.Int, error) {
-	var (
-		ret0 = new(*big.Int)
-	)
-	out := ret0
-	err := _ERC20Detailed.contract.Call(opts, out, "totalSupply")
-	return *ret0, err
-}
-
-// TotalSupply is a free data retrieval call binding the contract method 0x18160ddd.
-//
-// Solidity: function totalSupply() constant returns(uint256)
-func (_ERC20Detailed *ERC20DetailedSession) TotalSupply() (*big.Int, error) {
-	return _ERC20Detailed.Contract.TotalSupply(&_ERC20Detailed.CallOpts)
-}
-
-// TotalSupply is a free data retrieval call binding the contract method 0x18160ddd.
-//
-// Solidity: function totalSupply() constant returns(uint256)
-func (_ERC20Detailed *ERC20DetailedCallerSession) TotalSupply() (*big.Int, error) {
-	return _ERC20Detailed.Contract.TotalSupply(&_ERC20Detailed.CallOpts)
-}
-
-// Approve is a paid mutator transaction binding the contract method 0x095ea7b3.
-//
-// Solidity: function approve(address spender, uint256 amount) returns(bool)
-func (_ERC20Detailed *ERC20DetailedTransactor) Approve(opts *bind.TransactOpts, spender common.Address, amount *big.Int) (*types.Transaction, error) {
-	return _ERC20Detailed.contract.Transact(opts, "approve", spender, amount)
-}
-
-// Approve is a paid mutator transaction binding the contract method 0x095ea7b3.
-//
-// Solidity: function approve(address spender, uint256 amount) returns(bool)
-func (_ERC20Detailed *ERC20DetailedSession) Approve(spender common.Address, amount *big.Int) (*types.Transaction, error) {
-	return _ERC20Detailed.Contract.Approve(&_ERC20Detailed.TransactOpts, spender, amount)
-}
-
-// Approve is a paid mutator transaction binding the contract method 0x095ea7b3.
-//
-// Solidity: function approve(address spender, uint256 amount) returns(bool)
-func (_ERC20Detailed *ERC20DetailedTransactorSession) Approve(spender common.Address, amount *big.Int) (*types.Transaction, error) {
-	return _ERC20Detailed.Contract.Approve(&_ERC20Detailed.TransactOpts, spender, amount)
-}
-
-// Transfer is a paid mutator transaction binding the contract method 0xa9059cbb.
-//
-// Solidity: function transfer(address recipient, uint256 amount) returns(bool)
-func (_ERC20Detailed *ERC20DetailedTransactor) Transfer(opts *bind.TransactOpts, recipient common.Address, amount *big.Int) (*types.Transaction, error) {
-	return _ERC20Detailed.contract.Transact(opts, "transfer", recipient, amount)
-}
-
-// Transfer is a paid mutator transaction binding the contract method 0xa9059cbb.
-//
-// Solidity: function transfer(address recipient, uint256 amount) returns(bool)
-func (_ERC20Detailed *ERC20DetailedSession) Transfer(recipient common.Address, amount *big.Int) (*types.Transaction, error) {
-	return _ERC20Detailed.Contract.Transfer(&_ERC20Detailed.TransactOpts, recipient, amount)
-}
-
-// Transfer is a paid mutator transaction binding the contract method 0xa9059cbb.
-//
-// Solidity: function transfer(address recipient, uint256 amount) returns(bool)
-func (_ERC20Detailed *ERC20DetailedTransactorSession) Transfer(recipient common.Address, amount *big.Int) (*types.Transaction, error) {
-	return _ERC20Detailed.Contract.Transfer(&_ERC20Detailed.TransactOpts, recipient, amount)
-}
-
-// TransferFrom is a paid mutator transaction binding the contract method 0x23b872dd.
-//
-// Solidity: function transferFrom(address sender, address recipient, uint256 amount) returns(bool)
-func (_ERC20Detailed *ERC20DetailedTransactor) TransferFrom(opts *bind.TransactOpts, sender common.Address, recipient common.Address, amount *big.Int) (*types.Transaction, error) {
-	return _ERC20Detailed.contract.Transact(opts, "transferFrom", sender, recipient, amount)
-}
-
-// TransferFrom is a paid mutator transaction binding the contract method 0x23b872dd.
-//
-// Solidity: function transferFrom(address sender, address recipient, uint256 amount) returns(bool)
-func (_ERC20Detailed *ERC20DetailedSession) TransferFrom(sender common.Address, recipient common.Address, amount *big.Int) (*types.Transaction, error) {
-	return _ERC20Detailed.Contract.TransferFrom(&_ERC20Detailed.TransactOpts, sender, recipient, amount)
-}
-
-// TransferFrom is a paid mutator transaction binding the contract method 0x23b872dd.
-//
-// Solidity: function transferFrom(address sender, address recipient, uint256 amount) returns(bool)
-func (_ERC20Detailed *ERC20DetailedTransactorSession) TransferFrom(sender common.Address, recipient common.Address, amount *big.Int) (*types.Transaction, error) {
-	return _ERC20Detailed.Contract.TransferFrom(&_ERC20Detailed.TransactOpts, sender, recipient, amount)
-}
-
-// ERC20DetailedApprovalIterator is returned from FilterApproval and is used to iterate over the raw logs and unpacked data for Approval events raised by the ERC20Detailed contract.
-type ERC20DetailedApprovalIterator struct {
-	Event *ERC20DetailedApproval // Event containing the contract specifics and raw log
-
-	contract *bind.BoundContract // Generic contract to use for unpacking event data
-	event    string              // Event name to use for unpacking event data
-
-	logs chan types.Log        // Log channel receiving the found contract events
-	sub  ethereum.Subscription // Subscription for errors, completion and termination
-	done bool                  // Whether the subscription completed delivering logs
-	fail error                 // Occurred error to stop iteration
-}
-
-// Next advances the iterator to the subsequent event, returning whether there
-// are any more events found. In case of a retrieval or parsing error, false is
-// returned and Error() can be queried for the exact failure.
-func (it *ERC20DetailedApprovalIterator) Next() bool {
-	// If the iterator failed, stop iterating
-	if it.fail != nil {
-		return false
-	}
-	// If the iterator completed, deliver directly whatever's available
-	if it.done {
-		select {
-		case log := <-it.logs:
-			it.Event = new(ERC20DetailedApproval)
-			if err := it.contract.UnpackLog(it.Event, it.event, log); err != nil {
-				it.fail = err
-				return false
-			}
-			it.Event.Raw = log
-			return true
-
-		default:
-			return false
-		}
-	}
-	// Iterator still in progress, wait for either a data or an error event
-	select {
-	case log := <-it.logs:
-		it.Event = new(ERC20DetailedApproval)
-		if err := it.contract.UnpackLog(it.Event, it.event, log); err != nil {
-			it.fail = err
-			return false
-		}
-		it.Event.Raw = log
-		return true
-
-	case err := <-it.sub.Err():
-		it.done = true
-		it.fail = err
-		return it.Next()
-	}
-}
-
-// Error returns any retrieval or parsing error occurred during filtering.
-func (it *ERC20DetailedApprovalIterator) Error() error {
-	return it.fail
-}
-
-// Close terminates the iteration process, releasing any pending underlying
-// resources.
-func (it *ERC20DetailedApprovalIterator) Close() error {
-	it.sub.Unsubscribe()
-	return nil
-}
-
-// ERC20DetailedApproval represents a Approval event raised by the ERC20Detailed contract.
-type ERC20DetailedApproval struct {
-	Owner   common.Address
-	Spender common.Address
-	Value   *big.Int
-	Raw     types.Log // Blockchain specific contextual infos
-}
-
-// FilterApproval is a free log retrieval operation binding the contract event 0x8c5be1e5ebec7d5bd14f71427d1e84f3dd0314c0f7b2291e5b200ac8c7c3b925.
-//
-// Solidity: event Approval(address indexed owner, address indexed spender, uint256 value)
-func (_ERC20Detailed *ERC20DetailedFilterer) FilterApproval(opts *bind.FilterOpts, owner []common.Address, spender []common.Address) (*ERC20DetailedApprovalIterator, error) {
-
-	var ownerRule []interface{}
-	for _, ownerItem := range owner {
-		ownerRule = append(ownerRule, ownerItem)
-	}
-	var spenderRule []interface{}
-	for _, spenderItem := range spender {
-		spenderRule = append(spenderRule, spenderItem)
-	}
-
-	logs, sub, err := _ERC20Detailed.contract.FilterLogs(opts, "Approval", ownerRule, spenderRule)
-	if err != nil {
-		return nil, err
-	}
-	return &ERC20DetailedApprovalIterator{contract: _ERC20Detailed.contract, event: "Approval", logs: logs, sub: sub}, nil
-}
-
-// WatchApproval is a free log subscription operation binding the contract event 0x8c5be1e5ebec7d5bd14f71427d1e84f3dd0314c0f7b2291e5b200ac8c7c3b925.
-//
-// Solidity: event Approval(address indexed owner, address indexed spender, uint256 value)
-func (_ERC20Detailed *ERC20DetailedFilterer) WatchApproval(opts *bind.WatchOpts, sink chan<- *ERC20DetailedApproval, owner []common.Address, spender []common.Address) (event.Subscription, error) {
-
-	var ownerRule []interface{}
-	for _, ownerItem := range owner {
-		ownerRule = append(ownerRule, ownerItem)
-	}
-	var spenderRule []interface{}
-	for _, spenderItem := range spender {
-		spenderRule = append(spenderRule, spenderItem)
-	}
-
-	logs, sub, err := _ERC20Detailed.contract.WatchLogs(opts, "Approval", ownerRule, spenderRule)
-	if err != nil {
-		return nil, err
-	}
-	return event.NewSubscription(func(quit <-chan struct{}) error {
-		defer sub.Unsubscribe()
-		for {
-			select {
-			case log := <-logs:
-				// New log arrived, parse the event and forward to the user
-				event := new(ERC20DetailedApproval)
-				if err := _ERC20Detailed.contract.UnpackLog(event, "Approval", log); err != nil {
-					return err
-				}
-				event.Raw = log
-
-				select {
-				case sink <- event:
-				case err := <-sub.Err():
-					return err
-				case <-quit:
-					return nil
-				}
-			case err := <-sub.Err():
-				return err
-			case <-quit:
-				return nil
-			}
-		}
-	}), nil
-}
-
-// ParseApproval is a log parse operation binding the contract event 0x8c5be1e5ebec7d5bd14f71427d1e84f3dd0314c0f7b2291e5b200ac8c7c3b925.
-//
-// Solidity: event Approval(address indexed owner, address indexed spender, uint256 value)
-func (_ERC20Detailed *ERC20DetailedFilterer) ParseApproval(log types.Log) (*ERC20DetailedApproval, error) {
-	event := new(ERC20DetailedApproval)
-	if err := _ERC20Detailed.contract.UnpackLog(event, "Approval", log); err != nil {
-		return nil, err
-	}
-	return event, nil
-}
-
-// ERC20DetailedTransferIterator is returned from FilterTransfer and is used to iterate over the raw logs and unpacked data for Transfer events raised by the ERC20Detailed contract.
-type ERC20DetailedTransferIterator struct {
-	Event *ERC20DetailedTransfer // Event containing the contract specifics and raw log
-
-	contract *bind.BoundContract // Generic contract to use for unpacking event data
-	event    string              // Event name to use for unpacking event data
-
-	logs chan types.Log        // Log channel receiving the found contract events
-	sub  ethereum.Subscription // Subscription for errors, completion and termination
-	done bool                  // Whether the subscription completed delivering logs
-	fail error                 // Occurred error to stop iteration
-}
-
-// Next advances the iterator to the subsequent event, returning whether there
-// are any more events found. In case of a retrieval or parsing error, false is
-// returned and Error() can be queried for the exact failure.
-func (it *ERC20DetailedTransferIterator) Next() bool {
-	// If the iterator failed, stop iterating
-	if it.fail != nil {
-		return false
-	}
-	// If the iterator completed, deliver directly whatever's available
-	if it.done {
-		select {
-		case log := <-it.logs:
-			it.Event = new(ERC20DetailedTransfer)
-			if err := it.contract.UnpackLog(it.Event, it.event, log); err != nil {
-				it.fail = err
-				return false
-			}
-			it.Event.Raw = log
-			return true
-
-		default:
-			return false
-		}
-	}
-	// Iterator still in progress, wait for either a data or an error event
-	select {
-	case log := <-it.logs:
-		it.Event = new(ERC20DetailedTransfer)
-		if err := it.contract.UnpackLog(it.Event, it.event, log); err != nil {
-			it.fail = err
-			return false
-		}
-		it.Event.Raw = log
-		return true
-
-	case err := <-it.sub.Err():
-		it.done = true
-		it.fail = err
-		return it.Next()
-	}
-}
-
-// Error returns any retrieval or parsing error occurred during filtering.
-func (it *ERC20DetailedTransferIterator) Error() error {
-	return it.fail
-}
-
-// Close terminates the iteration process, releasing any pending underlying
-// resources.
-func (it *ERC20DetailedTransferIterator) Close() error {
-	it.sub.Unsubscribe()
-	return nil
-}
-
-// ERC20DetailedTransfer represents a Transfer event raised by the ERC20Detailed contract.
-type ERC20DetailedTransfer struct {
-	From  common.Address
-	To    common.Address
-	Value *big.Int
-	Raw   types.Log // Blockchain specific contextual infos
-}
-
-// FilterTransfer is a free log retrieval operation binding the contract event 0xddf252ad1be2c89b69c2b068fc378daa952ba7f163c4a11628f55a4df523b3ef.
-//
-// Solidity: event Transfer(address indexed from, address indexed to, uint256 value)
-func (_ERC20Detailed *ERC20DetailedFilterer) FilterTransfer(opts *bind.FilterOpts, from []common.Address, to []common.Address) (*ERC20DetailedTransferIterator, error) {
-
-	var fromRule []interface{}
-	for _, fromItem := range from {
-		fromRule = append(fromRule, fromItem)
-	}
-	var toRule []interface{}
-	for _, toItem := range to {
-		toRule = append(toRule, toItem)
-	}
-
-	logs, sub, err := _ERC20Detailed.contract.FilterLogs(opts, "Transfer", fromRule, toRule)
-	if err != nil {
-		return nil, err
-	}
-	return &ERC20DetailedTransferIterator{contract: _ERC20Detailed.contract, event: "Transfer", logs: logs, sub: sub}, nil
-}
-
-// WatchTransfer is a free log subscription operation binding the contract event 0xddf252ad1be2c89b69c2b068fc378daa952ba7f163c4a11628f55a4df523b3ef.
-//
-// Solidity: event Transfer(address indexed from, address indexed to, uint256 value)
-func (_ERC20Detailed *ERC20DetailedFilterer) WatchTransfer(opts *bind.WatchOpts, sink chan<- *ERC20DetailedTransfer, from []common.Address, to []common.Address) (event.Subscription, error) {
-
-	var fromRule []interface{}
-	for _, fromItem := range from {
-		fromRule = append(fromRule, fromItem)
-	}
-	var toRule []interface{}
-	for _, toItem := range to {
-		toRule = append(toRule, toItem)
-	}
-
-	logs, sub, err := _ERC20Detailed.contract.WatchLogs(opts, "Transfer", fromRule, toRule)
-	if err != nil {
-		return nil, err
-	}
-	return event.NewSubscription(func(quit <-chan struct{}) error {
-		defer sub.Unsubscribe()
-		for {
-			select {
-			case log := <-logs:
-				// New log arrived, parse the event and forward to the user
-				event := new(ERC20DetailedTransfer)
-				if err := _ERC20Detailed.contract.UnpackLog(event, "Transfer", log); err != nil {
-					return err
-				}
-				event.Raw = log
-
-				select {
-				case sink <- event:
-				case err := <-sub.Err():
-					return err
-				case <-quit:
-					return nil
-				}
-			case err := <-sub.Err():
-				return err
-			case <-quit:
-				return nil
-			}
-		}
-	}), nil
-}
-
-// ParseTransfer is a log parse operation binding the contract event 0xddf252ad1be2c89b69c2b068fc378daa952ba7f163c4a11628f55a4df523b3ef.
-//
-// Solidity: event Transfer(address indexed from, address indexed to, uint256 value)
-func (_ERC20Detailed *ERC20DetailedFilterer) ParseTransfer(log types.Log) (*ERC20DetailedTransfer, error) {
-	event := new(ERC20DetailedTransfer)
-	if err := _ERC20Detailed.contract.UnpackLog(event, "Transfer", log); err != nil {
-		return nil, err
-	}
-	return event, nil
-}
-
-// ERC20MintableABI is the input ABI used to generate the binding from.
-const ERC20MintableABI = "[{\"anonymous\":false,\"inputs\":[{\"indexed\":true,\"internalType\":\"address\",\"name\":\"owner\",\"type\":\"address\"},{\"indexed\":true,\"internalType\":\"address\",\"name\":\"spender\",\"type\":\"address\"},{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"value\",\"type\":\"uint256\"}],\"name\":\"Approval\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":true,\"internalType\":\"address\",\"name\":\"account\",\"type\":\"address\"}],\"name\":\"MinterAdded\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":true,\"internalType\":\"address\",\"name\":\"account\",\"type\":\"address\"}],\"name\":\"MinterRemoved\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":true,\"internalType\":\"address\",\"name\":\"from\",\"type\":\"address\"},{\"indexed\":true,\"internalType\":\"address\",\"name\":\"to\",\"type\":\"address\"},{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"value\",\"type\":\"uint256\"}],\"name\":\"Transfer\",\"type\":\"event\"},{\"constant\":false,\"inputs\":[{\"internalType\":\"address\",\"name\":\"account\",\"type\":\"address\"}],\"name\":\"addMinter\",\"outputs\":[],\"payable\":false,\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[{\"internalType\":\"address\",\"name\":\"owner\",\"type\":\"address\"},{\"internalType\":\"address\",\"name\":\"spender\",\"type\":\"address\"}],\"name\":\"allowance\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":false,\"inputs\":[{\"internalType\":\"address\",\"name\":\"spender\",\"type\":\"address\"},{\"internalType\":\"uint256\",\"name\":\"amount\",\"type\":\"uint256\"}],\"name\":\"approve\",\"outputs\":[{\"internalType\":\"bool\",\"name\":\"\",\"type\":\"bool\"}],\"payable\":false,\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[{\"internalType\":\"address\",\"name\":\"account\",\"type\":\"address\"}],\"name\":\"balanceOf\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":false,\"inputs\":[{\"internalType\":\"address\",\"name\":\"spender\",\"type\":\"address\"},{\"internalType\":\"uint256\",\"name\":\"subtractedValue\",\"type\":\"uint256\"}],\"name\":\"decreaseAllowance\",\"outputs\":[{\"internalType\":\"bool\",\"name\":\"\",\"type\":\"bool\"}],\"payable\":false,\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"constant\":false,\"inputs\":[{\"internalType\":\"address\",\"name\":\"spender\",\"type\":\"address\"},{\"internalType\":\"uint256\",\"name\":\"addedValue\",\"type\":\"uint256\"}],\"name\":\"increaseAllowance\",\"outputs\":[{\"internalType\":\"bool\",\"name\":\"\",\"type\":\"bool\"}],\"payable\":false,\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[{\"internalType\":\"address\",\"name\":\"account\",\"type\":\"address\"}],\"name\":\"isMinter\",\"outputs\":[{\"internalType\":\"bool\",\"name\":\"\",\"type\":\"bool\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":false,\"inputs\":[{\"internalType\":\"address\",\"name\":\"account\",\"type\":\"address\"},{\"internalType\":\"uint256\",\"name\":\"amount\",\"type\":\"uint256\"}],\"name\":\"mint\",\"outputs\":[{\"internalType\":\"bool\",\"name\":\"\",\"type\":\"bool\"}],\"payable\":false,\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"constant\":false,\"inputs\":[],\"name\":\"renounceMinter\",\"outputs\":[],\"payable\":false,\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[],\"name\":\"totalSupply\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":false,\"inputs\":[{\"internalType\":\"address\",\"name\":\"recipient\",\"type\":\"address\"},{\"internalType\":\"uint256\",\"name\":\"amount\",\"type\":\"uint256\"}],\"name\":\"transfer\",\"outputs\":[{\"internalType\":\"bool\",\"name\":\"\",\"type\":\"bool\"}],\"payable\":false,\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"constant\":false,\"inputs\":[{\"internalType\":\"address\",\"name\":\"sender\",\"type\":\"address\"},{\"internalType\":\"address\",\"name\":\"recipient\",\"type\":\"address\"},{\"internalType\":\"uint256\",\"name\":\"amount\",\"type\":\"uint256\"}],\"name\":\"transferFrom\",\"outputs\":[{\"internalType\":\"bool\",\"name\":\"\",\"type\":\"bool\"}],\"payable\":false,\"stateMutability\":\"nonpayable\",\"type\":\"function\"}]"
-
-// ERC20MintableFuncSigs maps the 4-byte function signature to its string representation.
-var ERC20MintableFuncSigs = map[string]string{
-	"983b2d56": "addMinter(address)",
-	"dd62ed3e": "allowance(address,address)",
-	"095ea7b3": "approve(address,uint256)",
-	"70a08231": "balanceOf(address)",
-	"a457c2d7": "decreaseAllowance(address,uint256)",
-	"39509351": "increaseAllowance(address,uint256)",
-	"aa271e1a": "isMinter(address)",
-	"40c10f19": "mint(address,uint256)",
-	"98650275": "renounceMinter()",
-	"18160ddd": "totalSupply()",
-	"a9059cbb": "transfer(address,uint256)",
-	"23b872dd": "transferFrom(address,address,uint256)",
-}
-
-// ERC20MintableBin is the compiled bytecode used for deploying new contracts.
-var ERC20MintableBin = "0x60806040526100266100186001600160e01b0361002b16565b6001600160e01b0361002f16565b6101a3565b3390565b61004781600361007e60201b610a6e1790919060201c565b6040516001600160a01b038216907f6ae172837ea30b801fbfcdd4108aa1d5bf8ff775444fd70256b44e6bf3dfc3f690600090a250565b61009182826001600160e01b0361012216565b156100fd57604080517f08c379a000000000000000000000000000000000000000000000000000000000815260206004820152601f60248201527f526f6c65733a206163636f756e7420616c72656164792068617320726f6c6500604482015290519081900360640190fd5b6001600160a01b0316600090815260209190915260409020805460ff19166001179055565b60006001600160a01b038216610183576040517f08c379a0000000000000000000000000000000000000000000000000000000008152600401808060200182810382526022815260200180610eb16022913960400191505060405180910390fd5b506001600160a01b03166000908152602091909152604090205460ff1690565b610cff806101b26000396000f3fe608060405234801561001057600080fd5b50600436106100b45760003560e01c8063983b2d5611610071578063983b2d56146101c757806398650275146101ef578063a457c2d7146101f7578063a9059cbb14610223578063aa271e1a1461024f578063dd62ed3e14610275576100b4565b8063095ea7b3146100b957806318160ddd146100f957806323b872dd14610113578063395093511461014957806340c10f191461017557806370a08231146101a1575b600080fd5b6100e5600480360360408110156100cf57600080fd5b506001600160a01b0381351690602001356102a3565b604080519115158252519081900360200190f35b6101016102c0565b60408051918252519081900360200190f35b6100e56004803603606081101561012957600080fd5b506001600160a01b038135811691602081013590911690604001356102c6565b6100e56004803603604081101561015f57600080fd5b506001600160a01b038135169060200135610353565b6100e56004803603604081101561018b57600080fd5b506001600160a01b0381351690602001356103a7565b610101600480360360208110156101b757600080fd5b50356001600160a01b03166103fe565b6101ed600480360360208110156101dd57600080fd5b50356001600160a01b0316610419565b005b6101ed61046b565b6100e56004803603604081101561020d57600080fd5b506001600160a01b03813516906020013561047d565b6100e56004803603604081101561023957600080fd5b506001600160a01b0381351690602001356104eb565b6100e56004803603602081101561026557600080fd5b50356001600160a01b03166104ff565b6101016004803603604081101561028b57600080fd5b506001600160a01b0381358116916020013516610518565b60006102b76102b0610543565b8484610547565b50600192915050565b60025490565b60006102d3848484610633565b610349846102df610543565b61034485604051806060016040528060288152602001610c13602891396001600160a01b038a1660009081526001602052604081209061031d610543565b6001600160a01b03168152602081019190915260400160002054919063ffffffff61078f16565b610547565b5060019392505050565b60006102b7610360610543565b846103448560016000610371610543565b6001600160a01b03908116825260208083019390935260409182016000908120918c16815292529020549063ffffffff61082616565b60006103b96103b4610543565b6104ff565b6103f45760405162461bcd60e51b8152600401808060200182810382526030815260200180610bc26030913960400191505060405180910390fd5b6102b78383610887565b6001600160a01b031660009081526020819052604090205490565b6104246103b4610543565b61045f5760405162461bcd60e51b8152600401808060200182810382526030815260200180610bc26030913960400191505060405180910390fd5b61046881610977565b50565b61047b610476610543565b6109bf565b565b60006102b761048a610543565b8461034485604051806060016040528060258152602001610ca660259139600160006104b4610543565b6001600160a01b03908116825260208083019390935260409182016000908120918d1681529252902054919063ffffffff61078f16565b60006102b76104f8610543565b8484610633565b600061051260038363ffffffff610a0716565b92915050565b6001600160a01b03918216600090815260016020908152604080832093909416825291909152205490565b3390565b6001600160a01b03831661058c5760405162461bcd60e51b8152600401808060200182810382526024815260200180610c826024913960400191505060405180910390fd5b6001600160a01b0382166105d15760405162461bcd60e51b8152600401808060200182810382526022815260200180610b7a6022913960400191505060405180910390fd5b6001600160a01b03808416600081815260016020908152604080832094871680845294825291829020859055815185815291517f8c5be1e5ebec7d5bd14f71427d1e84f3dd0314c0f7b2291e5b200ac8c7c3b9259281900390910190a3505050565b6001600160a01b0383166106785760405162461bcd60e51b8152600401808060200182810382526025815260200180610c5d6025913960400191505060405180910390fd5b6001600160a01b0382166106bd5760405162461bcd60e51b8152600401808060200182810382526023815260200180610b576023913960400191505060405180910390fd5b61070081604051806060016040528060268152602001610b9c602691396001600160a01b038616600090815260208190526040902054919063ffffffff61078f16565b6001600160a01b038085166000908152602081905260408082209390935590841681522054610735908263ffffffff61082616565b6001600160a01b038084166000818152602081815260409182902094909455805185815290519193928716927fddf252ad1be2c89b69c2b068fc378daa952ba7f163c4a11628f55a4df523b3ef92918290030190a3505050565b6000818484111561081e5760405162461bcd60e51b81526004018080602001828103825283818151815260200191508051906020019080838360005b838110156107e35781810151838201526020016107cb565b50505050905090810190601f1680156108105780820380516001836020036101000a031916815260200191505b509250505060405180910390fd5b505050900390565b600082820183811015610880576040805162461bcd60e51b815260206004820152601b60248201527f536166654d6174683a206164646974696f6e206f766572666c6f770000000000604482015290519081900360640190fd5b9392505050565b6001600160a01b0382166108e2576040805162461bcd60e51b815260206004820152601f60248201527f45524332303a206d696e7420746f20746865207a65726f206164647265737300604482015290519081900360640190fd5b6002546108f5908263ffffffff61082616565b6002556001600160a01b038216600090815260208190526040902054610921908263ffffffff61082616565b6001600160a01b0383166000818152602081815260408083209490945583518581529351929391927fddf252ad1be2c89b69c2b068fc378daa952ba7f163c4a11628f55a4df523b3ef9281900390910190a35050565b61098860038263ffffffff610a6e16565b6040516001600160a01b038216907f6ae172837ea30b801fbfcdd4108aa1d5bf8ff775444fd70256b44e6bf3dfc3f690600090a250565b6109d060038263ffffffff610aef16565b6040516001600160a01b038216907fe94479a9f7e1952cc78f2d6baab678adc1b772d936c6583def489e524cb6669290600090a250565b60006001600160a01b038216610a4e5760405162461bcd60e51b8152600401808060200182810382526022815260200180610c3b6022913960400191505060405180910390fd5b506001600160a01b03166000908152602091909152604090205460ff1690565b610a788282610a07565b15610aca576040805162461bcd60e51b815260206004820152601f60248201527f526f6c65733a206163636f756e7420616c72656164792068617320726f6c6500604482015290519081900360640190fd5b6001600160a01b0316600090815260209190915260409020805460ff19166001179055565b610af98282610a07565b610b345760405162461bcd60e51b8152600401808060200182810382526021815260200180610bf26021913960400191505060405180910390fd5b6001600160a01b0316600090815260209190915260409020805460ff1916905556fe45524332303a207472616e7366657220746f20746865207a65726f206164647265737345524332303a20617070726f766520746f20746865207a65726f206164647265737345524332303a207472616e7366657220616d6f756e7420657863656564732062616c616e63654d696e746572526f6c653a2063616c6c657220646f6573206e6f74206861766520746865204d696e74657220726f6c65526f6c65733a206163636f756e7420646f6573206e6f74206861766520726f6c6545524332303a207472616e7366657220616d6f756e74206578636565647320616c6c6f77616e6365526f6c65733a206163636f756e7420697320746865207a65726f206164647265737345524332303a207472616e736665722066726f6d20746865207a65726f206164647265737345524332303a20617070726f76652066726f6d20746865207a65726f206164647265737345524332303a2064656372656173656420616c6c6f77616e63652062656c6f77207a65726fa265627a7a72315820d84afed51858fd72309ffd5b86195ab437a6e410137388d82a071f3b350183b564736f6c634300050c0032526f6c65733a206163636f756e7420697320746865207a65726f2061646472657373"
-
-// DeployERC20Mintable deploys a new Ethereum contract, binding an instance of ERC20Mintable to it.
-func DeployERC20Mintable(auth *bind.TransactOpts, backend bind.ContractBackend) (common.Address, *types.Transaction, *ERC20Mintable, error) {
-	parsed, err := abi.JSON(strings.NewReader(ERC20MintableABI))
-	if err != nil {
-		return common.Address{}, nil, nil, err
-	}
-
-	address, tx, contract, err := bind.DeployContract(auth, parsed, common.FromHex(ERC20MintableBin), backend)
-	if err != nil {
-		return common.Address{}, nil, nil, err
-	}
-	return address, tx, &ERC20Mintable{ERC20MintableCaller: ERC20MintableCaller{contract: contract}, ERC20MintableTransactor: ERC20MintableTransactor{contract: contract}, ERC20MintableFilterer: ERC20MintableFilterer{contract: contract}}, nil
-}
-
-// ERC20Mintable is an auto generated Go binding around an Ethereum contract.
-type ERC20Mintable struct {
-	ERC20MintableCaller     // Read-only binding to the contract
-	ERC20MintableTransactor // Write-only binding to the contract
-	ERC20MintableFilterer   // Log filterer for contract events
-}
-
-// ERC20MintableCaller is an auto generated read-only Go binding around an Ethereum contract.
-type ERC20MintableCaller struct {
-	contract *bind.BoundContract // Generic contract wrapper for the low level calls
-}
-
-// ERC20MintableTransactor is an auto generated write-only Go binding around an Ethereum contract.
-type ERC20MintableTransactor struct {
-	contract *bind.BoundContract // Generic contract wrapper for the low level calls
-}
-
-// ERC20MintableFilterer is an auto generated log filtering Go binding around an Ethereum contract events.
-type ERC20MintableFilterer struct {
-	contract *bind.BoundContract // Generic contract wrapper for the low level calls
-}
-
-// ERC20MintableSession is an auto generated Go binding around an Ethereum contract,
-// with pre-set call and transact options.
-type ERC20MintableSession struct {
-	Contract     *ERC20Mintable    // Generic contract binding to set the session for
-	CallOpts     bind.CallOpts     // Call options to use throughout this session
-	TransactOpts bind.TransactOpts // Transaction auth options to use throughout this session
-}
-
-// ERC20MintableCallerSession is an auto generated read-only Go binding around an Ethereum contract,
-// with pre-set call options.
-type ERC20MintableCallerSession struct {
-	Contract *ERC20MintableCaller // Generic contract caller binding to set the session for
-	CallOpts bind.CallOpts        // Call options to use throughout this session
-}
-
-// ERC20MintableTransactorSession is an auto generated write-only Go binding around an Ethereum contract,
-// with pre-set transact options.
-type ERC20MintableTransactorSession struct {
-	Contract     *ERC20MintableTransactor // Generic contract transactor binding to set the session for
-	TransactOpts bind.TransactOpts        // Transaction auth options to use throughout this session
-}
-
-// ERC20MintableRaw is an auto generated low-level Go binding around an Ethereum contract.
-type ERC20MintableRaw struct {
-	Contract *ERC20Mintable // Generic contract binding to access the raw methods on
-}
-
-// ERC20MintableCallerRaw is an auto generated low-level read-only Go binding around an Ethereum contract.
-type ERC20MintableCallerRaw struct {
-	Contract *ERC20MintableCaller // Generic read-only contract binding to access the raw methods on
-}
-
-// ERC20MintableTransactorRaw is an auto generated low-level write-only Go binding around an Ethereum contract.
-type ERC20MintableTransactorRaw struct {
-	Contract *ERC20MintableTransactor // Generic write-only contract binding to access the raw methods on
-}
-
-// NewERC20Mintable creates a new instance of ERC20Mintable, bound to a specific deployed contract.
-func NewERC20Mintable(address common.Address, backend bind.ContractBackend) (*ERC20Mintable, error) {
-	contract, err := bindERC20Mintable(address, backend, backend, backend)
-	if err != nil {
-		return nil, err
-	}
-	return &ERC20Mintable{ERC20MintableCaller: ERC20MintableCaller{contract: contract}, ERC20MintableTransactor: ERC20MintableTransactor{contract: contract}, ERC20MintableFilterer: ERC20MintableFilterer{contract: contract}}, nil
-}
-
-// NewERC20MintableCaller creates a new read-only instance of ERC20Mintable, bound to a specific deployed contract.
-func NewERC20MintableCaller(address common.Address, caller bind.ContractCaller) (*ERC20MintableCaller, error) {
-	contract, err := bindERC20Mintable(address, caller, nil, nil)
-	if err != nil {
-		return nil, err
-	}
-	return &ERC20MintableCaller{contract: contract}, nil
-}
-
-// NewERC20MintableTransactor creates a new write-only instance of ERC20Mintable, bound to a specific deployed contract.
-func NewERC20MintableTransactor(address common.Address, transactor bind.ContractTransactor) (*ERC20MintableTransactor, error) {
-	contract, err := bindERC20Mintable(address, nil, transactor, nil)
-	if err != nil {
-		return nil, err
-	}
-	return &ERC20MintableTransactor{contract: contract}, nil
-}
-
-// NewERC20MintableFilterer creates a new log filterer instance of ERC20Mintable, bound to a specific deployed contract.
-func NewERC20MintableFilterer(address common.Address, filterer bind.ContractFilterer) (*ERC20MintableFilterer, error) {
-	contract, err := bindERC20Mintable(address, nil, nil, filterer)
-	if err != nil {
-		return nil, err
-	}
-	return &ERC20MintableFilterer{contract: contract}, nil
-}
-
-// bindERC20Mintable binds a generic wrapper to an already deployed contract.
-func bindERC20Mintable(address common.Address, caller bind.ContractCaller, transactor bind.ContractTransactor, filterer bind.ContractFilterer) (*bind.BoundContract, error) {
-	parsed, err := abi.JSON(strings.NewReader(ERC20MintableABI))
-	if err != nil {
-		return nil, err
-	}
-	return bind.NewBoundContract(address, parsed, caller, transactor, filterer), nil
-}
-
-// Call invokes the (constant) contract method with params as input values and
-// sets the output to result. The result type might be a single field for simple
-// returns, a slice of interfaces for anonymous returns and a struct for named
-// returns.
-func (_ERC20Mintable *ERC20MintableRaw) Call(opts *bind.CallOpts, result interface{}, method string, params ...interface{}) error {
-	return _ERC20Mintable.Contract.ERC20MintableCaller.contract.Call(opts, result, method, params...)
-}
-
-// Transfer initiates a plain transaction to move funds to the contract, calling
-// its default method if one is available.
-func (_ERC20Mintable *ERC20MintableRaw) Transfer(opts *bind.TransactOpts) (*types.Transaction, error) {
-	return _ERC20Mintable.Contract.ERC20MintableTransactor.contract.Transfer(opts)
-}
-
-// Transact invokes the (paid) contract method with params as input values.
-func (_ERC20Mintable *ERC20MintableRaw) Transact(opts *bind.TransactOpts, method string, params ...interface{}) (*types.Transaction, error) {
-	return _ERC20Mintable.Contract.ERC20MintableTransactor.contract.Transact(opts, method, params...)
-}
-
-// Call invokes the (constant) contract method with params as input values and
-// sets the output to result. The result type might be a single field for simple
-// returns, a slice of interfaces for anonymous returns and a struct for named
-// returns.
-func (_ERC20Mintable *ERC20MintableCallerRaw) Call(opts *bind.CallOpts, result interface{}, method string, params ...interface{}) error {
-	return _ERC20Mintable.Contract.contract.Call(opts, result, method, params...)
-}
-
-// Transfer initiates a plain transaction to move funds to the contract, calling
-// its default method if one is available.
-func (_ERC20Mintable *ERC20MintableTransactorRaw) Transfer(opts *bind.TransactOpts) (*types.Transaction, error) {
-	return _ERC20Mintable.Contract.contract.Transfer(opts)
-}
-
-// Transact invokes the (paid) contract method with params as input values.
-func (_ERC20Mintable *ERC20MintableTransactorRaw) Transact(opts *bind.TransactOpts, method string, params ...interface{}) (*types.Transaction, error) {
-	return _ERC20Mintable.Contract.contract.Transact(opts, method, params...)
-}
-
-// Allowance is a free data retrieval call binding the contract method 0xdd62ed3e.
-//
-// Solidity: function allowance(address owner, address spender) constant returns(uint256)
-func (_ERC20Mintable *ERC20MintableCaller) Allowance(opts *bind.CallOpts, owner common.Address, spender common.Address) (*big.Int, error) {
-	var (
-		ret0 = new(*big.Int)
-	)
-	out := ret0
-	err := _ERC20Mintable.contract.Call(opts, out, "allowance", owner, spender)
-	return *ret0, err
-}
-
-// Allowance is a free data retrieval call binding the contract method 0xdd62ed3e.
-//
-// Solidity: function allowance(address owner, address spender) constant returns(uint256)
-func (_ERC20Mintable *ERC20MintableSession) Allowance(owner common.Address, spender common.Address) (*big.Int, error) {
-	return _ERC20Mintable.Contract.Allowance(&_ERC20Mintable.CallOpts, owner, spender)
-}
-
-// Allowance is a free data retrieval call binding the contract method 0xdd62ed3e.
-//
-// Solidity: function allowance(address owner, address spender) constant returns(uint256)
-func (_ERC20Mintable *ERC20MintableCallerSession) Allowance(owner common.Address, spender common.Address) (*big.Int, error) {
-	return _ERC20Mintable.Contract.Allowance(&_ERC20Mintable.CallOpts, owner, spender)
-}
-
-// BalanceOf is a free data retrieval call binding the contract method 0x70a08231.
-//
-// Solidity: function balanceOf(address account) constant returns(uint256)
-func (_ERC20Mintable *ERC20MintableCaller) BalanceOf(opts *bind.CallOpts, account common.Address) (*big.Int, error) {
-	var (
-		ret0 = new(*big.Int)
-	)
-	out := ret0
-	err := _ERC20Mintable.contract.Call(opts, out, "balanceOf", account)
-	return *ret0, err
-}
-
-// BalanceOf is a free data retrieval call binding the contract method 0x70a08231.
-//
-// Solidity: function balanceOf(address account) constant returns(uint256)
-func (_ERC20Mintable *ERC20MintableSession) BalanceOf(account common.Address) (*big.Int, error) {
-	return _ERC20Mintable.Contract.BalanceOf(&_ERC20Mintable.CallOpts, account)
-}
-
-// BalanceOf is a free data retrieval call binding the contract method 0x70a08231.
-//
-// Solidity: function balanceOf(address account) constant returns(uint256)
-func (_ERC20Mintable *ERC20MintableCallerSession) BalanceOf(account common.Address) (*big.Int, error) {
-	return _ERC20Mintable.Contract.BalanceOf(&_ERC20Mintable.CallOpts, account)
-}
-
-// IsMinter is a free data retrieval call binding the contract method 0xaa271e1a.
-//
-// Solidity: function isMinter(address account) constant returns(bool)
-func (_ERC20Mintable *ERC20MintableCaller) IsMinter(opts *bind.CallOpts, account common.Address) (bool, error) {
+// Solidity: function isOwner() constant returns(bool)
+func (_Ownable *OwnableCaller) IsOwner(opts *bind.CallOpts) (bool, error) {
 	var (
 		ret0 = new(bool)
 	)
 	out := ret0
-	err := _ERC20Mintable.contract.Call(opts, out, "isMinter", account)
+	err := _Ownable.contract.Call(opts, out, "isOwner")
 	return *ret0, err
 }
 
-// IsMinter is a free data retrieval call binding the contract method 0xaa271e1a.
+// IsOwner is a free data retrieval call binding the contract method 0x8f32d59b.
 //
-// Solidity: function isMinter(address account) constant returns(bool)
-func (_ERC20Mintable *ERC20MintableSession) IsMinter(account common.Address) (bool, error) {
-	return _ERC20Mintable.Contract.IsMinter(&_ERC20Mintable.CallOpts, account)
+// Solidity: function isOwner() constant returns(bool)
+func (_Ownable *OwnableSession) IsOwner() (bool, error) {
+	return _Ownable.Contract.IsOwner(&_Ownable.CallOpts)
 }
 
-// IsMinter is a free data retrieval call binding the contract method 0xaa271e1a.
+// IsOwner is a free data retrieval call binding the contract method 0x8f32d59b.
 //
-// Solidity: function isMinter(address account) constant returns(bool)
-func (_ERC20Mintable *ERC20MintableCallerSession) IsMinter(account common.Address) (bool, error) {
-	return _ERC20Mintable.Contract.IsMinter(&_ERC20Mintable.CallOpts, account)
+// Solidity: function isOwner() constant returns(bool)
+func (_Ownable *OwnableCallerSession) IsOwner() (bool, error) {
+	return _Ownable.Contract.IsOwner(&_Ownable.CallOpts)
 }
 
-// TotalSupply is a free data retrieval call binding the contract method 0x18160ddd.
+// Owner is a free data retrieval call binding the contract method 0x8da5cb5b.
 //
-// Solidity: function totalSupply() constant returns(uint256)
-func (_ERC20Mintable *ERC20MintableCaller) TotalSupply(opts *bind.CallOpts) (*big.Int, error) {
+// Solidity: function owner() constant returns(address)
+func (_Ownable *OwnableCaller) Owner(opts *bind.CallOpts) (common.Address, error) {
 	var (
-		ret0 = new(*big.Int)
+		ret0 = new(common.Address)
 	)
 	out := ret0
-	err := _ERC20Mintable.contract.Call(opts, out, "totalSupply")
+	err := _Ownable.contract.Call(opts, out, "owner")
 	return *ret0, err
 }
 
-// TotalSupply is a free data retrieval call binding the contract method 0x18160ddd.
+// Owner is a free data retrieval call binding the contract method 0x8da5cb5b.
 //
-// Solidity: function totalSupply() constant returns(uint256)
-func (_ERC20Mintable *ERC20MintableSession) TotalSupply() (*big.Int, error) {
-	return _ERC20Mintable.Contract.TotalSupply(&_ERC20Mintable.CallOpts)
+// Solidity: function owner() constant returns(address)
+func (_Ownable *OwnableSession) Owner() (common.Address, error) {
+	return _Ownable.Contract.Owner(&_Ownable.CallOpts)
 }
 
-// TotalSupply is a free data retrieval call binding the contract method 0x18160ddd.
+// Owner is a free data retrieval call binding the contract method 0x8da5cb5b.
 //
-// Solidity: function totalSupply() constant returns(uint256)
-func (_ERC20Mintable *ERC20MintableCallerSession) TotalSupply() (*big.Int, error) {
-	return _ERC20Mintable.Contract.TotalSupply(&_ERC20Mintable.CallOpts)
+// Solidity: function owner() constant returns(address)
+func (_Ownable *OwnableCallerSession) Owner() (common.Address, error) {
+	return _Ownable.Contract.Owner(&_Ownable.CallOpts)
 }
 
-// AddMinter is a paid mutator transaction binding the contract method 0x983b2d56.
+// RenounceOwnership is a paid mutator transaction binding the contract method 0x715018a6.
 //
-// Solidity: function addMinter(address account) returns()
-func (_ERC20Mintable *ERC20MintableTransactor) AddMinter(opts *bind.TransactOpts, account common.Address) (*types.Transaction, error) {
-	return _ERC20Mintable.contract.Transact(opts, "addMinter", account)
+// Solidity: function renounceOwnership() returns()
+func (_Ownable *OwnableTransactor) RenounceOwnership(opts *bind.TransactOpts) (*types.Transaction, error) {
+	return _Ownable.contract.Transact(opts, "renounceOwnership")
 }
 
-// AddMinter is a paid mutator transaction binding the contract method 0x983b2d56.
+// RenounceOwnership is a paid mutator transaction binding the contract method 0x715018a6.
 //
-// Solidity: function addMinter(address account) returns()
-func (_ERC20Mintable *ERC20MintableSession) AddMinter(account common.Address) (*types.Transaction, error) {
-	return _ERC20Mintable.Contract.AddMinter(&_ERC20Mintable.TransactOpts, account)
+// Solidity: function renounceOwnership() returns()
+func (_Ownable *OwnableSession) RenounceOwnership() (*types.Transaction, error) {
+	return _Ownable.Contract.RenounceOwnership(&_Ownable.TransactOpts)
 }
 
-// AddMinter is a paid mutator transaction binding the contract method 0x983b2d56.
+// RenounceOwnership is a paid mutator transaction binding the contract method 0x715018a6.
 //
-// Solidity: function addMinter(address account) returns()
-func (_ERC20Mintable *ERC20MintableTransactorSession) AddMinter(account common.Address) (*types.Transaction, error) {
-	return _ERC20Mintable.Contract.AddMinter(&_ERC20Mintable.TransactOpts, account)
+// Solidity: function renounceOwnership() returns()
+func (_Ownable *OwnableTransactorSession) RenounceOwnership() (*types.Transaction, error) {
+	return _Ownable.Contract.RenounceOwnership(&_Ownable.TransactOpts)
 }
 
-// Approve is a paid mutator transaction binding the contract method 0x095ea7b3.
+// TransferOwnership is a paid mutator transaction binding the contract method 0xf2fde38b.
 //
-// Solidity: function approve(address spender, uint256 amount) returns(bool)
-func (_ERC20Mintable *ERC20MintableTransactor) Approve(opts *bind.TransactOpts, spender common.Address, amount *big.Int) (*types.Transaction, error) {
-	return _ERC20Mintable.contract.Transact(opts, "approve", spender, amount)
+// Solidity: function transferOwnership(address newOwner) returns()
+func (_Ownable *OwnableTransactor) TransferOwnership(opts *bind.TransactOpts, newOwner common.Address) (*types.Transaction, error) {
+	return _Ownable.contract.Transact(opts, "transferOwnership", newOwner)
 }
 
-// Approve is a paid mutator transaction binding the contract method 0x095ea7b3.
+// TransferOwnership is a paid mutator transaction binding the contract method 0xf2fde38b.
 //
-// Solidity: function approve(address spender, uint256 amount) returns(bool)
-func (_ERC20Mintable *ERC20MintableSession) Approve(spender common.Address, amount *big.Int) (*types.Transaction, error) {
-	return _ERC20Mintable.Contract.Approve(&_ERC20Mintable.TransactOpts, spender, amount)
+// Solidity: function transferOwnership(address newOwner) returns()
+func (_Ownable *OwnableSession) TransferOwnership(newOwner common.Address) (*types.Transaction, error) {
+	return _Ownable.Contract.TransferOwnership(&_Ownable.TransactOpts, newOwner)
 }
 
-// Approve is a paid mutator transaction binding the contract method 0x095ea7b3.
+// TransferOwnership is a paid mutator transaction binding the contract method 0xf2fde38b.
 //
-// Solidity: function approve(address spender, uint256 amount) returns(bool)
-func (_ERC20Mintable *ERC20MintableTransactorSession) Approve(spender common.Address, amount *big.Int) (*types.Transaction, error) {
-	return _ERC20Mintable.Contract.Approve(&_ERC20Mintable.TransactOpts, spender, amount)
+// Solidity: function transferOwnership(address newOwner) returns()
+func (_Ownable *OwnableTransactorSession) TransferOwnership(newOwner common.Address) (*types.Transaction, error) {
+	return _Ownable.Contract.TransferOwnership(&_Ownable.TransactOpts, newOwner)
 }
 
-// DecreaseAllowance is a paid mutator transaction binding the contract method 0xa457c2d7.
-//
-// Solidity: function decreaseAllowance(address spender, uint256 subtractedValue) returns(bool)
-func (_ERC20Mintable *ERC20MintableTransactor) DecreaseAllowance(opts *bind.TransactOpts, spender common.Address, subtractedValue *big.Int) (*types.Transaction, error) {
-	return _ERC20Mintable.contract.Transact(opts, "decreaseAllowance", spender, subtractedValue)
-}
-
-// DecreaseAllowance is a paid mutator transaction binding the contract method 0xa457c2d7.
-//
-// Solidity: function decreaseAllowance(address spender, uint256 subtractedValue) returns(bool)
-func (_ERC20Mintable *ERC20MintableSession) DecreaseAllowance(spender common.Address, subtractedValue *big.Int) (*types.Transaction, error) {
-	return _ERC20Mintable.Contract.DecreaseAllowance(&_ERC20Mintable.TransactOpts, spender, subtractedValue)
-}
-
-// DecreaseAllowance is a paid mutator transaction binding the contract method 0xa457c2d7.
-//
-// Solidity: function decreaseAllowance(address spender, uint256 subtractedValue) returns(bool)
-func (_ERC20Mintable *ERC20MintableTransactorSession) DecreaseAllowance(spender common.Address, subtractedValue *big.Int) (*types.Transaction, error) {
-	return _ERC20Mintable.Contract.DecreaseAllowance(&_ERC20Mintable.TransactOpts, spender, subtractedValue)
-}
-
-// IncreaseAllowance is a paid mutator transaction binding the contract method 0x39509351.
-//
-// Solidity: function increaseAllowance(address spender, uint256 addedValue) returns(bool)
-func (_ERC20Mintable *ERC20MintableTransactor) IncreaseAllowance(opts *bind.TransactOpts, spender common.Address, addedValue *big.Int) (*types.Transaction, error) {
-	return _ERC20Mintable.contract.Transact(opts, "increaseAllowance", spender, addedValue)
-}
-
-// IncreaseAllowance is a paid mutator transaction binding the contract method 0x39509351.
-//
-// Solidity: function increaseAllowance(address spender, uint256 addedValue) returns(bool)
-func (_ERC20Mintable *ERC20MintableSession) IncreaseAllowance(spender common.Address, addedValue *big.Int) (*types.Transaction, error) {
-	return _ERC20Mintable.Contract.IncreaseAllowance(&_ERC20Mintable.TransactOpts, spender, addedValue)
-}
-
-// IncreaseAllowance is a paid mutator transaction binding the contract method 0x39509351.
-//
-// Solidity: function increaseAllowance(address spender, uint256 addedValue) returns(bool)
-func (_ERC20Mintable *ERC20MintableTransactorSession) IncreaseAllowance(spender common.Address, addedValue *big.Int) (*types.Transaction, error) {
-	return _ERC20Mintable.Contract.IncreaseAllowance(&_ERC20Mintable.TransactOpts, spender, addedValue)
-}
-
-// Mint is a paid mutator transaction binding the contract method 0x40c10f19.
-//
-// Solidity: function mint(address account, uint256 amount) returns(bool)
-func (_ERC20Mintable *ERC20MintableTransactor) Mint(opts *bind.TransactOpts, account common.Address, amount *big.Int) (*types.Transaction, error) {
-	return _ERC20Mintable.contract.Transact(opts, "mint", account, amount)
-}
-
-// Mint is a paid mutator transaction binding the contract method 0x40c10f19.
-//
-// Solidity: function mint(address account, uint256 amount) returns(bool)
-func (_ERC20Mintable *ERC20MintableSession) Mint(account common.Address, amount *big.Int) (*types.Transaction, error) {
-	return _ERC20Mintable.Contract.Mint(&_ERC20Mintable.TransactOpts, account, amount)
-}
-
-// Mint is a paid mutator transaction binding the contract method 0x40c10f19.
-//
-// Solidity: function mint(address account, uint256 amount) returns(bool)
-func (_ERC20Mintable *ERC20MintableTransactorSession) Mint(account common.Address, amount *big.Int) (*types.Transaction, error) {
-	return _ERC20Mintable.Contract.Mint(&_ERC20Mintable.TransactOpts, account, amount)
-}
-
-// RenounceMinter is a paid mutator transaction binding the contract method 0x98650275.
-//
-// Solidity: function renounceMinter() returns()
-func (_ERC20Mintable *ERC20MintableTransactor) RenounceMinter(opts *bind.TransactOpts) (*types.Transaction, error) {
-	return _ERC20Mintable.contract.Transact(opts, "renounceMinter")
-}
-
-// RenounceMinter is a paid mutator transaction binding the contract method 0x98650275.
-//
-// Solidity: function renounceMinter() returns()
-func (_ERC20Mintable *ERC20MintableSession) RenounceMinter() (*types.Transaction, error) {
-	return _ERC20Mintable.Contract.RenounceMinter(&_ERC20Mintable.TransactOpts)
-}
-
-// RenounceMinter is a paid mutator transaction binding the contract method 0x98650275.
-//
-// Solidity: function renounceMinter() returns()
-func (_ERC20Mintable *ERC20MintableTransactorSession) RenounceMinter() (*types.Transaction, error) {
-	return _ERC20Mintable.Contract.RenounceMinter(&_ERC20Mintable.TransactOpts)
-}
-
-// Transfer is a paid mutator transaction binding the contract method 0xa9059cbb.
-//
-// Solidity: function transfer(address recipient, uint256 amount) returns(bool)
-func (_ERC20Mintable *ERC20MintableTransactor) Transfer(opts *bind.TransactOpts, recipient common.Address, amount *big.Int) (*types.Transaction, error) {
-	return _ERC20Mintable.contract.Transact(opts, "transfer", recipient, amount)
-}
-
-// Transfer is a paid mutator transaction binding the contract method 0xa9059cbb.
-//
-// Solidity: function transfer(address recipient, uint256 amount) returns(bool)
-func (_ERC20Mintable *ERC20MintableSession) Transfer(recipient common.Address, amount *big.Int) (*types.Transaction, error) {
-	return _ERC20Mintable.Contract.Transfer(&_ERC20Mintable.TransactOpts, recipient, amount)
-}
-
-// Transfer is a paid mutator transaction binding the contract method 0xa9059cbb.
-//
-// Solidity: function transfer(address recipient, uint256 amount) returns(bool)
-func (_ERC20Mintable *ERC20MintableTransactorSession) Transfer(recipient common.Address, amount *big.Int) (*types.Transaction, error) {
-	return _ERC20Mintable.Contract.Transfer(&_ERC20Mintable.TransactOpts, recipient, amount)
-}
-
-// TransferFrom is a paid mutator transaction binding the contract method 0x23b872dd.
-//
-// Solidity: function transferFrom(address sender, address recipient, uint256 amount) returns(bool)
-func (_ERC20Mintable *ERC20MintableTransactor) TransferFrom(opts *bind.TransactOpts, sender common.Address, recipient common.Address, amount *big.Int) (*types.Transaction, error) {
-	return _ERC20Mintable.contract.Transact(opts, "transferFrom", sender, recipient, amount)
-}
-
-// TransferFrom is a paid mutator transaction binding the contract method 0x23b872dd.
-//
-// Solidity: function transferFrom(address sender, address recipient, uint256 amount) returns(bool)
-func (_ERC20Mintable *ERC20MintableSession) TransferFrom(sender common.Address, recipient common.Address, amount *big.Int) (*types.Transaction, error) {
-	return _ERC20Mintable.Contract.TransferFrom(&_ERC20Mintable.TransactOpts, sender, recipient, amount)
-}
-
-// TransferFrom is a paid mutator transaction binding the contract method 0x23b872dd.
-//
-// Solidity: function transferFrom(address sender, address recipient, uint256 amount) returns(bool)
-func (_ERC20Mintable *ERC20MintableTransactorSession) TransferFrom(sender common.Address, recipient common.Address, amount *big.Int) (*types.Transaction, error) {
-	return _ERC20Mintable.Contract.TransferFrom(&_ERC20Mintable.TransactOpts, sender, recipient, amount)
-}
-
-// ERC20MintableApprovalIterator is returned from FilterApproval and is used to iterate over the raw logs and unpacked data for Approval events raised by the ERC20Mintable contract.
-type ERC20MintableApprovalIterator struct {
-	Event *ERC20MintableApproval // Event containing the contract specifics and raw log
+// OwnableOwnershipTransferredIterator is returned from FilterOwnershipTransferred and is used to iterate over the raw logs and unpacked data for OwnershipTransferred events raised by the Ownable contract.
+type OwnableOwnershipTransferredIterator struct {
+	Event *OwnableOwnershipTransferred // Event containing the contract specifics and raw log
 
 	contract *bind.BoundContract // Generic contract to use for unpacking event data
 	event    string              // Event name to use for unpacking event data
@@ -3107,7 +1540,7 @@ type ERC20MintableApprovalIterator struct {
 // Next advances the iterator to the subsequent event, returning whether there
 // are any more events found. In case of a retrieval or parsing error, false is
 // returned and Error() can be queried for the exact failure.
-func (it *ERC20MintableApprovalIterator) Next() bool {
+func (it *OwnableOwnershipTransferredIterator) Next() bool {
 	// If the iterator failed, stop iterating
 	if it.fail != nil {
 		return false
@@ -3116,7 +1549,7 @@ func (it *ERC20MintableApprovalIterator) Next() bool {
 	if it.done {
 		select {
 		case log := <-it.logs:
-			it.Event = new(ERC20MintableApproval)
+			it.Event = new(OwnableOwnershipTransferred)
 			if err := it.contract.UnpackLog(it.Event, it.event, log); err != nil {
 				it.fail = err
 				return false
@@ -3131,7 +1564,7 @@ func (it *ERC20MintableApprovalIterator) Next() bool {
 	// Iterator still in progress, wait for either a data or an error event
 	select {
 	case log := <-it.logs:
-		it.Event = new(ERC20MintableApproval)
+		it.Event = new(OwnableOwnershipTransferred)
 		if err := it.contract.UnpackLog(it.Event, it.event, log); err != nil {
 			it.fail = err
 			return false
@@ -3147,61 +1580,60 @@ func (it *ERC20MintableApprovalIterator) Next() bool {
 }
 
 // Error returns any retrieval or parsing error occurred during filtering.
-func (it *ERC20MintableApprovalIterator) Error() error {
+func (it *OwnableOwnershipTransferredIterator) Error() error {
 	return it.fail
 }
 
 // Close terminates the iteration process, releasing any pending underlying
 // resources.
-func (it *ERC20MintableApprovalIterator) Close() error {
+func (it *OwnableOwnershipTransferredIterator) Close() error {
 	it.sub.Unsubscribe()
 	return nil
 }
 
-// ERC20MintableApproval represents a Approval event raised by the ERC20Mintable contract.
-type ERC20MintableApproval struct {
-	Owner   common.Address
-	Spender common.Address
-	Value   *big.Int
-	Raw     types.Log // Blockchain specific contextual infos
+// OwnableOwnershipTransferred represents a OwnershipTransferred event raised by the Ownable contract.
+type OwnableOwnershipTransferred struct {
+	PreviousOwner common.Address
+	NewOwner      common.Address
+	Raw           types.Log // Blockchain specific contextual infos
 }
 
-// FilterApproval is a free log retrieval operation binding the contract event 0x8c5be1e5ebec7d5bd14f71427d1e84f3dd0314c0f7b2291e5b200ac8c7c3b925.
+// FilterOwnershipTransferred is a free log retrieval operation binding the contract event 0x8be0079c531659141344cd1fd0a4f28419497f9722a3daafe3b4186f6b6457e0.
 //
-// Solidity: event Approval(address indexed owner, address indexed spender, uint256 value)
-func (_ERC20Mintable *ERC20MintableFilterer) FilterApproval(opts *bind.FilterOpts, owner []common.Address, spender []common.Address) (*ERC20MintableApprovalIterator, error) {
+// Solidity: event OwnershipTransferred(address indexed previousOwner, address indexed newOwner)
+func (_Ownable *OwnableFilterer) FilterOwnershipTransferred(opts *bind.FilterOpts, previousOwner []common.Address, newOwner []common.Address) (*OwnableOwnershipTransferredIterator, error) {
 
-	var ownerRule []interface{}
-	for _, ownerItem := range owner {
-		ownerRule = append(ownerRule, ownerItem)
+	var previousOwnerRule []interface{}
+	for _, previousOwnerItem := range previousOwner {
+		previousOwnerRule = append(previousOwnerRule, previousOwnerItem)
 	}
-	var spenderRule []interface{}
-	for _, spenderItem := range spender {
-		spenderRule = append(spenderRule, spenderItem)
+	var newOwnerRule []interface{}
+	for _, newOwnerItem := range newOwner {
+		newOwnerRule = append(newOwnerRule, newOwnerItem)
 	}
 
-	logs, sub, err := _ERC20Mintable.contract.FilterLogs(opts, "Approval", ownerRule, spenderRule)
+	logs, sub, err := _Ownable.contract.FilterLogs(opts, "OwnershipTransferred", previousOwnerRule, newOwnerRule)
 	if err != nil {
 		return nil, err
 	}
-	return &ERC20MintableApprovalIterator{contract: _ERC20Mintable.contract, event: "Approval", logs: logs, sub: sub}, nil
+	return &OwnableOwnershipTransferredIterator{contract: _Ownable.contract, event: "OwnershipTransferred", logs: logs, sub: sub}, nil
 }
 
-// WatchApproval is a free log subscription operation binding the contract event 0x8c5be1e5ebec7d5bd14f71427d1e84f3dd0314c0f7b2291e5b200ac8c7c3b925.
+// WatchOwnershipTransferred is a free log subscription operation binding the contract event 0x8be0079c531659141344cd1fd0a4f28419497f9722a3daafe3b4186f6b6457e0.
 //
-// Solidity: event Approval(address indexed owner, address indexed spender, uint256 value)
-func (_ERC20Mintable *ERC20MintableFilterer) WatchApproval(opts *bind.WatchOpts, sink chan<- *ERC20MintableApproval, owner []common.Address, spender []common.Address) (event.Subscription, error) {
+// Solidity: event OwnershipTransferred(address indexed previousOwner, address indexed newOwner)
+func (_Ownable *OwnableFilterer) WatchOwnershipTransferred(opts *bind.WatchOpts, sink chan<- *OwnableOwnershipTransferred, previousOwner []common.Address, newOwner []common.Address) (event.Subscription, error) {
 
-	var ownerRule []interface{}
-	for _, ownerItem := range owner {
-		ownerRule = append(ownerRule, ownerItem)
+	var previousOwnerRule []interface{}
+	for _, previousOwnerItem := range previousOwner {
+		previousOwnerRule = append(previousOwnerRule, previousOwnerItem)
 	}
-	var spenderRule []interface{}
-	for _, spenderItem := range spender {
-		spenderRule = append(spenderRule, spenderItem)
+	var newOwnerRule []interface{}
+	for _, newOwnerItem := range newOwner {
+		newOwnerRule = append(newOwnerRule, newOwnerItem)
 	}
 
-	logs, sub, err := _ERC20Mintable.contract.WatchLogs(opts, "Approval", ownerRule, spenderRule)
+	logs, sub, err := _Ownable.contract.WatchLogs(opts, "OwnershipTransferred", previousOwnerRule, newOwnerRule)
 	if err != nil {
 		return nil, err
 	}
@@ -3211,8 +1643,8 @@ func (_ERC20Mintable *ERC20MintableFilterer) WatchApproval(opts *bind.WatchOpts,
 			select {
 			case log := <-logs:
 				// New log arrived, parse the event and forward to the user
-				event := new(ERC20MintableApproval)
-				if err := _ERC20Mintable.contract.UnpackLog(event, "Approval", log); err != nil {
+				event := new(OwnableOwnershipTransferred)
+				if err := _Ownable.contract.UnpackLog(event, "OwnershipTransferred", log); err != nil {
 					return err
 				}
 				event.Raw = log
@@ -3233,1724 +1665,15 @@ func (_ERC20Mintable *ERC20MintableFilterer) WatchApproval(opts *bind.WatchOpts,
 	}), nil
 }
 
-// ParseApproval is a log parse operation binding the contract event 0x8c5be1e5ebec7d5bd14f71427d1e84f3dd0314c0f7b2291e5b200ac8c7c3b925.
+// ParseOwnershipTransferred is a log parse operation binding the contract event 0x8be0079c531659141344cd1fd0a4f28419497f9722a3daafe3b4186f6b6457e0.
 //
-// Solidity: event Approval(address indexed owner, address indexed spender, uint256 value)
-func (_ERC20Mintable *ERC20MintableFilterer) ParseApproval(log types.Log) (*ERC20MintableApproval, error) {
-	event := new(ERC20MintableApproval)
-	if err := _ERC20Mintable.contract.UnpackLog(event, "Approval", log); err != nil {
+// Solidity: event OwnershipTransferred(address indexed previousOwner, address indexed newOwner)
+func (_Ownable *OwnableFilterer) ParseOwnershipTransferred(log types.Log) (*OwnableOwnershipTransferred, error) {
+	event := new(OwnableOwnershipTransferred)
+	if err := _Ownable.contract.UnpackLog(event, "OwnershipTransferred", log); err != nil {
 		return nil, err
 	}
 	return event, nil
-}
-
-// ERC20MintableMinterAddedIterator is returned from FilterMinterAdded and is used to iterate over the raw logs and unpacked data for MinterAdded events raised by the ERC20Mintable contract.
-type ERC20MintableMinterAddedIterator struct {
-	Event *ERC20MintableMinterAdded // Event containing the contract specifics and raw log
-
-	contract *bind.BoundContract // Generic contract to use for unpacking event data
-	event    string              // Event name to use for unpacking event data
-
-	logs chan types.Log        // Log channel receiving the found contract events
-	sub  ethereum.Subscription // Subscription for errors, completion and termination
-	done bool                  // Whether the subscription completed delivering logs
-	fail error                 // Occurred error to stop iteration
-}
-
-// Next advances the iterator to the subsequent event, returning whether there
-// are any more events found. In case of a retrieval or parsing error, false is
-// returned and Error() can be queried for the exact failure.
-func (it *ERC20MintableMinterAddedIterator) Next() bool {
-	// If the iterator failed, stop iterating
-	if it.fail != nil {
-		return false
-	}
-	// If the iterator completed, deliver directly whatever's available
-	if it.done {
-		select {
-		case log := <-it.logs:
-			it.Event = new(ERC20MintableMinterAdded)
-			if err := it.contract.UnpackLog(it.Event, it.event, log); err != nil {
-				it.fail = err
-				return false
-			}
-			it.Event.Raw = log
-			return true
-
-		default:
-			return false
-		}
-	}
-	// Iterator still in progress, wait for either a data or an error event
-	select {
-	case log := <-it.logs:
-		it.Event = new(ERC20MintableMinterAdded)
-		if err := it.contract.UnpackLog(it.Event, it.event, log); err != nil {
-			it.fail = err
-			return false
-		}
-		it.Event.Raw = log
-		return true
-
-	case err := <-it.sub.Err():
-		it.done = true
-		it.fail = err
-		return it.Next()
-	}
-}
-
-// Error returns any retrieval or parsing error occurred during filtering.
-func (it *ERC20MintableMinterAddedIterator) Error() error {
-	return it.fail
-}
-
-// Close terminates the iteration process, releasing any pending underlying
-// resources.
-func (it *ERC20MintableMinterAddedIterator) Close() error {
-	it.sub.Unsubscribe()
-	return nil
-}
-
-// ERC20MintableMinterAdded represents a MinterAdded event raised by the ERC20Mintable contract.
-type ERC20MintableMinterAdded struct {
-	Account common.Address
-	Raw     types.Log // Blockchain specific contextual infos
-}
-
-// FilterMinterAdded is a free log retrieval operation binding the contract event 0x6ae172837ea30b801fbfcdd4108aa1d5bf8ff775444fd70256b44e6bf3dfc3f6.
-//
-// Solidity: event MinterAdded(address indexed account)
-func (_ERC20Mintable *ERC20MintableFilterer) FilterMinterAdded(opts *bind.FilterOpts, account []common.Address) (*ERC20MintableMinterAddedIterator, error) {
-
-	var accountRule []interface{}
-	for _, accountItem := range account {
-		accountRule = append(accountRule, accountItem)
-	}
-
-	logs, sub, err := _ERC20Mintable.contract.FilterLogs(opts, "MinterAdded", accountRule)
-	if err != nil {
-		return nil, err
-	}
-	return &ERC20MintableMinterAddedIterator{contract: _ERC20Mintable.contract, event: "MinterAdded", logs: logs, sub: sub}, nil
-}
-
-// WatchMinterAdded is a free log subscription operation binding the contract event 0x6ae172837ea30b801fbfcdd4108aa1d5bf8ff775444fd70256b44e6bf3dfc3f6.
-//
-// Solidity: event MinterAdded(address indexed account)
-func (_ERC20Mintable *ERC20MintableFilterer) WatchMinterAdded(opts *bind.WatchOpts, sink chan<- *ERC20MintableMinterAdded, account []common.Address) (event.Subscription, error) {
-
-	var accountRule []interface{}
-	for _, accountItem := range account {
-		accountRule = append(accountRule, accountItem)
-	}
-
-	logs, sub, err := _ERC20Mintable.contract.WatchLogs(opts, "MinterAdded", accountRule)
-	if err != nil {
-		return nil, err
-	}
-	return event.NewSubscription(func(quit <-chan struct{}) error {
-		defer sub.Unsubscribe()
-		for {
-			select {
-			case log := <-logs:
-				// New log arrived, parse the event and forward to the user
-				event := new(ERC20MintableMinterAdded)
-				if err := _ERC20Mintable.contract.UnpackLog(event, "MinterAdded", log); err != nil {
-					return err
-				}
-				event.Raw = log
-
-				select {
-				case sink <- event:
-				case err := <-sub.Err():
-					return err
-				case <-quit:
-					return nil
-				}
-			case err := <-sub.Err():
-				return err
-			case <-quit:
-				return nil
-			}
-		}
-	}), nil
-}
-
-// ParseMinterAdded is a log parse operation binding the contract event 0x6ae172837ea30b801fbfcdd4108aa1d5bf8ff775444fd70256b44e6bf3dfc3f6.
-//
-// Solidity: event MinterAdded(address indexed account)
-func (_ERC20Mintable *ERC20MintableFilterer) ParseMinterAdded(log types.Log) (*ERC20MintableMinterAdded, error) {
-	event := new(ERC20MintableMinterAdded)
-	if err := _ERC20Mintable.contract.UnpackLog(event, "MinterAdded", log); err != nil {
-		return nil, err
-	}
-	return event, nil
-}
-
-// ERC20MintableMinterRemovedIterator is returned from FilterMinterRemoved and is used to iterate over the raw logs and unpacked data for MinterRemoved events raised by the ERC20Mintable contract.
-type ERC20MintableMinterRemovedIterator struct {
-	Event *ERC20MintableMinterRemoved // Event containing the contract specifics and raw log
-
-	contract *bind.BoundContract // Generic contract to use for unpacking event data
-	event    string              // Event name to use for unpacking event data
-
-	logs chan types.Log        // Log channel receiving the found contract events
-	sub  ethereum.Subscription // Subscription for errors, completion and termination
-	done bool                  // Whether the subscription completed delivering logs
-	fail error                 // Occurred error to stop iteration
-}
-
-// Next advances the iterator to the subsequent event, returning whether there
-// are any more events found. In case of a retrieval or parsing error, false is
-// returned and Error() can be queried for the exact failure.
-func (it *ERC20MintableMinterRemovedIterator) Next() bool {
-	// If the iterator failed, stop iterating
-	if it.fail != nil {
-		return false
-	}
-	// If the iterator completed, deliver directly whatever's available
-	if it.done {
-		select {
-		case log := <-it.logs:
-			it.Event = new(ERC20MintableMinterRemoved)
-			if err := it.contract.UnpackLog(it.Event, it.event, log); err != nil {
-				it.fail = err
-				return false
-			}
-			it.Event.Raw = log
-			return true
-
-		default:
-			return false
-		}
-	}
-	// Iterator still in progress, wait for either a data or an error event
-	select {
-	case log := <-it.logs:
-		it.Event = new(ERC20MintableMinterRemoved)
-		if err := it.contract.UnpackLog(it.Event, it.event, log); err != nil {
-			it.fail = err
-			return false
-		}
-		it.Event.Raw = log
-		return true
-
-	case err := <-it.sub.Err():
-		it.done = true
-		it.fail = err
-		return it.Next()
-	}
-}
-
-// Error returns any retrieval or parsing error occurred during filtering.
-func (it *ERC20MintableMinterRemovedIterator) Error() error {
-	return it.fail
-}
-
-// Close terminates the iteration process, releasing any pending underlying
-// resources.
-func (it *ERC20MintableMinterRemovedIterator) Close() error {
-	it.sub.Unsubscribe()
-	return nil
-}
-
-// ERC20MintableMinterRemoved represents a MinterRemoved event raised by the ERC20Mintable contract.
-type ERC20MintableMinterRemoved struct {
-	Account common.Address
-	Raw     types.Log // Blockchain specific contextual infos
-}
-
-// FilterMinterRemoved is a free log retrieval operation binding the contract event 0xe94479a9f7e1952cc78f2d6baab678adc1b772d936c6583def489e524cb66692.
-//
-// Solidity: event MinterRemoved(address indexed account)
-func (_ERC20Mintable *ERC20MintableFilterer) FilterMinterRemoved(opts *bind.FilterOpts, account []common.Address) (*ERC20MintableMinterRemovedIterator, error) {
-
-	var accountRule []interface{}
-	for _, accountItem := range account {
-		accountRule = append(accountRule, accountItem)
-	}
-
-	logs, sub, err := _ERC20Mintable.contract.FilterLogs(opts, "MinterRemoved", accountRule)
-	if err != nil {
-		return nil, err
-	}
-	return &ERC20MintableMinterRemovedIterator{contract: _ERC20Mintable.contract, event: "MinterRemoved", logs: logs, sub: sub}, nil
-}
-
-// WatchMinterRemoved is a free log subscription operation binding the contract event 0xe94479a9f7e1952cc78f2d6baab678adc1b772d936c6583def489e524cb66692.
-//
-// Solidity: event MinterRemoved(address indexed account)
-func (_ERC20Mintable *ERC20MintableFilterer) WatchMinterRemoved(opts *bind.WatchOpts, sink chan<- *ERC20MintableMinterRemoved, account []common.Address) (event.Subscription, error) {
-
-	var accountRule []interface{}
-	for _, accountItem := range account {
-		accountRule = append(accountRule, accountItem)
-	}
-
-	logs, sub, err := _ERC20Mintable.contract.WatchLogs(opts, "MinterRemoved", accountRule)
-	if err != nil {
-		return nil, err
-	}
-	return event.NewSubscription(func(quit <-chan struct{}) error {
-		defer sub.Unsubscribe()
-		for {
-			select {
-			case log := <-logs:
-				// New log arrived, parse the event and forward to the user
-				event := new(ERC20MintableMinterRemoved)
-				if err := _ERC20Mintable.contract.UnpackLog(event, "MinterRemoved", log); err != nil {
-					return err
-				}
-				event.Raw = log
-
-				select {
-				case sink <- event:
-				case err := <-sub.Err():
-					return err
-				case <-quit:
-					return nil
-				}
-			case err := <-sub.Err():
-				return err
-			case <-quit:
-				return nil
-			}
-		}
-	}), nil
-}
-
-// ParseMinterRemoved is a log parse operation binding the contract event 0xe94479a9f7e1952cc78f2d6baab678adc1b772d936c6583def489e524cb66692.
-//
-// Solidity: event MinterRemoved(address indexed account)
-func (_ERC20Mintable *ERC20MintableFilterer) ParseMinterRemoved(log types.Log) (*ERC20MintableMinterRemoved, error) {
-	event := new(ERC20MintableMinterRemoved)
-	if err := _ERC20Mintable.contract.UnpackLog(event, "MinterRemoved", log); err != nil {
-		return nil, err
-	}
-	return event, nil
-}
-
-// ERC20MintableTransferIterator is returned from FilterTransfer and is used to iterate over the raw logs and unpacked data for Transfer events raised by the ERC20Mintable contract.
-type ERC20MintableTransferIterator struct {
-	Event *ERC20MintableTransfer // Event containing the contract specifics and raw log
-
-	contract *bind.BoundContract // Generic contract to use for unpacking event data
-	event    string              // Event name to use for unpacking event data
-
-	logs chan types.Log        // Log channel receiving the found contract events
-	sub  ethereum.Subscription // Subscription for errors, completion and termination
-	done bool                  // Whether the subscription completed delivering logs
-	fail error                 // Occurred error to stop iteration
-}
-
-// Next advances the iterator to the subsequent event, returning whether there
-// are any more events found. In case of a retrieval or parsing error, false is
-// returned and Error() can be queried for the exact failure.
-func (it *ERC20MintableTransferIterator) Next() bool {
-	// If the iterator failed, stop iterating
-	if it.fail != nil {
-		return false
-	}
-	// If the iterator completed, deliver directly whatever's available
-	if it.done {
-		select {
-		case log := <-it.logs:
-			it.Event = new(ERC20MintableTransfer)
-			if err := it.contract.UnpackLog(it.Event, it.event, log); err != nil {
-				it.fail = err
-				return false
-			}
-			it.Event.Raw = log
-			return true
-
-		default:
-			return false
-		}
-	}
-	// Iterator still in progress, wait for either a data or an error event
-	select {
-	case log := <-it.logs:
-		it.Event = new(ERC20MintableTransfer)
-		if err := it.contract.UnpackLog(it.Event, it.event, log); err != nil {
-			it.fail = err
-			return false
-		}
-		it.Event.Raw = log
-		return true
-
-	case err := <-it.sub.Err():
-		it.done = true
-		it.fail = err
-		return it.Next()
-	}
-}
-
-// Error returns any retrieval or parsing error occurred during filtering.
-func (it *ERC20MintableTransferIterator) Error() error {
-	return it.fail
-}
-
-// Close terminates the iteration process, releasing any pending underlying
-// resources.
-func (it *ERC20MintableTransferIterator) Close() error {
-	it.sub.Unsubscribe()
-	return nil
-}
-
-// ERC20MintableTransfer represents a Transfer event raised by the ERC20Mintable contract.
-type ERC20MintableTransfer struct {
-	From  common.Address
-	To    common.Address
-	Value *big.Int
-	Raw   types.Log // Blockchain specific contextual infos
-}
-
-// FilterTransfer is a free log retrieval operation binding the contract event 0xddf252ad1be2c89b69c2b068fc378daa952ba7f163c4a11628f55a4df523b3ef.
-//
-// Solidity: event Transfer(address indexed from, address indexed to, uint256 value)
-func (_ERC20Mintable *ERC20MintableFilterer) FilterTransfer(opts *bind.FilterOpts, from []common.Address, to []common.Address) (*ERC20MintableTransferIterator, error) {
-
-	var fromRule []interface{}
-	for _, fromItem := range from {
-		fromRule = append(fromRule, fromItem)
-	}
-	var toRule []interface{}
-	for _, toItem := range to {
-		toRule = append(toRule, toItem)
-	}
-
-	logs, sub, err := _ERC20Mintable.contract.FilterLogs(opts, "Transfer", fromRule, toRule)
-	if err != nil {
-		return nil, err
-	}
-	return &ERC20MintableTransferIterator{contract: _ERC20Mintable.contract, event: "Transfer", logs: logs, sub: sub}, nil
-}
-
-// WatchTransfer is a free log subscription operation binding the contract event 0xddf252ad1be2c89b69c2b068fc378daa952ba7f163c4a11628f55a4df523b3ef.
-//
-// Solidity: event Transfer(address indexed from, address indexed to, uint256 value)
-func (_ERC20Mintable *ERC20MintableFilterer) WatchTransfer(opts *bind.WatchOpts, sink chan<- *ERC20MintableTransfer, from []common.Address, to []common.Address) (event.Subscription, error) {
-
-	var fromRule []interface{}
-	for _, fromItem := range from {
-		fromRule = append(fromRule, fromItem)
-	}
-	var toRule []interface{}
-	for _, toItem := range to {
-		toRule = append(toRule, toItem)
-	}
-
-	logs, sub, err := _ERC20Mintable.contract.WatchLogs(opts, "Transfer", fromRule, toRule)
-	if err != nil {
-		return nil, err
-	}
-	return event.NewSubscription(func(quit <-chan struct{}) error {
-		defer sub.Unsubscribe()
-		for {
-			select {
-			case log := <-logs:
-				// New log arrived, parse the event and forward to the user
-				event := new(ERC20MintableTransfer)
-				if err := _ERC20Mintable.contract.UnpackLog(event, "Transfer", log); err != nil {
-					return err
-				}
-				event.Raw = log
-
-				select {
-				case sink <- event:
-				case err := <-sub.Err():
-					return err
-				case <-quit:
-					return nil
-				}
-			case err := <-sub.Err():
-				return err
-			case <-quit:
-				return nil
-			}
-		}
-	}), nil
-}
-
-// ParseTransfer is a log parse operation binding the contract event 0xddf252ad1be2c89b69c2b068fc378daa952ba7f163c4a11628f55a4df523b3ef.
-//
-// Solidity: event Transfer(address indexed from, address indexed to, uint256 value)
-func (_ERC20Mintable *ERC20MintableFilterer) ParseTransfer(log types.Log) (*ERC20MintableTransfer, error) {
-	event := new(ERC20MintableTransfer)
-	if err := _ERC20Mintable.contract.UnpackLog(event, "Transfer", log); err != nil {
-		return nil, err
-	}
-	return event, nil
-}
-
-// IERC20ABI is the input ABI used to generate the binding from.
-const IERC20ABI = "[{\"anonymous\":false,\"inputs\":[{\"indexed\":true,\"internalType\":\"address\",\"name\":\"owner\",\"type\":\"address\"},{\"indexed\":true,\"internalType\":\"address\",\"name\":\"spender\",\"type\":\"address\"},{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"value\",\"type\":\"uint256\"}],\"name\":\"Approval\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":true,\"internalType\":\"address\",\"name\":\"from\",\"type\":\"address\"},{\"indexed\":true,\"internalType\":\"address\",\"name\":\"to\",\"type\":\"address\"},{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"value\",\"type\":\"uint256\"}],\"name\":\"Transfer\",\"type\":\"event\"},{\"constant\":true,\"inputs\":[{\"internalType\":\"address\",\"name\":\"owner\",\"type\":\"address\"},{\"internalType\":\"address\",\"name\":\"spender\",\"type\":\"address\"}],\"name\":\"allowance\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":false,\"inputs\":[{\"internalType\":\"address\",\"name\":\"spender\",\"type\":\"address\"},{\"internalType\":\"uint256\",\"name\":\"amount\",\"type\":\"uint256\"}],\"name\":\"approve\",\"outputs\":[{\"internalType\":\"bool\",\"name\":\"\",\"type\":\"bool\"}],\"payable\":false,\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[{\"internalType\":\"address\",\"name\":\"account\",\"type\":\"address\"}],\"name\":\"balanceOf\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[],\"name\":\"totalSupply\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":false,\"inputs\":[{\"internalType\":\"address\",\"name\":\"recipient\",\"type\":\"address\"},{\"internalType\":\"uint256\",\"name\":\"amount\",\"type\":\"uint256\"}],\"name\":\"transfer\",\"outputs\":[{\"internalType\":\"bool\",\"name\":\"\",\"type\":\"bool\"}],\"payable\":false,\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"constant\":false,\"inputs\":[{\"internalType\":\"address\",\"name\":\"sender\",\"type\":\"address\"},{\"internalType\":\"address\",\"name\":\"recipient\",\"type\":\"address\"},{\"internalType\":\"uint256\",\"name\":\"amount\",\"type\":\"uint256\"}],\"name\":\"transferFrom\",\"outputs\":[{\"internalType\":\"bool\",\"name\":\"\",\"type\":\"bool\"}],\"payable\":false,\"stateMutability\":\"nonpayable\",\"type\":\"function\"}]"
-
-// IERC20FuncSigs maps the 4-byte function signature to its string representation.
-var IERC20FuncSigs = map[string]string{
-	"dd62ed3e": "allowance(address,address)",
-	"095ea7b3": "approve(address,uint256)",
-	"70a08231": "balanceOf(address)",
-	"18160ddd": "totalSupply()",
-	"a9059cbb": "transfer(address,uint256)",
-	"23b872dd": "transferFrom(address,address,uint256)",
-}
-
-// IERC20 is an auto generated Go binding around an Ethereum contract.
-type IERC20 struct {
-	IERC20Caller     // Read-only binding to the contract
-	IERC20Transactor // Write-only binding to the contract
-	IERC20Filterer   // Log filterer for contract events
-}
-
-// IERC20Caller is an auto generated read-only Go binding around an Ethereum contract.
-type IERC20Caller struct {
-	contract *bind.BoundContract // Generic contract wrapper for the low level calls
-}
-
-// IERC20Transactor is an auto generated write-only Go binding around an Ethereum contract.
-type IERC20Transactor struct {
-	contract *bind.BoundContract // Generic contract wrapper for the low level calls
-}
-
-// IERC20Filterer is an auto generated log filtering Go binding around an Ethereum contract events.
-type IERC20Filterer struct {
-	contract *bind.BoundContract // Generic contract wrapper for the low level calls
-}
-
-// IERC20Session is an auto generated Go binding around an Ethereum contract,
-// with pre-set call and transact options.
-type IERC20Session struct {
-	Contract     *IERC20           // Generic contract binding to set the session for
-	CallOpts     bind.CallOpts     // Call options to use throughout this session
-	TransactOpts bind.TransactOpts // Transaction auth options to use throughout this session
-}
-
-// IERC20CallerSession is an auto generated read-only Go binding around an Ethereum contract,
-// with pre-set call options.
-type IERC20CallerSession struct {
-	Contract *IERC20Caller // Generic contract caller binding to set the session for
-	CallOpts bind.CallOpts // Call options to use throughout this session
-}
-
-// IERC20TransactorSession is an auto generated write-only Go binding around an Ethereum contract,
-// with pre-set transact options.
-type IERC20TransactorSession struct {
-	Contract     *IERC20Transactor // Generic contract transactor binding to set the session for
-	TransactOpts bind.TransactOpts // Transaction auth options to use throughout this session
-}
-
-// IERC20Raw is an auto generated low-level Go binding around an Ethereum contract.
-type IERC20Raw struct {
-	Contract *IERC20 // Generic contract binding to access the raw methods on
-}
-
-// IERC20CallerRaw is an auto generated low-level read-only Go binding around an Ethereum contract.
-type IERC20CallerRaw struct {
-	Contract *IERC20Caller // Generic read-only contract binding to access the raw methods on
-}
-
-// IERC20TransactorRaw is an auto generated low-level write-only Go binding around an Ethereum contract.
-type IERC20TransactorRaw struct {
-	Contract *IERC20Transactor // Generic write-only contract binding to access the raw methods on
-}
-
-// NewIERC20 creates a new instance of IERC20, bound to a specific deployed contract.
-func NewIERC20(address common.Address, backend bind.ContractBackend) (*IERC20, error) {
-	contract, err := bindIERC20(address, backend, backend, backend)
-	if err != nil {
-		return nil, err
-	}
-	return &IERC20{IERC20Caller: IERC20Caller{contract: contract}, IERC20Transactor: IERC20Transactor{contract: contract}, IERC20Filterer: IERC20Filterer{contract: contract}}, nil
-}
-
-// NewIERC20Caller creates a new read-only instance of IERC20, bound to a specific deployed contract.
-func NewIERC20Caller(address common.Address, caller bind.ContractCaller) (*IERC20Caller, error) {
-	contract, err := bindIERC20(address, caller, nil, nil)
-	if err != nil {
-		return nil, err
-	}
-	return &IERC20Caller{contract: contract}, nil
-}
-
-// NewIERC20Transactor creates a new write-only instance of IERC20, bound to a specific deployed contract.
-func NewIERC20Transactor(address common.Address, transactor bind.ContractTransactor) (*IERC20Transactor, error) {
-	contract, err := bindIERC20(address, nil, transactor, nil)
-	if err != nil {
-		return nil, err
-	}
-	return &IERC20Transactor{contract: contract}, nil
-}
-
-// NewIERC20Filterer creates a new log filterer instance of IERC20, bound to a specific deployed contract.
-func NewIERC20Filterer(address common.Address, filterer bind.ContractFilterer) (*IERC20Filterer, error) {
-	contract, err := bindIERC20(address, nil, nil, filterer)
-	if err != nil {
-		return nil, err
-	}
-	return &IERC20Filterer{contract: contract}, nil
-}
-
-// bindIERC20 binds a generic wrapper to an already deployed contract.
-func bindIERC20(address common.Address, caller bind.ContractCaller, transactor bind.ContractTransactor, filterer bind.ContractFilterer) (*bind.BoundContract, error) {
-	parsed, err := abi.JSON(strings.NewReader(IERC20ABI))
-	if err != nil {
-		return nil, err
-	}
-	return bind.NewBoundContract(address, parsed, caller, transactor, filterer), nil
-}
-
-// Call invokes the (constant) contract method with params as input values and
-// sets the output to result. The result type might be a single field for simple
-// returns, a slice of interfaces for anonymous returns and a struct for named
-// returns.
-func (_IERC20 *IERC20Raw) Call(opts *bind.CallOpts, result interface{}, method string, params ...interface{}) error {
-	return _IERC20.Contract.IERC20Caller.contract.Call(opts, result, method, params...)
-}
-
-// Transfer initiates a plain transaction to move funds to the contract, calling
-// its default method if one is available.
-func (_IERC20 *IERC20Raw) Transfer(opts *bind.TransactOpts) (*types.Transaction, error) {
-	return _IERC20.Contract.IERC20Transactor.contract.Transfer(opts)
-}
-
-// Transact invokes the (paid) contract method with params as input values.
-func (_IERC20 *IERC20Raw) Transact(opts *bind.TransactOpts, method string, params ...interface{}) (*types.Transaction, error) {
-	return _IERC20.Contract.IERC20Transactor.contract.Transact(opts, method, params...)
-}
-
-// Call invokes the (constant) contract method with params as input values and
-// sets the output to result. The result type might be a single field for simple
-// returns, a slice of interfaces for anonymous returns and a struct for named
-// returns.
-func (_IERC20 *IERC20CallerRaw) Call(opts *bind.CallOpts, result interface{}, method string, params ...interface{}) error {
-	return _IERC20.Contract.contract.Call(opts, result, method, params...)
-}
-
-// Transfer initiates a plain transaction to move funds to the contract, calling
-// its default method if one is available.
-func (_IERC20 *IERC20TransactorRaw) Transfer(opts *bind.TransactOpts) (*types.Transaction, error) {
-	return _IERC20.Contract.contract.Transfer(opts)
-}
-
-// Transact invokes the (paid) contract method with params as input values.
-func (_IERC20 *IERC20TransactorRaw) Transact(opts *bind.TransactOpts, method string, params ...interface{}) (*types.Transaction, error) {
-	return _IERC20.Contract.contract.Transact(opts, method, params...)
-}
-
-// Allowance is a free data retrieval call binding the contract method 0xdd62ed3e.
-//
-// Solidity: function allowance(address owner, address spender) constant returns(uint256)
-func (_IERC20 *IERC20Caller) Allowance(opts *bind.CallOpts, owner common.Address, spender common.Address) (*big.Int, error) {
-	var (
-		ret0 = new(*big.Int)
-	)
-	out := ret0
-	err := _IERC20.contract.Call(opts, out, "allowance", owner, spender)
-	return *ret0, err
-}
-
-// Allowance is a free data retrieval call binding the contract method 0xdd62ed3e.
-//
-// Solidity: function allowance(address owner, address spender) constant returns(uint256)
-func (_IERC20 *IERC20Session) Allowance(owner common.Address, spender common.Address) (*big.Int, error) {
-	return _IERC20.Contract.Allowance(&_IERC20.CallOpts, owner, spender)
-}
-
-// Allowance is a free data retrieval call binding the contract method 0xdd62ed3e.
-//
-// Solidity: function allowance(address owner, address spender) constant returns(uint256)
-func (_IERC20 *IERC20CallerSession) Allowance(owner common.Address, spender common.Address) (*big.Int, error) {
-	return _IERC20.Contract.Allowance(&_IERC20.CallOpts, owner, spender)
-}
-
-// BalanceOf is a free data retrieval call binding the contract method 0x70a08231.
-//
-// Solidity: function balanceOf(address account) constant returns(uint256)
-func (_IERC20 *IERC20Caller) BalanceOf(opts *bind.CallOpts, account common.Address) (*big.Int, error) {
-	var (
-		ret0 = new(*big.Int)
-	)
-	out := ret0
-	err := _IERC20.contract.Call(opts, out, "balanceOf", account)
-	return *ret0, err
-}
-
-// BalanceOf is a free data retrieval call binding the contract method 0x70a08231.
-//
-// Solidity: function balanceOf(address account) constant returns(uint256)
-func (_IERC20 *IERC20Session) BalanceOf(account common.Address) (*big.Int, error) {
-	return _IERC20.Contract.BalanceOf(&_IERC20.CallOpts, account)
-}
-
-// BalanceOf is a free data retrieval call binding the contract method 0x70a08231.
-//
-// Solidity: function balanceOf(address account) constant returns(uint256)
-func (_IERC20 *IERC20CallerSession) BalanceOf(account common.Address) (*big.Int, error) {
-	return _IERC20.Contract.BalanceOf(&_IERC20.CallOpts, account)
-}
-
-// TotalSupply is a free data retrieval call binding the contract method 0x18160ddd.
-//
-// Solidity: function totalSupply() constant returns(uint256)
-func (_IERC20 *IERC20Caller) TotalSupply(opts *bind.CallOpts) (*big.Int, error) {
-	var (
-		ret0 = new(*big.Int)
-	)
-	out := ret0
-	err := _IERC20.contract.Call(opts, out, "totalSupply")
-	return *ret0, err
-}
-
-// TotalSupply is a free data retrieval call binding the contract method 0x18160ddd.
-//
-// Solidity: function totalSupply() constant returns(uint256)
-func (_IERC20 *IERC20Session) TotalSupply() (*big.Int, error) {
-	return _IERC20.Contract.TotalSupply(&_IERC20.CallOpts)
-}
-
-// TotalSupply is a free data retrieval call binding the contract method 0x18160ddd.
-//
-// Solidity: function totalSupply() constant returns(uint256)
-func (_IERC20 *IERC20CallerSession) TotalSupply() (*big.Int, error) {
-	return _IERC20.Contract.TotalSupply(&_IERC20.CallOpts)
-}
-
-// Approve is a paid mutator transaction binding the contract method 0x095ea7b3.
-//
-// Solidity: function approve(address spender, uint256 amount) returns(bool)
-func (_IERC20 *IERC20Transactor) Approve(opts *bind.TransactOpts, spender common.Address, amount *big.Int) (*types.Transaction, error) {
-	return _IERC20.contract.Transact(opts, "approve", spender, amount)
-}
-
-// Approve is a paid mutator transaction binding the contract method 0x095ea7b3.
-//
-// Solidity: function approve(address spender, uint256 amount) returns(bool)
-func (_IERC20 *IERC20Session) Approve(spender common.Address, amount *big.Int) (*types.Transaction, error) {
-	return _IERC20.Contract.Approve(&_IERC20.TransactOpts, spender, amount)
-}
-
-// Approve is a paid mutator transaction binding the contract method 0x095ea7b3.
-//
-// Solidity: function approve(address spender, uint256 amount) returns(bool)
-func (_IERC20 *IERC20TransactorSession) Approve(spender common.Address, amount *big.Int) (*types.Transaction, error) {
-	return _IERC20.Contract.Approve(&_IERC20.TransactOpts, spender, amount)
-}
-
-// Transfer is a paid mutator transaction binding the contract method 0xa9059cbb.
-//
-// Solidity: function transfer(address recipient, uint256 amount) returns(bool)
-func (_IERC20 *IERC20Transactor) Transfer(opts *bind.TransactOpts, recipient common.Address, amount *big.Int) (*types.Transaction, error) {
-	return _IERC20.contract.Transact(opts, "transfer", recipient, amount)
-}
-
-// Transfer is a paid mutator transaction binding the contract method 0xa9059cbb.
-//
-// Solidity: function transfer(address recipient, uint256 amount) returns(bool)
-func (_IERC20 *IERC20Session) Transfer(recipient common.Address, amount *big.Int) (*types.Transaction, error) {
-	return _IERC20.Contract.Transfer(&_IERC20.TransactOpts, recipient, amount)
-}
-
-// Transfer is a paid mutator transaction binding the contract method 0xa9059cbb.
-//
-// Solidity: function transfer(address recipient, uint256 amount) returns(bool)
-func (_IERC20 *IERC20TransactorSession) Transfer(recipient common.Address, amount *big.Int) (*types.Transaction, error) {
-	return _IERC20.Contract.Transfer(&_IERC20.TransactOpts, recipient, amount)
-}
-
-// TransferFrom is a paid mutator transaction binding the contract method 0x23b872dd.
-//
-// Solidity: function transferFrom(address sender, address recipient, uint256 amount) returns(bool)
-func (_IERC20 *IERC20Transactor) TransferFrom(opts *bind.TransactOpts, sender common.Address, recipient common.Address, amount *big.Int) (*types.Transaction, error) {
-	return _IERC20.contract.Transact(opts, "transferFrom", sender, recipient, amount)
-}
-
-// TransferFrom is a paid mutator transaction binding the contract method 0x23b872dd.
-//
-// Solidity: function transferFrom(address sender, address recipient, uint256 amount) returns(bool)
-func (_IERC20 *IERC20Session) TransferFrom(sender common.Address, recipient common.Address, amount *big.Int) (*types.Transaction, error) {
-	return _IERC20.Contract.TransferFrom(&_IERC20.TransactOpts, sender, recipient, amount)
-}
-
-// TransferFrom is a paid mutator transaction binding the contract method 0x23b872dd.
-//
-// Solidity: function transferFrom(address sender, address recipient, uint256 amount) returns(bool)
-func (_IERC20 *IERC20TransactorSession) TransferFrom(sender common.Address, recipient common.Address, amount *big.Int) (*types.Transaction, error) {
-	return _IERC20.Contract.TransferFrom(&_IERC20.TransactOpts, sender, recipient, amount)
-}
-
-// IERC20ApprovalIterator is returned from FilterApproval and is used to iterate over the raw logs and unpacked data for Approval events raised by the IERC20 contract.
-type IERC20ApprovalIterator struct {
-	Event *IERC20Approval // Event containing the contract specifics and raw log
-
-	contract *bind.BoundContract // Generic contract to use for unpacking event data
-	event    string              // Event name to use for unpacking event data
-
-	logs chan types.Log        // Log channel receiving the found contract events
-	sub  ethereum.Subscription // Subscription for errors, completion and termination
-	done bool                  // Whether the subscription completed delivering logs
-	fail error                 // Occurred error to stop iteration
-}
-
-// Next advances the iterator to the subsequent event, returning whether there
-// are any more events found. In case of a retrieval or parsing error, false is
-// returned and Error() can be queried for the exact failure.
-func (it *IERC20ApprovalIterator) Next() bool {
-	// If the iterator failed, stop iterating
-	if it.fail != nil {
-		return false
-	}
-	// If the iterator completed, deliver directly whatever's available
-	if it.done {
-		select {
-		case log := <-it.logs:
-			it.Event = new(IERC20Approval)
-			if err := it.contract.UnpackLog(it.Event, it.event, log); err != nil {
-				it.fail = err
-				return false
-			}
-			it.Event.Raw = log
-			return true
-
-		default:
-			return false
-		}
-	}
-	// Iterator still in progress, wait for either a data or an error event
-	select {
-	case log := <-it.logs:
-		it.Event = new(IERC20Approval)
-		if err := it.contract.UnpackLog(it.Event, it.event, log); err != nil {
-			it.fail = err
-			return false
-		}
-		it.Event.Raw = log
-		return true
-
-	case err := <-it.sub.Err():
-		it.done = true
-		it.fail = err
-		return it.Next()
-	}
-}
-
-// Error returns any retrieval or parsing error occurred during filtering.
-func (it *IERC20ApprovalIterator) Error() error {
-	return it.fail
-}
-
-// Close terminates the iteration process, releasing any pending underlying
-// resources.
-func (it *IERC20ApprovalIterator) Close() error {
-	it.sub.Unsubscribe()
-	return nil
-}
-
-// IERC20Approval represents a Approval event raised by the IERC20 contract.
-type IERC20Approval struct {
-	Owner   common.Address
-	Spender common.Address
-	Value   *big.Int
-	Raw     types.Log // Blockchain specific contextual infos
-}
-
-// FilterApproval is a free log retrieval operation binding the contract event 0x8c5be1e5ebec7d5bd14f71427d1e84f3dd0314c0f7b2291e5b200ac8c7c3b925.
-//
-// Solidity: event Approval(address indexed owner, address indexed spender, uint256 value)
-func (_IERC20 *IERC20Filterer) FilterApproval(opts *bind.FilterOpts, owner []common.Address, spender []common.Address) (*IERC20ApprovalIterator, error) {
-
-	var ownerRule []interface{}
-	for _, ownerItem := range owner {
-		ownerRule = append(ownerRule, ownerItem)
-	}
-	var spenderRule []interface{}
-	for _, spenderItem := range spender {
-		spenderRule = append(spenderRule, spenderItem)
-	}
-
-	logs, sub, err := _IERC20.contract.FilterLogs(opts, "Approval", ownerRule, spenderRule)
-	if err != nil {
-		return nil, err
-	}
-	return &IERC20ApprovalIterator{contract: _IERC20.contract, event: "Approval", logs: logs, sub: sub}, nil
-}
-
-// WatchApproval is a free log subscription operation binding the contract event 0x8c5be1e5ebec7d5bd14f71427d1e84f3dd0314c0f7b2291e5b200ac8c7c3b925.
-//
-// Solidity: event Approval(address indexed owner, address indexed spender, uint256 value)
-func (_IERC20 *IERC20Filterer) WatchApproval(opts *bind.WatchOpts, sink chan<- *IERC20Approval, owner []common.Address, spender []common.Address) (event.Subscription, error) {
-
-	var ownerRule []interface{}
-	for _, ownerItem := range owner {
-		ownerRule = append(ownerRule, ownerItem)
-	}
-	var spenderRule []interface{}
-	for _, spenderItem := range spender {
-		spenderRule = append(spenderRule, spenderItem)
-	}
-
-	logs, sub, err := _IERC20.contract.WatchLogs(opts, "Approval", ownerRule, spenderRule)
-	if err != nil {
-		return nil, err
-	}
-	return event.NewSubscription(func(quit <-chan struct{}) error {
-		defer sub.Unsubscribe()
-		for {
-			select {
-			case log := <-logs:
-				// New log arrived, parse the event and forward to the user
-				event := new(IERC20Approval)
-				if err := _IERC20.contract.UnpackLog(event, "Approval", log); err != nil {
-					return err
-				}
-				event.Raw = log
-
-				select {
-				case sink <- event:
-				case err := <-sub.Err():
-					return err
-				case <-quit:
-					return nil
-				}
-			case err := <-sub.Err():
-				return err
-			case <-quit:
-				return nil
-			}
-		}
-	}), nil
-}
-
-// ParseApproval is a log parse operation binding the contract event 0x8c5be1e5ebec7d5bd14f71427d1e84f3dd0314c0f7b2291e5b200ac8c7c3b925.
-//
-// Solidity: event Approval(address indexed owner, address indexed spender, uint256 value)
-func (_IERC20 *IERC20Filterer) ParseApproval(log types.Log) (*IERC20Approval, error) {
-	event := new(IERC20Approval)
-	if err := _IERC20.contract.UnpackLog(event, "Approval", log); err != nil {
-		return nil, err
-	}
-	return event, nil
-}
-
-// IERC20TransferIterator is returned from FilterTransfer and is used to iterate over the raw logs and unpacked data for Transfer events raised by the IERC20 contract.
-type IERC20TransferIterator struct {
-	Event *IERC20Transfer // Event containing the contract specifics and raw log
-
-	contract *bind.BoundContract // Generic contract to use for unpacking event data
-	event    string              // Event name to use for unpacking event data
-
-	logs chan types.Log        // Log channel receiving the found contract events
-	sub  ethereum.Subscription // Subscription for errors, completion and termination
-	done bool                  // Whether the subscription completed delivering logs
-	fail error                 // Occurred error to stop iteration
-}
-
-// Next advances the iterator to the subsequent event, returning whether there
-// are any more events found. In case of a retrieval or parsing error, false is
-// returned and Error() can be queried for the exact failure.
-func (it *IERC20TransferIterator) Next() bool {
-	// If the iterator failed, stop iterating
-	if it.fail != nil {
-		return false
-	}
-	// If the iterator completed, deliver directly whatever's available
-	if it.done {
-		select {
-		case log := <-it.logs:
-			it.Event = new(IERC20Transfer)
-			if err := it.contract.UnpackLog(it.Event, it.event, log); err != nil {
-				it.fail = err
-				return false
-			}
-			it.Event.Raw = log
-			return true
-
-		default:
-			return false
-		}
-	}
-	// Iterator still in progress, wait for either a data or an error event
-	select {
-	case log := <-it.logs:
-		it.Event = new(IERC20Transfer)
-		if err := it.contract.UnpackLog(it.Event, it.event, log); err != nil {
-			it.fail = err
-			return false
-		}
-		it.Event.Raw = log
-		return true
-
-	case err := <-it.sub.Err():
-		it.done = true
-		it.fail = err
-		return it.Next()
-	}
-}
-
-// Error returns any retrieval or parsing error occurred during filtering.
-func (it *IERC20TransferIterator) Error() error {
-	return it.fail
-}
-
-// Close terminates the iteration process, releasing any pending underlying
-// resources.
-func (it *IERC20TransferIterator) Close() error {
-	it.sub.Unsubscribe()
-	return nil
-}
-
-// IERC20Transfer represents a Transfer event raised by the IERC20 contract.
-type IERC20Transfer struct {
-	From  common.Address
-	To    common.Address
-	Value *big.Int
-	Raw   types.Log // Blockchain specific contextual infos
-}
-
-// FilterTransfer is a free log retrieval operation binding the contract event 0xddf252ad1be2c89b69c2b068fc378daa952ba7f163c4a11628f55a4df523b3ef.
-//
-// Solidity: event Transfer(address indexed from, address indexed to, uint256 value)
-func (_IERC20 *IERC20Filterer) FilterTransfer(opts *bind.FilterOpts, from []common.Address, to []common.Address) (*IERC20TransferIterator, error) {
-
-	var fromRule []interface{}
-	for _, fromItem := range from {
-		fromRule = append(fromRule, fromItem)
-	}
-	var toRule []interface{}
-	for _, toItem := range to {
-		toRule = append(toRule, toItem)
-	}
-
-	logs, sub, err := _IERC20.contract.FilterLogs(opts, "Transfer", fromRule, toRule)
-	if err != nil {
-		return nil, err
-	}
-	return &IERC20TransferIterator{contract: _IERC20.contract, event: "Transfer", logs: logs, sub: sub}, nil
-}
-
-// WatchTransfer is a free log subscription operation binding the contract event 0xddf252ad1be2c89b69c2b068fc378daa952ba7f163c4a11628f55a4df523b3ef.
-//
-// Solidity: event Transfer(address indexed from, address indexed to, uint256 value)
-func (_IERC20 *IERC20Filterer) WatchTransfer(opts *bind.WatchOpts, sink chan<- *IERC20Transfer, from []common.Address, to []common.Address) (event.Subscription, error) {
-
-	var fromRule []interface{}
-	for _, fromItem := range from {
-		fromRule = append(fromRule, fromItem)
-	}
-	var toRule []interface{}
-	for _, toItem := range to {
-		toRule = append(toRule, toItem)
-	}
-
-	logs, sub, err := _IERC20.contract.WatchLogs(opts, "Transfer", fromRule, toRule)
-	if err != nil {
-		return nil, err
-	}
-	return event.NewSubscription(func(quit <-chan struct{}) error {
-		defer sub.Unsubscribe()
-		for {
-			select {
-			case log := <-logs:
-				// New log arrived, parse the event and forward to the user
-				event := new(IERC20Transfer)
-				if err := _IERC20.contract.UnpackLog(event, "Transfer", log); err != nil {
-					return err
-				}
-				event.Raw = log
-
-				select {
-				case sink <- event:
-				case err := <-sub.Err():
-					return err
-				case <-quit:
-					return nil
-				}
-			case err := <-sub.Err():
-				return err
-			case <-quit:
-				return nil
-			}
-		}
-	}), nil
-}
-
-// ParseTransfer is a log parse operation binding the contract event 0xddf252ad1be2c89b69c2b068fc378daa952ba7f163c4a11628f55a4df523b3ef.
-//
-// Solidity: event Transfer(address indexed from, address indexed to, uint256 value)
-func (_IERC20 *IERC20Filterer) ParseTransfer(log types.Log) (*IERC20Transfer, error) {
-	event := new(IERC20Transfer)
-	if err := _IERC20.contract.UnpackLog(event, "Transfer", log); err != nil {
-		return nil, err
-	}
-	return event, nil
-}
-
-// MinterRoleABI is the input ABI used to generate the binding from.
-const MinterRoleABI = "[{\"inputs\":[],\"payable\":false,\"stateMutability\":\"nonpayable\",\"type\":\"constructor\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":true,\"internalType\":\"address\",\"name\":\"account\",\"type\":\"address\"}],\"name\":\"MinterAdded\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":true,\"internalType\":\"address\",\"name\":\"account\",\"type\":\"address\"}],\"name\":\"MinterRemoved\",\"type\":\"event\"},{\"constant\":false,\"inputs\":[{\"internalType\":\"address\",\"name\":\"account\",\"type\":\"address\"}],\"name\":\"addMinter\",\"outputs\":[],\"payable\":false,\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[{\"internalType\":\"address\",\"name\":\"account\",\"type\":\"address\"}],\"name\":\"isMinter\",\"outputs\":[{\"internalType\":\"bool\",\"name\":\"\",\"type\":\"bool\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":false,\"inputs\":[],\"name\":\"renounceMinter\",\"outputs\":[],\"payable\":false,\"stateMutability\":\"nonpayable\",\"type\":\"function\"}]"
-
-// MinterRoleFuncSigs maps the 4-byte function signature to its string representation.
-var MinterRoleFuncSigs = map[string]string{
-	"983b2d56": "addMinter(address)",
-	"aa271e1a": "isMinter(address)",
-	"98650275": "renounceMinter()",
-}
-
-// MinterRole is an auto generated Go binding around an Ethereum contract.
-type MinterRole struct {
-	MinterRoleCaller     // Read-only binding to the contract
-	MinterRoleTransactor // Write-only binding to the contract
-	MinterRoleFilterer   // Log filterer for contract events
-}
-
-// MinterRoleCaller is an auto generated read-only Go binding around an Ethereum contract.
-type MinterRoleCaller struct {
-	contract *bind.BoundContract // Generic contract wrapper for the low level calls
-}
-
-// MinterRoleTransactor is an auto generated write-only Go binding around an Ethereum contract.
-type MinterRoleTransactor struct {
-	contract *bind.BoundContract // Generic contract wrapper for the low level calls
-}
-
-// MinterRoleFilterer is an auto generated log filtering Go binding around an Ethereum contract events.
-type MinterRoleFilterer struct {
-	contract *bind.BoundContract // Generic contract wrapper for the low level calls
-}
-
-// MinterRoleSession is an auto generated Go binding around an Ethereum contract,
-// with pre-set call and transact options.
-type MinterRoleSession struct {
-	Contract     *MinterRole       // Generic contract binding to set the session for
-	CallOpts     bind.CallOpts     // Call options to use throughout this session
-	TransactOpts bind.TransactOpts // Transaction auth options to use throughout this session
-}
-
-// MinterRoleCallerSession is an auto generated read-only Go binding around an Ethereum contract,
-// with pre-set call options.
-type MinterRoleCallerSession struct {
-	Contract *MinterRoleCaller // Generic contract caller binding to set the session for
-	CallOpts bind.CallOpts     // Call options to use throughout this session
-}
-
-// MinterRoleTransactorSession is an auto generated write-only Go binding around an Ethereum contract,
-// with pre-set transact options.
-type MinterRoleTransactorSession struct {
-	Contract     *MinterRoleTransactor // Generic contract transactor binding to set the session for
-	TransactOpts bind.TransactOpts     // Transaction auth options to use throughout this session
-}
-
-// MinterRoleRaw is an auto generated low-level Go binding around an Ethereum contract.
-type MinterRoleRaw struct {
-	Contract *MinterRole // Generic contract binding to access the raw methods on
-}
-
-// MinterRoleCallerRaw is an auto generated low-level read-only Go binding around an Ethereum contract.
-type MinterRoleCallerRaw struct {
-	Contract *MinterRoleCaller // Generic read-only contract binding to access the raw methods on
-}
-
-// MinterRoleTransactorRaw is an auto generated low-level write-only Go binding around an Ethereum contract.
-type MinterRoleTransactorRaw struct {
-	Contract *MinterRoleTransactor // Generic write-only contract binding to access the raw methods on
-}
-
-// NewMinterRole creates a new instance of MinterRole, bound to a specific deployed contract.
-func NewMinterRole(address common.Address, backend bind.ContractBackend) (*MinterRole, error) {
-	contract, err := bindMinterRole(address, backend, backend, backend)
-	if err != nil {
-		return nil, err
-	}
-	return &MinterRole{MinterRoleCaller: MinterRoleCaller{contract: contract}, MinterRoleTransactor: MinterRoleTransactor{contract: contract}, MinterRoleFilterer: MinterRoleFilterer{contract: contract}}, nil
-}
-
-// NewMinterRoleCaller creates a new read-only instance of MinterRole, bound to a specific deployed contract.
-func NewMinterRoleCaller(address common.Address, caller bind.ContractCaller) (*MinterRoleCaller, error) {
-	contract, err := bindMinterRole(address, caller, nil, nil)
-	if err != nil {
-		return nil, err
-	}
-	return &MinterRoleCaller{contract: contract}, nil
-}
-
-// NewMinterRoleTransactor creates a new write-only instance of MinterRole, bound to a specific deployed contract.
-func NewMinterRoleTransactor(address common.Address, transactor bind.ContractTransactor) (*MinterRoleTransactor, error) {
-	contract, err := bindMinterRole(address, nil, transactor, nil)
-	if err != nil {
-		return nil, err
-	}
-	return &MinterRoleTransactor{contract: contract}, nil
-}
-
-// NewMinterRoleFilterer creates a new log filterer instance of MinterRole, bound to a specific deployed contract.
-func NewMinterRoleFilterer(address common.Address, filterer bind.ContractFilterer) (*MinterRoleFilterer, error) {
-	contract, err := bindMinterRole(address, nil, nil, filterer)
-	if err != nil {
-		return nil, err
-	}
-	return &MinterRoleFilterer{contract: contract}, nil
-}
-
-// bindMinterRole binds a generic wrapper to an already deployed contract.
-func bindMinterRole(address common.Address, caller bind.ContractCaller, transactor bind.ContractTransactor, filterer bind.ContractFilterer) (*bind.BoundContract, error) {
-	parsed, err := abi.JSON(strings.NewReader(MinterRoleABI))
-	if err != nil {
-		return nil, err
-	}
-	return bind.NewBoundContract(address, parsed, caller, transactor, filterer), nil
-}
-
-// Call invokes the (constant) contract method with params as input values and
-// sets the output to result. The result type might be a single field for simple
-// returns, a slice of interfaces for anonymous returns and a struct for named
-// returns.
-func (_MinterRole *MinterRoleRaw) Call(opts *bind.CallOpts, result interface{}, method string, params ...interface{}) error {
-	return _MinterRole.Contract.MinterRoleCaller.contract.Call(opts, result, method, params...)
-}
-
-// Transfer initiates a plain transaction to move funds to the contract, calling
-// its default method if one is available.
-func (_MinterRole *MinterRoleRaw) Transfer(opts *bind.TransactOpts) (*types.Transaction, error) {
-	return _MinterRole.Contract.MinterRoleTransactor.contract.Transfer(opts)
-}
-
-// Transact invokes the (paid) contract method with params as input values.
-func (_MinterRole *MinterRoleRaw) Transact(opts *bind.TransactOpts, method string, params ...interface{}) (*types.Transaction, error) {
-	return _MinterRole.Contract.MinterRoleTransactor.contract.Transact(opts, method, params...)
-}
-
-// Call invokes the (constant) contract method with params as input values and
-// sets the output to result. The result type might be a single field for simple
-// returns, a slice of interfaces for anonymous returns and a struct for named
-// returns.
-func (_MinterRole *MinterRoleCallerRaw) Call(opts *bind.CallOpts, result interface{}, method string, params ...interface{}) error {
-	return _MinterRole.Contract.contract.Call(opts, result, method, params...)
-}
-
-// Transfer initiates a plain transaction to move funds to the contract, calling
-// its default method if one is available.
-func (_MinterRole *MinterRoleTransactorRaw) Transfer(opts *bind.TransactOpts) (*types.Transaction, error) {
-	return _MinterRole.Contract.contract.Transfer(opts)
-}
-
-// Transact invokes the (paid) contract method with params as input values.
-func (_MinterRole *MinterRoleTransactorRaw) Transact(opts *bind.TransactOpts, method string, params ...interface{}) (*types.Transaction, error) {
-	return _MinterRole.Contract.contract.Transact(opts, method, params...)
-}
-
-// IsMinter is a free data retrieval call binding the contract method 0xaa271e1a.
-//
-// Solidity: function isMinter(address account) constant returns(bool)
-func (_MinterRole *MinterRoleCaller) IsMinter(opts *bind.CallOpts, account common.Address) (bool, error) {
-	var (
-		ret0 = new(bool)
-	)
-	out := ret0
-	err := _MinterRole.contract.Call(opts, out, "isMinter", account)
-	return *ret0, err
-}
-
-// IsMinter is a free data retrieval call binding the contract method 0xaa271e1a.
-//
-// Solidity: function isMinter(address account) constant returns(bool)
-func (_MinterRole *MinterRoleSession) IsMinter(account common.Address) (bool, error) {
-	return _MinterRole.Contract.IsMinter(&_MinterRole.CallOpts, account)
-}
-
-// IsMinter is a free data retrieval call binding the contract method 0xaa271e1a.
-//
-// Solidity: function isMinter(address account) constant returns(bool)
-func (_MinterRole *MinterRoleCallerSession) IsMinter(account common.Address) (bool, error) {
-	return _MinterRole.Contract.IsMinter(&_MinterRole.CallOpts, account)
-}
-
-// AddMinter is a paid mutator transaction binding the contract method 0x983b2d56.
-//
-// Solidity: function addMinter(address account) returns()
-func (_MinterRole *MinterRoleTransactor) AddMinter(opts *bind.TransactOpts, account common.Address) (*types.Transaction, error) {
-	return _MinterRole.contract.Transact(opts, "addMinter", account)
-}
-
-// AddMinter is a paid mutator transaction binding the contract method 0x983b2d56.
-//
-// Solidity: function addMinter(address account) returns()
-func (_MinterRole *MinterRoleSession) AddMinter(account common.Address) (*types.Transaction, error) {
-	return _MinterRole.Contract.AddMinter(&_MinterRole.TransactOpts, account)
-}
-
-// AddMinter is a paid mutator transaction binding the contract method 0x983b2d56.
-//
-// Solidity: function addMinter(address account) returns()
-func (_MinterRole *MinterRoleTransactorSession) AddMinter(account common.Address) (*types.Transaction, error) {
-	return _MinterRole.Contract.AddMinter(&_MinterRole.TransactOpts, account)
-}
-
-// RenounceMinter is a paid mutator transaction binding the contract method 0x98650275.
-//
-// Solidity: function renounceMinter() returns()
-func (_MinterRole *MinterRoleTransactor) RenounceMinter(opts *bind.TransactOpts) (*types.Transaction, error) {
-	return _MinterRole.contract.Transact(opts, "renounceMinter")
-}
-
-// RenounceMinter is a paid mutator transaction binding the contract method 0x98650275.
-//
-// Solidity: function renounceMinter() returns()
-func (_MinterRole *MinterRoleSession) RenounceMinter() (*types.Transaction, error) {
-	return _MinterRole.Contract.RenounceMinter(&_MinterRole.TransactOpts)
-}
-
-// RenounceMinter is a paid mutator transaction binding the contract method 0x98650275.
-//
-// Solidity: function renounceMinter() returns()
-func (_MinterRole *MinterRoleTransactorSession) RenounceMinter() (*types.Transaction, error) {
-	return _MinterRole.Contract.RenounceMinter(&_MinterRole.TransactOpts)
-}
-
-// MinterRoleMinterAddedIterator is returned from FilterMinterAdded and is used to iterate over the raw logs and unpacked data for MinterAdded events raised by the MinterRole contract.
-type MinterRoleMinterAddedIterator struct {
-	Event *MinterRoleMinterAdded // Event containing the contract specifics and raw log
-
-	contract *bind.BoundContract // Generic contract to use for unpacking event data
-	event    string              // Event name to use for unpacking event data
-
-	logs chan types.Log        // Log channel receiving the found contract events
-	sub  ethereum.Subscription // Subscription for errors, completion and termination
-	done bool                  // Whether the subscription completed delivering logs
-	fail error                 // Occurred error to stop iteration
-}
-
-// Next advances the iterator to the subsequent event, returning whether there
-// are any more events found. In case of a retrieval or parsing error, false is
-// returned and Error() can be queried for the exact failure.
-func (it *MinterRoleMinterAddedIterator) Next() bool {
-	// If the iterator failed, stop iterating
-	if it.fail != nil {
-		return false
-	}
-	// If the iterator completed, deliver directly whatever's available
-	if it.done {
-		select {
-		case log := <-it.logs:
-			it.Event = new(MinterRoleMinterAdded)
-			if err := it.contract.UnpackLog(it.Event, it.event, log); err != nil {
-				it.fail = err
-				return false
-			}
-			it.Event.Raw = log
-			return true
-
-		default:
-			return false
-		}
-	}
-	// Iterator still in progress, wait for either a data or an error event
-	select {
-	case log := <-it.logs:
-		it.Event = new(MinterRoleMinterAdded)
-		if err := it.contract.UnpackLog(it.Event, it.event, log); err != nil {
-			it.fail = err
-			return false
-		}
-		it.Event.Raw = log
-		return true
-
-	case err := <-it.sub.Err():
-		it.done = true
-		it.fail = err
-		return it.Next()
-	}
-}
-
-// Error returns any retrieval or parsing error occurred during filtering.
-func (it *MinterRoleMinterAddedIterator) Error() error {
-	return it.fail
-}
-
-// Close terminates the iteration process, releasing any pending underlying
-// resources.
-func (it *MinterRoleMinterAddedIterator) Close() error {
-	it.sub.Unsubscribe()
-	return nil
-}
-
-// MinterRoleMinterAdded represents a MinterAdded event raised by the MinterRole contract.
-type MinterRoleMinterAdded struct {
-	Account common.Address
-	Raw     types.Log // Blockchain specific contextual infos
-}
-
-// FilterMinterAdded is a free log retrieval operation binding the contract event 0x6ae172837ea30b801fbfcdd4108aa1d5bf8ff775444fd70256b44e6bf3dfc3f6.
-//
-// Solidity: event MinterAdded(address indexed account)
-func (_MinterRole *MinterRoleFilterer) FilterMinterAdded(opts *bind.FilterOpts, account []common.Address) (*MinterRoleMinterAddedIterator, error) {
-
-	var accountRule []interface{}
-	for _, accountItem := range account {
-		accountRule = append(accountRule, accountItem)
-	}
-
-	logs, sub, err := _MinterRole.contract.FilterLogs(opts, "MinterAdded", accountRule)
-	if err != nil {
-		return nil, err
-	}
-	return &MinterRoleMinterAddedIterator{contract: _MinterRole.contract, event: "MinterAdded", logs: logs, sub: sub}, nil
-}
-
-// WatchMinterAdded is a free log subscription operation binding the contract event 0x6ae172837ea30b801fbfcdd4108aa1d5bf8ff775444fd70256b44e6bf3dfc3f6.
-//
-// Solidity: event MinterAdded(address indexed account)
-func (_MinterRole *MinterRoleFilterer) WatchMinterAdded(opts *bind.WatchOpts, sink chan<- *MinterRoleMinterAdded, account []common.Address) (event.Subscription, error) {
-
-	var accountRule []interface{}
-	for _, accountItem := range account {
-		accountRule = append(accountRule, accountItem)
-	}
-
-	logs, sub, err := _MinterRole.contract.WatchLogs(opts, "MinterAdded", accountRule)
-	if err != nil {
-		return nil, err
-	}
-	return event.NewSubscription(func(quit <-chan struct{}) error {
-		defer sub.Unsubscribe()
-		for {
-			select {
-			case log := <-logs:
-				// New log arrived, parse the event and forward to the user
-				event := new(MinterRoleMinterAdded)
-				if err := _MinterRole.contract.UnpackLog(event, "MinterAdded", log); err != nil {
-					return err
-				}
-				event.Raw = log
-
-				select {
-				case sink <- event:
-				case err := <-sub.Err():
-					return err
-				case <-quit:
-					return nil
-				}
-			case err := <-sub.Err():
-				return err
-			case <-quit:
-				return nil
-			}
-		}
-	}), nil
-}
-
-// ParseMinterAdded is a log parse operation binding the contract event 0x6ae172837ea30b801fbfcdd4108aa1d5bf8ff775444fd70256b44e6bf3dfc3f6.
-//
-// Solidity: event MinterAdded(address indexed account)
-func (_MinterRole *MinterRoleFilterer) ParseMinterAdded(log types.Log) (*MinterRoleMinterAdded, error) {
-	event := new(MinterRoleMinterAdded)
-	if err := _MinterRole.contract.UnpackLog(event, "MinterAdded", log); err != nil {
-		return nil, err
-	}
-	return event, nil
-}
-
-// MinterRoleMinterRemovedIterator is returned from FilterMinterRemoved and is used to iterate over the raw logs and unpacked data for MinterRemoved events raised by the MinterRole contract.
-type MinterRoleMinterRemovedIterator struct {
-	Event *MinterRoleMinterRemoved // Event containing the contract specifics and raw log
-
-	contract *bind.BoundContract // Generic contract to use for unpacking event data
-	event    string              // Event name to use for unpacking event data
-
-	logs chan types.Log        // Log channel receiving the found contract events
-	sub  ethereum.Subscription // Subscription for errors, completion and termination
-	done bool                  // Whether the subscription completed delivering logs
-	fail error                 // Occurred error to stop iteration
-}
-
-// Next advances the iterator to the subsequent event, returning whether there
-// are any more events found. In case of a retrieval or parsing error, false is
-// returned and Error() can be queried for the exact failure.
-func (it *MinterRoleMinterRemovedIterator) Next() bool {
-	// If the iterator failed, stop iterating
-	if it.fail != nil {
-		return false
-	}
-	// If the iterator completed, deliver directly whatever's available
-	if it.done {
-		select {
-		case log := <-it.logs:
-			it.Event = new(MinterRoleMinterRemoved)
-			if err := it.contract.UnpackLog(it.Event, it.event, log); err != nil {
-				it.fail = err
-				return false
-			}
-			it.Event.Raw = log
-			return true
-
-		default:
-			return false
-		}
-	}
-	// Iterator still in progress, wait for either a data or an error event
-	select {
-	case log := <-it.logs:
-		it.Event = new(MinterRoleMinterRemoved)
-		if err := it.contract.UnpackLog(it.Event, it.event, log); err != nil {
-			it.fail = err
-			return false
-		}
-		it.Event.Raw = log
-		return true
-
-	case err := <-it.sub.Err():
-		it.done = true
-		it.fail = err
-		return it.Next()
-	}
-}
-
-// Error returns any retrieval or parsing error occurred during filtering.
-func (it *MinterRoleMinterRemovedIterator) Error() error {
-	return it.fail
-}
-
-// Close terminates the iteration process, releasing any pending underlying
-// resources.
-func (it *MinterRoleMinterRemovedIterator) Close() error {
-	it.sub.Unsubscribe()
-	return nil
-}
-
-// MinterRoleMinterRemoved represents a MinterRemoved event raised by the MinterRole contract.
-type MinterRoleMinterRemoved struct {
-	Account common.Address
-	Raw     types.Log // Blockchain specific contextual infos
-}
-
-// FilterMinterRemoved is a free log retrieval operation binding the contract event 0xe94479a9f7e1952cc78f2d6baab678adc1b772d936c6583def489e524cb66692.
-//
-// Solidity: event MinterRemoved(address indexed account)
-func (_MinterRole *MinterRoleFilterer) FilterMinterRemoved(opts *bind.FilterOpts, account []common.Address) (*MinterRoleMinterRemovedIterator, error) {
-
-	var accountRule []interface{}
-	for _, accountItem := range account {
-		accountRule = append(accountRule, accountItem)
-	}
-
-	logs, sub, err := _MinterRole.contract.FilterLogs(opts, "MinterRemoved", accountRule)
-	if err != nil {
-		return nil, err
-	}
-	return &MinterRoleMinterRemovedIterator{contract: _MinterRole.contract, event: "MinterRemoved", logs: logs, sub: sub}, nil
-}
-
-// WatchMinterRemoved is a free log subscription operation binding the contract event 0xe94479a9f7e1952cc78f2d6baab678adc1b772d936c6583def489e524cb66692.
-//
-// Solidity: event MinterRemoved(address indexed account)
-func (_MinterRole *MinterRoleFilterer) WatchMinterRemoved(opts *bind.WatchOpts, sink chan<- *MinterRoleMinterRemoved, account []common.Address) (event.Subscription, error) {
-
-	var accountRule []interface{}
-	for _, accountItem := range account {
-		accountRule = append(accountRule, accountItem)
-	}
-
-	logs, sub, err := _MinterRole.contract.WatchLogs(opts, "MinterRemoved", accountRule)
-	if err != nil {
-		return nil, err
-	}
-	return event.NewSubscription(func(quit <-chan struct{}) error {
-		defer sub.Unsubscribe()
-		for {
-			select {
-			case log := <-logs:
-				// New log arrived, parse the event and forward to the user
-				event := new(MinterRoleMinterRemoved)
-				if err := _MinterRole.contract.UnpackLog(event, "MinterRemoved", log); err != nil {
-					return err
-				}
-				event.Raw = log
-
-				select {
-				case sink <- event:
-				case err := <-sub.Err():
-					return err
-				case <-quit:
-					return nil
-				}
-			case err := <-sub.Err():
-				return err
-			case <-quit:
-				return nil
-			}
-		}
-	}), nil
-}
-
-// ParseMinterRemoved is a log parse operation binding the contract event 0xe94479a9f7e1952cc78f2d6baab678adc1b772d936c6583def489e524cb66692.
-//
-// Solidity: event MinterRemoved(address indexed account)
-func (_MinterRole *MinterRoleFilterer) ParseMinterRemoved(log types.Log) (*MinterRoleMinterRemoved, error) {
-	event := new(MinterRoleMinterRemoved)
-	if err := _MinterRole.contract.UnpackLog(event, "MinterRemoved", log); err != nil {
-		return nil, err
-	}
-	return event, nil
-}
-
-// RolesABI is the input ABI used to generate the binding from.
-const RolesABI = "[]"
-
-// RolesBin is the compiled bytecode used for deploying new contracts.
-var RolesBin = "0x60556023600b82828239805160001a607314601657fe5b30600052607381538281f3fe73000000000000000000000000000000000000000030146080604052600080fdfea265627a7a723158202371b7ce5591309a9f2ed39ea854bbe7066edfd6f8db0cb93fa1ad604cf0859064736f6c634300050c0032"
-
-// DeployRoles deploys a new Ethereum contract, binding an instance of Roles to it.
-func DeployRoles(auth *bind.TransactOpts, backend bind.ContractBackend) (common.Address, *types.Transaction, *Roles, error) {
-	parsed, err := abi.JSON(strings.NewReader(RolesABI))
-	if err != nil {
-		return common.Address{}, nil, nil, err
-	}
-
-	address, tx, contract, err := bind.DeployContract(auth, parsed, common.FromHex(RolesBin), backend)
-	if err != nil {
-		return common.Address{}, nil, nil, err
-	}
-	return address, tx, &Roles{RolesCaller: RolesCaller{contract: contract}, RolesTransactor: RolesTransactor{contract: contract}, RolesFilterer: RolesFilterer{contract: contract}}, nil
-}
-
-// Roles is an auto generated Go binding around an Ethereum contract.
-type Roles struct {
-	RolesCaller     // Read-only binding to the contract
-	RolesTransactor // Write-only binding to the contract
-	RolesFilterer   // Log filterer for contract events
-}
-
-// RolesCaller is an auto generated read-only Go binding around an Ethereum contract.
-type RolesCaller struct {
-	contract *bind.BoundContract // Generic contract wrapper for the low level calls
-}
-
-// RolesTransactor is an auto generated write-only Go binding around an Ethereum contract.
-type RolesTransactor struct {
-	contract *bind.BoundContract // Generic contract wrapper for the low level calls
-}
-
-// RolesFilterer is an auto generated log filtering Go binding around an Ethereum contract events.
-type RolesFilterer struct {
-	contract *bind.BoundContract // Generic contract wrapper for the low level calls
-}
-
-// RolesSession is an auto generated Go binding around an Ethereum contract,
-// with pre-set call and transact options.
-type RolesSession struct {
-	Contract     *Roles            // Generic contract binding to set the session for
-	CallOpts     bind.CallOpts     // Call options to use throughout this session
-	TransactOpts bind.TransactOpts // Transaction auth options to use throughout this session
-}
-
-// RolesCallerSession is an auto generated read-only Go binding around an Ethereum contract,
-// with pre-set call options.
-type RolesCallerSession struct {
-	Contract *RolesCaller  // Generic contract caller binding to set the session for
-	CallOpts bind.CallOpts // Call options to use throughout this session
-}
-
-// RolesTransactorSession is an auto generated write-only Go binding around an Ethereum contract,
-// with pre-set transact options.
-type RolesTransactorSession struct {
-	Contract     *RolesTransactor  // Generic contract transactor binding to set the session for
-	TransactOpts bind.TransactOpts // Transaction auth options to use throughout this session
-}
-
-// RolesRaw is an auto generated low-level Go binding around an Ethereum contract.
-type RolesRaw struct {
-	Contract *Roles // Generic contract binding to access the raw methods on
-}
-
-// RolesCallerRaw is an auto generated low-level read-only Go binding around an Ethereum contract.
-type RolesCallerRaw struct {
-	Contract *RolesCaller // Generic read-only contract binding to access the raw methods on
-}
-
-// RolesTransactorRaw is an auto generated low-level write-only Go binding around an Ethereum contract.
-type RolesTransactorRaw struct {
-	Contract *RolesTransactor // Generic write-only contract binding to access the raw methods on
-}
-
-// NewRoles creates a new instance of Roles, bound to a specific deployed contract.
-func NewRoles(address common.Address, backend bind.ContractBackend) (*Roles, error) {
-	contract, err := bindRoles(address, backend, backend, backend)
-	if err != nil {
-		return nil, err
-	}
-	return &Roles{RolesCaller: RolesCaller{contract: contract}, RolesTransactor: RolesTransactor{contract: contract}, RolesFilterer: RolesFilterer{contract: contract}}, nil
-}
-
-// NewRolesCaller creates a new read-only instance of Roles, bound to a specific deployed contract.
-func NewRolesCaller(address common.Address, caller bind.ContractCaller) (*RolesCaller, error) {
-	contract, err := bindRoles(address, caller, nil, nil)
-	if err != nil {
-		return nil, err
-	}
-	return &RolesCaller{contract: contract}, nil
-}
-
-// NewRolesTransactor creates a new write-only instance of Roles, bound to a specific deployed contract.
-func NewRolesTransactor(address common.Address, transactor bind.ContractTransactor) (*RolesTransactor, error) {
-	contract, err := bindRoles(address, nil, transactor, nil)
-	if err != nil {
-		return nil, err
-	}
-	return &RolesTransactor{contract: contract}, nil
-}
-
-// NewRolesFilterer creates a new log filterer instance of Roles, bound to a specific deployed contract.
-func NewRolesFilterer(address common.Address, filterer bind.ContractFilterer) (*RolesFilterer, error) {
-	contract, err := bindRoles(address, nil, nil, filterer)
-	if err != nil {
-		return nil, err
-	}
-	return &RolesFilterer{contract: contract}, nil
-}
-
-// bindRoles binds a generic wrapper to an already deployed contract.
-func bindRoles(address common.Address, caller bind.ContractCaller, transactor bind.ContractTransactor, filterer bind.ContractFilterer) (*bind.BoundContract, error) {
-	parsed, err := abi.JSON(strings.NewReader(RolesABI))
-	if err != nil {
-		return nil, err
-	}
-	return bind.NewBoundContract(address, parsed, caller, transactor, filterer), nil
-}
-
-// Call invokes the (constant) contract method with params as input values and
-// sets the output to result. The result type might be a single field for simple
-// returns, a slice of interfaces for anonymous returns and a struct for named
-// returns.
-func (_Roles *RolesRaw) Call(opts *bind.CallOpts, result interface{}, method string, params ...interface{}) error {
-	return _Roles.Contract.RolesCaller.contract.Call(opts, result, method, params...)
-}
-
-// Transfer initiates a plain transaction to move funds to the contract, calling
-// its default method if one is available.
-func (_Roles *RolesRaw) Transfer(opts *bind.TransactOpts) (*types.Transaction, error) {
-	return _Roles.Contract.RolesTransactor.contract.Transfer(opts)
-}
-
-// Transact invokes the (paid) contract method with params as input values.
-func (_Roles *RolesRaw) Transact(opts *bind.TransactOpts, method string, params ...interface{}) (*types.Transaction, error) {
-	return _Roles.Contract.RolesTransactor.contract.Transact(opts, method, params...)
-}
-
-// Call invokes the (constant) contract method with params as input values and
-// sets the output to result. The result type might be a single field for simple
-// returns, a slice of interfaces for anonymous returns and a struct for named
-// returns.
-func (_Roles *RolesCallerRaw) Call(opts *bind.CallOpts, result interface{}, method string, params ...interface{}) error {
-	return _Roles.Contract.contract.Call(opts, result, method, params...)
-}
-
-// Transfer initiates a plain transaction to move funds to the contract, calling
-// its default method if one is available.
-func (_Roles *RolesTransactorRaw) Transfer(opts *bind.TransactOpts) (*types.Transaction, error) {
-	return _Roles.Contract.contract.Transfer(opts)
-}
-
-// Transact invokes the (paid) contract method with params as input values.
-func (_Roles *RolesTransactorRaw) Transact(opts *bind.TransactOpts, method string, params ...interface{}) (*types.Transaction, error) {
-	return _Roles.Contract.contract.Transact(opts, method, params...)
 }
 
 // SafeMathABI is the input ABI used to generate the binding from.
@@ -5113,4 +1836,585 @@ func (_SafeMath *SafeMathTransactorRaw) Transfer(opts *bind.TransactOpts) (*type
 // Transact invokes the (paid) contract method with params as input values.
 func (_SafeMath *SafeMathTransactorRaw) Transact(opts *bind.TransactOpts, method string, params ...interface{}) (*types.Transaction, error) {
 	return _SafeMath.Contract.contract.Transact(opts, method, params...)
+}
+
+// SecondaryABI is the input ABI used to generate the binding from.
+const SecondaryABI = "[{\"inputs\":[],\"payable\":false,\"stateMutability\":\"nonpayable\",\"type\":\"constructor\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":true,\"internalType\":\"address\",\"name\":\"previousOwner\",\"type\":\"address\"},{\"indexed\":true,\"internalType\":\"address\",\"name\":\"newOwner\",\"type\":\"address\"}],\"name\":\"OwnershipTransferred\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":false,\"internalType\":\"address\",\"name\":\"recipient\",\"type\":\"address\"}],\"name\":\"PrimaryTransferred\",\"type\":\"event\"},{\"constant\":true,\"inputs\":[],\"name\":\"isOwner\",\"outputs\":[{\"internalType\":\"bool\",\"name\":\"\",\"type\":\"bool\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[],\"name\":\"owner\",\"outputs\":[{\"internalType\":\"address\",\"name\":\"\",\"type\":\"address\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[],\"name\":\"primary\",\"outputs\":[{\"internalType\":\"address\",\"name\":\"\",\"type\":\"address\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":false,\"inputs\":[],\"name\":\"renounceOwnership\",\"outputs\":[],\"payable\":false,\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"constant\":false,\"inputs\":[{\"internalType\":\"address\",\"name\":\"newOwner\",\"type\":\"address\"}],\"name\":\"transferOwnership\",\"outputs\":[],\"payable\":false,\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"constant\":false,\"inputs\":[{\"internalType\":\"address\",\"name\":\"recipient\",\"type\":\"address\"}],\"name\":\"transferPrimary\",\"outputs\":[],\"payable\":false,\"stateMutability\":\"nonpayable\",\"type\":\"function\"}]"
+
+// SecondaryFuncSigs maps the 4-byte function signature to its string representation.
+var SecondaryFuncSigs = map[string]string{
+	"8f32d59b": "isOwner()",
+	"8da5cb5b": "owner()",
+	"c6dbdf61": "primary()",
+	"715018a6": "renounceOwnership()",
+	"f2fde38b": "transferOwnership(address)",
+	"2348238c": "transferPrimary(address)",
+}
+
+// Secondary is an auto generated Go binding around an Ethereum contract.
+type Secondary struct {
+	SecondaryCaller     // Read-only binding to the contract
+	SecondaryTransactor // Write-only binding to the contract
+	SecondaryFilterer   // Log filterer for contract events
+}
+
+// SecondaryCaller is an auto generated read-only Go binding around an Ethereum contract.
+type SecondaryCaller struct {
+	contract *bind.BoundContract // Generic contract wrapper for the low level calls
+}
+
+// SecondaryTransactor is an auto generated write-only Go binding around an Ethereum contract.
+type SecondaryTransactor struct {
+	contract *bind.BoundContract // Generic contract wrapper for the low level calls
+}
+
+// SecondaryFilterer is an auto generated log filtering Go binding around an Ethereum contract events.
+type SecondaryFilterer struct {
+	contract *bind.BoundContract // Generic contract wrapper for the low level calls
+}
+
+// SecondarySession is an auto generated Go binding around an Ethereum contract,
+// with pre-set call and transact options.
+type SecondarySession struct {
+	Contract     *Secondary        // Generic contract binding to set the session for
+	CallOpts     bind.CallOpts     // Call options to use throughout this session
+	TransactOpts bind.TransactOpts // Transaction auth options to use throughout this session
+}
+
+// SecondaryCallerSession is an auto generated read-only Go binding around an Ethereum contract,
+// with pre-set call options.
+type SecondaryCallerSession struct {
+	Contract *SecondaryCaller // Generic contract caller binding to set the session for
+	CallOpts bind.CallOpts    // Call options to use throughout this session
+}
+
+// SecondaryTransactorSession is an auto generated write-only Go binding around an Ethereum contract,
+// with pre-set transact options.
+type SecondaryTransactorSession struct {
+	Contract     *SecondaryTransactor // Generic contract transactor binding to set the session for
+	TransactOpts bind.TransactOpts    // Transaction auth options to use throughout this session
+}
+
+// SecondaryRaw is an auto generated low-level Go binding around an Ethereum contract.
+type SecondaryRaw struct {
+	Contract *Secondary // Generic contract binding to access the raw methods on
+}
+
+// SecondaryCallerRaw is an auto generated low-level read-only Go binding around an Ethereum contract.
+type SecondaryCallerRaw struct {
+	Contract *SecondaryCaller // Generic read-only contract binding to access the raw methods on
+}
+
+// SecondaryTransactorRaw is an auto generated low-level write-only Go binding around an Ethereum contract.
+type SecondaryTransactorRaw struct {
+	Contract *SecondaryTransactor // Generic write-only contract binding to access the raw methods on
+}
+
+// NewSecondary creates a new instance of Secondary, bound to a specific deployed contract.
+func NewSecondary(address common.Address, backend bind.ContractBackend) (*Secondary, error) {
+	contract, err := bindSecondary(address, backend, backend, backend)
+	if err != nil {
+		return nil, err
+	}
+	return &Secondary{SecondaryCaller: SecondaryCaller{contract: contract}, SecondaryTransactor: SecondaryTransactor{contract: contract}, SecondaryFilterer: SecondaryFilterer{contract: contract}}, nil
+}
+
+// NewSecondaryCaller creates a new read-only instance of Secondary, bound to a specific deployed contract.
+func NewSecondaryCaller(address common.Address, caller bind.ContractCaller) (*SecondaryCaller, error) {
+	contract, err := bindSecondary(address, caller, nil, nil)
+	if err != nil {
+		return nil, err
+	}
+	return &SecondaryCaller{contract: contract}, nil
+}
+
+// NewSecondaryTransactor creates a new write-only instance of Secondary, bound to a specific deployed contract.
+func NewSecondaryTransactor(address common.Address, transactor bind.ContractTransactor) (*SecondaryTransactor, error) {
+	contract, err := bindSecondary(address, nil, transactor, nil)
+	if err != nil {
+		return nil, err
+	}
+	return &SecondaryTransactor{contract: contract}, nil
+}
+
+// NewSecondaryFilterer creates a new log filterer instance of Secondary, bound to a specific deployed contract.
+func NewSecondaryFilterer(address common.Address, filterer bind.ContractFilterer) (*SecondaryFilterer, error) {
+	contract, err := bindSecondary(address, nil, nil, filterer)
+	if err != nil {
+		return nil, err
+	}
+	return &SecondaryFilterer{contract: contract}, nil
+}
+
+// bindSecondary binds a generic wrapper to an already deployed contract.
+func bindSecondary(address common.Address, caller bind.ContractCaller, transactor bind.ContractTransactor, filterer bind.ContractFilterer) (*bind.BoundContract, error) {
+	parsed, err := abi.JSON(strings.NewReader(SecondaryABI))
+	if err != nil {
+		return nil, err
+	}
+	return bind.NewBoundContract(address, parsed, caller, transactor, filterer), nil
+}
+
+// Call invokes the (constant) contract method with params as input values and
+// sets the output to result. The result type might be a single field for simple
+// returns, a slice of interfaces for anonymous returns and a struct for named
+// returns.
+func (_Secondary *SecondaryRaw) Call(opts *bind.CallOpts, result interface{}, method string, params ...interface{}) error {
+	return _Secondary.Contract.SecondaryCaller.contract.Call(opts, result, method, params...)
+}
+
+// Transfer initiates a plain transaction to move funds to the contract, calling
+// its default method if one is available.
+func (_Secondary *SecondaryRaw) Transfer(opts *bind.TransactOpts) (*types.Transaction, error) {
+	return _Secondary.Contract.SecondaryTransactor.contract.Transfer(opts)
+}
+
+// Transact invokes the (paid) contract method with params as input values.
+func (_Secondary *SecondaryRaw) Transact(opts *bind.TransactOpts, method string, params ...interface{}) (*types.Transaction, error) {
+	return _Secondary.Contract.SecondaryTransactor.contract.Transact(opts, method, params...)
+}
+
+// Call invokes the (constant) contract method with params as input values and
+// sets the output to result. The result type might be a single field for simple
+// returns, a slice of interfaces for anonymous returns and a struct for named
+// returns.
+func (_Secondary *SecondaryCallerRaw) Call(opts *bind.CallOpts, result interface{}, method string, params ...interface{}) error {
+	return _Secondary.Contract.contract.Call(opts, result, method, params...)
+}
+
+// Transfer initiates a plain transaction to move funds to the contract, calling
+// its default method if one is available.
+func (_Secondary *SecondaryTransactorRaw) Transfer(opts *bind.TransactOpts) (*types.Transaction, error) {
+	return _Secondary.Contract.contract.Transfer(opts)
+}
+
+// Transact invokes the (paid) contract method with params as input values.
+func (_Secondary *SecondaryTransactorRaw) Transact(opts *bind.TransactOpts, method string, params ...interface{}) (*types.Transaction, error) {
+	return _Secondary.Contract.contract.Transact(opts, method, params...)
+}
+
+// IsOwner is a free data retrieval call binding the contract method 0x8f32d59b.
+//
+// Solidity: function isOwner() constant returns(bool)
+func (_Secondary *SecondaryCaller) IsOwner(opts *bind.CallOpts) (bool, error) {
+	var (
+		ret0 = new(bool)
+	)
+	out := ret0
+	err := _Secondary.contract.Call(opts, out, "isOwner")
+	return *ret0, err
+}
+
+// IsOwner is a free data retrieval call binding the contract method 0x8f32d59b.
+//
+// Solidity: function isOwner() constant returns(bool)
+func (_Secondary *SecondarySession) IsOwner() (bool, error) {
+	return _Secondary.Contract.IsOwner(&_Secondary.CallOpts)
+}
+
+// IsOwner is a free data retrieval call binding the contract method 0x8f32d59b.
+//
+// Solidity: function isOwner() constant returns(bool)
+func (_Secondary *SecondaryCallerSession) IsOwner() (bool, error) {
+	return _Secondary.Contract.IsOwner(&_Secondary.CallOpts)
+}
+
+// Owner is a free data retrieval call binding the contract method 0x8da5cb5b.
+//
+// Solidity: function owner() constant returns(address)
+func (_Secondary *SecondaryCaller) Owner(opts *bind.CallOpts) (common.Address, error) {
+	var (
+		ret0 = new(common.Address)
+	)
+	out := ret0
+	err := _Secondary.contract.Call(opts, out, "owner")
+	return *ret0, err
+}
+
+// Owner is a free data retrieval call binding the contract method 0x8da5cb5b.
+//
+// Solidity: function owner() constant returns(address)
+func (_Secondary *SecondarySession) Owner() (common.Address, error) {
+	return _Secondary.Contract.Owner(&_Secondary.CallOpts)
+}
+
+// Owner is a free data retrieval call binding the contract method 0x8da5cb5b.
+//
+// Solidity: function owner() constant returns(address)
+func (_Secondary *SecondaryCallerSession) Owner() (common.Address, error) {
+	return _Secondary.Contract.Owner(&_Secondary.CallOpts)
+}
+
+// Primary is a free data retrieval call binding the contract method 0xc6dbdf61.
+//
+// Solidity: function primary() constant returns(address)
+func (_Secondary *SecondaryCaller) Primary(opts *bind.CallOpts) (common.Address, error) {
+	var (
+		ret0 = new(common.Address)
+	)
+	out := ret0
+	err := _Secondary.contract.Call(opts, out, "primary")
+	return *ret0, err
+}
+
+// Primary is a free data retrieval call binding the contract method 0xc6dbdf61.
+//
+// Solidity: function primary() constant returns(address)
+func (_Secondary *SecondarySession) Primary() (common.Address, error) {
+	return _Secondary.Contract.Primary(&_Secondary.CallOpts)
+}
+
+// Primary is a free data retrieval call binding the contract method 0xc6dbdf61.
+//
+// Solidity: function primary() constant returns(address)
+func (_Secondary *SecondaryCallerSession) Primary() (common.Address, error) {
+	return _Secondary.Contract.Primary(&_Secondary.CallOpts)
+}
+
+// RenounceOwnership is a paid mutator transaction binding the contract method 0x715018a6.
+//
+// Solidity: function renounceOwnership() returns()
+func (_Secondary *SecondaryTransactor) RenounceOwnership(opts *bind.TransactOpts) (*types.Transaction, error) {
+	return _Secondary.contract.Transact(opts, "renounceOwnership")
+}
+
+// RenounceOwnership is a paid mutator transaction binding the contract method 0x715018a6.
+//
+// Solidity: function renounceOwnership() returns()
+func (_Secondary *SecondarySession) RenounceOwnership() (*types.Transaction, error) {
+	return _Secondary.Contract.RenounceOwnership(&_Secondary.TransactOpts)
+}
+
+// RenounceOwnership is a paid mutator transaction binding the contract method 0x715018a6.
+//
+// Solidity: function renounceOwnership() returns()
+func (_Secondary *SecondaryTransactorSession) RenounceOwnership() (*types.Transaction, error) {
+	return _Secondary.Contract.RenounceOwnership(&_Secondary.TransactOpts)
+}
+
+// TransferOwnership is a paid mutator transaction binding the contract method 0xf2fde38b.
+//
+// Solidity: function transferOwnership(address newOwner) returns()
+func (_Secondary *SecondaryTransactor) TransferOwnership(opts *bind.TransactOpts, newOwner common.Address) (*types.Transaction, error) {
+	return _Secondary.contract.Transact(opts, "transferOwnership", newOwner)
+}
+
+// TransferOwnership is a paid mutator transaction binding the contract method 0xf2fde38b.
+//
+// Solidity: function transferOwnership(address newOwner) returns()
+func (_Secondary *SecondarySession) TransferOwnership(newOwner common.Address) (*types.Transaction, error) {
+	return _Secondary.Contract.TransferOwnership(&_Secondary.TransactOpts, newOwner)
+}
+
+// TransferOwnership is a paid mutator transaction binding the contract method 0xf2fde38b.
+//
+// Solidity: function transferOwnership(address newOwner) returns()
+func (_Secondary *SecondaryTransactorSession) TransferOwnership(newOwner common.Address) (*types.Transaction, error) {
+	return _Secondary.Contract.TransferOwnership(&_Secondary.TransactOpts, newOwner)
+}
+
+// TransferPrimary is a paid mutator transaction binding the contract method 0x2348238c.
+//
+// Solidity: function transferPrimary(address recipient) returns()
+func (_Secondary *SecondaryTransactor) TransferPrimary(opts *bind.TransactOpts, recipient common.Address) (*types.Transaction, error) {
+	return _Secondary.contract.Transact(opts, "transferPrimary", recipient)
+}
+
+// TransferPrimary is a paid mutator transaction binding the contract method 0x2348238c.
+//
+// Solidity: function transferPrimary(address recipient) returns()
+func (_Secondary *SecondarySession) TransferPrimary(recipient common.Address) (*types.Transaction, error) {
+	return _Secondary.Contract.TransferPrimary(&_Secondary.TransactOpts, recipient)
+}
+
+// TransferPrimary is a paid mutator transaction binding the contract method 0x2348238c.
+//
+// Solidity: function transferPrimary(address recipient) returns()
+func (_Secondary *SecondaryTransactorSession) TransferPrimary(recipient common.Address) (*types.Transaction, error) {
+	return _Secondary.Contract.TransferPrimary(&_Secondary.TransactOpts, recipient)
+}
+
+// SecondaryOwnershipTransferredIterator is returned from FilterOwnershipTransferred and is used to iterate over the raw logs and unpacked data for OwnershipTransferred events raised by the Secondary contract.
+type SecondaryOwnershipTransferredIterator struct {
+	Event *SecondaryOwnershipTransferred // Event containing the contract specifics and raw log
+
+	contract *bind.BoundContract // Generic contract to use for unpacking event data
+	event    string              // Event name to use for unpacking event data
+
+	logs chan types.Log        // Log channel receiving the found contract events
+	sub  ethereum.Subscription // Subscription for errors, completion and termination
+	done bool                  // Whether the subscription completed delivering logs
+	fail error                 // Occurred error to stop iteration
+}
+
+// Next advances the iterator to the subsequent event, returning whether there
+// are any more events found. In case of a retrieval or parsing error, false is
+// returned and Error() can be queried for the exact failure.
+func (it *SecondaryOwnershipTransferredIterator) Next() bool {
+	// If the iterator failed, stop iterating
+	if it.fail != nil {
+		return false
+	}
+	// If the iterator completed, deliver directly whatever's available
+	if it.done {
+		select {
+		case log := <-it.logs:
+			it.Event = new(SecondaryOwnershipTransferred)
+			if err := it.contract.UnpackLog(it.Event, it.event, log); err != nil {
+				it.fail = err
+				return false
+			}
+			it.Event.Raw = log
+			return true
+
+		default:
+			return false
+		}
+	}
+	// Iterator still in progress, wait for either a data or an error event
+	select {
+	case log := <-it.logs:
+		it.Event = new(SecondaryOwnershipTransferred)
+		if err := it.contract.UnpackLog(it.Event, it.event, log); err != nil {
+			it.fail = err
+			return false
+		}
+		it.Event.Raw = log
+		return true
+
+	case err := <-it.sub.Err():
+		it.done = true
+		it.fail = err
+		return it.Next()
+	}
+}
+
+// Error returns any retrieval or parsing error occurred during filtering.
+func (it *SecondaryOwnershipTransferredIterator) Error() error {
+	return it.fail
+}
+
+// Close terminates the iteration process, releasing any pending underlying
+// resources.
+func (it *SecondaryOwnershipTransferredIterator) Close() error {
+	it.sub.Unsubscribe()
+	return nil
+}
+
+// SecondaryOwnershipTransferred represents a OwnershipTransferred event raised by the Secondary contract.
+type SecondaryOwnershipTransferred struct {
+	PreviousOwner common.Address
+	NewOwner      common.Address
+	Raw           types.Log // Blockchain specific contextual infos
+}
+
+// FilterOwnershipTransferred is a free log retrieval operation binding the contract event 0x8be0079c531659141344cd1fd0a4f28419497f9722a3daafe3b4186f6b6457e0.
+//
+// Solidity: event OwnershipTransferred(address indexed previousOwner, address indexed newOwner)
+func (_Secondary *SecondaryFilterer) FilterOwnershipTransferred(opts *bind.FilterOpts, previousOwner []common.Address, newOwner []common.Address) (*SecondaryOwnershipTransferredIterator, error) {
+
+	var previousOwnerRule []interface{}
+	for _, previousOwnerItem := range previousOwner {
+		previousOwnerRule = append(previousOwnerRule, previousOwnerItem)
+	}
+	var newOwnerRule []interface{}
+	for _, newOwnerItem := range newOwner {
+		newOwnerRule = append(newOwnerRule, newOwnerItem)
+	}
+
+	logs, sub, err := _Secondary.contract.FilterLogs(opts, "OwnershipTransferred", previousOwnerRule, newOwnerRule)
+	if err != nil {
+		return nil, err
+	}
+	return &SecondaryOwnershipTransferredIterator{contract: _Secondary.contract, event: "OwnershipTransferred", logs: logs, sub: sub}, nil
+}
+
+// WatchOwnershipTransferred is a free log subscription operation binding the contract event 0x8be0079c531659141344cd1fd0a4f28419497f9722a3daafe3b4186f6b6457e0.
+//
+// Solidity: event OwnershipTransferred(address indexed previousOwner, address indexed newOwner)
+func (_Secondary *SecondaryFilterer) WatchOwnershipTransferred(opts *bind.WatchOpts, sink chan<- *SecondaryOwnershipTransferred, previousOwner []common.Address, newOwner []common.Address) (event.Subscription, error) {
+
+	var previousOwnerRule []interface{}
+	for _, previousOwnerItem := range previousOwner {
+		previousOwnerRule = append(previousOwnerRule, previousOwnerItem)
+	}
+	var newOwnerRule []interface{}
+	for _, newOwnerItem := range newOwner {
+		newOwnerRule = append(newOwnerRule, newOwnerItem)
+	}
+
+	logs, sub, err := _Secondary.contract.WatchLogs(opts, "OwnershipTransferred", previousOwnerRule, newOwnerRule)
+	if err != nil {
+		return nil, err
+	}
+	return event.NewSubscription(func(quit <-chan struct{}) error {
+		defer sub.Unsubscribe()
+		for {
+			select {
+			case log := <-logs:
+				// New log arrived, parse the event and forward to the user
+				event := new(SecondaryOwnershipTransferred)
+				if err := _Secondary.contract.UnpackLog(event, "OwnershipTransferred", log); err != nil {
+					return err
+				}
+				event.Raw = log
+
+				select {
+				case sink <- event:
+				case err := <-sub.Err():
+					return err
+				case <-quit:
+					return nil
+				}
+			case err := <-sub.Err():
+				return err
+			case <-quit:
+				return nil
+			}
+		}
+	}), nil
+}
+
+// ParseOwnershipTransferred is a log parse operation binding the contract event 0x8be0079c531659141344cd1fd0a4f28419497f9722a3daafe3b4186f6b6457e0.
+//
+// Solidity: event OwnershipTransferred(address indexed previousOwner, address indexed newOwner)
+func (_Secondary *SecondaryFilterer) ParseOwnershipTransferred(log types.Log) (*SecondaryOwnershipTransferred, error) {
+	event := new(SecondaryOwnershipTransferred)
+	if err := _Secondary.contract.UnpackLog(event, "OwnershipTransferred", log); err != nil {
+		return nil, err
+	}
+	return event, nil
+}
+
+// SecondaryPrimaryTransferredIterator is returned from FilterPrimaryTransferred and is used to iterate over the raw logs and unpacked data for PrimaryTransferred events raised by the Secondary contract.
+type SecondaryPrimaryTransferredIterator struct {
+	Event *SecondaryPrimaryTransferred // Event containing the contract specifics and raw log
+
+	contract *bind.BoundContract // Generic contract to use for unpacking event data
+	event    string              // Event name to use for unpacking event data
+
+	logs chan types.Log        // Log channel receiving the found contract events
+	sub  ethereum.Subscription // Subscription for errors, completion and termination
+	done bool                  // Whether the subscription completed delivering logs
+	fail error                 // Occurred error to stop iteration
+}
+
+// Next advances the iterator to the subsequent event, returning whether there
+// are any more events found. In case of a retrieval or parsing error, false is
+// returned and Error() can be queried for the exact failure.
+func (it *SecondaryPrimaryTransferredIterator) Next() bool {
+	// If the iterator failed, stop iterating
+	if it.fail != nil {
+		return false
+	}
+	// If the iterator completed, deliver directly whatever's available
+	if it.done {
+		select {
+		case log := <-it.logs:
+			it.Event = new(SecondaryPrimaryTransferred)
+			if err := it.contract.UnpackLog(it.Event, it.event, log); err != nil {
+				it.fail = err
+				return false
+			}
+			it.Event.Raw = log
+			return true
+
+		default:
+			return false
+		}
+	}
+	// Iterator still in progress, wait for either a data or an error event
+	select {
+	case log := <-it.logs:
+		it.Event = new(SecondaryPrimaryTransferred)
+		if err := it.contract.UnpackLog(it.Event, it.event, log); err != nil {
+			it.fail = err
+			return false
+		}
+		it.Event.Raw = log
+		return true
+
+	case err := <-it.sub.Err():
+		it.done = true
+		it.fail = err
+		return it.Next()
+	}
+}
+
+// Error returns any retrieval or parsing error occurred during filtering.
+func (it *SecondaryPrimaryTransferredIterator) Error() error {
+	return it.fail
+}
+
+// Close terminates the iteration process, releasing any pending underlying
+// resources.
+func (it *SecondaryPrimaryTransferredIterator) Close() error {
+	it.sub.Unsubscribe()
+	return nil
+}
+
+// SecondaryPrimaryTransferred represents a PrimaryTransferred event raised by the Secondary contract.
+type SecondaryPrimaryTransferred struct {
+	Recipient common.Address
+	Raw       types.Log // Blockchain specific contextual infos
+}
+
+// FilterPrimaryTransferred is a free log retrieval operation binding the contract event 0x4101e71e974f68df5e9730cc223280b41654676bbb052cdcc735c3337e64d2d9.
+//
+// Solidity: event PrimaryTransferred(address recipient)
+func (_Secondary *SecondaryFilterer) FilterPrimaryTransferred(opts *bind.FilterOpts) (*SecondaryPrimaryTransferredIterator, error) {
+
+	logs, sub, err := _Secondary.contract.FilterLogs(opts, "PrimaryTransferred")
+	if err != nil {
+		return nil, err
+	}
+	return &SecondaryPrimaryTransferredIterator{contract: _Secondary.contract, event: "PrimaryTransferred", logs: logs, sub: sub}, nil
+}
+
+// WatchPrimaryTransferred is a free log subscription operation binding the contract event 0x4101e71e974f68df5e9730cc223280b41654676bbb052cdcc735c3337e64d2d9.
+//
+// Solidity: event PrimaryTransferred(address recipient)
+func (_Secondary *SecondaryFilterer) WatchPrimaryTransferred(opts *bind.WatchOpts, sink chan<- *SecondaryPrimaryTransferred) (event.Subscription, error) {
+
+	logs, sub, err := _Secondary.contract.WatchLogs(opts, "PrimaryTransferred")
+	if err != nil {
+		return nil, err
+	}
+	return event.NewSubscription(func(quit <-chan struct{}) error {
+		defer sub.Unsubscribe()
+		for {
+			select {
+			case log := <-logs:
+				// New log arrived, parse the event and forward to the user
+				event := new(SecondaryPrimaryTransferred)
+				if err := _Secondary.contract.UnpackLog(event, "PrimaryTransferred", log); err != nil {
+					return err
+				}
+				event.Raw = log
+
+				select {
+				case sink <- event:
+				case err := <-sub.Err():
+					return err
+				case <-quit:
+					return nil
+				}
+			case err := <-sub.Err():
+				return err
+			case <-quit:
+				return nil
+			}
+		}
+	}), nil
+}
+
+// ParsePrimaryTransferred is a log parse operation binding the contract event 0x4101e71e974f68df5e9730cc223280b41654676bbb052cdcc735c3337e64d2d9.
+//
+// Solidity: event PrimaryTransferred(address recipient)
+func (_Secondary *SecondaryFilterer) ParsePrimaryTransferred(log types.Log) (*SecondaryPrimaryTransferred, error) {
+	event := new(SecondaryPrimaryTransferred)
+	if err := _Secondary.contract.UnpackLog(event, "PrimaryTransferred", log); err != nil {
+		return nil, err
+	}
+	return event, nil
 }

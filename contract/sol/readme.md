@@ -34,5 +34,5 @@ java:
  abigen --sol ./contract/sol/dhashcoin.sol --pkg com.dhash.dhashcoin --lang java --out ./contract
  /dtag/dhashcoin.java
 go:
- abigen --pkg dhashcoin --out ./contract/dhashcoin/dhashcoin.go --abi ./contract/sol/dhashcoin.abi --sol ./contract/sol/dhashcoin.sol
+ abigen --pkg dhashcoin --out ./contract/dhashcoin/dhashcoin.go  --sol ./contract/sol/dhashcoin.sol
 ```
