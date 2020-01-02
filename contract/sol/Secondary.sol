@@ -1,7 +1,7 @@
 pragma solidity ^0.5.0;
 
-import "https://github.com/OpenZeppelin/openzeppelin-contracts/blob/master/contracts/GSN/Context.sol";
-import "https://github.com/OpenZeppelin/openzeppelin-contracts/blob/master/contracts/ownership/Ownable.sol";
+import "./contracts/GSN/Context.sol";
+import "./contracts/ownership/Ownable.sol";
 /**
  * @dev A Secondary contract can only be used by its primary account (the one that created it).
  */
