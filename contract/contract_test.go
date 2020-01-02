@@ -38,8 +38,8 @@ func init() {
 	//DefaultTagAddress = "0xdacd53b6476f2d6271d93f42eda736deafdd797f"
 
 	testContract = NewContract(ETHClient(DefaultGatway),
-		//FileKey("945d35cd4a6549213e8d37feb5d708ec98906902", "123"),
-		HexKey("ffedf6fe27fc7c4e994d56e407778b1a6aebafc8e63c394aebad413f719fc257"),
+		FileKey("945d35cd4a6549213e8d37feb5d708ec98906902", "123"),
+		//HexKey("ffedf6fe27fc7c4e994d56e407778b1a6aebafc8e63c394aebad413f719fc257"),
 		//HexKey("87d3724ca3eb89db138fa415c9edfffba4ceb5c71a09c9c3d4cdb08e03e3ee68"),
 		Node(DefaultNodeAddress),
 		Tag(DefaultTagAddress),
@@ -698,6 +698,10 @@ func TestContract_TransferFrom(t *testing.T) {
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
 			c := testContract
+			err := c.IncreaseAllowance(tt.args.to, tt.args.val)
+			if err != nil {
+				t.Errorf("TransferFrom() error = %v", err)
+			}
 			if err := c.TransferFrom(tt.args.from, tt.args.to, tt.args.val); (err != nil) != tt.wantErr {
 				t.Errorf("TransferFrom() error = %v, wantErr %v", err, tt.wantErr)
 			}

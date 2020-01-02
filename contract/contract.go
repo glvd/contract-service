@@ -738,6 +738,13 @@ func (c *Contract) TransferFrom(from, to common.Address, val int64) (e error) {
 	})
 }
 
+// IncreaseAllowance ...
+func (c *Contract) IncreaseAllowance(to common.Address, val int64) (e error) {
+	return c.Transact(context.Background(), func(c *Contract, opts *bind.TransactOpts) (transaction *types.Transaction, err error) {
+		return c.dhc().IncreaseAllowance(opts, to, big.NewInt(val))
+	})
+}
+
 // Ethereum ...
 func (c *Contract) Ethereum(address common.Address) (i int64, e error) {
 	at, err := c.conn.BalanceAt(context.Background(), address, nil)
