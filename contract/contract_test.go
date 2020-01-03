@@ -533,7 +533,7 @@ func TestContract_DeployDHC(t *testing.T) {
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
-			gotAddr, err := testContract.DeployDHC()
+			gotAddr, err := testContract.DeployDHC("DHashCoin", "DHC", 2)
 			if (err != nil) != tt.wantErr {
 				t.Errorf("DeployDHC() error = %v, wantErr %v", err, tt.wantErr)
 				return
@@ -661,50 +661,6 @@ func TestContract_GetBalance(t *testing.T) {
 				t.Errorf("GetBalance() gotB = %v, want %v", gotB, tt.wantB)
 			}
 
-		})
-	}
-}
-
-// TestContract_TransferFrom ...
-func TestContract_TransferFrom(t *testing.T) {
-	type fields struct {
-		contracts *sync.Map
-		conn      *ethclient.Client
-		key       *ecdsa.PrivateKey
-		gasLimit  *big.Int
-	}
-	type args struct {
-		from common.Address
-		to   common.Address
-		val  int64
-	}
-	tests := []struct {
-		name    string
-		fields  fields
-		args    args
-		wantErr bool
-	}{
-		{
-			name:   "",
-			fields: fields{},
-			args: args{
-				from: common.HexToAddress("0xbb84b28db94415a3c0fb2203efebe4b1d808f53c"),
-				to:   common.HexToAddress("0x945d35cd4a6549213e8d37feb5d708ec98906902"),
-				val:  1000,
-			},
-			wantErr: false,
-		},
-	}
-	for _, tt := range tests {
-		t.Run(tt.name, func(t *testing.T) {
-			c := testContract
-			err := c.IncreaseAllowance(tt.args.to, tt.args.val)
-			if err != nil {
-				t.Errorf("TransferFrom() error = %v", err)
-			}
-			if err := c.TransferFrom(tt.args.from, tt.args.to, tt.args.val); (err != nil) != tt.wantErr {
-				t.Errorf("TransferFrom() error = %v, wantErr %v", err, tt.wantErr)
-			}
 		})
 	}
 }

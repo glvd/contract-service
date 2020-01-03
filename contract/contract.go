@@ -81,7 +81,8 @@ var DefaultMessageAddress = "0x4833267bde3aa043803a1fa8c3e071f708367da4"
 var DefaultTagAddress = "0x8d64f6d57c7ee984cce09f89969f706216ac03d9"
 
 // DefaultDHCAddress ...
-var DefaultDHCAddress = "0x89b92612b9795f8bfed840df9a33a0a3d6745250"
+//var DefaultDHCAddress = "0x89b92612b9795f8bfed840df9a33a0a3d6745250"
+var DefaultDHCAddress = "0x25cf28eb90427b8fb63baa19d8c9d23b55a12289"
 
 // DefaultGasLimit ...
 var DefaultGasLimit = "0x7A1200"
@@ -172,7 +173,7 @@ func HashCoin(addr string) Options {
 		if c.conn == nil {
 			panic("null connect")
 		}
-		newDHC, e := dhashcoin.NewDHC(common.HexToAddress(addr), c.conn)
+		newDHC, e := dhashcoin.NewContract(common.HexToAddress(addr), c.conn)
 		if e != nil {
 			panic(e)
 		}
@@ -234,9 +235,9 @@ func (c *Contract) node() (node *dnode.DNode) {
 	}
 	return nil
 }
-func (c *Contract) dhc() (node *dhashcoin.DHC) {
+func (c *Contract) dhc() (node *dhashcoin.Contract) {
 	if v, b := c.contracts.Load(DHC); b {
-		if node, b = v.(*dhashcoin.DHC); b {
+		if node, b = v.(*dhashcoin.Contract); b {
 			return
 		}
 	}
@@ -481,10 +482,10 @@ func (c *Contract) DeployMessage() (addr *common.Address, e error) {
 }
 
 // DeployDHC ...
-func (c *Contract) DeployDHC() (addr *common.Address, e error) {
+func (c *Contract) DeployDHC(name, symbol string, decimal uint8) (addr *common.Address, e error) {
 	ctx := context.Background()
 	e = c.Transact(ctx, func(c *Contract, opts *bind.TransactOpts) (transaction *types.Transaction, e error) {
-		address, tx, _, e := dhashcoin.DeployDHC(opts, c.conn)
+		address, tx, _, e := dhashcoin.DeployContract(opts, c.conn, name, symbol, decimal)
 		if e != nil {
 			return nil, e
 		}
@@ -725,23 +726,9 @@ func (c *Contract) GetSymbol() (s string, e error) {
 }
 
 // Transfer ...
-func (c *Contract) Transfer(to common.Address, val int64) (e error) {
+func (c *Contract) Transfer(from common.Address, val int64) (e error) {
 	return c.Transact(context.Background(), func(c *Contract, opts *bind.TransactOpts) (transaction *types.Transaction, err error) {
-		return c.dhc().Transfer(opts, to, big.NewInt(val))
-	})
-}
-
-// TransferFrom ...
-func (c *Contract) TransferFrom(from, to common.Address, val int64) (e error) {
-	return c.Transact(context.Background(), func(c *Contract, opts *bind.TransactOpts) (transaction *types.Transaction, err error) {
-		return c.dhc().TransferFrom(opts, from, to, big.NewInt(val))
-	})
-}
-
-// IncreaseAllowance ...
-func (c *Contract) IncreaseAllowance(to common.Address, val int64) (e error) {
-	return c.Transact(context.Background(), func(c *Contract, opts *bind.TransactOpts) (transaction *types.Transaction, err error) {
-		return c.dhc().IncreaseAllowance(opts, to, big.NewInt(val))
+		return c.dhc().Transfer(opts, from, big.NewInt(val))
 	})
 }
 
