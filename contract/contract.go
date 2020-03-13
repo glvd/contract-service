@@ -66,7 +66,8 @@ type CallOpts func(c *Contract, opts *bind.CallOpts) error
 
 // DefaultGatway ...
 //var DefaultGatway = "http://139.196.215.224:8545"
-var DefaultGatway = "http://13.124.213.107:8545"
+//var DefaultGatway = "http://13.124.213.107:8545"
+var DefaultGatway = "http://127.0.0.1:8545"
 
 // DefaultTransferAddress ...
 var DefaultTransferAddress = "0x945d35cd4a6549213e8d37feb5d708ec98906902"
