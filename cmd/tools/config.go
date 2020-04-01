@@ -4,7 +4,7 @@ import (
 	"encoding/json"
 	"io/ioutil"
 
-	"service/contract"
+	"bug.vlavr.com/godcong/contract-service/contract"
 )
 
 // DBConfig ...

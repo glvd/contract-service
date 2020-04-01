@@ -8,10 +8,10 @@ import (
 	"os/user"
 	"path/filepath"
 
-	"service/api"
-	"service/api/restapi"
-	"service/api/rpcclient"
-	"service/api/rpcserver"
+	"bug.vlavr.com/godcong/contract-service/api"
+	"bug.vlavr.com/godcong/contract-service/api/restapi"
+	"bug.vlavr.com/godcong/contract-service/api/rpcclient"
+	"bug.vlavr.com/godcong/contract-service/api/rpcserver"
 
 	"github.com/glvd/conversion"
 	"github.com/goextension/log"

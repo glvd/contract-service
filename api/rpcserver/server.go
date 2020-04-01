@@ -5,8 +5,8 @@ import (
 	"fmt"
 	"net"
 
-	"service/api"
-	"service/api/pb"
+	"bug.vlavr.com/godcong/contract-service/api"
+	"bug.vlavr.com/godcong/contract-service/api/pb"
 
 	"github.com/goextension/log"
 	"google.golang.org/grpc"

@@ -28,7 +28,7 @@ func init() {
 		panic(e)
 	}
 	log.Register(logger.Sugar())
-	//DefaultGatway = "http://127.0.0.1:8545"
+	DefaultGatway = "http://127.0.0.1:8545"
 	//DefaultMessageAddress = "0x2bc8cdc205b187e90533e98bcda07bc375b99e5f"
 	//DefaultTagAddress = "0xf85cbfd1234f7ba4c700223780b4e9b8aea47bee"
 	//DefaultNodeAddress = "0x39e427cf40f73d4e09e2addd224fab7bd2ddcefa"
@@ -93,7 +93,11 @@ func TestContract_GetHotVideos(t *testing.T) {
 
 // TestContract_AddTagVideos ...
 func TestContract_AddTagVideos(t *testing.T) {
-
+	v, i, e := testContract.GetTagVideos("video", "ABP-894")
+	if e != nil {
+		t.Fatal(e)
+	}
+	log.Infow("videos", "v", v, "i", i)
 }
 
 // TestContract_GetVideos ...
@@ -536,14 +540,17 @@ func TestContract_DeployDHC(t *testing.T) {
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
-			gotAddr, err := testContract.DeployDHC("DHashCoin", "DHC", 2)
-			if (err != nil) != tt.wantErr {
-				t.Errorf("DeployDHC() error = %v, wantErr %v", err, tt.wantErr)
-				return
-			}
-			if gotAddr != nil {
-				t.Logf("DeployDHC() gotAddr = %v", gotAddr)
-			}
+			testContract.UnlockDo(func(contract *Contract) {
+				gotAddr, err := contract.DeployDHC("DHashCoin", "DHC", 2)
+				if (err != nil) != tt.wantErr {
+					t.Errorf("DeployDHC() error = %v, wantErr %v", err, tt.wantErr)
+					return
+				}
+				if gotAddr != nil {
+					t.Logf("DeployDHC() gotAddr = %v", gotAddr)
+				}
+			})
+
 		})
 	}
 }

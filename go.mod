@@ -1,4 +1,4 @@
-module service
+module bug.vlavr.com/godcong/contract-service
 
 go 1.13
 
@@ -15,6 +15,7 @@ require (
 	github.com/glvd/bot v0.0.0-20190920092952-d05a7195fb1f
 	github.com/glvd/conversion v0.1.26
 	github.com/glvd/seed v0.0.0-20190919090848-319aeb69d5f1
+	github.com/gocacher/cacher v1.0.5 // indirect
 	github.com/gocarina/gocsv v0.0.0-20190624090726-71ad6676df57
 	github.com/godcong/go-ipfs-restapi v0.0.3-0.20190422054229-f13eeaa39df0
 	github.com/godcong/go-trait v0.0.0-20190816072228-f216e906756e

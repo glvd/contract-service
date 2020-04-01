@@ -5,7 +5,7 @@ import (
 	"os"
 	"sort"
 
-	"service/client"
+	"bug.vlavr.com/godcong/contract-service/client"
 
 	"github.com/goextension/log"
 	_ "github.com/mattn/go-sqlite3"

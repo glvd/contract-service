@@ -6,7 +6,7 @@ import (
 	"os"
 	"sort"
 
-	"service/daemon"
+	"bug.vlavr.com/godcong/contract-service/daemon"
 
 	"github.com/goextension/log"
 	_ "github.com/mattn/go-sqlite3"

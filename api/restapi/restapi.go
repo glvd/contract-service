@@ -7,7 +7,7 @@ import (
 	"net/http"
 	"strings"
 
-	"service/api"
+	"bug.vlavr.com/godcong/contract-service/api"
 
 	"github.com/gin-gonic/gin"
 	"github.com/goextension/log"

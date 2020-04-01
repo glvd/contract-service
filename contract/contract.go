@@ -6,17 +6,18 @@ import (
 	"crypto/ecdsa"
 	"errors"
 	"fmt"
+	"github.com/ethereum/go-ethereum/rpc"
 	"io/ioutil"
 	"math/big"
 	"strings"
 	"sync"
 	"time"
 
-	"service/contract/dhashcoin"
-	"service/contract/dmessage"
-	"service/contract/dnode"
-	"service/contract/dtag"
-	"service/dhcrypto"
+	"bug.vlavr.com/godcong/contract-service/contract/dhashcoin"
+	"bug.vlavr.com/godcong/contract-service/contract/dmessage"
+	"bug.vlavr.com/godcong/contract-service/contract/dnode"
+	"bug.vlavr.com/godcong/contract-service/contract/dtag"
+	"bug.vlavr.com/godcong/contract-service/dhcrypto"
 
 	"github.com/ethereum/go-ethereum/accounts/abi/bind"
 	"github.com/ethereum/go-ethereum/accounts/keystore"
@@ -794,4 +795,25 @@ func (c *Contract) GetBalance(address common.Address) (b int64, e error) {
 		return nil
 	})
 	return
+}
+
+// UnlockDo ...
+func (c *Contract) UnlockDo(fn func(*Contract)) error {
+	cancelCtx, cancelFunc := context.WithCancel(context.TODO())
+	defer cancelFunc()
+	client, err := rpc.DialContext(cancelCtx, DefaultGatway)
+	if err != nil {
+		return err
+	}
+	defer client.Close()
+	var result interface{}
+	err = client.Call(result, "personal_unlockAccount", "0x945d35cd4a6549213e8d37feb5d708ec98906902", "123")
+	if err != nil {
+		return err
+	}
+
+	fmt.Println(result)
+	defer client.Call(result, "personal_lockAccount", "0x945d35cd4a6549213e8d37feb5d708ec98906902")
+	fn(c)
+	return nil
 }
