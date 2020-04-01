@@ -17,7 +17,7 @@ import (
 	"bug.vlavr.com/godcong/contract-service/contract/dmessage"
 	"bug.vlavr.com/godcong/contract-service/contract/dnode"
 	"bug.vlavr.com/godcong/contract-service/contract/dtag"
-	"bug.vlavr.com/godcong/contract-service/dhcrypto"
+	"bug.vlavr.com/godcong/dhcrypto"
 
 	"github.com/ethereum/go-ethereum/accounts/abi/bind"
 	"github.com/ethereum/go-ethereum/accounts/keystore"
