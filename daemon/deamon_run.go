@@ -3,7 +3,7 @@ package daemon
 import (
 	"os"
 
-	"service"
+	"bug.vlavr.com/godcong/contract-service"
 
 	"github.com/godcong/go-trait"
 	"gopkg.in/urfave/cli.v2"

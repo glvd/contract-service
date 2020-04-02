@@ -3,14 +3,14 @@ module bug.vlavr.com/godcong/contract-service
 go 1.13
 
 require (
-	bug.vlavr.com/godcong/dhcrypto v0.0.0-20200401081226-8502904592a1 // indirect
+	bug.vlavr.com/godcong/dhcrypto v0.0.0-20200401081226-8502904592a1
 	cloud.google.com/go v0.46.2 // indirect
 	github.com/allegro/bigcache v1.2.1 // indirect
 	github.com/aristanetworks/goarista v0.0.0-20190712234253-ed1100a1c015 // indirect
 	github.com/cespare/cp v1.1.1 // indirect
 	github.com/deckarep/golang-set v1.7.1 // indirect
 	github.com/edsrzf/mmap-go v1.0.0 // indirect
-	github.com/ethereum/go-ethereum v1.8.27
+	github.com/ethereum/go-ethereum v1.9.12
 	github.com/fjl/memsize v0.0.0-20190710130421-bcb5799ab5e5 // indirect
 	github.com/gin-gonic/gin v1.4.0
 	github.com/glvd/bot v0.0.0-20190920092952-d05a7195fb1f
@@ -23,7 +23,6 @@ require (
 	github.com/goextension/log v0.0.0-20191022085446-44e082c339c1
 	github.com/goextension/tool v0.0.2
 	github.com/golang/protobuf v1.3.2
-	github.com/golang/snappy v0.0.1 // indirect
 	github.com/google/uuid v1.1.1
 	github.com/json-iterator/go v1.1.7
 	github.com/karalabe/hid v1.0.0 // indirect
@@ -35,12 +34,8 @@ require (
 	github.com/urfave/cli/v2 v2.0.0-alpha.2
 	github.com/xormsharp/xorm v1.0.0
 	go.uber.org/zap v1.10.0
-	golang.org/x/net v0.0.0-20191027233614-53de4c7853b5 // indirect
-	golang.org/x/sys v0.0.0-20191027211539-f8518d3b3627 // indirect
 	golang.org/x/xerrors v0.0.0-20190717185122-a985d3407aa7
 	google.golang.org/genproto v0.0.0-20191009194640-548a555dbc03 // indirect
 	google.golang.org/grpc v1.24.0
-	gopkg.in/natefinch/npipe.v2 v2.0.0-20160621034901-c1b8fa8bdcce // indirect
-	gopkg.in/urfave/cli.v1 v1.20.0 // indirect
 	gopkg.in/urfave/cli.v2 v2.0.0-20180128182452-d3ae77c26ac8
 )
