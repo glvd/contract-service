@@ -40,7 +40,8 @@ func init() {
 	//DefaultTagAddress = "0xdacd53b6476f2d6271d93f42eda736deafdd797f"
 
 	testContract = NewContract(ETHClient(DefaultGatway),
-		FileKey("945d35cd4a6549213e8d37feb5d708ec98906902", "123"),
+		FileKey("54c0fa4a3d982656c51fe7dfbdcc21923a7678cb", "123"),
+		//FileKey("945d35cd4a6549213e8d37feb5d708ec98906902", "123"),
 		//HexKey("59c98f25f4ea886cd57dd33eda009c38c33b4aa2e124ffed868fc8c705e2fbae"),
 		//HexKey("ffedf6fe27fc7c4e994d56e407778b1a6aebafc8e63c394aebad413f719fc257"),
 		//HexKey("87d3724ca3eb89db138fa415c9edfffba4ceb5c71a09c9c3d4cdb08e03e3ee68"),
@@ -540,17 +541,20 @@ func TestContract_DeployDHC(t *testing.T) {
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
-			//testContract.UnlockDo(func(contract *Contract) {
-			gotAddr, err := testContract.DeployDHC("DHashCoin", "DHC", 2)
-			if (err != nil) != tt.wantErr {
-				t.Errorf("DeployDHC() error = %v, wantErr %v", err, tt.wantErr)
-				return
-			}
-			if gotAddr != nil {
-				t.Logf("DeployDHC() gotAddr = 0x%x", gotAddr)
+			err := testContract.UnlockDo(func(contract *Contract) {
+				gotAddr, err := testContract.DeployDHC("DHashCoin", "DHC", 2)
+				if (err != nil) != tt.wantErr {
+					t.Errorf("DeployDHC() error = %v, wantErr %v", err, tt.wantErr)
+					return
+				}
+				if gotAddr != nil {
+					t.Logf("DeployDHC() gotAddr = 0x%x", gotAddr)
+				}
+			})
+			if err != nil {
+				t.Log(err)
 			}
 		})
-
 	}
 }
 

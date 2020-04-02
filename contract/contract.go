@@ -798,7 +798,7 @@ func (c *Contract) GetBalance(address common.Address) (b int64, e error) {
 }
 
 // UnlockDo ...
-func (c *Contract) UnlockDo(fn func(*Contract)) error {
+func (c *Contract) UnlockDo(fn func(*Contract)) (err error) {
 	cancelCtx, cancelFunc := context.WithCancel(context.TODO())
 	defer cancelFunc()
 	client, err := rpc.DialContext(cancelCtx, DefaultGatway)
@@ -807,13 +807,14 @@ func (c *Contract) UnlockDo(fn func(*Contract)) error {
 	}
 	defer client.Close()
 	var result interface{}
-	err = client.Call(result, "personal_unlockAccount", "0x945d35cd4a6549213e8d37feb5d708ec98906902", "123")
+	err = client.Call(result, "personal_unlockAccount", "0x54c0fa4a3d982656c51fe7dfbdcc21923a7678cb", "123")
 	if err != nil {
 		return err
 	}
 
-	fmt.Println(result)
-	defer client.Call(result, "personal_lockAccount", "0x945d35cd4a6549213e8d37feb5d708ec98906902")
+	defer func() {
+		err = client.Call(result, "personal_lockAccount", "0x54c0fa4a3d982656c51fe7dfbdcc21923a7678cb")
+	}()
 	fn(c)
 	return nil
 }
