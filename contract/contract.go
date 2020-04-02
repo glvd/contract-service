@@ -84,7 +84,8 @@ var DefaultTagAddress = "0x8d64f6d57c7ee984cce09f89969f706216ac03d9"
 
 // DefaultDHCAddress ...
 //var DefaultDHCAddress = "0x89b92612b9795f8bfed840df9a33a0a3d6745250"
-var DefaultDHCAddress = "0x25cf28eb90427b8fb63baa19d8c9d23b55a12289"
+//var DefaultDHCAddress = "0x25cf28eb90427b8fb63baa19d8c9d23b55a12289"
+var DefaultDHCAddress = "0x8a4eaf49809f936c6f94e28210a73cf3d8b82ff6"
 
 // DefaultGasLimit ...
 var DefaultGasLimit = "0x7A1200"
@@ -742,12 +743,12 @@ func (c *Contract) Primary(addr common.Address) (e error) {
 }
 
 // Ethereum ...
-func (c *Contract) Ethereum(address common.Address) (i int64, e error) {
+func (c *Contract) Ethereum(address common.Address) (i uint64, e error) {
 	at, err := c.conn.BalanceAt(context.Background(), address, nil)
 	if err != nil {
 		return 0, err
 	}
-	return at.Int64(), nil
+	return at.Uint64(), nil
 }
 
 // TransferEthereum ...
@@ -759,7 +760,7 @@ func (c *Contract) TransferEthereum(to common.Address, val int64) (e error) {
 	}
 
 	value := big.NewInt(val * EthAbs18) // in wei (1 eth)
-	gasLimit := c.gasLimit.Uint64()
+	gasLimit := c.gasLimit.Uint64() * 3
 	gasPrice, err := c.conn.SuggestGasPrice(context.Background())
 	if err != nil {
 		return err
@@ -798,7 +799,7 @@ func (c *Contract) GetBalance(address common.Address) (b int64, e error) {
 }
 
 // UnlockDo ...
-func (c *Contract) UnlockDo(fn func(*Contract)) (err error) {
+func (c *Contract) UnlockDo(account string, pass string, fn func(*Contract)) (err error) {
 	cancelCtx, cancelFunc := context.WithCancel(context.TODO())
 	defer cancelFunc()
 	client, err := rpc.DialContext(cancelCtx, DefaultGatway)
@@ -807,13 +808,13 @@ func (c *Contract) UnlockDo(fn func(*Contract)) (err error) {
 	}
 	defer client.Close()
 	var result interface{}
-	err = client.Call(result, "personal_unlockAccount", "0x54c0fa4a3d982656c51fe7dfbdcc21923a7678cb", "123")
+	err = client.Call(result, "personal_unlockAccount", account, pass)
 	if err != nil {
 		return err
 	}
 
 	defer func() {
-		err = client.Call(result, "personal_lockAccount", "0x54c0fa4a3d982656c51fe7dfbdcc21923a7678cb")
+		err = client.Call(result, "personal_lockAccount", account)
 	}()
 	fn(c)
 	return nil

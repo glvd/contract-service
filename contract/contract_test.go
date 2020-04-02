@@ -32,16 +32,17 @@ func init() {
 	//DefaultMessageAddress = "0x2bc8cdc205b187e90533e98bcda07bc375b99e5f"
 	//DefaultTagAddress = "0xf85cbfd1234f7ba4c700223780b4e9b8aea47bee"
 	//DefaultNodeAddress = "0x39e427cf40f73d4e09e2addd224fab7bd2ddcefa"
-
+	//DefaultGasLimit = "0xb71b00"
 	//var DefaultGasLimit = "0xB71B00"
 	//DefaultGatway = "http://localhost:8545"
 	//DefaultNodeAddress = "0xe512a2a61814b8de98a52a0dfd7e13627e40014a"
 	//DefaultMessageAddress = "0xb884d148051f92e5e3b30fe7fc2c90c28d3f03a5"
 	//DefaultTagAddress = "0xdacd53b6476f2d6271d93f42eda736deafdd797f"
+	DefaultDHCAddress = "0x8a4eaf49809f936c6f94e28210a73cf3d8b82ff6"
 
 	testContract = NewContract(ETHClient(DefaultGatway),
-		FileKey("54c0fa4a3d982656c51fe7dfbdcc21923a7678cb", "123"),
-		//FileKey("945d35cd4a6549213e8d37feb5d708ec98906902", "123"),
+		//FileKey("54c0fa4a3d982656c51fe7dfbdcc21923a7678cb", "123"),
+		FileKey("945d35cd4a6549213e8d37feb5d708ec98906902", "123"),
 		//HexKey("59c98f25f4ea886cd57dd33eda009c38c33b4aa2e124ffed868fc8c705e2fbae"),
 		//HexKey("ffedf6fe27fc7c4e994d56e407778b1a6aebafc8e63c394aebad413f719fc257"),
 		//HexKey("87d3724ca3eb89db138fa415c9edfffba4ceb5c71a09c9c3d4cdb08e03e3ee68"),
@@ -541,7 +542,7 @@ func TestContract_DeployDHC(t *testing.T) {
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
-			err := testContract.UnlockDo(func(contract *Contract) {
+			err := testContract.UnlockDo("0x54c0fa4a3d982656c51fe7dfbdcc21923a7678cb", "123", func(contract *Contract) {
 				gotAddr, err := testContract.DeployDHC("DHashCoin", "DHC", 2)
 				if (err != nil) != tt.wantErr {
 					t.Errorf("DeployDHC() error = %v, wantErr %v", err, tt.wantErr)
@@ -580,7 +581,7 @@ func TestContract_Mint(t *testing.T) {
 			name:   "",
 			fields: fields{},
 			args: args{
-				addr: common.HexToAddress("0x09e0bc7507d136d586f14bea5bb27822ad31e4e1"),
+				addr: common.HexToAddress("0x2061c151981c42956fdef3bb3f1d3c383cbf4de5"),
 				val:  20000000,
 			},
 			wantErr: false,
@@ -626,7 +627,7 @@ func TestContract_Transfer(t *testing.T) {
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
 			c := testContract
-			if err := c.Transfer(common.HexToAddress("0xbb84b28db94415a3c0fb2203efebe4b1d808f53c"), tt.args.val); (err != nil) != tt.wantErr {
+			if err := c.Transfer(common.HexToAddress("0x2061c151981c42956fdef3bb3f1d3c383cbf4de5"), tt.args.val); (err != nil) != tt.wantErr {
 				t.Errorf("Transfer() error = %v, wantErr %v", err, tt.wantErr)
 			}
 		})
@@ -655,7 +656,7 @@ func TestContract_GetBalance(t *testing.T) {
 			name:   "",
 			fields: fields{},
 			args: args{
-				address: common.HexToAddress("0xbb84b28db94415a3c0fb2203efebe4b1d808f53c"),
+				address: common.HexToAddress("0x2061c151981c42956fdef3bb3f1d3c383cbf4de5"),
 			},
 			wantB:   0,
 			wantErr: false,
@@ -673,7 +674,7 @@ func TestContract_GetBalance(t *testing.T) {
 			if gotB != tt.wantB {
 				t.Errorf("GetBalance() gotB = %v, want %v", gotB, tt.wantB)
 			}
-
+			t.Logf("Balance() get = %v", gotB)
 		})
 	}
 }
@@ -693,14 +694,14 @@ func TestContract_Ethereum(t *testing.T) {
 		name    string
 		fields  fields
 		args    args
-		want    int64
+		want    uint64
 		wantErr bool
 	}{
 		{
 			name:   "",
 			fields: fields{},
 			args: args{
-				address: common.HexToAddress("0x1174e90188a9eA9E8eEb57BCb57775E16b9116E4"),
+				address: common.HexToAddress("0x945d35cd4a6549213e8d37feb5d708ec98906902"),
 			},
 			want:    0,
 			wantErr: false,
@@ -717,6 +718,7 @@ func TestContract_Ethereum(t *testing.T) {
 			if got != tt.want {
 				t.Errorf("Ethereum() got = %v, want %v", got, tt.want)
 			}
+			t.Logf("Ethereum() get = %v", got)
 		})
 	}
 }
@@ -743,8 +745,8 @@ func TestContract_TransferEthereum(t *testing.T) {
 			name:   "",
 			fields: fields{},
 			args: args{
-				to:  common.HexToAddress("0x1174e90188a9eA9E8eEb57BCb57775E16b9116E4"),
-				val: 100,
+				to:  common.HexToAddress("0x2061c151981c42956fdef3bb3f1d3c383cbf4de5"),
+				val: 1,
 			},
 			wantErr: false,
 		},
