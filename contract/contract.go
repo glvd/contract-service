@@ -748,19 +748,20 @@ func (c *Contract) Ethereum(address common.Address) (i uint64, e error) {
 	if err != nil {
 		return 0, err
 	}
+	fmt.Println("eth", at.String())
 	return at.Uint64(), nil
 }
 
 // TransferEthereum ...
 func (c *Contract) TransferEthereum(to common.Address, val int64) (e error) {
 	fromAddress := crypto.PubkeyToAddress(c.key.PublicKey)
-	nonce, err := c.conn.NonceAt(context.Background(), fromAddress, nil)
+	nonce, err := c.conn.PendingNonceAt(context.Background(), fromAddress)
 	if err != nil {
 		return err
 	}
 
 	value := big.NewInt(val * EthAbs18) // in wei (1 eth)
-	gasLimit := c.gasLimit.Uint64() * 3
+	gasLimit := c.gasLimit.Uint64()
 	gasPrice, err := c.conn.SuggestGasPrice(context.Background())
 	if err != nil {
 		return err
