@@ -4,6 +4,7 @@ import (
 	"crypto/ecdsa"
 	"encoding/hex"
 	"fmt"
+	"github.com/ethereum/go-ethereum/accounts/abi/bind"
 	"github.com/ethereum/go-ethereum/crypto"
 	"github.com/ethereum/go-ethereum/ethclient"
 	"math/big"
@@ -28,7 +29,7 @@ func init() {
 		panic(e)
 	}
 	log.Register(logger.Sugar())
-	DefaultGatway = "http://13.125.74.118:8545"
+	DefaultGatway = "http://gate.dhash.app:8545"
 	//DefaultMessageAddress = "0x2bc8cdc205b187e90533e98bcda07bc375b99e5f"
 	//DefaultTagAddress = "0xf85cbfd1234f7ba4c700223780b4e9b8aea47bee"
 	//DefaultNodeAddress = "0x39e427cf40f73d4e09e2addd224fab7bd2ddcefa"
@@ -60,7 +61,14 @@ func TestContract_RemoveNodes(t *testing.T) {
 
 // TestContract_GetNodes ...
 func TestContract_GetNodes(t *testing.T) {
-
+	last, err := testContract.node().GetNodeLast(&bind.CallOpts{
+		Pending: true,
+	})
+	if err != nil {
+		t.Error(err)
+		return
+	}
+	fmt.Println("last timestamp", last.Uint64())
 	strings, i, e := testContract.GetNodes(time.Time{})
 	if e != nil {
 		t.Error(e)
