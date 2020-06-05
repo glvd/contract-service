@@ -29,7 +29,7 @@ func init() {
 		panic(e)
 	}
 	log.Register(logger.Sugar())
-	DefaultGatway = "http://gate.dhash.app:8545"
+	DefaultGatway = "http://13.125.74.118:8545"
 	//DefaultMessageAddress = "0x2bc8cdc205b187e90533e98bcda07bc375b99e5f"
 	//DefaultTagAddress = "0xf85cbfd1234f7ba4c700223780b4e9b8aea47bee"
 	//DefaultNodeAddress = "0x39e427cf40f73d4e09e2addd224fab7bd2ddcefa"
@@ -316,8 +316,7 @@ func TestContract_AddNodes(t *testing.T) {
 				ss: []string{
 					"/ip4/13.125.74.118/tcp/4001/ipfs/QmSdjocgxZoxz851n19ZfBNcp4ssCuvZjcywKWj4kD3riu",
 					"/ip4/13.125.74.118/tcp/14001/ipfs/Qme6QHB4HSCFgWVpuCHpjQVgzPWVf6ahkX9xhk8VV7BTdH",
-					//"/ip4/47.101.169.94/tcp/14006/ipfs/QmaCidjpHqP2p71fTT6B1gGzeHxR5KFQxVRbpaGv9hGRoA",
-					//"/ip4/13.124.213.107/tcp/14001/ipfs/Qme6QHB4HSCFgWVpuCHpjQVgzPWVf6ahkX9xhk8VV7BTdH",
+					"/ip4/47.101.178.76/tcp/4001/ipfs/QmWLfxUPj2N4zH1asqK2LXQxYaZBHEheTAU7hNwtu7EF9N",
 				},
 			},
 			wantErr: false,
