@@ -28,7 +28,7 @@ func init() {
 		panic(e)
 	}
 	log.Register(logger.Sugar())
-	DefaultGatway = "http://127.0.0.1:8545"
+	DefaultGatway = "http://13.125.74.118:8545"
 	//DefaultMessageAddress = "0x2bc8cdc205b187e90533e98bcda07bc375b99e5f"
 	//DefaultTagAddress = "0xf85cbfd1234f7ba4c700223780b4e9b8aea47bee"
 	//DefaultNodeAddress = "0x39e427cf40f73d4e09e2addd224fab7bd2ddcefa"
@@ -36,8 +36,8 @@ func init() {
 	//var DefaultGasLimit = "0xB71B00"
 	//DefaultGatway = "http://localhost:8545"
 	//DefaultNodeAddress = "0xe512a2a61814b8de98a52a0dfd7e13627e40014a"
-	//DefaultMessageAddress = "0xb884d148051f92e5e3b30fe7fc2c90c28d3f03a5"
-	//DefaultTagAddress = "0xdacd53b6476f2d6271d93f42eda736deafdd797f"
+	DefaultMessageAddress = "0xbaeeb7a3af34a365acaa1f8464a3374b58ac9889"
+	DefaultTagAddress = "0xed8d49f15bac48e0478a01533973b040ad08bda6"
 	DefaultDHCAddress = "0x8a4eaf49809f936c6f94e28210a73cf3d8b82ff6"
 
 	testContract = NewContract(ETHClient(DefaultGatway),
@@ -86,7 +86,7 @@ func TestContract_GetNodes(t *testing.T) {
 
 // TestContract_GetHotVideos ...
 func TestContract_GetHotVideos(t *testing.T) {
-	v, i, e := testContract.GetTagVideos("hot", "20191122")
+	v, i, e := testContract.GetTagVideos("video", "20200426")
 	if e != nil {
 		t.Fatal(e)
 	}
@@ -95,21 +95,16 @@ func TestContract_GetHotVideos(t *testing.T) {
 
 // TestContract_AddTagVideos ...
 func TestContract_AddTagVideos(t *testing.T) {
-	v, i, e := testContract.GetTagVideos("video", "ABP-894")
+	e := testContract.AddTagVideos("video", "20200426", "abp-874")
 	if e != nil {
 		t.Fatal(e)
 	}
-	log.Infow("videos", "v", v, "i", i)
-}
-
-// TestContract_GetVideos ...
-func TestContract_GetVideos(t *testing.T) {
-
+	log.Infow("videos")
 }
 
 // TestContract_GetVideo ...
 func TestContract_GetVideo(t *testing.T) {
-	messages, _, err := testContract.GetVideos("20191122")
+	messages, _, err := testContract.GetVideos("abp-874")
 	if err != nil {
 		t.Log(err)
 	}
@@ -125,10 +120,10 @@ func TestContract_AddVideo(t *testing.T) {
 	}
 	m := VideoMessage{
 		ID:      uuid.New().String(),
-		Content: "{}",
+		Content: `{"no":"abp-874"}`,
 		Version: "v0.0.1",
 	}
-	e = testContract.AddVideo("abp874", m)
+	e = testContract.AddVideo("abp-874", m)
 	if e != nil {
 		t.Log(e)
 	}
@@ -311,10 +306,10 @@ func TestContract_AddNodes(t *testing.T) {
 				copyOld: false,
 				ts:      time.Now(),
 				ss: []string{
-					"/ip4/47.101.169.94/tcp/14005/ipfs/QmQLowH9Jd1S3aTSL5QbKVAcaJtD7GHTr3GmyLjebvZ9Rq",
-					"/ip4/47.101.169.94/tcp/14001/ipfs/QmXNZRTd54Zvarf4sswVvUUnpb4gPQNAhFViozVgG8uwri",
-					"/ip4/47.101.169.94/tcp/14006/ipfs/QmaCidjpHqP2p71fTT6B1gGzeHxR5KFQxVRbpaGv9hGRoA",
-					"/ip4/13.124.213.107/tcp/14001/ipfs/Qme6QHB4HSCFgWVpuCHpjQVgzPWVf6ahkX9xhk8VV7BTdH",
+					"/ip4/13.125.74.118/tcp/4001/ipfs/QmSdjocgxZoxz851n19ZfBNcp4ssCuvZjcywKWj4kD3riu",
+					"/ip4/13.125.74.118/tcp/14001/ipfs/Qme6QHB4HSCFgWVpuCHpjQVgzPWVf6ahkX9xhk8VV7BTdH",
+					//"/ip4/47.101.169.94/tcp/14006/ipfs/QmaCidjpHqP2p71fTT6B1gGzeHxR5KFQxVRbpaGv9hGRoA",
+					//"/ip4/13.124.213.107/tcp/14001/ipfs/Qme6QHB4HSCFgWVpuCHpjQVgzPWVf6ahkX9xhk8VV7BTdH",
 				},
 			},
 			wantErr: false,
