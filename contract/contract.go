@@ -13,11 +13,11 @@ import (
 	"sync"
 	"time"
 
-	"bug.vlavr.com/godcong/contract-service/contract/dhashcoin"
-	"bug.vlavr.com/godcong/contract-service/contract/dmessage"
-	"bug.vlavr.com/godcong/contract-service/contract/dnode"
-	"bug.vlavr.com/godcong/contract-service/contract/dtag"
-	"bug.vlavr.com/godcong/dhcrypto"
+	"github.com/glvd/contract-service/contract/dhashcoin"
+	"github.com/glvd/contract-service/contract/dmessage"
+	"github.com/glvd/contract-service/contract/dnode"
+	"github.com/glvd/contract-service/contract/dtag"
+	"github.com/glvd/dhcrypto"
 
 	"github.com/ethereum/go-ethereum/accounts/abi/bind"
 	"github.com/ethereum/go-ethereum/accounts/keystore"

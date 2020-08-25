@@ -7,9 +7,9 @@ import (
 	"os"
 	"path/filepath"
 
-	"bug.vlavr.com/godcong/contract-service"
-	"bug.vlavr.com/godcong/contract-service/api"
-	"bug.vlavr.com/godcong/contract-service/api/restapi"
+	"github.com/glvd/contract-service"
+	"github.com/glvd/contract-service/api"
+	"github.com/glvd/contract-service/api/restapi"
 
 	"github.com/goextension/log"
 	"github.com/urfave/cli/v2"

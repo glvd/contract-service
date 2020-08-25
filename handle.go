@@ -4,7 +4,7 @@ import (
 	"encoding/json"
 	"strings"
 
-	"bug.vlavr.com/godcong/contract-service/api"
+	"github.com/glvd/contract-service/api"
 
 	"github.com/glvd/conversion"
 	"github.com/goextension/log"

@@ -4,8 +4,8 @@ import (
 	"errors"
 	"strings"
 
-	"bug.vlavr.com/godcong/contract-service/api"
-	"bug.vlavr.com/godcong/contract-service/api/pb"
+	"github.com/glvd/contract-service/api"
+	"github.com/glvd/contract-service/api/pb"
 
 	"github.com/goextension/log"
 	"google.golang.org/grpc"

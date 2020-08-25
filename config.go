@@ -6,7 +6,7 @@ import (
 	"os"
 	"path/filepath"
 
-	"bug.vlavr.com/godcong/contract-service/api"
+	"github.com/glvd/contract-service/api"
 )
 
 // ConfigName ...

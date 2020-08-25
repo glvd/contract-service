@@ -3,7 +3,7 @@ package api
 import (
 	"errors"
 
-	"bug.vlavr.com/godcong/contract-service/api/pb"
+	"github.com/glvd/contract-service/api/pb"
 
 	"github.com/goextension/log"
 )

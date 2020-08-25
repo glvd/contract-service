@@ -7,7 +7,7 @@ import (
 	"path/filepath"
 	"time"
 
-	"bug.vlavr.com/godcong/contract-service/contract"
+	"github.com/glvd/contract-service/contract"
 
 	"github.com/glvd/conversion"
 	"github.com/glvd/seed/model"
