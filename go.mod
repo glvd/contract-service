@@ -1,9 +1,9 @@
-module bug.vlavr.com/godcong/contract-service
+module github.com/glvd/contract-service
 
 go 1.13
 
 require (
-	bug.vlavr.com/godcong/dhcrypto v0.0.0-20200401081226-8502904592a1
+	github.com/glvd/dhcrypto v0.0.0-20200401081226-8502904592a1
 	cloud.google.com/go v0.46.2 // indirect
 	github.com/allegro/bigcache v1.2.1 // indirect
 	github.com/aristanetworks/goarista v0.0.0-20190712234253-ed1100a1c015 // indirect
